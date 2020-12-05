@@ -5,22 +5,12 @@
  * @return {bool} True if the object can be used as a source; false otherwise.
  */
 function isSource (aught) {
-  return isObject(aught) && hasMethods(aught) && hasRecognizedType(aught)
-}
-
-function isObject (aught) {
-  return aught || typeof aught === 'object'
-}
-
-function hasMethods (aught) {
   return !!aught &&
+    typeof aught === 'object' &&
     typeof aught.getName === 'function' &&
     typeof aught.getType === 'function' &&
-    typeof aught.getUrl === 'function'
-}
-
-function hasRecognizedType (aught) {
-  return !!aught && ['Book', 'Webpage'].indexOf(aught.getType()) > -1
+    typeof aught.getUrl === 'function' &&
+    ['Book', 'Webpage'].indexOf(aught.getType()) > -1
 }
 
 export { isSource }
