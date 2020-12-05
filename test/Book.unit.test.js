@@ -142,6 +142,15 @@ describe('Book: Instance Methods', function () {
       expect(name).to.equal('Frankenstein')
     })
   })
+  describe('getType()', function () {
+    it('is a function.', () => {
+      expect(typeof emptyBook.getType).to.equal('function')
+    })
+    it('always returns "Book".', () => {
+      expect(emptyBook.getType()).to.equal('Book')
+      expect(frankenBook.getType()).to.equal('Book')
+    })
+  })
   describe('getUrl()', function () {
     it('is a function.', () => {
       expect(typeof emptyBook.getUrl).to.equal('function')
