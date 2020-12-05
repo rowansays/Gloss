@@ -13,9 +13,9 @@ function isObject (aught) {
 }
 
 function hasMethods (aught) {
-  return !!aught
-    && typeof aught.getName === 'function'
-    && typeof aught.getUrl === 'function'
+  return !!aught &&
+    typeof aught.getName === 'function' &&
+    typeof aught.getUrl === 'function'
 }
 
 export { isSource }

@@ -38,7 +38,7 @@ Book.fromObject = function (o) {
     o && o.subtitle ? o.subtitle : '',
     o && o.author ? o.author : '',
     o && o.date ? o.date : '',
-    o && o.url ? o.url : '',
+    o && o.url ? o.url : ''
   )
 }
 
