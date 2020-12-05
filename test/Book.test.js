@@ -142,6 +142,15 @@ describe('Book: Instance Methods', function () {
       expect(name).to.equal('Frankenstein')
     })
   })
+  describe('getUrl()', function () {
+    it('is a function.', () => {
+      expect(typeof emptyBook.getUrl).to.equal('function')
+    })
+    it('returns the value of the "url" property.', () => {
+      const url = frankenBook.getUrl()
+      expect(url).to.equal('https://www.gutenberg.org/ebooks/84')
+    })
+  })
 })
 describe('Book.fromObject()', function () {
   it('is a function.', () => {

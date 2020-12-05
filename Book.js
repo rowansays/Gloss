@@ -27,6 +27,10 @@ Book.prototype.getName = function (type) {
     : this.title + ' ' + this.subtitle
 }
 
+Book.prototype.getUrl = function () {
+  return this.url
+}
+
 Book.fromObject = function (o) {
   return new Book(
     o && o.key ? o.key : '',
