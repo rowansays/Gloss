@@ -26,22 +26,22 @@ describe('isSource()', () => {
   })
 })
 
-describe('isSource(Book)', () => {
+describe('isSource(Publication)', () => {
   function MockBook () {}
   MockBook.prototype.getName = function () {return ''}
   MockBook.prototype.getUrl = function () {return ''}
-  MockBook.prototype.getType = function () {return 'Book'}
-  it('returns true for objects that behave like books.', () => {
+  MockBook.prototype.getType = function () {return 'Publication'}
+  it('returns true for objects that behave like publications.', () => {
     expect(isSource(new MockBook())).to.be.true
   })
 })
 
-describe('isSource(Webpage)', () => {
+describe('isSource(Hyperlink)', () => {
   function MockWebpage () {}
   MockWebpage.prototype.getName = function () {return ''}
   MockWebpage.prototype.getUrl = function () {return ''}
-  MockWebpage.prototype.getType = function () {return 'Webpage'}
-  it('returns true for objects that behave like webpages.', () => {
+  MockWebpage.prototype.getType = function () {return 'Hyperlink'}
+  it('returns true for objects that behave like hyperlinks.', () => {
     expect(isSource(new MockWebpage())).to.be.true
   })
 })

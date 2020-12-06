@@ -146,9 +146,9 @@ describe('Book: Instance Methods', function () {
     it('is a function.', () => {
       expect(typeof emptyBook.getType).to.equal('function')
     })
-    it('always returns "Book".', () => {
-      expect(emptyBook.getType()).to.equal('Book')
-      expect(frankenBook.getType()).to.equal('Book')
+    it('always returns "Publication".', () => {
+      expect(emptyBook.getType()).to.equal('Publication')
+      expect(frankenBook.getType()).to.equal('Publication')
     })
   })
   describe('getUrl()', function () {

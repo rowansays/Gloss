@@ -100,9 +100,9 @@ describe('Webpage: Instance Methods', function () {
     it('is a function.', () => {
       expect(typeof emptyWebpage.getType).to.equal('function')
     })
-    it('always returns "Webpage".', () => {
-      expect(emptyWebpage.getType()).to.equal('Webpage')
-      expect(wikipediaWebpage.getType()).to.equal('Webpage')
+    it('always returns "Hyperlink".', () => {
+      expect(emptyWebpage.getType()).to.equal('Hyperlink')
+      expect(wikipediaWebpage.getType()).to.equal('Hyperlink')
     })
   })
   describe('getUrl()', function () {
