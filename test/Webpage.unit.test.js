@@ -96,15 +96,6 @@ describe('Webpage: Instance Methods', function () {
       expect(wikipediaWebpage.getName()).to.equal('Unit Testing')
     })
   })
-  describe('getType()', function () {
-    it('is a function.', () => {
-      expect(typeof emptyWebpage.getType).to.equal('function')
-    })
-    it('always returns "Hyperlink".', () => {
-      expect(emptyWebpage.getType()).to.equal('Hyperlink')
-      expect(wikipediaWebpage.getType()).to.equal('Hyperlink')
-    })
-  })
   describe('getUrl()', function () {
     it('is a function.', () => {
       expect(typeof emptyWebpage.getUrl).to.equal('function')

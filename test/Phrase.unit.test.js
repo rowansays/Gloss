@@ -85,17 +85,6 @@ describe('Phrase: Instance Methods', function () {
       expect(Phrase('websters', 'noun', 'genitive').getSource()).to.equal('websters')
     })
   })
-  describe('getFull()', function () {
-    it('is a function.', () => {
-      expect(typeof Phrase().getFull).to.equal('function')
-    })
-    it('returns empty string when normal is empty.', () => {
-      expect(Phrase().getFull()).to.equal('')
-    })
-    it('returns value of quote', () => {
-      expect(Phrase('', '', 'Pure of Heart').getFull()).to.equal('Pure of Heart')
-    })
-  })
 })
 describe('Phrase.fromObject()', function () {
   it('is a function.', () => {

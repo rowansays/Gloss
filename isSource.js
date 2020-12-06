@@ -8,9 +8,7 @@ function isSource (aught) {
   return !!aught &&
     typeof aught === 'object' &&
     typeof aught.getName === 'function' &&
-    typeof aught.getType === 'function' &&
-    typeof aught.getUrl === 'function' &&
-    ['Hyperlink', 'Publication'].indexOf(aught.getType()) > -1
+    typeof aught.getUrl === 'function'
 }
 
 export { isSource }

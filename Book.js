@@ -19,8 +19,8 @@ function Book (key, title, subtitle, author, date, url) {
 
   freeze(this, Book)
 }
-Book.prototype.getType = function (type) {
-  return 'Publication'
+Book.prototype.hasType = function (type) {
+  return types.indexOf(type) > -1
 }
 Book.prototype.getName = function (type) {
   type = type === 'long' ? 'long' : 'short'

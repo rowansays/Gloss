@@ -16,9 +16,6 @@ function Webpage (key, title, author, url) {
 
   freeze(this, Webpage)
 }
-Webpage.prototype.getType = function () {
-  return 'Hyperlink'
-}
 Webpage.prototype.getName = function () {
   return this.title
 }

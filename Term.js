@@ -25,9 +25,6 @@ function Term (name, ...defs) {
 Term.prototype.getName = function () {
   return this.name
 }
-Term.prototype.getType = function () {
-  return 'Entry'
-}
 Term.fromObject = function (o) {
   return new Term(
     o && o.name ? o.name : '',

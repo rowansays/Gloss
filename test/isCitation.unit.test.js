@@ -31,7 +31,6 @@ describe('isCitation(Citation)', () => {
   Citation.prototype.getFull = function () {return ''}
   Citation.prototype.getName = function () {return ''}
   Citation.prototype.getSource = function () {return ''}
-  Citation.prototype.getType = function () {return 'Citation'}
   it('returns true for objects that behave like citations.', () => {
     expect(isCitation(new Citation())).to.be.true
   })
@@ -41,36 +40,18 @@ describe('isCitation(UnrecognizedType)', () => {
     function Citation () {}
     Citation.prototype.getName = function () {return ''}
     Citation.prototype.getSource = function () {return ''}
-    Citation.prototype.getType = function () {return 'Citation'}
     expect(isCitation(new Citation())).to.be.false
   })
   it('returns false for objects that lack a getName() method.', () => {
     function Citation () {}
     Citation.prototype.getFull = function () {return ''}
     Citation.prototype.getSource = function () {return ''}
-    Citation.prototype.getType = function () {return 'Citation'}
     expect(isCitation(new Citation())).to.be.false
   })
   it('returns false for objects that lack a getSource() method.', () => {
     function Citation () {}
     Citation.prototype.getFull = function () {return ''}
     Citation.prototype.getName = function () {return ''}
-    Citation.prototype.getType = function () {return 'Citation'}
-    expect(isCitation(new Citation())).to.be.false
-  })
-  it('returns false for objects that lack a getType() method.', () => {
-    function Citation () {}
-    Citation.prototype.getFull = function () {return ''}
-    Citation.prototype.getName = function () {return ''}
-    Citation.prototype.getSource = function () {return ''}
-    expect(isCitation(new Citation())).to.be.false
-  })
-  it('returns false for objects that behave like webpages, but return unrecognized types.', () => {
-    function Citation () {}
-    Citation.prototype.getFull = function () {return ''}
-    Citation.prototype.getName = function () {return ''}
-    Citation.prototype.getSource = function () {return ''}
-    Citation.prototype.getType = function () {return 'Unrecognized'}
     expect(isCitation(new Citation())).to.be.false
   })
 })

@@ -9,9 +9,7 @@ function isCitation (aught) {
     typeof aught === 'object' &&
     typeof aught.getFull === 'function' &&
     typeof aught.getName === 'function' &&
-    typeof aught.getSource === 'function' &&
-    typeof aught.getType === 'function' &&
-    aught.getType() === 'Citation'
+    typeof aught.getSource === 'function'
 }
 
 export { isCitation }

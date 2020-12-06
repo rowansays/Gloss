@@ -14,8 +14,6 @@ function Citation (source, name) {
 Citation.prototype.getFull = function () { return this.name }
 Citation.prototype.getName = function () { return this.name }
 Citation.prototype.getSource = function () { return this.source }
-Citation.prototype.getType = function () { return 'Citation' }
-
 
 describe('Term()', () => {
   it('is a function.', () => {
