@@ -1,6 +1,6 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
-import { isCitation } from './src/Predicates/isCitation.js'
+import { isCitation } from '../Predicates/isCitation.js'
 
 /**
  * Term constructor.
