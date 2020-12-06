@@ -34,14 +34,4 @@ Webpage.fromObject = function (o) {
   )
 }
 
-function cleanDateString (dirty) {
-  if (typeof dirty === 'string') {
-    return dirty
-  }
-  if (typeof dirty === 'number') {
-    return String(dirty)
-  }
-  return ''
-}
-
 export { Webpage }
