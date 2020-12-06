@@ -37,13 +37,35 @@ describe('Term(): Parameters', function () {
       expect(function () { new Term('') }).not.to.throw(Error)
     })
   })
-  describe('... Definitions', () => {
-    it('accepts a string as parameter three.', () => {
-      expect(function () { new Term('', '', '') }).not.to.throw(Error)
+  describe('2. memo', () => {
+    it('accepts a string as parameter two.', () => {
+      expect(function () { new Term('', '') }).not.to.throw(Error)
+    })
+  })
+  describe('3.+ ...Definitions', () => {
+    it('accepts citation objects for parameters three, four, and five.', () => {
+      const term = new Term('', '',
+        new Citation('source', 'Three'),
+        new Citation('source', 'Four'),
+        new Citation('source', 'Five')
+      )
+      expect(function () { term }).not.to.throw(Error)
     })
   })
 })
 describe('Term: Instance Methods', function () {
+  describe('getMemo()', function () {
+    it('is a function.', () => {
+      expect(typeof Term().getMemo).to.equal('function')
+    })
+    it('returns empty string when no memo exists.', () => {
+      expect(Term('').getMemo()).to.equal('')
+    })
+    it('returns memo string when memo does exist.', () => {
+      const memo = 'The book not the show.'
+      expect(Term('American Gods', memo).getMemo()).to.equal(memo)
+    })
+  })
   describe('getName()', function () {
     it('is a function.', () => {
       expect(typeof Term().getName).to.equal('function')

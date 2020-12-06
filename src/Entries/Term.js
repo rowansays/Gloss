@@ -7,12 +7,13 @@ import { isCitation } from '../Predicates/isCitation.js'
  *
  * A term is the simplest form of dictionary entry.
  */
-function Term (name, ...defs) {
+function Term (name, memo, ...defs) {
   if (!(this instanceof Term)) {
     return makeInstanceOf(Term, arguments)
   }
 
   this.name = name && typeof name === 'string' ? name.trim() : ''
+  this.memo = memo && typeof memo === 'string' ? memo.trim() : ''
   this.defs = []
   defs.forEach(def => {
     if (isCitation(def)) {
@@ -21,6 +22,9 @@ function Term (name, ...defs) {
   })
 
   freeze(this, Term)
+}
+Term.prototype.getMemo = function () {
+  return this.memo
 }
 Term.prototype.getName = function () {
   return this.name
@@ -37,10 +41,10 @@ Term.prototype.sortByName = function () {
   }))
 }
 Term.fromObject = function (o) {
-  return new Term(
-    o && o.name ? o.name : '',
-    o && Array.isArray(o.defs) ? o.defs : []
-  )
+  const name = !!o && o.name ? o.name : ''
+  const memo = !!o && o.memo ? o.memo : ''
+  const defs = !!o && Array.isArray(o.defs) ? o.defs : []
+  return new Term(name, memo, ...defs)
 }
 
 export { Term }
