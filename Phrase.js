@@ -2,9 +2,9 @@ import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
 
 /**
- * Part of Speech constructor.
+ * Phrase constructor.
  *
- * A part of speech is a type of citation.
+ * A phrase is a type of citation.
  */
 function Phrase (source, normal, quote) {
   if (!(this instanceof Phrase)) {
