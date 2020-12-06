@@ -17,15 +17,6 @@ function Pos (source, name, $case) {
 
   freeze(this, Pos)
 }
-Pos.prototype.getName = function () {
-  return this.name
-}
-Pos.prototype.getSource = function () {
-  return this.source
-}
-Pos.prototype.getType = function () {
-  return 'Citation'
-}
 Pos.prototype.getFull = function () {
   if (this.name && this.case) {
     return this.name + ' ' + this.case
@@ -36,6 +27,15 @@ Pos.prototype.getFull = function () {
   } else {
     return ''
   }
+}
+Pos.prototype.getName = function () {
+  return this.name
+}
+Pos.prototype.getSource = function () {
+  return this.source
+}
+Pos.prototype.getType = function () {
+  return 'Citation'
 }
 Pos.fromObject = function (o) {
   return new Pos(
