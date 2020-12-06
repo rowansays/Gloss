@@ -10,7 +10,7 @@ function isSource (aught) {
     typeof aught.getName === 'function' &&
     typeof aught.getType === 'function' &&
     typeof aught.getUrl === 'function' &&
-    ['Book', 'Webpage'].indexOf(aught.getType()) > -1
+    ['Hyperlink', 'Publication'].indexOf(aught.getType()) > -1
 }
 
 export { isSource }
