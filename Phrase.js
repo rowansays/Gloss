@@ -31,9 +31,9 @@ Phrase.prototype.getType = function () {
 }
 Phrase.fromObject = function (o) {
   return new Phrase(
-    o && o.source ? o.source : '',
     o && o.normal ? o.normal : '',
-    o && o.quote ? o.quote : ''
+    o && o.quote ? o.quote : '',
+    o && o.source ? o.source : ''
   )
 }
 
