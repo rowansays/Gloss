@@ -17,14 +17,14 @@ function Phrase (source, normal, quote) {
 
   freeze(this, Phrase)
 }
+Phrase.prototype.getFull = function () {
+  return this.quote
+}
 Phrase.prototype.getName = function () {
   return this.normal
 }
 Phrase.prototype.getSource = function () {
   return this.source
-}
-Phrase.prototype.hasType = function (type) {
-  return types.indexOf(type) > -1
 }
 Phrase.fromObject = function (o) {
   return new Phrase(
