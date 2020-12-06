@@ -88,21 +88,21 @@ describe('Pos: Instance Methods', function () {
       expect(nounPos.getSource()).to.equal('websters')
     })
   })
-  describe('getText()', function () {
+  describe('getFull()', function () {
     it('is a function.', () => {
-      expect(typeof emptyPos.getText).to.equal('function')
+      expect(typeof emptyPos.getFull).to.equal('function')
     })
     it('returns empty string when both name and case are empty.', () => {
-      expect(emptyPos.getText()).to.equal('')
+      expect(emptyPos.getFull()).to.equal('')
     })
     it('returns name when case is empty.', () => {
-      expect(Pos('', '123').getText()).to.equal('123')
+      expect(Pos('', '123').getFull()).to.equal('123')
     })
     it('returns case when name is empty.', () => {
-      expect(Pos('', '', '456').getText()).to.equal('456')
+      expect(Pos('', '', '456').getFull()).to.equal('456')
     })
     it('returns concatenated value of parameters 1 and 2.', () => {
-      expect(nounPos.getText()).to.equal('noun genitive')
+      expect(nounPos.getFull()).to.equal('noun genitive')
     })
   })
 })

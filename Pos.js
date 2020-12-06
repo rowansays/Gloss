@@ -23,7 +23,7 @@ Pos.prototype.getName = function () {
 Pos.prototype.getSource = function () {
   return this.source
 }
-Pos.prototype.getText = function () {
+Pos.prototype.getFull = function () {
   if (this.name && this.case) {
     return this.name + ' ' + this.case
   } else if (!this.name) {
