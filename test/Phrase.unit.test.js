@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { Phrase } from '../Phrase.js'
+import { Phrase } from '../src/Citations/Phrase.js'
 
 var describe = mocha.describe
 var expect = chai.expect
