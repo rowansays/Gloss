@@ -1,8 +1,8 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { isSource } from '../src/Predicates/isSource.js'
-import { Book } from '../Book.js'
-import { Webpage } from '../Webpage.js'
+import { Book } from '../src/Sources/Book.js'
+import { Webpage } from '../src/Sources/Webpage.js'
 
 var describe = mocha.describe
 var expect = chai.expect
