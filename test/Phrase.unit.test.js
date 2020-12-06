@@ -80,7 +80,7 @@ describe('Phrase: Instance Methods', function () {
     it('is a function.', () => {
       expect(typeof Phrase().getSource).to.equal('function')
     })
-    it('returns value of parameter 1.', () => {
+    it('returns value of source.', () => {
       expect(Phrase().getSource()).to.equal('')
       expect(Phrase('websters', 'noun', 'genitive').getSource()).to.equal('websters')
     })
