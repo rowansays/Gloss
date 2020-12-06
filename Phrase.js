@@ -27,7 +27,7 @@ Phrase.prototype.getSource = function () {
   return this.source
 }
 Phrase.prototype.getType = function () {
-  return 'Phrase'
+  return 'Citation'
 }
 Phrase.fromObject = function (o) {
   return new Phrase(

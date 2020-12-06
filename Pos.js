@@ -23,6 +23,9 @@ Pos.prototype.getName = function () {
 Pos.prototype.getSource = function () {
   return this.source
 }
+Pos.prototype.getType = function () {
+  return 'Citation'
+}
 Pos.prototype.getFull = function () {
   if (this.name && this.case) {
     return this.name + ' ' + this.case
