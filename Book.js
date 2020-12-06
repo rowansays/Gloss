@@ -20,7 +20,7 @@ function Book (key, title, subtitle, author, date, url) {
   freeze(this, Book)
 }
 Book.prototype.getType = function (type) {
-    return 'Book'
+  return 'Book'
 }
 Book.prototype.getName = function (type) {
   type = type === 'long' ? 'long' : 'short'
