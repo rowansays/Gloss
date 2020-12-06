@@ -1,4 +1,7 @@
 export { Book } from './src/Sources/Book'
+export { isCitation } from './src/Predicates/isCitation'
+export { isSource } from './src/Predicates/isSource'
 export { Phrase } from './src/Citations/Phrase'
 export { Pos } from './src/Citations/Pos'
+export { Term } from './src/Entries/Term'
 export { Webpage } from './src/Sources/Webpage'
