@@ -9,7 +9,6 @@ var it = mocha.it
 function Citation (source, name) {
   this.name = name
   this.source = source
-
 }
 Citation.prototype.getFull = function () { return this.name }
 Citation.prototype.getName = function () { return this.name }
@@ -64,16 +63,17 @@ describe('Term.fromObject()', function () {
     expect(part.name).to.equal('')
     expect(part.defs.length).to.equal(0)
   })
-  it('constructs an valid pos from an object.', () => {
+  it('constructs an valid term from an object.', () => {
     const obj = {
       name: 'Monster',
+      memo: 'Some say they are scary.',
       defs: [
         new Citation('source', 'Scary')
       ]
     }
-    const part = Term.fromObject(obj)
-    expect(part.name).to.equal(obj.name)
-    expect(part.case).to.equal(obj.case)
-    expect(part.source).to.equal(obj.source)
+    const term = Term.fromObject(obj)
+    expect(term.getName()).to.equal(obj.name)
+    expect(term.getMemo()).to.equal(obj.memo)
+    expect(term.defs.length).to.equal(1)
   })
 })
