@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { isSource } from '../isSource.js'
+import { isSource } from '../src/Predicates/isSource.js'
 import { Book } from '../Book.js'
 import { Webpage } from '../Webpage.js'
 
