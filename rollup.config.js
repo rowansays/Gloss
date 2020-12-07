@@ -15,7 +15,18 @@ export default [
       nodeResolve(),
       terser({
         mangle: {
-          reserved: ['Book', 'Phrase', 'Pos', 'Term', 'Webpage']
+          reserved: [
+            'AbstractWork',
+            'Book',
+            'Card',
+            'isCitation',
+            'isSource',
+            'isWork',
+            'Phrase',
+            'Pos',
+            'Term',
+            'Webpage'
+          ]
         }
       })
     ]
