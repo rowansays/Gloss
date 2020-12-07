@@ -2,27 +2,20 @@ import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
 
 /**
- * A Book is a type of Source.
+ * A book is a type of source.
+ *
+ * @param id {Work} An object that identifies this book.
+ * @param home {string} The publisher of this book.
  */
-function Book (key, title, subtitle, description, author, date, url) {
-  AbstractWork.call(this, key, title, subtitle, description)
-  this.author = author && typeof author === 'string' ? author : ''
-  this.date = cleanDateString(date)
-  this.url = url && typeof url === 'string' ? url : ''
+function Book (id, publisher) {
+  AbstractWork.call(this, id)
+  this.publisher = publisher && typeof publisher === 'string' ? publisher.trim() : ''
 }
 
 Book.prototype = Object.create(AbstractWork.prototype)
 
-Book.prototype.getUrl = function () {
-  return this.url
-}
-
-function cleanDateString (dirty) {
-  switch (typeof dirty) {
-    case 'string': return dirty
-    case 'number': return String(dirty)
-    default: return ''
-  }
+Book.prototype.getPublisher = function () {
+  return this.publisher
 }
 
 function Factory () {

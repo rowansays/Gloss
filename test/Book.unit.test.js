@@ -6,15 +6,19 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-const emptyBook = new Book()
-const frankenBook = new Book(
-  'frankenstein',
-  'Frankenstein',
-  'Or, The Modern Prometheus',
-  'A novel by Mary Shelly published in 1818',
-  'Mary Shelley',
-  '1818',
-  'https://www.gutenberg.org/ebooks/84'
+function Work() {}
+Work.prototype.getAuthor = function () { return 'Mary Shelley'}
+Work.prototype.getDate = function () { return '1818' }
+Work.prototype.getDescription = function () { return 'A novel by Mary Shelly published in 1818' }
+Work.prototype.getKey = function () { return 'frankenstein' }
+Work.prototype.getName = function () { return 'Name' }
+Work.prototype.getSubtitle = function () { return 'Or, The Modern Prometheus' }
+Work.prototype.getTitle = function () { return 'Frankenstein' }
+Work.prototype.getUrl = function () { return 'https://www.gutenberg.org/ebooks/84' }
+
+const frankenBook = Book(
+  new Work(),
+  'Lackington, Hughes, Harding, Mavor, & Jones'
 )
 
 describe('Book()', () => {
@@ -35,44 +39,21 @@ describe('Book()', () => {
   })
 })
 describe('Book(): Parameters', function () {
-  describe('1. key', () => {
-    it('accepts a string as parameter one.', () => {
-      expect(function () { new Book('') }).not.to.throw(Error)
+  describe('1. id', () => {
+    it('accepts an abstract work as parameter one.', () => {
+      expect(function () { new Book(new Work()) }).not.to.throw(Error)
     })
   })
-  describe('2. title', () => {
-    it('accepts a string as parameter two.', () => {
-      expect(function () { new Book('', '') }).not.to.throw(Error)
-    })
-  })
-  describe('3. subtitle', () => {
-    it('accepts a string as parameter three.', () => {
-      expect(function () { new Book('', '', '') }).not.to.throw(Error)
-    })
-  })
-  describe('4. author', () => {
-    it('accepts a string as parameter 4.', () => {
-      expect(function () { new Book('', '', '', '') }).not.to.throw(Error)
-    })
-  })
-  describe('5. date', () => {
-    it('accepts a string as parameter 5.', () => {
-      expect(function () { new Book('', '', '', '', '') }).not.to.throw(Error)
-    })
-    it('accepts an integer as 5.', () => {
-      expect(function () { new Book('', '', '', '', 0) }).not.to.throw(Error)
-    })
-  })
-  describe('6. url', () => {
-    it('accepts a string as parameter 6.', () => {
-      expect(function () { new Book('', '', '', '', '', '') }).not.to.throw(Error)
+  describe('2. publisher', () => {
+    it('accepts a string as parameter 2.', () => {
+      expect(function () { new Book(new Work(), '') }).not.to.throw(Error)
     })
   })
 })
 describe('Book: Instance Methods', function () {
   describe('getName()', function () {
     it('is a function.', () => {
-      expect(typeof emptyBook.getName).to.equal('function')
+      expect(typeof Book().getName).to.equal('function')
     })
     it('returns value of title property when no parameters are defined.', () => {
       expect(frankenBook.getName()).to.equal('Frankenstein')
@@ -132,14 +113,25 @@ describe('Book: Instance Methods', function () {
       expect(name).to.equal('Frankenstein')
     })
   })
+  describe('getPublisher()', function () {
+    it('is a function.', () => {
+      expect(typeof Book().getPublisher).to.equal('function')
+    })
+    it('returns empty when no publisher exists.', () => {
+      expect(Book().getPublisher()).to.equal('')
+    })
+    it('returns string when a valid publisher exists.', () => {
+      expect(frankenBook.getPublisher()).to.equal('Lackington, Hughes, Harding, Mavor, & Jones')
+    })
+  })
   describe('getSubtitle()', function () {
     it('is a function.', () => {
       expect(typeof Book().getSubtitle).to.equal('function')
     })
-    it('returns empty when no description exists.', () => {
+    it('returns empty when no subtitle exists.', () => {
       expect(Book().getSubtitle()).to.equal('')
     })
-    it('returns string when a valid description exists.', () => {
+    it('returns string when a valid subtitle exists.', () => {
       expect(frankenBook.getSubtitle()).to.equal('Or, The Modern Prometheus')
     })
   })
@@ -156,9 +148,12 @@ describe('Book: Instance Methods', function () {
   })
   describe('getUrl()', function () {
     it('is a function.', () => {
-      expect(typeof emptyBook.getUrl).to.equal('function')
+      expect(typeof Book().getUrl).to.equal('function')
     })
-    it('returns the value of the "url" property.', () => {
+    it('returns empty when no url exists.', () => {
+      expect(Book().getUrl()).to.equal('')
+    })
+    it('returns string when a valid url exists.', () => {
       const url = frankenBook.getUrl()
       expect(url).to.equal('https://www.gutenberg.org/ebooks/84')
     })
