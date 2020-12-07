@@ -1,5 +1,5 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { AbstractWork } from '../Abstracts/AbstractWork.js'
+import { AbstractWork } from './Abstracts/AbstractWork.js'
 
 /**
  * A Card is a concrete representation of an abstract work
