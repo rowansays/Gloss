@@ -29,6 +29,9 @@ Term.prototype.getMemo = function () {
 Term.prototype.getName = function () {
   return this.name
 }
+Term.prototype.getSize = function () {
+  return this.defs.length
+}
 Term.prototype.sortByName = function () {
   return new Term(this.getName(), ...[...this.defs].sort((a, b) => {
     if (a.getName() < b.getName()) {
