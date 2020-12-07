@@ -6,12 +6,18 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-const emptyWebpage = new Webpage()
-const wikipediaWebpage = new Webpage(
-  'wikipedia:unitTesting',
-  'Unit Testing',
-  'The contributors',
-  'https://en.wikipedia.org/wiki/Unit_testing'
+function Work() {}
+Work.prototype.getAuthor = function () { return 'The contributors'}
+Work.prototype.getDate = function () { return 'n.d.' }
+Work.prototype.getDescription = function () { return 'Everthing that the authors of Wikipedia have to say about unit testing.' }
+Work.prototype.getKey = function () { return 'wikipedia:unitTesting' }
+Work.prototype.getSubtitle = function () { return 'From Wikipedia, the free encyclopedia' }
+Work.prototype.getTitle = function () { return 'Unit Testing' }
+Work.prototype.getUrl = function () { return 'https://en.wikipedia.org/wiki/Unit_testing' }
+
+const wikiPage = new Webpage(
+  new Work(),
+  'https://wikipedia.org'
 )
 
 describe('Webpage()', () => {
@@ -32,76 +38,113 @@ describe('Webpage()', () => {
   })
 })
 describe('Webpage(): Parameters', function () {
-  describe('1. key', () => {
-    it('accepts a string as parameter one.', () => {
-      expect(function () { new Webpage('') }).not.to.throw(Error)
+  describe('1. id', () => {
+    it('accepts a work instance as parameter 1.', () => {
+      expect(function () { new Webpage(new Work()) }).not.to.throw(Error)
     })
   })
-  describe('2. title', () => {
-    it('accepts a string as parameter two.', () => {
-      expect(function () { new Webpage('', '') }).not.to.throw(Error)
-    })
-  })
-  describe('3. author', () => {
-    it('accepts a string as parameter 3.', () => {
-      expect(function () { new Webpage('', '', '') }).not.to.throw(Error)
-    })
-  })
-  describe('4. url', () => {
-    it('accepts a string as parameter 4.', () => {
-      expect(function () { new Webpage('', '', '', '') }).not.to.throw(Error)
-    })
-  })
-})
-describe('Webpage: Instance Properties', function () {
-  describe('author', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyWebpage.author).to.equal('')
-    })
-    it('inherits the value of parameter two.', () => {
-      expect(wikipediaWebpage.author).to.equal('The contributors')
-    })
-  })
-  describe('key', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyWebpage.key).to.equal('')
-    })
-    it('inherits the value of parameter two.', () => {
-      expect(wikipediaWebpage.key).to.equal('wikipedia:unitTesting')
-    })
-  })
-  describe('title', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyWebpage.title).to.equal('')
-    })
-    it('inherits the value of parameter two.', () => {
-      expect(wikipediaWebpage.title).to.equal('Unit Testing')
-    })
-  })
-  describe('url', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyWebpage.url).to.equal('')
-    })
-    it('inherits the value of parameter two.', () => {
-      expect(wikipediaWebpage.url).to.equal('https://en.wikipedia.org/wiki/Unit_testing')
+  describe('2. publisher', () => {
+    it('accepts a string as parameter 2.', () => {
+      expect(function () { new Webpage(new Work(), '') }).not.to.throw(Error)
     })
   })
 })
 describe('Webpage: Instance Methods', function () {
+  describe('getAuthor()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getAuthor).to.equal('function')
+    })
+    it('returns empty when no description exists.', () => {
+      expect(Webpage().getAuthor()).to.equal('')
+    })
+    it('inherits author from the Work parameter.', () => {
+      expect(wikiPage.getAuthor()).to.equal('The contributors')
+    })
+  })
+  describe('getDescription()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getDescription).to.equal('function')
+    })
+    it('returns empty when no description exists.', () => {
+      expect(Webpage().getDescription()).to.equal('')
+    })
+    it('returns string when a valid description exists.', () => {
+      expect(wikiPage.getDescription()).to.equal('Everthing that the authors of Wikipedia have to say about unit testing.')
+    })
+  })
+  describe('getKey()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getKey).to.equal('function')
+    })
+    it('returns empty when no description exists.', () => {
+      expect(Webpage().getKey()).to.equal('')
+    })
+    it('returns string when a valid description exists.', () => {
+      expect(wikiPage.getKey()).to.equal('wikipedia:unitTesting')
+    })
+  })
   describe('getName()', function () {
     it('is a function.', () => {
-      expect(typeof emptyWebpage.getName).to.equal('function')
+      expect(typeof Webpage().getName).to.equal('function')
     })
-    it('returns value of title property.', () => {
-      expect(wikipediaWebpage.getName()).to.equal('Unit Testing')
+    it('inherits title from work parameter when no parameters are defined.', () => {
+      expect(wikiPage.getName()).to.equal('Unit Testing')
+    })
+    it('returns title from work parameter when parameter 1 is "short".', () => {
+      const name = wikiPage.getName('short')
+      expect(name).to.equal('Unit Testing')
+    })
+    it('concatenates title and subtitle when parameter 1 is "long".', () => {
+      const name = wikiPage.getName('long')
+      expect(name).to.equal('Unit Testing From Wikipedia, the free encyclopedia')
+    })
+    it('returns title when parameter 1 is unrecognized.', () => {
+      const name = wikiPage.getName([])
+      expect(name).to.equal('Unit Testing')
+    })
+  })
+  describe('getHomeUrl()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getHomeUrl).to.equal('function')
+    })
+    it('returns empty when no publisher exists.', () => {
+      expect(Webpage().getHomeUrl()).to.equal('')
+    })
+    it('returns string when a valid publisher exists.', () => {
+      expect(wikiPage.getHomeUrl()).to.equal('https://wikipedia.org')
+    })
+  })
+  describe('getSubtitle()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getSubtitle).to.equal('function')
+    })
+    it('returns empty when no subtitle exists.', () => {
+      expect(Webpage().getSubtitle()).to.equal('')
+    })
+    it('returns string when a valid subtitle exists.', () => {
+      expect(wikiPage.getSubtitle()).to.equal('From Wikipedia, the free encyclopedia')
+    })
+  })
+  describe('getTitle()', function () {
+    it('is a function.', () => {
+      expect(typeof Webpage().getTitle).to.equal('function')
+    })
+    it('returns empty when no description exists.', () => {
+      expect(Webpage().getTitle()).to.equal('')
+    })
+    it('returns string when a valid description exists.', () => {
+      expect(wikiPage.getTitle()).to.equal('Unit Testing')
     })
   })
   describe('getUrl()', function () {
     it('is a function.', () => {
-      expect(typeof emptyWebpage.getUrl).to.equal('function')
+      expect(typeof Webpage().getUrl).to.equal('function')
     })
-    it('returns the value of the "url" property.', () => {
-      const url = wikipediaWebpage.getUrl()
+    it('returns empty when no url exists.', () => {
+      expect(Webpage().getUrl()).to.equal('')
+    })
+    it('returns string when a valid url exists.', () => {
+      const url = wikiPage.getUrl()
       expect(url).to.equal('https://en.wikipedia.org/wiki/Unit_testing')
     })
   })

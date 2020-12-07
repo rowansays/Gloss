@@ -1,26 +1,27 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
+import { AbstractWork } from '../Abstracts/AbstractWork.js'
 
 /**
- * A Webpage is a type of Source.
+ * A webpage is a type of source.
+ *
+ * @param id {Work} An object that identifies this webpage
+ * @param home {string} The homepage of this website.
  */
-function Webpage (key, title, author, url) {
-  if (!(this instanceof Webpage)) {
-    return makeInstanceOf(Webpage, arguments)
-  }
-
-  this.author = author && typeof author === 'string' ? author : ''
-  this.key = key && typeof key === 'string' ? key : ''
-  this.title = title && typeof title === 'string' ? title : ''
-  this.url = url && typeof url === 'string' ? url : ''
-
-  freeze(this, Webpage)
-}
-Webpage.prototype.getName = function () {
-  return this.title
-}
-Webpage.prototype.getUrl = function () {
-  return this.url
+function Webpage (id, home) {
+  AbstractWork.call(this, id)
+  this.homeUrl = home && typeof home === 'string' ? home.trim() : ''
 }
 
-export { Webpage }
+Webpage.prototype = Object.create(AbstractWork.prototype)
+
+Webpage.prototype.getHomeUrl = function () {
+  return this.homeUrl
+}
+
+function Factory () {
+  const webpage = new Webpage(...arguments)
+  freeze(webpage, Webpage)
+  return webpage
+}
+
+export { Factory as Webpage }
