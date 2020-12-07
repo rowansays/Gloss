@@ -5,7 +5,7 @@ import { isCitation } from '../Predicates/isCitation.js'
 /**
  * Term constructor.
  *
- * A term is the simplest form of dictionary entry.
+ * A term is the simplest form of entry.
  */
 function Term (name, memo, ...defs) {
   if (!(this instanceof Term)) {
