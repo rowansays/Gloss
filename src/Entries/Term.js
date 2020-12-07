@@ -40,11 +40,5 @@ Term.prototype.sortByName = function () {
     return 0
   }))
 }
-Term.fromObject = function (o) {
-  const name = !!o && o.name ? o.name : ''
-  const memo = !!o && o.memo ? o.memo : ''
-  const defs = !!o && Array.isArray(o.defs) ? o.defs : []
-  return new Term(name, memo, ...defs)
-}
 
 export { Term }

@@ -106,28 +106,3 @@ describe('Webpage: Instance Methods', function () {
     })
   })
 })
-describe('Webpage.fromObject()', function () {
-  it('is a function.', () => {
-    expect(typeof Webpage.fromObject).to.equal('function')
-  })
-  it('constructs an empty book by default.', () => {
-    const webpage = Webpage.fromObject()
-    expect(webpage.key).to.equal('')
-    expect(webpage.title).to.equal('')
-    expect(webpage.author).to.equal('')
-    expect(webpage.url).to.equal('')
-  })
-  it('constructs an valid book from an object.', () => {
-    const obj = {
-      url: 'https://en.wikipedia.org/wiki/Unit_testing',
-      title: 'Unit Testing',
-      key: 'wikipedia:unitTesting',
-      author: 'The contributors',
-    }
-    const webpage = Webpage.fromObject(obj)
-    expect(webpage.key).to.equal(obj.key)
-    expect(webpage.title).to.equal(obj.title)
-    expect(webpage.author).to.equal(obj.author)
-    expect(webpage.url).to.equal(obj.url)
-  })
-})

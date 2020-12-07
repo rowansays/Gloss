@@ -34,12 +34,5 @@ Pos.prototype.getName = function () {
 Pos.prototype.getSource = function () {
   return this.source
 }
-Pos.fromObject = function (o) {
-  return new Pos(
-    o && o.source ? o.source : '',
-    o && o.name ? o.name : '',
-    o && o.case ? o.case : ''
-  )
-}
 
 export { Pos }

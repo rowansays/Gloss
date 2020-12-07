@@ -22,13 +22,5 @@ Webpage.prototype.getName = function () {
 Webpage.prototype.getUrl = function () {
   return this.url
 }
-Webpage.fromObject = function (o) {
-  return new Webpage(
-    o && o.key ? o.key : '',
-    o && o.title ? o.title : '',
-    o && o.author ? o.author : '',
-    o && o.url ? o.url : ''
-  )
-}
 
 export { Webpage }

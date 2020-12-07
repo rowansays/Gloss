@@ -106,25 +106,3 @@ describe('Pos: Instance Methods', function () {
     })
   })
 })
-describe('Pos.fromObject()', function () {
-  it('is a function.', () => {
-    expect(typeof Pos.fromObject).to.equal('function')
-  })
-  it('constructs an empty pos by default.', () => {
-    const part = Pos.fromObject()
-    expect(part.name).to.equal('')
-    expect(part.case).to.equal('')
-    expect(part.source).to.equal('')
-  })
-  it('constructs an valid pos from an object.', () => {
-    const obj = {
-      name: 'pronoun',
-      case: 'singular',
-      source: 'wiktionary',
-    }
-    const part = Pos.fromObject(obj)
-    expect(part.name).to.equal(obj.name)
-    expect(part.case).to.equal(obj.case)
-    expect(part.source).to.equal(obj.source)
-  })
-})

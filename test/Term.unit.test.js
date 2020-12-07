@@ -76,26 +76,3 @@ describe('Term: Instance Methods', function () {
     })
   })
 })
-describe('Term.fromObject()', function () {
-  it('is a function.', () => {
-    expect(typeof Term.fromObject).to.equal('function')
-  })
-  it('constructs an empty term by default.', () => {
-    const part = Term.fromObject()
-    expect(part.name).to.equal('')
-    expect(part.defs.length).to.equal(0)
-  })
-  it('constructs an valid term from an object.', () => {
-    const obj = {
-      name: 'Monster',
-      memo: 'Some say they are scary.',
-      defs: [
-        new Citation('source', 'Scary')
-      ]
-    }
-    const term = Term.fromObject(obj)
-    expect(term.getName()).to.equal(obj.name)
-    expect(term.getMemo()).to.equal(obj.memo)
-    expect(term.defs.length).to.equal(1)
-  })
-})

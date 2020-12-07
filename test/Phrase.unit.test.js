@@ -97,25 +97,3 @@ describe('Phrase: Instance Methods', function () {
     })
   })
 })
-describe('Phrase.fromObject()', function () {
-  it('is a function.', () => {
-    expect(typeof Phrase.fromObject).to.equal('function')
-  })
-  it('constructs an empty phrase by default.', () => {
-    const part = Phrase.fromObject()
-    expect(part.normal).to.equal('')
-    expect(part.quote).to.equal('')
-    expect(part.source).to.equal('')
-  })
-  it('constructs an valid phrase from an object.', () => {
-    const obj = {
-      source: 'memory',
-      normal: 'þurs',
-      quote: 'thurs',
-    }
-    const phrase = Phrase.fromObject(obj)
-    expect(phrase.normal).to.equal(obj.normal)
-    expect(phrase.quote).to.equal(obj.quote)
-    expect(phrase.source).to.equal(obj.source)
-  })
-})

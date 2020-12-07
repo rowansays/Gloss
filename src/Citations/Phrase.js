@@ -26,12 +26,5 @@ Phrase.prototype.getName = function () {
 Phrase.prototype.getSource = function () {
   return this.source
 }
-Phrase.fromObject = function (o) {
-  return new Phrase(
-    o && o.source ? o.source : '',
-    o && o.normal ? o.normal : '',
-    o && o.quote ? o.quote : ''
-  )
-}
 
 export { Phrase }
