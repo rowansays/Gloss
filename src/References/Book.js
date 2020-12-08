@@ -2,7 +2,7 @@ import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
 
 /**
- * A book is a type of source.
+ * A book is a type of reference.
  *
  * @param id {Work} An object that identifies this book.
  * @param home {string} The publisher of this book.

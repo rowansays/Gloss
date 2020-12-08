@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { Webpage } from '../src/Sources/Webpage.js'
+import { Webpage } from '../src/References/Webpage.js'
 
 var describe = mocha.describe
 var expect = chai.expect
