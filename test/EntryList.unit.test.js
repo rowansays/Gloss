@@ -83,7 +83,7 @@ describe('EntryList(): Inherited Methods', function () {
     it('returns an empty EntryList instance when no referenes exist.', () => {
       const list = EntryList()
       const sorted = list.sortAscBy()
-      expect(sorted.constructor.name).to.equal('EntryList')
+      expect(sorted.constructor.name).to.equal('$EntryList')
       expect(EntryList().getSize()).to.equal(0)
     })
     it('sorts by name.', () => {
@@ -93,7 +93,7 @@ describe('EntryList(): Inherited Methods', function () {
         new Entry('Aegean')
       )
       const sorted = list.sortAscBy('Name')
-      expect(sorted.constructor.name).to.equal('EntryList')
+      expect(sorted.constructor.name).to.equal('$EntryList')
       expect(sorted.getItem(0).getName()).to.equal('Aegean')
       expect(sorted.getItem(1).getName()).to.equal('Bobcat')
       expect(sorted.getItem(2).getName()).to.equal('Calico')
@@ -109,7 +109,7 @@ describe('EntryList(): Inherited Methods', function () {
     it('returns an empty EntryList instance when no entries exist.', () => {
       const list = EntryList()
       const sorted = list.sortDescBy()
-      expect(sorted.constructor.name).to.equal('EntryList')
+      expect(sorted.constructor.name).to.equal('$EntryList')
       expect(EntryList().getSize()).to.equal(0)
     })
     it('sorts by name.', () => {
@@ -119,7 +119,7 @@ describe('EntryList(): Inherited Methods', function () {
         new Entry('Calico')
       )
       const sorted = list.sortDescBy('Name')
-      expect(sorted.constructor.name).to.equal('EntryList')
+      expect(sorted.constructor.name).to.equal('$EntryList')
       expect(sorted.getItem(0).getName()).to.equal('Calico')
       expect(sorted.getItem(1).getName()).to.equal('Bobcat')
       expect(sorted.getItem(2).getName()).to.equal('Aegean')
