@@ -23,6 +23,9 @@ $Pos.prototype.getName = function () {
 $Pos.prototype.getReference = function () {
   return this.reference
 }
+$Pos.prototype.hasReference = function () {
+  return this.reference !== ''
+}
 $Pos.prototype.withReference = function (reference) {
   return new $Pos(this.name, this.case, castString(reference))
 }

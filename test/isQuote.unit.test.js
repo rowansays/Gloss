@@ -30,8 +30,9 @@ describe('isQuote(Quote)', () => {
   function Quote () {}
   Quote.prototype.getFull = function () {return ''}
   Quote.prototype.getName = function () {return ''}
-  Quote.prototype.getSource = function () {return ''}
-  Quote.prototype.withSource = function () {new Quote()}
+  Quote.prototype.getReference = function () {return ''}
+  Quote.prototype.hasReference = function () {return false}
+  Quote.prototype.withReference = function () {new Quote()}
   it('returns true for objects that behave like quotes.', () => {
     expect(isQuote(new Quote())).to.be.true
   })
@@ -40,19 +41,41 @@ describe('isQuote(UnrecognizedType)', () => {
   it('returns false for objects that lack a getFull() method.', () => {
     function Quote () {}
     Quote.prototype.getName = function () {return ''}
-    Quote.prototype.getSource = function () {return ''}
+    Quote.prototype.getReference = function () {return ''}
+    Quote.prototype.hasReference = function () {return false}
+    Quote.prototype.withReference = function () {new Quote()}
     expect(isQuote(new Quote())).to.be.false
   })
   it('returns false for objects that lack a getName() method.', () => {
     function Quote () {}
     Quote.prototype.getFull = function () {return ''}
-    Quote.prototype.getSource = function () {return ''}
+    Quote.prototype.getReference = function () {return ''}
+    Quote.prototype.hasReference = function () {return false}
+    Quote.prototype.withReference = function () {new Quote()}
     expect(isQuote(new Quote())).to.be.false
   })
-  it('returns false for objects that lack a getSource() method.', () => {
+  it('returns false for objects that lack a getReference() method.', () => {
     function Quote () {}
     Quote.prototype.getFull = function () {return ''}
     Quote.prototype.getName = function () {return ''}
+    Quote.prototype.hasReference = function () {return false}
+    Quote.prototype.withReference = function () {new Quote()}
+    expect(isQuote(new Quote())).to.be.false
+  })
+  it('returns false for objects that lack a hasReference() method.', () => {
+    function Quote () {}
+    Quote.prototype.getFull = function () {return ''}
+    Quote.prototype.getName = function () {return ''}
+    Quote.prototype.getReference = function () {return ''}
+    Quote.prototype.withReference = function () {new Quote()}
+    expect(isQuote(new Quote())).to.be.false
+  })
+  it('returns false for objects that lack a withReference() method.', () => {
+    function Quote () {}
+    Quote.prototype.getFull = function () {return ''}
+    Quote.prototype.getName = function () {return ''}
+    Quote.prototype.getReference = function () {return ''}
+    Quote.prototype.hasReference = function () {return false}
     expect(isQuote(new Quote())).to.be.false
   })
 })

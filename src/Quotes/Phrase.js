@@ -15,6 +15,9 @@ $Phrase.prototype.getName = function () {
 $Phrase.prototype.getReference = function () {
   return this.reference
 }
+$Phrase.prototype.hasReference = function () {
+  return this.reference !== ''
+}
 $Phrase.prototype.withReference = function (reference) {
   return new $Phrase(this.normal, this.quote, castString(reference))
 }
