@@ -25,6 +25,9 @@ function AbstractWork (key, title, subtitle, description, author, date, url) {
 }
 
 function assignProperties (obj, props) {
+  if (typeof obj !== 'object' || typeof props !== 'object') {
+    return
+  }
   const { author, date, description, key, subtitle, title, url } = props
   obj.author = author && typeof author === 'string' ? author.trim() : ''
   obj.date = cleanDateString(date)
