@@ -1,10 +1,10 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { castString } from '../../index.js'
 
-function $Pos (name, $case, source) {
+function $Pos (name, $case, reference) {
   this.case = castString($case)
   this.name = castString(name)
-  this.source = castString(source)
+  this.reference = castString(reference)
 }
 $Pos.prototype.getFull = function () {
   if (!!this.name && !!this.case) {
@@ -20,11 +20,11 @@ $Pos.prototype.getFull = function () {
 $Pos.prototype.getName = function () {
   return this.name
 }
-$Pos.prototype.getSource = function () {
-  return this.source
+$Pos.prototype.getReference = function () {
+  return this.reference
 }
-$Pos.prototype.withSource = function (source) {
-  return new $Pos(this.name, this.case, castString(source))
+$Pos.prototype.withReference = function (reference) {
+  return new $Pos(this.name, this.case, castString(reference))
 }
 
 /**

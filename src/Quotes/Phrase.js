@@ -1,10 +1,10 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { castString } from '../../index.js'
 
-function $Phrase (normal, quote, source) {
+function $Phrase (normal, quote, reference) {
   this.normal = castString(normal)
   this.quote = castString(quote)
-  this.source = castString(source)
+  this.reference = castString(reference)
 }
 $Phrase.prototype.getFull = function () {
   return this.quote
@@ -12,11 +12,11 @@ $Phrase.prototype.getFull = function () {
 $Phrase.prototype.getName = function () {
   return this.normal
 }
-$Phrase.prototype.getSource = function () {
-  return this.source
+$Phrase.prototype.getReference = function () {
+  return this.reference
 }
-$Phrase.prototype.withSource = function (source) {
-  return new $Phrase(this.normal, this.quote, castString(source))
+$Phrase.prototype.withReference = function (reference) {
+  return new $Phrase(this.normal, this.quote, castString(reference))
 }
 
 /**
