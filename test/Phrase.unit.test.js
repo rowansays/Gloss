@@ -42,24 +42,6 @@ describe('Phrase(): Parameters', function () {
 })
 describe('Phrase(): Instance Methods', function () {
   const aether = Phrase('Aether', 'Luminiferous aether', 'wikipedia')
-  describe('getName()', function () {
-    it('is a function.', () => {
-      expect(typeof Phrase().getName).to.equal('function')
-    })
-    it('returns value of normal.', () => {
-      expect(Phrase().getSource()).to.equal('')
-      expect(aether.getName()).to.equal('Aether')
-    })
-  })
-  describe('getSource()', function () {
-    it('is a function.', () => {
-      expect(typeof Phrase().getSource).to.equal('function')
-    })
-    it('returns value of source.', () => {
-      expect(Phrase().getSource()).to.equal('')
-      expect(aether.getSource()).to.equal('wikipedia')
-    })
-  })
   describe('getFull()', function () {
     it('is a function.', () => {
       expect(typeof Phrase().getFull).to.equal('function')
@@ -71,17 +53,44 @@ describe('Phrase(): Instance Methods', function () {
       expect(aether.getFull()).to.equal('Luminiferous aether')
     })
   })
-  describe('withSource()', function () {
-    const bunny = Phrase('bunny', 'jack rabbit')
-    const bunnyWithSource = bunny.withSource('myMemory')
+  describe('getName()', function () {
     it('is a function.', () => {
-      expect(typeof Phrase().withSource).to.equal('function')
+      expect(typeof Phrase().getName).to.equal('function')
+    })
+    it('returns value of normal.', () => {
+      expect(Phrase().getReference()).to.equal('')
+      expect(aether.getName()).to.equal('Aether')
+    })
+  })
+  describe('getReference()', function () {
+    it('is a function.', () => {
+      expect(typeof Phrase().getReference).to.equal('function')
+    })
+    it('returns value of source.', () => {
+      expect(Phrase().getReference()).to.equal('')
+      expect(aether.getReference()).to.equal('wikipedia')
+    })
+  })
+  describe('hasReference()', function () {
+    it('is a function.', () => {
+      expect(typeof Phrase().hasReference).to.equal('function')
+    })
+    it('returns false when no source exists.', () => {
+      expect(Phrase().hasReference()).to.equal(false)
+      expect(aether.hasReference()).to.equal(true)
+    })
+  })
+  describe('withReference()', function () {
+    const bunny = Phrase('bunny', 'jack rabbit')
+    const bunnyWithSource = bunny.withReference('myMemory')
+    it('is a function.', () => {
+      expect(typeof Phrase().withReference).to.equal('function')
     })
     it('returns a new instance of $Phrase.', () => {
       expect(bunnyWithSource.constructor.name).to.equal('$Phrase')
     })
     it('adds a new source value.', () => {
-      expect(bunnyWithSource.getSource()).to.equal('myMemory')
+      expect(bunnyWithSource.getReference()).to.equal('myMemory')
     })
     it('does not alter return value of .getName().', () => {
       expect(bunnyWithSource.getName()).to.equal(bunny.getName())

@@ -65,30 +65,39 @@ describe('Pos(): Instance Methods', function () {
       expect(typeof Pos().getName).to.equal('function')
     })
     it('returns value of name.', () => {
-      expect(Pos().getSource()).to.equal('')
+      expect(Pos().getReference()).to.equal('')
       expect(noun.getName()).to.equal('noun')
     })
   })
-  describe('getSource()', function () {
+  describe('getReference()', function () {
     it('is a function.', () => {
-      expect(typeof Pos().getSource).to.equal('function')
+      expect(typeof Pos().getReference).to.equal('function')
     })
     it('returns value of parameter 1.', () => {
-      expect(Pos().getSource()).to.equal('')
-      expect(noun.getSource()).to.equal('websters')
+      expect(Pos().getReference()).to.equal('')
+      expect(noun.getReference()).to.equal('websters')
     })
   })
-  describe('withSource()', function () {
-    const pronoun = Pos('pronoun', 'possessive')
-    const pronounWithSource = pronoun.withSource('myMemory')
+  describe('hasReference()', function () {
     it('is a function.', () => {
-      expect(typeof Pos().withSource).to.equal('function')
+      expect(typeof Pos().hasReference).to.equal('function')
+    })
+    it('returns false when no source exists.', () => {
+      expect(Pos().hasReference()).to.equal(false)
+      expect(noun.hasReference()).to.equal(true)
+    })
+  })
+  describe('withReference()', function () {
+    const pronoun = Pos('pronoun', 'possessive')
+    const pronounWithSource = pronoun.withReference('myMemory')
+    it('is a function.', () => {
+      expect(typeof Pos().withReference).to.equal('function')
     })
     it('returns a new instance of $Phrase.', () => {
       expect(pronounWithSource.constructor.name).to.equal('$Pos')
     })
     it('adds a new source value.', () => {
-      expect(pronounWithSource.getSource()).to.equal('myMemory')
+      expect(pronounWithSource.getReference()).to.equal('myMemory')
     })
     it('does not alter return value of .getName().', () => {
       expect(pronounWithSource.getName()).to.equal(pronoun.getName())
