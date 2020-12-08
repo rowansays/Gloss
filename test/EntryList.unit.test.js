@@ -94,7 +94,6 @@ describe('EntryList(): Inherited Methods', function () {
       )
       const sorted = list.sortAscBy('Name')
       expect(sorted.constructor.name).to.equal('EntryList')
-console.log(sorted)
       expect(sorted.getItem(0).getName()).to.equal('Aegean')
       expect(sorted.getItem(1).getName()).to.equal('Bobcat')
       expect(sorted.getItem(2).getName()).to.equal('Calico')
