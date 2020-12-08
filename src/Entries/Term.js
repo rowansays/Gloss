@@ -33,7 +33,7 @@ Term.prototype.getSize = function () {
   return this.defs.length
 }
 Term.prototype.sortByName = function () {
-  return new Term(this.getName(), ...[...this.defs].sort((a, b) => {
+  const sorted = [...this.defs].sort((a, b) => {
     if (a.getName() < b.getName()) {
       return -1
     }
@@ -41,7 +41,8 @@ Term.prototype.sortByName = function () {
       return 1
     }
     return 0
-  }))
+  })
+  return new Term(this.getName(), this.getMemo(), ...sorted)
 }
 
 export { Term }
