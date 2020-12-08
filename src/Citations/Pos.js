@@ -4,7 +4,7 @@ import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
 /**
  * Part of Speech constructor.
  *
- * A part of speech is a type of citation.
+ * A part of speech is a type of quote.
  */
 function Pos (source, name, $case) {
   if (!(this instanceof Pos)) {

@@ -4,7 +4,7 @@ import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
 /**
  * Phrase constructor.
  *
- * A phrase is a type of citation.
+ * A phrase is a type of quote.
  */
 function Phrase (source, normal, quote) {
   if (!(this instanceof Phrase)) {
