@@ -15,6 +15,10 @@ function Webpage () {
 
   Webpage.prototype = Object.create(AbstractWork.prototype)
 
+  Object.defineProperty(Webpage.prototype, 'constructor', {
+    value: Webpage
+  })
+
   Webpage.prototype.getHomeUrl = function () {
     return this.homeUrl
   }

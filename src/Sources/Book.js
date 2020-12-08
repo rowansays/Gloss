@@ -15,6 +15,10 @@ function Book (id, publisher) {
 
   Book.prototype = Object.create(AbstractWork.prototype)
 
+  Object.defineProperty(Book.prototype, 'constructor', {
+    value: Book
+  })
+
   Book.prototype.getPublisher = function () {
     return this.publisher
   }

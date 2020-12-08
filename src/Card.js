@@ -12,6 +12,10 @@ function Card () {
 
   Card.prototype = Object.create(AbstractWork.prototype)
 
+  Object.defineProperty(Card.prototype, 'constructor', {
+    value: Card
+  })
+
   const card = new Card(...arguments)
   freeze(card, Card)
   return card
