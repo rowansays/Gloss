@@ -7,21 +7,21 @@ import { AbstractWork } from '../Abstracts/AbstractWork.js'
  * @param id {Work} An object that identifies this webpage
  * @param home {string} The homepage of this website.
  */
-function Webpage (id, home) {
-  AbstractWork.call(this, id)
-  this.homeUrl = home && typeof home === 'string' ? home.trim() : ''
-}
+function Webpage () {
+  function Webpage (id, home) {
+    AbstractWork.call(this, id)
+    this.homeUrl = home && typeof home === 'string' ? home.trim() : ''
+  }
 
-Webpage.prototype = Object.create(AbstractWork.prototype)
+  Webpage.prototype = Object.create(AbstractWork.prototype)
 
-Webpage.prototype.getHomeUrl = function () {
-  return this.homeUrl
-}
+  Webpage.prototype.getHomeUrl = function () {
+    return this.homeUrl
+  }
 
-function Factory () {
   const webpage = new Webpage(...arguments)
   freeze(webpage, Webpage)
   return webpage
 }
 
-export { Factory as Webpage }
+export { Webpage }

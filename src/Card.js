@@ -6,15 +6,15 @@ import { AbstractWork } from './Abstracts/AbstractWork.js'
  * with no extra parameters.
  */
 function Card () {
-  AbstractWork.call(this, ...arguments)
-}
+  function Card () {
+    AbstractWork.call(this, ...arguments)
+  }
 
-Card.prototype = Object.create(AbstractWork.prototype)
+  Card.prototype = Object.create(AbstractWork.prototype)
 
-function Factory () {
   const card = new Card(...arguments)
   freeze(card, Card)
   return card
 }
 
-export { Factory as Card }
+export { Card }

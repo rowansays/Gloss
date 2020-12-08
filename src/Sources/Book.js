@@ -8,20 +8,20 @@ import { AbstractWork } from '../Abstracts/AbstractWork.js'
  * @param home {string} The publisher of this book.
  */
 function Book (id, publisher) {
-  AbstractWork.call(this, id)
-  this.publisher = publisher && typeof publisher === 'string' ? publisher.trim() : ''
-}
+  function Book (id, publisher) {
+    AbstractWork.call(this, id)
+    this.publisher = publisher && typeof publisher === 'string' ? publisher.trim() : ''
+  }
 
-Book.prototype = Object.create(AbstractWork.prototype)
+  Book.prototype = Object.create(AbstractWork.prototype)
 
-Book.prototype.getPublisher = function () {
-  return this.publisher
-}
+  Book.prototype.getPublisher = function () {
+    return this.publisher
+  }
 
-function Factory () {
   const book = new Book(...arguments)
   freeze(book, Book)
   return book
 }
 
-export { Factory as Book }
+export { Book }
