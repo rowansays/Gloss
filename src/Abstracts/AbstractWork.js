@@ -1,26 +1,40 @@
 import { isWork } from '../Predicates/isWork.js'
 
 function AbstractWork (key, title, subtitle, description, author, date, url) {
-  console.log(typeof arguments[0])
-  if (arguments.length === 1 && isWork(arguments[0])) {
+  let props = {}
+  if (arguments.length === 1 && typeof arguments[0] === 'object') {
     const work = arguments[0]
-    this.author = work.getAuthor()
-    this.date = work.getDate()
-    this.description = work.getDescription()
-    this.key = work.getKey()
-    this.subtitle = work.getSubtitle()
-    this.title = work.getTitle()
-    this.url = work.getUrl()
+    if (isWork(arguments[0])) {
+      props = {
+        author: work.getAuthor(),
+        date: work.getDate(),
+        description: work.getDescription(),
+        key: work.getKey(),
+        subtitle: work.getSubtitle(),
+        title: work.getTitle(),
+        url: work.getUrl()
+      }
+    } else {
+      props = work
+    }
   } else {
-    this.author = author && typeof author === 'string' ? author.trim() : ''
-    this.date = cleanDateString(date)
-    this.description = description && typeof description === 'string' ? description.trim() : ''
-    this.key = key && typeof key === 'string' ? key.trim() : ''
-    this.subtitle = subtitle && typeof subtitle === 'string' ? subtitle.trim() : ''
-    this.title = title && typeof title === 'string' ? title.trim() : ''
-    this.url = url && typeof url === 'string' ? url.trim() : ''
+    props = { author, date, description, key, subtitle, title, url }
   }
+
+  assignProperties(this, props)
 }
+
+function assignProperties (obj, props) {
+  const { author, date, description, key, subtitle, title, url } = props
+  obj.author = author && typeof author === 'string' ? author.trim() : ''
+  obj.date = cleanDateString(date)
+  obj.description = description && typeof description === 'string' ? description.trim() : ''
+  obj.key = key && typeof key === 'string' ? key.trim() : ''
+  obj.subtitle = subtitle && typeof subtitle === 'string' ? subtitle.trim() : ''
+  obj.title = title && typeof title === 'string' ? title.trim() : ''
+  obj.url = url && typeof url === 'string' ? url.trim() : ''
+}
+
 AbstractWork.prototype.getAuthor = function () {
   return this.author
 }
