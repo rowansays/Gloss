@@ -23,5 +23,8 @@ export { Pos } from './src/Quotes/Pos.js'
 export { Book } from './src/References/Book.js'
 export { Webpage } from './src/References/Webpage.js'
 
+// Utility
+export { castString } from './src/Utility/castString.js'
+
 // Everything Else
 export { Card } from './src/Card.js'
