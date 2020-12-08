@@ -19,6 +19,7 @@ export default [
             'AbstractWork',
             'Book',
             'Card',
+            'Glossary',
             'isCitation',
             'isSource',
             'isWork',
