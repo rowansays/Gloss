@@ -21,7 +21,7 @@ function EntryList (...entries) {
     value: EntryList
   })
 
-  const list = new EntryList(...entries)
+  const list = new EntryList(entries)
   freeze(list, EntryList)
   return list
 }
