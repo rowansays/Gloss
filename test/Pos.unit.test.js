@@ -6,9 +6,6 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-const emptyPos = new Pos()
-const nounPos = new Pos('websters', 'noun', 'genitive')
-
 describe('Pos()', () => {
   it('is a function.', () => {
     expect(typeof Pos).to.equal('function')
@@ -27,82 +24,77 @@ describe('Pos()', () => {
   })
 })
 describe('Pos(): Parameters', function () {
-  describe('1. source', () => {
-    it('accepts a string as parameter one.', () => {
-      expect(function () { new Pos('') }).not.to.throw(Error)
+  describe('1. name', () => {
+    it('accepts a string as parameter 1.', () => {
+      expect(function () { new Pos() }).not.to.throw(Error)
     })
   })
-  describe('2. name', () => {
-    it('accepts a string as parameter two.', () => {
+  describe('2. case', () => {
+    it('accepts a string as parameter 2.', () => {
       expect(function () { new Pos('', '') }).not.to.throw(Error)
     })
   })
-  describe('3. case', () => {
-    it('accepts a string as parameter three.', () => {
+
+  describe('3. source', () => {
+    it('accepts a string as parameter 3.', () => {
       expect(function () { new Pos('', '', '') }).not.to.throw(Error)
     })
   })
 })
-describe('Pos: Instance Properties', function () {
-  describe('source', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyPos.source).to.equal('')
+describe('Pos(): Instance Methods', function () {
+  const noun = new Pos('noun', 'genitive', 'websters')
+  describe('getFull()', function () {
+    it('is a function.', () => {
+      expect(typeof Pos().getFull).to.equal('function')
     })
-    it('inherits the value of parameter 3.', () => {
-      expect(nounPos.source).to.equal('websters')
+    it('returns empty string when both name and case are empty.', () => {
+      expect(Pos().getFull()).to.equal('')
     })
-  })
-  describe('name', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyPos.name).to.equal('')
+    it('returns name when case is empty.', () => {
+      expect(Pos('123').getFull()).to.equal('123')
     })
-    it('inherits the value of parameter two.', () => {
-      expect(nounPos.name).to.equal('noun')
+    it('returns case when name is empty.', () => {
+      expect(Pos('', '456').getFull()).to.equal('456')
     })
-  })
-  describe('case', function () {
-    it('defaults to an empty string.', () => {
-      expect(emptyPos.case).to.equal('')
-    })
-    it('inherits the value of parameter 2.', () => {
-      expect(nounPos.case).to.equal('genitive')
+    it('returns concatenated value of parameters 1 and 2.', () => {
+      expect(noun.getFull()).to.equal('noun genitive')
     })
   })
-})
-describe('Pos: Instance Methods', function () {
   describe('getName()', function () {
     it('is a function.', () => {
-      expect(typeof emptyPos.getName).to.equal('function')
+      expect(typeof Pos().getName).to.equal('function')
     })
-    it('returns value of parameter 2.', () => {
-      expect(emptyPos.getSource()).to.equal('')
-      expect(nounPos.getName()).to.equal('noun')
+    it('returns value of name.', () => {
+      expect(Pos().getSource()).to.equal('')
+      expect(noun.getName()).to.equal('noun')
     })
   })
   describe('getSource()', function () {
     it('is a function.', () => {
-      expect(typeof emptyPos.getSource).to.equal('function')
+      expect(typeof Pos().getSource).to.equal('function')
     })
     it('returns value of parameter 1.', () => {
-      expect(emptyPos.getSource()).to.equal('')
-      expect(nounPos.getSource()).to.equal('websters')
+      expect(Pos().getSource()).to.equal('')
+      expect(noun.getSource()).to.equal('websters')
     })
   })
-  describe('getFull()', function () {
+  describe('withSource()', function () {
+    const pronoun = Pos('pronoun', 'possessive')
+    const pronounWithSource = pronoun.withSource('myMemory')
     it('is a function.', () => {
-      expect(typeof emptyPos.getFull).to.equal('function')
+      expect(typeof Pos().withSource).to.equal('function')
     })
-    it('returns empty string when both name and case are empty.', () => {
-      expect(emptyPos.getFull()).to.equal('')
+    it('returns a new instance of $Phrase.', () => {
+      expect(pronounWithSource.constructor.name).to.equal('$Pos')
     })
-    it('returns name when case is empty.', () => {
-      expect(Pos('', '123').getFull()).to.equal('123')
+    it('adds a new source value.', () => {
+      expect(pronounWithSource.getSource()).to.equal('myMemory')
     })
-    it('returns case when name is empty.', () => {
-      expect(Pos('', '', '456').getFull()).to.equal('456')
+    it('does not alter return value of .getName().', () => {
+      expect(pronounWithSource.getName()).to.equal(pronoun.getName())
     })
-    it('returns concatenated value of parameters 1 and 2.', () => {
-      expect(nounPos.getFull()).to.equal('noun genitive')
+    it('does not alter return value of .getFull().', () => {
+      expect(pronounWithSource.getFull()).to.equal(pronoun.getFull())
     })
   })
 })

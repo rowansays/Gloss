@@ -9,7 +9,8 @@ function isQuote (aught) {
     typeof aught === 'object' &&
     typeof aught.getFull === 'function' &&
     typeof aught.getName === 'function' &&
-    typeof aught.getSource === 'function'
+    typeof aught.getSource === 'function' &&
+    typeof aught.withSource === 'function'
 }
 
 export { isQuote }

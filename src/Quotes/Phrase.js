@@ -1,30 +1,33 @@
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
+import { castString } from '../../index.js'
 
-/**
- * Phrase constructor.
- *
- * A phrase is a type of quote.
- */
-function Phrase (source, normal, quote) {
-  if (!(this instanceof Phrase)) {
-    return makeInstanceOf(Phrase, arguments)
-  }
-
-  this.normal = normal && typeof normal === 'string' ? normal.trim() : ''
-  this.quote = quote && typeof quote === 'string' ? quote.trim() : ''
-  this.source = source && typeof source === 'string' ? source.trim() : ''
-
-  freeze(this, Phrase)
+function $Phrase (normal, quote, source) {
+  this.normal = castString(normal)
+  this.quote = castString(quote)
+  this.source = castString(source)
 }
-Phrase.prototype.getFull = function () {
+$Phrase.prototype.getFull = function () {
   return this.quote
 }
-Phrase.prototype.getName = function () {
+$Phrase.prototype.getName = function () {
   return this.normal
 }
-Phrase.prototype.getSource = function () {
+$Phrase.prototype.getSource = function () {
   return this.source
+}
+$Phrase.prototype.withSource = function (source) {
+  return new $Phrase(this.normal, this.quote, castString(source))
+}
+
+/**
+ * Phrase factory.
+ *
+ * A phrase is a type of quote which can be "normalized" to a local term.
+ */
+function Phrase () {
+  const obj = new $Phrase(...arguments)
+  freeze(obj, $Phrase)
+  return obj
 }
 
 export { Phrase }

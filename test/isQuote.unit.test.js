@@ -31,6 +31,7 @@ describe('isQuote(Quote)', () => {
   Quote.prototype.getFull = function () {return ''}
   Quote.prototype.getName = function () {return ''}
   Quote.prototype.getSource = function () {return ''}
+  Quote.prototype.withSource = function () {new Quote()}
   it('returns true for objects that behave like quotes.', () => {
     expect(isQuote(new Quote())).to.be.true
   })

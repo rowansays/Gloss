@@ -24,56 +24,31 @@ describe('Phrase()', () => {
   })
 })
 describe('Phrase(): Parameters', function () {
-  describe('1. source', () => {
-    it('accepts a string as parameter one.', () => {
-      expect(function () { new Phrase('') }).not.to.throw(Error)
+  describe('1. normal', () => {
+    it('accepts a string as parameter 1.', () => {
+      expect(function () { new Phrase() }).not.to.throw(Error)
     })
   })
-  describe('2. normal', () => {
-    it('accepts a string as parameter two.', () => {
+  describe('2. quote', () => {
+    it('accepts a string as parameter 2.', () => {
       expect(function () { new Phrase('', '') }).not.to.throw(Error)
     })
   })
-  describe('3. quote', () => {
-    it('accepts a string as parameter three.', () => {
+  describe('3. source', () => {
+    it('accepts a string as parameter 3.', () => {
       expect(function () { new Phrase('', '', '') }).not.to.throw(Error)
     })
   })
 })
-describe('Phrase: Instance Properties', function () {
-  describe('source', function () {
-    it('defaults to an empty string.', () => {
-      expect(Phrase().source).to.equal('')
-    })
-    it('inherits the value of parameter 1.', () => {
-      expect(Phrase('websters', 'noun', 'genitive').source).to.equal('websters')
-    })
-  })
-  describe('normal', function () {
-    it('defaults to an empty string.', () => {
-      expect(Phrase().normal).to.equal('')
-    })
-    it('inherits the value of parameter 2.', () => {
-      expect(Phrase('websters', 'noun', 'genitive').normal).to.equal('noun')
-    })
-  })
-  describe('quote', function () {
-    it('defaults to an empty string.', () => {
-      expect(Phrase().quote).to.equal('')
-    })
-    it('inherits the value of parameter 3.', () => {
-      expect(Phrase('websters', 'noun', 'genitive').quote).to.equal('genitive')
-    })
-  })
-})
-describe('Phrase: Instance Methods', function () {
+describe('Phrase(): Instance Methods', function () {
+  const aether = Phrase('Aether', 'Luminiferous aether', 'wikipedia')
   describe('getName()', function () {
     it('is a function.', () => {
       expect(typeof Phrase().getName).to.equal('function')
     })
     it('returns value of normal.', () => {
       expect(Phrase().getSource()).to.equal('')
-      expect(Phrase('websters', 'noun', 'genitive').getName()).to.equal('noun')
+      expect(aether.getName()).to.equal('Aether')
     })
   })
   describe('getSource()', function () {
@@ -82,7 +57,7 @@ describe('Phrase: Instance Methods', function () {
     })
     it('returns value of source.', () => {
       expect(Phrase().getSource()).to.equal('')
-      expect(Phrase('websters', 'noun', 'genitive').getSource()).to.equal('websters')
+      expect(aether.getSource()).to.equal('wikipedia')
     })
   })
   describe('getFull()', function () {
@@ -93,7 +68,26 @@ describe('Phrase: Instance Methods', function () {
       expect(Phrase().getFull()).to.equal('')
     })
     it('returns value of quote', () => {
-      expect(Phrase('', '', 'Pure of Heart').getFull()).to.equal('Pure of Heart')
+      expect(aether.getFull()).to.equal('Luminiferous aether')
+    })
+  })
+  describe('withSource()', function () {
+    const bunny = Phrase('bunny', 'jack rabbit')
+    const bunnyWithSource = bunny.withSource('myMemory')
+    it('is a function.', () => {
+      expect(typeof Phrase().withSource).to.equal('function')
+    })
+    it('returns a new instance of $Phrase.', () => {
+      expect(bunnyWithSource.constructor.name).to.equal('$Phrase')
+    })
+    it('adds a new source value.', () => {
+      expect(bunnyWithSource.getSource()).to.equal('myMemory')
+    })
+    it('does not alter return value of .getName().', () => {
+      expect(bunnyWithSource.getName()).to.equal(bunny.getName())
+    })
+    it('does not alter return value of .getFull().', () => {
+      expect(bunnyWithSource.getFull()).to.equal(bunny.getFull())
     })
   })
 })
