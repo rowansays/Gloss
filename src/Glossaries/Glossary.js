@@ -1,6 +1,5 @@
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
 import { EntryList } from '../Lists/EntryList.js'
 
 /**
@@ -14,14 +13,9 @@ import { EntryList } from '../Lists/EntryList.js'
  * @param {Gloss} ...glosses  Zero or more glosses.
  */
 function $Glossary (id, referenceKey, ...glosses) {
-  if (!(this instanceof $Glossary)) {
-    return makeInstanceOf($Glossary, arguments)
-  }
-
   AbstractWork.call(this, id)
-  this.glosses = EntryList(glosses)
+  this.glosses = EntryList(...glosses)
   this.referenceKey = typeof referenceKey === 'string' ? referenceKey : ''
-  freeze(this, $Glossary)
 }
 
 $Glossary.prototype = Object.create(AbstractWork.prototype)
