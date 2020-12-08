@@ -18,8 +18,8 @@ EntryList.prototype = Object.create(AbstractObjectList.prototype)
 Object.defineProperty(EntryList.prototype, 'constructor', {
   value: EntryList,
   enumerable: false,
-  writable: false,
-});
+  writable: false
+})
 
 function Factory () {
   const list = new EntryList(...arguments)
