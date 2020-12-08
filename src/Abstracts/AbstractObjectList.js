@@ -1,7 +1,9 @@
 function AbstractObjectList () {
   this._defaultSortMethod = 'getName'
 }
-
+AbstractObjectList.prototype.forEach = function () {
+  return this.items.forEach(...arguments)
+}
 /**
  * Get item by index.
  *
