@@ -6,11 +6,13 @@ function EntryList (...entries) {
   function EntryList (entries) {
     AbstractObjectList.call(this)
     this.items = []
-    entries.forEach(entry => {
-      if (isEntry(entry)) {
-        this.items.push(entry)
-      }
-    })
+    if (!!entries && typeof entries.forEach === 'function') {
+      entries.forEach(entry => {
+        if (isEntry(entry)) {
+          this.items.push(entry)
+        }
+      })
+    }
   }
 
   EntryList.prototype = Object.create(AbstractObjectList.prototype)
