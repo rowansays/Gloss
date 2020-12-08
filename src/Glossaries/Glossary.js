@@ -1,6 +1,6 @@
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { EntryList } from '../Lists/EntryList.js'
+import { GlossList } from '../Lists/GlossList.js'
 
 /**
  * Glossary constructor.
@@ -14,7 +14,7 @@ import { EntryList } from '../Lists/EntryList.js'
  */
 function $Glossary (id, referenceKey, ...glosses) {
   AbstractWork.call(this, id)
-  this.glosses = EntryList(...glosses)
+  this.glosses = GlossList(...glosses)
   this.referenceKey = typeof referenceKey === 'string' ? referenceKey : ''
 }
 
