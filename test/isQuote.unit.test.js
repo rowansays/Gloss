@@ -26,32 +26,32 @@ describe('isQuote()', () => {
   })
 })
 
-describe('isQuote(Citation)', () => {
-  function Citation () {}
-  Citation.prototype.getFull = function () {return ''}
-  Citation.prototype.getName = function () {return ''}
-  Citation.prototype.getSource = function () {return ''}
-  it('returns true for objects that behave like citations.', () => {
-    expect(isQuote(new Citation())).to.be.true
+describe('isQuote(Quote)', () => {
+  function Quote () {}
+  Quote.prototype.getFull = function () {return ''}
+  Quote.prototype.getName = function () {return ''}
+  Quote.prototype.getSource = function () {return ''}
+  it('returns true for objects that behave like quotes.', () => {
+    expect(isQuote(new Quote())).to.be.true
   })
 })
 describe('isQuote(UnrecognizedType)', () => {
   it('returns false for objects that lack a getFull() method.', () => {
-    function Citation () {}
-    Citation.prototype.getName = function () {return ''}
-    Citation.prototype.getSource = function () {return ''}
-    expect(isQuote(new Citation())).to.be.false
+    function Quote () {}
+    Quote.prototype.getName = function () {return ''}
+    Quote.prototype.getSource = function () {return ''}
+    expect(isQuote(new Quote())).to.be.false
   })
   it('returns false for objects that lack a getName() method.', () => {
-    function Citation () {}
-    Citation.prototype.getFull = function () {return ''}
-    Citation.prototype.getSource = function () {return ''}
-    expect(isQuote(new Citation())).to.be.false
+    function Quote () {}
+    Quote.prototype.getFull = function () {return ''}
+    Quote.prototype.getSource = function () {return ''}
+    expect(isQuote(new Quote())).to.be.false
   })
   it('returns false for objects that lack a getSource() method.', () => {
-    function Citation () {}
-    Citation.prototype.getFull = function () {return ''}
-    Citation.prototype.getName = function () {return ''}
-    expect(isQuote(new Citation())).to.be.false
+    function Quote () {}
+    Quote.prototype.getFull = function () {return ''}
+    Quote.prototype.getName = function () {return ''}
+    expect(isQuote(new Quote())).to.be.false
   })
 })
