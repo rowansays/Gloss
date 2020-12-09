@@ -20,6 +20,7 @@ export default [
             'Book',
             'Card',
             'Glossary',
+            'HybridGlossary',
             'isCitation',
             'isSource',
             'isWork',
