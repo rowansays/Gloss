@@ -1,5 +1,6 @@
 function castString (dirty) {
-  return !!dirty && typeof dirty === 'string' ? dirty.trim() : ''
+  dirty = typeof dirty === 'number' ? String(dirty) : dirty
+  return typeof dirty === 'string' ? dirty.trim() : ''
 }
 
 export { castString }
