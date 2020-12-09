@@ -48,7 +48,7 @@ describe('StringList(): Parameters', function () {
     })
   })
 })
-describe('StringList: Instance Methods', function () {
+describe('StringList(): Instance Methods', function () {
   describe('forEach()', function () {
     it('is a function.', () => {
       expect(typeof StringList().forEach).to.equal('function')
@@ -80,37 +80,35 @@ describe('StringList: Instance Methods', function () {
       expect(StringList('A').getItem(0)).to.equal('A')
     })
   })
-  /*
   describe('getSize()', function () {
     it('is a function.', () => {
-      expect(typeof StringList().getKey).to.equal('function')
+      expect(typeof StringList().getSize).to.equal('function')
     })
-    it('returns empty when no description exists.', () => {
-      expect(StringList().getKey()).to.equal('')
+    it('returns zero when no strings exist.', () => {
+      expect(StringList().getSize()).to.equal(0)
     })
-    it('returns string when a valid description exists.', () => {
-      expect(wikiPage.getKey()).to.equal('wikipedia:unitTesting')
+    it('returns one when there is only one string.', () => {
+      expect(StringList('a').getSize()).to.equal(1)
+    })
+    it('returns two when there are two strings.', () => {
+      expect(StringList('a', 'b').getSize()).to.equal(2)
+    })
+    it('returns three when there are three strings.', () => {
+      expect(StringList('a', 'b', 'c').getSize()).to.equal(3)
     })
   })
   describe('sort()', function () {
     it('is a function.', () => {
-      expect(typeof StringList().getName).to.equal('function')
+      expect(typeof StringList().sort).to.equal('function')
     })
-    it('inherits title from work parameter when no parameters are defined.', () => {
-      expect(wikiPage.getName()).to.equal('Unit Testing')
+    it('returns an instance of $StringList.', () => {
+      expect(StringList().sort().constructor.name).to.equal('$StringList')
     })
-    it('returns title from work parameter when parameter 1 is "short".', () => {
-      const name = wikiPage.getName('short')
-      expect(name).to.equal('Unit Testing')
-    })
-    it('concatenates title and subtitle when parameter 1 is "long".', () => {
-      const name = wikiPage.getName('long')
-      expect(name).to.equal('Unit Testing From Wikipedia, the free encyclopedia')
-    })
-    it('returns title when parameter 1 is unrecognized.', () => {
-      const name = wikiPage.getName([])
-      expect(name).to.equal('Unit Testing')
+    it('sorts strings in ascending alphabetic order by default.', () => {
+      const list = StringList('c', 'b', 'a').sort()
+      expect(list.getItem(0)).to.equal('a')
+      expect(list.getItem(1)).to.equal('b')
+      expect(list.getItem(2)).to.equal('c')
     })
   })
-  */
 })
