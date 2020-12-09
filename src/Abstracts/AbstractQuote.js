@@ -2,6 +2,9 @@ import { castString } from '../../index.js'
 
 function AbstractQuote () {}
 
+AbstractQuote.prototype.getReferences = function (index) {
+  return [...this.references.getItems()]
+}
 AbstractQuote.prototype.getReference = function (index) {
   index = typeof Number.isInteger(index) && index > -1 ? index : 0
   return castString(this.references.getItem(index))
