@@ -6,16 +6,16 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-function Gloss (name, memo, ...references) {
+function Gloss (name, memo, ...quotes) {
   this.name = name
   this.memo = memo
-  this.references = Array.isArray(references) ? references : []
+  this.quotes = Array.isArray(quotes) ? quotes : []
 }
 Gloss.prototype.getMemo = function () { return this.memo }
 Gloss.prototype.getName = function () { return this.name }
-Gloss.prototype.getSize = function () { return this.references.length }
-Gloss.prototype.sortByName = function () { return this.references }
-Gloss.prototype.getItems = function () { return this.references }
+Gloss.prototype.getSize = function () { return this.quotes.length }
+Gloss.prototype.sortByName = function () { return this.quotes }
+Gloss.prototype.getItems = function () { return this.quotes }
 
 describe('GlossList()', () => {
   it('is a function.', () => {
@@ -47,82 +47,97 @@ describe('GlossList(): Parameters', function () {
     })
   })
 })
-
-describe('GlossList(): Inherited Methods', function () {
-  describe('getItems()', function () {
-    it('does exist.', () => {
-      expect(!!GlossList().getItems).to.be.true
-    })
+describe('GlossList(): Instance Methods', function () {
+  describe('has()', function () {
     it('is a function.', () => {
-      expect(typeof GlossList().getItems).to.equal('function')
+      expect(typeof GlossList().has).to.equal('function')
     })
-    it('returns empty array when no referenes exist.', () => {
-      expect(Array.isArray(GlossList().getItems())).to.be.true
-      expect(GlossList().getItems().length).to.equal(0)
+    it('returns false when list is empty.', () => {
+      expect(GlossList().has('a')).to.be.false
+    })
+    it('returns false when a given gloss does not exist.', () => {
+      expect(GlossList(new Gloss('a')).has('b')).to.be.false
+    })
+    it('returns true when a given gloss does exist.', () => {
+      expect(GlossList(new Gloss('a')).has('a')).to.be.true
     })
   })
-  describe('getSize()', function () {
-    it('does exist.', () => {
-      expect(!!GlossList().getSize).to.be.true
+  describe('Inherited from AbstractObjectList()', function () {
+    describe('getItems()', function () {
+      it('does exist.', () => {
+        expect(!!GlossList().getItems).to.be.true
+      })
+      it('is a function.', () => {
+        expect(typeof GlossList().getItems).to.equal('function')
+      })
+      it('returns empty array when no referenes exist.', () => {
+        expect(Array.isArray(GlossList().getItems())).to.be.true
+        expect(GlossList().getItems().length).to.equal(0)
+      })
     })
-    it('is a function.', () => {
-      expect(typeof GlossList().getSize).to.equal('function')
+    describe('getSize()', function () {
+      it('does exist.', () => {
+        expect(!!GlossList().getSize).to.be.true
+      })
+      it('is a function.', () => {
+        expect(typeof GlossList().getSize).to.equal('function')
+      })
+      it('returns an integer with a value of zero when no referenes exist.', () => {
+        expect(Number.isInteger(GlossList().getSize())).to.be.true
+        expect(GlossList().getSize()).to.equal(0)
+      })
     })
-    it('returns an integer with a value of zero when no referenes exist.', () => {
-      expect(Number.isInteger(GlossList().getSize())).to.be.true
-      expect(GlossList().getSize()).to.equal(0)
+    describe('sortAscBy()', function () {
+      it('does exist.', () => {
+        expect(!!GlossList().sortAscBy).to.be.true
+      })
+      it('is a function.', () => {
+        expect(typeof GlossList().sortAscBy).to.equal('function')
+      })
+      it('returns an empty GlossList instance when no referenes exist.', () => {
+        const list = GlossList()
+        const sorted = list.sortAscBy()
+        expect(sorted.constructor.name).to.equal('$GlossList')
+        expect(GlossList().getSize()).to.equal(0)
+      })
+      it('sorts by name.', () => {
+        const list = GlossList(
+          new Gloss('Bobcat'),
+          new Gloss('Calico'),
+          new Gloss('Aegean')
+        )
+        const sorted = list.sortAscBy('Name')
+        expect(sorted.constructor.name).to.equal('$GlossList')
+        expect(sorted.getItem(0).getName()).to.equal('Aegean')
+        expect(sorted.getItem(1).getName()).to.equal('Bobcat')
+        expect(sorted.getItem(2).getName()).to.equal('Calico')
+      })
     })
-  })
-  describe('sortAscBy()', function () {
-    it('does exist.', () => {
-      expect(!!GlossList().sortAscBy).to.be.true
-    })
-    it('is a function.', () => {
-      expect(typeof GlossList().sortAscBy).to.equal('function')
-    })
-    it('returns an empty GlossList instance when no referenes exist.', () => {
-      const list = GlossList()
-      const sorted = list.sortAscBy()
-      expect(sorted.constructor.name).to.equal('$GlossList')
-      expect(GlossList().getSize()).to.equal(0)
-    })
-    it('sorts by name.', () => {
-      const list = GlossList(
-        new Gloss('Bobcat'),
-        new Gloss('Calico'),
-        new Gloss('Aegean')
-      )
-      const sorted = list.sortAscBy('Name')
-      expect(sorted.constructor.name).to.equal('$GlossList')
-      expect(sorted.getItem(0).getName()).to.equal('Aegean')
-      expect(sorted.getItem(1).getName()).to.equal('Bobcat')
-      expect(sorted.getItem(2).getName()).to.equal('Calico')
-    })
-  })
-  describe('sortDescBy()', function () {
-    it('does exist.', () => {
-      expect(!!GlossList().sortDescBy).to.be.true
-    })
-    it('is a function.', () => {
-      expect(typeof GlossList().sortDescBy).to.equal('function')
-    })
-    it('returns an empty GlossList instance when no entries exist.', () => {
-      const list = GlossList()
-      const sorted = list.sortDescBy()
-      expect(sorted.constructor.name).to.equal('$GlossList')
-      expect(GlossList().getSize()).to.equal(0)
-    })
-    it('sorts by name.', () => {
-      const list = GlossList(
-        new Gloss('Bobcat'),
-        new Gloss('Aegean'),
-        new Gloss('Calico')
-      )
-      const sorted = list.sortDescBy('Name')
-      expect(sorted.constructor.name).to.equal('$GlossList')
-      expect(sorted.getItem(0).getName()).to.equal('Calico')
-      expect(sorted.getItem(1).getName()).to.equal('Bobcat')
-      expect(sorted.getItem(2).getName()).to.equal('Aegean')
+    describe('sortDescBy()', function () {
+      it('does exist.', () => {
+        expect(!!GlossList().sortDescBy).to.be.true
+      })
+      it('is a function.', () => {
+        expect(typeof GlossList().sortDescBy).to.equal('function')
+      })
+      it('returns an empty GlossList instance when no entries exist.', () => {
+        const list = GlossList()
+        const sorted = list.sortDescBy()
+        expect(sorted.constructor.name).to.equal('$GlossList')
+        expect(GlossList().getSize()).to.equal(0)
+      })
+      it('sorts by name.', () => {
+        const list = GlossList(
+          new Gloss('Bobcat'),
+          new Gloss('Aegean'),
+          new Gloss('Calico')
+        )
+        const sorted = list.sortDescBy('Name')
+        expect(sorted.constructor.name).to.equal('$GlossList')
+        expect(sorted.getItem(0).getName()).to.equal('Calico')
+        expect(sorted.getItem(1).getName()).to.equal('Bobcat')
+        expect(sorted.getItem(2).getName()).to.equal('Aegean')
+      })
     })
   })
 })
