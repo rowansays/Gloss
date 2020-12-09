@@ -37,7 +37,7 @@ describe('StringList(): Parameters', function () {
     it('does not store empty strings.', () => {
       expect(StringList('', '', '').getSize()).to.equal(0)
     })
-    it('considers a spaces to be empty.', () => {
+    it('considers a space to be empty.', () => {
       expect(StringList(' ', '  ', '   ').getSize()).to.equal(0)
     })
     it('considers a tabs to be empty.', () => {
@@ -73,6 +73,17 @@ describe('StringList(): Instance Methods', function () {
       expect(listWithUnderscores[0]).to.equal('_A')
       expect(listWithUnderscores[1]).to.equal('_B')
       expect(listWithUnderscores[2]).to.equal('_C')
+    })
+  })
+  describe('has()', function () {
+    it('is a function.', () => {
+      expect(typeof StringList().has).to.equal('function')
+    })
+    it('returns false when item does not exist.', () => {
+      expect(StringList('a').has('b')).to.be.false
+    })
+    it('returns true when item exists.', () => {
+      expect(StringList('a').has('a')).to.be.true
     })
   })
   describe('getItem()', function () {
