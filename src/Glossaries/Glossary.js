@@ -23,7 +23,9 @@ $Glossary.prototype = Object.create(AbstractWork.prototype)
 $Glossary.prototype.forEach = function () {
   return this.glosses.forEach(...arguments)
 }
-
+$Glossary.prototype.getReference = function () {
+  return this.referenceKey
+}
 $Glossary.prototype.getSize = function () {
   return this.glosses.getSize()
 }
