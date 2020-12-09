@@ -14,8 +14,6 @@ Quote.prototype.getFull = function () { return this.name }
 Quote.prototype.getName = function () { return this.name }
 Quote.prototype.getSource = function () { return this.source }
 
-console.log(Term('a'))
-
 describe('Term()', () => {
   it('is a function.', () => {
     expect(typeof Term).to.equal('function')
@@ -53,7 +51,10 @@ describe('Term(): Parameters', function () {
     })
   })
   describe('2. memo', () => {
-    it('accepts a string as parameter two.', () => {
+    it('accepts an empty string as parameter two.', () => {
+      expect(function () { Term('a', '') }).not.to.throw(Error)
+    })
+    it('accepts an empty string as parameter two.', () => {
       expect(function () { Term('a', '') }).not.to.throw(Error)
     })
   })

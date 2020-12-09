@@ -3,20 +3,22 @@
  *
  * A term is the simplest form of gloss.
  *
- * @param {String} name Required.
+ * @param {string|Quote} name Required.
+ * @param {string|Quote|QuoteList} name Required.
+ *
+ *
+ * @prop {Quote} name
+ * @prop {QuoteList} memos
+ * @prop {QuoteList} definitions
  */
 
-import { castString, Phrase, isQuote } from '../../index.js'
+import { castString, isQuote, Phrase, QuoteList } from '../../index.js'
 import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { makeInstanceOf } from '@mfields/lib/makeInstanceOf.js'
 
-function Term (name, memo, ...defs) {
-  if (!(this instanceof Term)) {
-    return makeInstanceOf(Term, arguments)
-  }
-
-  const cleanName = castString(name)
-  if (cleanName === '') {
+function validateName (aught) {
+  const clean = castString(aught)
+  if (clean === '') {
     throw new TypeError('' +
       'Term(): Parameter 1 "name" is required and must evaluate to a ' +
       'non-empty string. It may be either: a string, a number, or an object ' +
@@ -24,13 +26,16 @@ function Term (name, memo, ...defs) {
     )
   }
 
-  if (isQuote(name)) {
-    this.name = name
-  } else if (typeof cleanName === 'string') {
-    this.name = Phrase(cleanName)
+  return isQuote(aught) ? aught : Phrase(clean)
+}
+
+function Term (name, memos, ...defs) {
+  if (!(this instanceof Term)) {
+    return makeInstanceOf(Term, arguments)
   }
 
-  this.memo = memo && typeof memo === 'string' ? memo.trim() : ''
+  this.name = validateName(name)
+  this.memos = QuoteList(memos)
   this.defs = []
   defs.forEach(def => {
     if (isQuote(def)) {
@@ -41,7 +46,15 @@ function Term (name, memo, ...defs) {
   freeze(this, Term)
 }
 Term.prototype.getMemo = function () {
-  return this.memo
+  switch (this.memos.getSize()) {
+    case 0 :
+      return ''
+    case 1 :
+      return this.memos.getItem(0).getName()
+    default :
+      break
+  }
+  return this.memos
 }
 Term.prototype.getName = function () {
   return this.name.getName()
