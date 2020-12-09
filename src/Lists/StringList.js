@@ -5,8 +5,7 @@
  */
 
 import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { AbstractScalarList } from '../../index.js'
-import { castString } from '../../index.js'
+import { AbstractScalarList, castString } from '../../index.js'
 
 function $StringList (...strings) {
   AbstractScalarList.call(this)
