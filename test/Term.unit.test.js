@@ -6,25 +6,27 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-function Citation (source, name) {
+function Quote (source, name) {
   this.name = name
   this.source = source
 }
-Citation.prototype.getFull = function () { return this.name }
-Citation.prototype.getName = function () { return this.name }
-Citation.prototype.getSource = function () { return this.source }
+Quote.prototype.getFull = function () { return this.name }
+Quote.prototype.getName = function () { return this.name }
+Quote.prototype.getSource = function () { return this.source }
+
+console.log(Term('a'))
 
 describe('Term()', () => {
   it('is a function.', () => {
     expect(typeof Term).to.equal('function')
   })
   it('can be constructed without the "new" keyword.', function () {
-    expect(function () { Term() }).not.to.throw(Error)
+    expect(function () { Term('a') }).not.to.throw(Error)
   })
   it('creates frozen instances.', function () {
-    expect(Object.isFrozen(Term())).to.equal(true)
-    if (typeof Term().__proto__ === 'object') {
-      expect(Object.isFrozen(Term().__proto__)).to.equal(true)
+    expect(Object.isFrozen(Term('a'))).to.equal(true)
+    if (typeof Term('a').__proto__ === 'object') {
+      expect(Object.isFrozen(Term('a').__proto__)).to.equal(true)
     }
   })
   it('does not accidentally freeze the built-in Object prototype.', function () {
@@ -33,33 +35,54 @@ describe('Term()', () => {
 })
 describe('Term(): Parameters', function () {
   describe('1. name', () => {
-    it('accepts a string as parameter one.', () => {
-      expect(function () { new Term('') }).not.to.throw(Error)
+    it('Throws a TypeError when an empty string is provided.', () => {
+      expect(function () { Term('') }).to.throw(TypeError)
+    })
+    it('Throws a TypeError when an object with no name is provided.', () => {
+      expect(function () {
+        function NoName () {}
+        NoName.prototype.getName = function () {return ''}
+        Term(new NoName())
+      }).to.throw(TypeError)
+    })
+    it('accepts a non-empty string as parameter one.', () => {
+      expect(function () { Term('a') }).not.to.throw(Error)
+    })
+    it('accepts a number as parameter one.', () => {
+      expect(function () { Term(123) }).not.to.throw(Error)
     })
   })
   describe('2. memo', () => {
     it('accepts a string as parameter two.', () => {
-      expect(function () { new Term('', '') }).not.to.throw(Error)
+      expect(function () { Term('a', '') }).not.to.throw(Error)
     })
   })
   describe('3.+ ...Definitions', () => {
-    it('accepts citation objects for parameters three, four, and five.', () => {
-      const term = new Term('', '',
-        new Citation('source', 'Three'),
-        new Citation('source', 'Four'),
-        new Citation('source', 'Five')
-      )
-      expect(function () { term }).not.to.throw(Error)
+    it('accepts Quote objects for parameters three, four, and five.', () => {
+      expect(function () {
+        const term = Term('a', '',
+          new Quote('source', 'Three'),
+          new Quote('source', 'Four'),
+          new Quote('source', 'Five')
+        )
+      }).not.to.throw(Error)
+    })
+  })
+})
+describe('Term(): Properties', function () {
+  describe('name', () => {
+    it('Is an object.', () => {
+      expect(typeof Term('a').name).to.equal('object')
     })
   })
 })
 describe('Term: Instance Methods', function () {
   describe('getMemo()', function () {
     it('is a function.', () => {
-      expect(typeof Term().getMemo).to.equal('function')
+      expect(typeof Term('a').getMemo).to.equal('function')
     })
     it('returns empty string when no memo exists.', () => {
-      expect(Term('').getMemo()).to.equal('')
+      expect(Term('a').getMemo()).to.equal('')
     })
     it('returns memo string when memo does exist.', () => {
       const memo = 'The book not the show.'
@@ -68,10 +91,9 @@ describe('Term: Instance Methods', function () {
   })
   describe('getName()', function () {
     it('is a function.', () => {
-      expect(typeof Term().getName).to.equal('function')
+      expect(typeof Term('a').getName).to.equal('function')
     })
     it('returns value of name.', () => {
-      expect(Term('').getName()).to.equal('')
       expect(Term('Poetic Edda').getName()).to.equal('Poetic Edda')
     })
   })
