@@ -1,5 +1,6 @@
 // Abstracts
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'
+export { AbstractScalarList } from './src/Abstracts/AbstractScalarList.js'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'
@@ -9,6 +10,7 @@ export { Term } from './src/Glosses/Term.js'
 
 // Lists
 export { GlossList } from './src/Lists/GlossList.js'
+export { StringList } from './src/Lists/StringList.js'
 
 // Predicate
 export { isQuote } from './src/Predicates/isQuote.js'
