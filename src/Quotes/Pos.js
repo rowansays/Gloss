@@ -1,11 +1,24 @@
-import { freeze } from '@mfields/lib/.internal/freeze.js'
-import { castString } from '../../index.js'
+/**
+ * Part of speech constructor.
+ *
+ * A part of speech is a type of quote.
+ */
 
-function $Pos (name, $case, reference) {
+import { AbstractQuote, castString, StringList } from '../../index.js'
+import { freeze } from '@mfields/lib/.internal/freeze.js'
+
+function $Pos (name, $case, ...reference) {
   this.case = castString($case)
   this.name = castString(name)
-  this.reference = castString(reference)
+  this.references = StringList(...reference)
 }
+
+$Pos.prototype = Object.create(AbstractQuote.prototype)
+
+Object.defineProperty($Pos.prototype, 'constructor', {
+  value: $Pos
+})
+
 $Pos.prototype.getFull = function () {
   if (!!this.name && !!this.case) {
     return this.name + ' ' + this.case
@@ -20,21 +33,11 @@ $Pos.prototype.getFull = function () {
 $Pos.prototype.getName = function () {
   return this.name
 }
-$Pos.prototype.getReference = function () {
-  return this.reference
-}
-$Pos.prototype.hasReference = function () {
-  return this.reference !== ''
-}
-$Pos.prototype.withReference = function (reference) {
-  return new $Pos(this.name, this.case, castString(reference))
+$Pos.prototype.withReference = function (...reference) {
+  const references = this.references.withString(...reference).getItems()
+  return new this.constructor(this.name, this.case, ...references)
 }
 
-/**
- * Part of speech constructor.
- *
- * A part of speech is a type of quote.
- */
 function Pos () {
   const obj = new $Pos(...arguments)
   freeze(obj, $Pos)

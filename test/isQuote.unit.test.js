@@ -27,13 +27,14 @@ describe('isQuote()', () => {
 })
 
 describe('isQuote(Quote)', () => {
-  function Quote () {}
-  Quote.prototype.getFull = function () {return ''}
-  Quote.prototype.getName = function () {return ''}
-  Quote.prototype.getReference = function () {return ''}
-  Quote.prototype.hasReference = function () {return false}
-  Quote.prototype.withReference = function () {new Quote()}
   it('returns true for objects that behave like quotes.', () => {
+    function Quote () {}
+    Quote.prototype.getFull = function () {return ''}
+    Quote.prototype.getName = function () {return ''}
+    Quote.prototype.getReference = function () {return ''}
+    Quote.prototype.getSize = function () {return 0}
+    Quote.prototype.hasReference = function () {return false}
+    Quote.prototype.withReference = function () {new Quote()}
     expect(isQuote(new Quote())).to.be.true
   })
 })

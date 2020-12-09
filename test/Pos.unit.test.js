@@ -82,9 +82,26 @@ describe('Pos(): Instance Methods', function () {
     it('is a function.', () => {
       expect(typeof Pos().hasReference).to.equal('function')
     })
-    it('returns false when no source exists.', () => {
-      expect(Pos().hasReference()).to.equal(false)
-      expect(noun.hasReference()).to.equal(true)
+    describe('Signature 1: hasReference()', function () {
+      it('returns false when no references exist.', () => {
+        expect(Pos().hasReference()).to.equal(false)
+      })
+      it('returns true when one reference exists.', () => {
+        expect(noun.hasReference()).to.equal(true)
+      })
+      it('returns true when two references exist.', () => {
+        expect(Pos('', '', 'a', 'b').hasReference()).to.equal(true)
+      })
+    })
+    describe('Signature 2: hasReference(name)', function () {
+      const part = Pos('', '', 'a', 'b')
+      it('returns false when given source does not exist.', () => {
+        expect(part.hasReference('c')).to.equal(false)
+      })
+      it('returns true when given source exists.', () => {
+        expect(part.hasReference('a')).to.equal(true)
+        expect(part.hasReference('b')).to.equal(true)
+      })
     })
   })
   describe('withReference()', function () {
@@ -93,7 +110,7 @@ describe('Pos(): Instance Methods', function () {
     it('is a function.', () => {
       expect(typeof Pos().withReference).to.equal('function')
     })
-    it('returns a new instance of $Phrase.', () => {
+    it('returns a new instance of $Pos.', () => {
       expect(pronounWithSource.constructor.name).to.equal('$Pos')
     })
     it('adds a new source value.', () => {
