@@ -1,18 +1,23 @@
 // Abstracts
-export { AbstractWork } from './src/Abstracts/AbstractWork.js'
+export { AbstractObjectList } from './src/Abstracts/AbstractObjectList.js'
 export { AbstractScalarList } from './src/Abstracts/AbstractScalarList.js'
+export { AbstractWork } from './src/Abstracts/AbstractWork.js'
+export { AbstractQuote } from './src/Abstracts/AbstractQuote.js'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'
+export { HybridGlossary } from './src/Glossaries/HybridGlossary.js'
 
 // Glosses
 export { Term } from './src/Glosses/Term.js'
 
 // Lists
 export { GlossList } from './src/Lists/GlossList.js'
+export { QuoteList } from './src/Lists/QuoteList.js'
 export { StringList } from './src/Lists/StringList.js'
 
 // Predicate
+export { isList } from './src/Predicates/isList.js'
 export { isQuote } from './src/Predicates/isQuote.js'
 export { isReference } from './src/Predicates/isReference.js'
 export { isWork } from './src/Predicates/isWork.js'
