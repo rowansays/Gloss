@@ -21,6 +21,11 @@ Object.defineProperty($StringList.prototype, 'constructor', {
   value: $StringList
 })
 
+$StringList.prototype.withString = function (...string) {
+  const items = this.getItems().concat(string)
+  return new $StringList(...items)
+}
+
 function StringList () {
   const list = new $StringList(...arguments)
   freeze(list, $StringList)

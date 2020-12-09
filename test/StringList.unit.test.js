@@ -46,6 +46,12 @@ describe('StringList(): Parameters', function () {
     it('trims spaces from boths sides of a string.', () => {
       expect(StringList(' A ',).getItem(0)).to.equal('A')
     })
+    it('coerces numbers to strings.', () => {
+      const list = StringList(0, 1, 2)
+      expect(list.getItem(0)).to.equal('0')
+      expect(list.getItem(1)).to.equal('1')
+      expect(list.getItem(2)).to.equal('2')
+    })
   })
 })
 describe('StringList(): Instance Methods', function () {
@@ -109,6 +115,38 @@ describe('StringList(): Instance Methods', function () {
       expect(list.getItem(0)).to.equal('a')
       expect(list.getItem(1)).to.equal('b')
       expect(list.getItem(2)).to.equal('c')
+    })
+  })
+  describe('withString()', function () {
+    it('is a function.', () => {
+      expect(typeof StringList().withString).to.equal('function')
+    })
+    it('returns an instance of $StringList.', () => {
+      expect(StringList().withString().constructor.name).to.equal('$StringList')
+    })
+    it('appends a single, unique string.', () => {
+      const list = StringList('a', 'b').withString('c')
+      expect(list.getItem(0)).to.equal('a')
+      expect(list.getItem(1)).to.equal('b')
+      expect(list.getItem(2)).to.equal('c')
+    })
+    it('appends two, unique strings.', () => {
+      const list = StringList('a').withString('b', 'c')
+      expect(list.getItem(0)).to.equal('a')
+      expect(list.getItem(1)).to.equal('b')
+      expect(list.getItem(2)).to.equal('c')
+    })
+    it('ignores non-strings.', () => {
+      const list = StringList('a').withString(null, [], {})
+      expect(list.getItem(0)).to.equal('a')
+      expect(list.getItem(1)).to.equal(void 1)
+      expect(list.getItem(2)).to.equal(void 1)
+    })
+    it('coerces numbers to strings.', () => {
+      const list = StringList('a').withString(1, 2)
+      expect(list.getItem(0)).to.equal('a')
+      expect(list.getItem(1)).to.equal('1')
+      expect(list.getItem(2)).to.equal('2')
     })
   })
 })
