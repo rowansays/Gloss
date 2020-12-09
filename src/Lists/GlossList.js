@@ -16,6 +16,20 @@ function $GlossList (...entries) {
 
 $GlossList.prototype = Object.create(AbstractObjectList.prototype)
 
+/**
+ * Determine if a gloss exists in the list by name.
+ *
+ * @return {boolean}
+ */
+$GlossList.prototype.has = function (name) {
+  for (let i = 0; i < this.getSize(); i++) {
+    if (this.getItem(i).getName() === name) {
+      return true
+    }
+  }
+  return false
+}
+
 Object.defineProperty($GlossList.prototype, 'constructor', {
   value: $GlossList
 })
