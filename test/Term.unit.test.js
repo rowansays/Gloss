@@ -6,6 +6,12 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
+function NamedObject () {}
+NamedObject.prototype.getName = function () {return 'This is my name'}
+
+function UnnamedObject () {}
+UnnamedObject.prototype.getName = function () {return ''}
+
 function Quote (source, name) {
   this.name = name
   this.source = source
@@ -31,34 +37,42 @@ describe('Term()', () => {
     expect(Object.isFrozen(Object.prototype)).to.equal(false)
   })
 })
-describe('Term(): Parameters', function () {
-  describe('1. name', () => {
-    it('Throws a TypeError when an empty string is provided.', () => {
-      expect(function () { Term('') }).to.throw(TypeError)
-    })
-    it('Throws a TypeError when an object with no name is provided.', () => {
-      expect(function () {
-        function NoName () {}
-        NoName.prototype.getName = function () {return ''}
-        Term(new NoName())
-      }).to.throw(TypeError)
-    })
+describe('Term(): Function Signatures', function () {
+  describe('(name)', () => {
     it('accepts a non-empty string as parameter one.', () => {
       expect(function () { Term('a') }).not.to.throw(Error)
     })
     it('accepts a number as parameter one.', () => {
       expect(function () { Term(123) }).not.to.throw(Error)
     })
+    it('accepts a named object as parameter one.', () => {
+      expect(function () { Term(new NamedObject()) }).not.to.throw(Error)
+    })
+    it('rejects empty strings as parameter one by throwing a TypeError.', () => {
+      expect(function () { Term('') }).to.throw(TypeError)
+    })
+    it('rejects unnamed objects as parameter one by throwing a TypeError.', () => {
+      expect(function () { Term(new UnnamedObject()) }).to.throw(TypeError)
+    })
   })
-  describe('2. memo', () => {
+  describe('(name, memo)', () => {
     it('accepts an empty string as parameter two.', () => {
       expect(function () { Term('a', '') }).not.to.throw(Error)
     })
-    it('accepts an empty string as parameter two.', () => {
-      expect(function () { Term('a', '') }).not.to.throw(Error)
+    it('accepts a non-empty string as parameter two.', () => {
+      expect(function () { Term('a', 'Betelgeuse') }).not.to.throw(Error)
+    })
+    it('accepts an integer as parameter two.', () => {
+      expect(function () { Term('a', 123) }).not.to.throw(Error)
+    })
+    it('accepts a named object as parameter two.', () => {
+      expect(function () { Term(new NamedObject()) }).not.to.throw(Error)
+    })
+    it('rejects an unnamed objects as parameter two by throwing a TypeError.', () => {
+      expect(function () { Term(new UnnamedObject()) }).to.throw(TypeError)
     })
   })
-  describe('3.+ ...Definitions', () => {
+  describe('(name, memo, ...defs)', () => {
     it('accepts Quote objects for parameters three, four, and five.', () => {
       expect(function () {
         const term = Term('a', '',
