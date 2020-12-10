@@ -55,7 +55,7 @@ export default [
             'castString',
 
             // Other
-            'Card',
+            'Card'
           ]
         }
       })
