@@ -58,8 +58,10 @@ function mergeQuotes (quotes) {
   quotes.forEach(quote => {
     const key = quote.getName()
     if (map.has(key) && quote.hasReference()) {
+      // merge quotes with the same name.
       map.set(key, map.get(key).withReference(...quote.getReferences()))
     } else {
+      // Add new quote to the list.
       map.set(key, quote)
     }
   })
