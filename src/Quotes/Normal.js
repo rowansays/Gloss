@@ -10,7 +10,7 @@
  */
 
 import { AbstractQuote, castString, StringList } from '../../index.js'
-import { freeze } from '@mfields/lib/.internal/freeze.js'
+import { freeze } from '../Utility/freeze.js'
 
 function $Normal (normal, actual, ...reference) {
   this.normal = castString(normal)

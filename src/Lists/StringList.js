@@ -4,8 +4,8 @@
  * A string list is a flat, indexed collection of non-empty, unique strings.
  */
 
-import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { AbstractScalarList, castString } from '../../index.js'
+import { freeze } from '../Utility/freeze.js'
 
 function $StringList (...strings) {
   AbstractScalarList.call(this)

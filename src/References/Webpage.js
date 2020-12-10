@@ -1,5 +1,5 @@
-import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
+import { freeze } from '../Utility/freeze.js'
 
 /**
  * A webpage is a type of reference.

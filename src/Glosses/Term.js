@@ -13,7 +13,7 @@
  */
 
 import { castString, isQuote, Phrase, QuoteList } from '../../index.js'
-import { freeze } from '@mfields/lib/.internal/freeze.js'
+import { freeze } from '../Utility/freeze.js'
 
 function validateName (aught) {
   const clean = castString(aught)

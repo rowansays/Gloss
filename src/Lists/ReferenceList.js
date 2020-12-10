@@ -1,5 +1,5 @@
-import { freeze } from '@mfields/lib/.internal/freeze.js'
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
+import { freeze } from '../Utility/freeze.js'
 import { isReference } from '../Predicates/isReference.js'
 
 function $ReferenceList (...entries) {

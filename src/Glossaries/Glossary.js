@@ -1,5 +1,5 @@
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
-import { freeze } from '@mfields/lib/.internal/freeze.js'
+import { freeze } from '../Utility/freeze.js'
 import { GlossList } from '../Lists/GlossList.js'
 
 /**
