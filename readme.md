@@ -1,5 +1,7 @@
 # Glossary
 
+Library of functions which allow for the easy creation of hybrid, comparitive glossaries. This is a work-in-progress and therefore should only be used with extreme caution :)
+
 ## Interface
 
 ### getName()
