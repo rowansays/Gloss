@@ -16,21 +16,46 @@ export default [
       terser({
         mangle: {
           reserved: [
+            // Abstracts
+            'AbstractObjectList',
+            'AbstractQuote',
+            'AbstractScalarList',
             'AbstractWork',
-            'Book',
-            'Card',
+
+            // Glossaries
             'Glossary',
             'HybridGlossary',
-            'isCitation',
-            'isSource',
-            'isWork',
+
+            // Glosses
             'Term',
-            'Webpage'
+
+            // Lists
+            'GlossList',
+            'QuoteList',
+            'ReferenceList',
+            'StringList',
+
+            // Predicates
+            'isGloss',
+            'isList',
+            'isQuote',
+            'isReference',
+            'isWork',
 
             // Quotes
             'Normal',
             'Phrase',
             'Speech',
+
+            // References
+            'Book',
+            'Webpage',
+
+            // Utility
+            'castString',
+
+            // Other
+            'Card',
           ]
         }
       })
