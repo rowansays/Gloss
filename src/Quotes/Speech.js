@@ -7,19 +7,19 @@
 import { AbstractQuote, castString, StringList } from '../../index.js'
 import { freeze } from '@mfields/lib/.internal/freeze.js'
 
-function $Pos (name, $case, ...reference) {
+function $Speech (name, $case, ...reference) {
   this.case = castString($case)
   this.name = castString(name)
   this.references = StringList(...reference)
 }
 
-$Pos.prototype = Object.create(AbstractQuote.prototype)
+$Speech.prototype = Object.create(AbstractQuote.prototype)
 
-Object.defineProperty($Pos.prototype, 'constructor', {
-  value: $Pos
+Object.defineProperty($Speech.prototype, 'constructor', {
+  value: $Speech
 })
 
-$Pos.prototype.getFull = function () {
+$Speech.prototype.getFull = function () {
   if (!!this.name && !!this.case) {
     return this.name + ' ' + this.case
   } else if (!this.name) {
@@ -30,18 +30,18 @@ $Pos.prototype.getFull = function () {
     return ''
   }
 }
-$Pos.prototype.getName = function () {
+$Speech.prototype.getName = function () {
   return this.name
 }
-$Pos.prototype.withReference = function (...reference) {
+$Speech.prototype.withReference = function (...reference) {
   const references = this.references.withString(...reference).getItems()
   return new this.constructor(this.name, this.case, ...references)
 }
 
-function Pos () {
-  const obj = new $Pos(...arguments)
-  freeze(obj, $Pos)
+function Speech () {
+  const obj = new $Speech(...arguments)
+  freeze(obj, $Speech)
   return obj
 }
 
-export { Pos }
+export { Speech }

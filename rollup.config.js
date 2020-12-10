@@ -24,10 +24,13 @@ export default [
             'isCitation',
             'isSource',
             'isWork',
-            'Phrase',
-            'Pos',
             'Term',
             'Webpage'
+
+            // Quotes
+            'Normal',
+            'Phrase',
+            'Speech',
           ]
         }
       })

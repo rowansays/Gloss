@@ -8,9 +8,9 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('isSource() + various constructors.', () => {
+describe('isReference() + various constructors.', () => {
   const emptyBook = new Book()
-  it('An instance of Book() is a references.', function () {
+  it('Instances of Book() are references.', function () {
     expect(isReference(new Book())).to.be.true
   })
   it('Instances of Webpage() are references.', function () {

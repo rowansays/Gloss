@@ -23,8 +23,9 @@ export { isReference } from './src/Predicates/isReference.js'
 export { isWork } from './src/Predicates/isWork.js'
 
 // Quotes
+export { Normal } from './src/Quotes/Normal.js'
 export { Phrase } from './src/Quotes/Phrase.js'
-export { Pos } from './src/Quotes/Pos.js'
+export { Speech } from './src/Quotes/Speech.js'
 
 // References
 export { Book } from './src/References/Book.js'
