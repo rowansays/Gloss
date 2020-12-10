@@ -72,24 +72,6 @@ describe('Term(): Function Signatures', function () {
       expect(function () { Term(new UnnamedObject()) }).to.throw(TypeError)
     })
   })
-  describe('(name, memo, ...defs)', () => {
-    it('accepts Quote objects for parameters three, four, and five.', () => {
-      expect(function () {
-        const term = Term('a', '',
-          new Quote('source', 'Three'),
-          new Quote('source', 'Four'),
-          new Quote('source', 'Five')
-        )
-      }).not.to.throw(Error)
-    })
-  })
-})
-describe('Term(): Properties', function () {
-  describe('name', () => {
-    it('Is an object.', () => {
-      expect(typeof Term('a').name).to.equal('object')
-    })
-  })
 })
 describe('Term: Instance Methods', function () {
   describe('getMemo()', function () {
@@ -110,6 +92,25 @@ describe('Term: Instance Methods', function () {
     })
     it('returns value of name.', () => {
       expect(Term('Poetic Edda').getName()).to.equal('Poetic Edda')
+    })
+  })
+  describe('withDef()', function () {
+    it('is a function.', () => {
+      expect(typeof Term('a').withDef).to.equal('function')
+    })
+    it('returns an instance of $Term.', () => {
+      expect(Term('a').withDef().constructor.name).to.equal('$Term')
+    })
+    it('adds a definition to an empty term.', () => {
+      expect(Term('a').withDef('Klingon').getSize()).to.equal(1)
+    })
+    it('adds three definitions to an empty term.', () => {
+      const term = Term('a').withDef('Klingon', 'Vulcan', 'Andorian')
+      expect(term.getSize()).to.equal(3)
+    })
+    it('merges three definitions to an empty term.', () => {
+      const term = Term('a').withDef('Klingon', 'Klingon', 'Klingon')
+      expect(term.getSize()).to.equal(1)
     })
   })
 })
