@@ -8,7 +8,7 @@ export default [
     output: {
       file: 'dist/symbolism.iife.js',
       format: 'iife',
-      name: 'Symbolism'
+      name: 'Glossary'
     },
     plugins: [
       commonjs(),
