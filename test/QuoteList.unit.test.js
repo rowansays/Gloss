@@ -23,14 +23,14 @@ describe('QuoteList()', () => {
     expect(Object.isFrozen(Object.prototype)).to.equal(false)
   })
 })
-describe('QuoteList(): Parameters', function () {
-  describe('zero', () => {
+describe('QuoteList(): Function Signatures', function () {
+  describe('()', () => {
     it('does not require parameters.', () => {
       expect(function () { QuoteList() }).not.to.throw(Error)
       expect(QuoteList().getSize()).to.equal(0)
     })
   })
-  describe('single: {string}', () => {
+  describe('(string)', () => {
     it('does not require parameters.', () => {
       expect(function () { QuoteList() }).not.to.throw(Error)
       expect(QuoteList().getSize()).to.equal(0)
@@ -59,14 +59,7 @@ describe('QuoteList(): Parameters', function () {
       expect(QuoteList('      ').getSize()).to.equal(0)
     })
   })
-  describe('single: {number}', () => {
-    it('accepts an integer.', () => {
-      const ql = QuoteList(123)
-      expect(ql.getSize()).to.equal(1)
-      expect(ql.getItemName(0)).to.equal('123')
-    })
-  })
-  describe('multiple: {string}', () => {
+  describe('(string, string, string)', () => {
     it('accepts strings.', () => {
       const ql = QuoteList('A', 'B', 'C')
       expect(ql.getSize()).to.equal(3)
@@ -87,10 +80,34 @@ describe('QuoteList(): Parameters', function () {
       expect(QuoteList(' ', '    ', '      ').getSize()).to.equal(0)
     })
   })
-  describe('multiple: {number}', () => {
+  describe('(number)', () => {
+    it('accepts an integer.', () => {
+      const ql = QuoteList(123)
+      expect(ql.getSize()).to.equal(1)
+      expect(ql.getItemName(0)).to.equal('123')
+    })
+  })
+  describe('(number, number, number)', () => {
     it('accepts integers.', () => {
       const ql = QuoteList(1, 2, 3)
       expect(ql.getSize()).to.equal(3)
+    })
+  })
+  describe('(QuoteList)', () => {
+    it('accepts a QuoteList.', () => {
+      const ql1 = QuoteList(1, 2, 3)
+      const ql2 = QuoteList(ql1)
+      expect(ql2.getSize()).to.equal(3)
+    })
+  })
+  describe('(QuoteList, QuoteList, QuoteList)', () => {
+    it('accepts QuoteLists.', () => {
+      const ql = QuoteList(
+        QuoteList(1, 2, 3),
+        QuoteList(4, 5, 6),
+        QuoteList(7, 8, 9)
+      )
+      expect(ql.getSize()).to.equal(9)
     })
   })
 })

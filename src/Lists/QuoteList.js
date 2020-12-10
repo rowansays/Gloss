@@ -22,8 +22,7 @@ function parseQuotes (...params) {
     } else if (isQuote(param)) {
       output.push(param)
     } else if (isList(param)) {
-      const subParams = parseQuotes(param)
-      subParams.forEach(subParam => {
+      param.forEach(subParam => {
         output.push(subParam)
       })
     }
@@ -69,9 +68,9 @@ function mergeQuotes (quotes) {
   return Array.from(map.values())
 }
 
-function $QuoteList (...quotes) {
+function $QuoteList () {
   AbstractObjectList.call(this)
-  const parsed = parseQuotes(...quotes)
+  const parsed = parseQuotes(...arguments)
   const merged = mergeQuotes(parsed)
   this.items = merged
 }
@@ -94,6 +93,9 @@ $QuoteList.prototype.has = function (name) {
     }
   }
   return false
+}
+$QuoteList.prototype.withQuote = function () {
+  return new $QuoteList(...this.items, ...arguments)
 }
 
 Object.defineProperty($QuoteList.prototype, 'constructor', {
