@@ -4,8 +4,11 @@ import { freeze } from '@mfields/lib/.internal/freeze.js'
 /**
  * Parse quotes parameter.
  *
+ * Robust function which accepts just about any value that can be converted to
+ * a quote.
+ *
  * @param {Array|Quote|QuoteList|string} param
- * @return {Array}
+ * @return {Quote[]} A flat array of quotes.
  */
 function parseQuotes (...params) {
   const output = []
@@ -27,6 +30,27 @@ function parseQuotes (...params) {
   })
   return output
 }
+/**
+ * Merge quotes.
+ *
+ * Merges all duplicate quotes into single quotes containing multiple
+ * references. To illustrate:
+ *
+ * Input array: [
+ *   Phrase { value: 'Alice', references: ['aaiw:movie'] },
+ *   Phrase { value: 'Alice', references: ['aaiw:book'] },
+ *   Phrase { value: 'Alice', references: ['aaiw:comic'] },
+ *   Phrase { value: 'Wonderland', references: ['aaiw:book'] },
+ * ]
+ *
+ * Output array: [
+ *   Phrase { value: 'Alice', references: ['aaiw:movie', 'aaiw:book', 'aaiw:comic'] },
+ *   Phrase { value: 'Wonderland', references: ['encyclopedia'] },
+ * ]
+ *
+ * @param {Quote[]} A flat array of {Quote} objects.
+ * @return {Quote{}} A flat array of {Quote} objects with duplicates merged.
+ */
 function mergeQuotes (quotes) {
   quotes = Array.isArray(quotes) ? quotes : []
 
