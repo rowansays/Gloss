@@ -83,7 +83,7 @@ $QuoteList.prototype.getItemName = function (index) {
 }
 
 /**
- * Determine if a gloss exists in the list by name.
+ * Determine if a quote exists in the list by name.
  *
  * @return {boolean}
  */
