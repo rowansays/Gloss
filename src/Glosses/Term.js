@@ -36,12 +36,7 @@ function Term (name, memos, ...defs) {
 
   this.name = validateName(name)
   this.memos = QuoteList(memos)
-  this.defs = []
-  defs.forEach(def => {
-    if (isQuote(def)) {
-      this.defs.push(def)
-    }
-  })
+  this.defs = QuoteList(defs)
 
   freeze(this, Term)
 }
@@ -62,17 +57,9 @@ Term.prototype.getName = function () {
 Term.prototype.getSize = function () {
   return this.defs.length
 }
-Term.prototype.sortByName = function () {
-  const sorted = [...this.defs].sort((a, b) => {
-    if (a.getName() < b.getName()) {
-      return -1
-    }
-    if (a.getName() > b.getName()) {
-      return 1
-    }
-    return 0
-  })
-  return new Term(this.getName(), this.getMemo(), ...sorted)
+Term.prototype.sortByName = function () { // Todo change to sortDefsByName
+  const sortedDefs = this.defs.sortAscBy().getItems()
+  return new Term(this.getName(), this.getMemo(), ...sortedDefs)
 }
 
 export { Term }
