@@ -33,7 +33,7 @@ AbstractObjectList.prototype.getSize = function () {
  *   specified accessor.
  */
 AbstractObjectList.prototype.sortAscBy = function (method) {
-  method = validateAccessor(this.items[0], method)
+  method = validateAccessor(this, this.items[0], method)
   const sorted = [...this.items].sort((a, b) => {
     if (a[method]() < b[method]()) {
       return -1
@@ -52,7 +52,7 @@ AbstractObjectList.prototype.sortAscBy = function (method) {
  *   specified accessor.
  */
 AbstractObjectList.prototype.sortDescBy = function (method) {
-  method = validateAccessor(this.items[0], method)
+  method = validateAccessor(this, this.items[0], method)
   const sorted = [...this.items].sort((a, b) => {
     if (a[method]() < b[method]()) {
       return 1
@@ -65,25 +65,25 @@ AbstractObjectList.prototype.sortDescBy = function (method) {
   return new this.constructor(...sorted)
 }
 
-function validateAccessor (obj, name) {
-  if (typeof obj !== 'object') {
+function validateAccessor (list, item, name) {
+  if (typeof item !== 'object') {
     return ''
   }
 
   const partial = typeof name === 'string' ? name : ''
   if (partial === '') {
-    return this._defaultSortMethod
+    return list._defaultSortMethod
   }
 
   const method = partial !== '' && partial.slice(0, 3) !== 'get'
     ? 'get' + partial
     : partial
 
-  if (!!obj && typeof obj[method] === 'function') {
+  if (typeof item[method] === 'function') {
     return method
   }
 
-  return this._defaultSortMethod
+  return list._defaultSortMethod
 }
 
 export { AbstractObjectList }
