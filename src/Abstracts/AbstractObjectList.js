@@ -7,11 +7,26 @@ AbstractObjectList.prototype.forEach = function () {
 /**
  * Get item by index.
  *
- * @param {Number} An integer representing the index of the item to retrieve.
+ * @param {number|string} key When an integer, this value represents the index
+ *   of the item to retrieve. When a string, this value represents the name of
+ *   the item to retrieve.
  * @return {mixed}
  */
-AbstractObjectList.prototype.getItem = function (index) {
-  return this.items[index]
+AbstractObjectList.prototype.getItem = function (key) {
+  switch (typeof key) {
+    case 'number':
+      return this.items[key]
+    case 'string':
+      for (let i = 0; i < this.getSize(); i++) {
+        const item = this.getItem(i)
+        if (item.getName() === key) {
+          return item
+        }
+      }
+      return void(1)
+    default:
+      return void(1)
+  }
 }
 /**
  * @return {Array} A clone of the items array.
