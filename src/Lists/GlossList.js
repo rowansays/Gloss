@@ -10,16 +10,59 @@ import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { isGloss } from '../Predicates/isGloss.js'
 
+/**
+ * Parse glosses parameter.
+ *
+ * @param {...Gloss|GlossList|Array} param
+ * @return {Gloss[]} An array of glosses.
+ */
+function parseGlosses (...params) {
+  const output = []
+  params = Array.isArray(params) ? params : []
+  params.forEach(param => {
+    if (isGloss(param)) {
+      output.push(param)
+    } else if (isList(param)) {
+      param.forEach(subParam => {
+        output.push(subParam)
+      })
+    } else if (Array.isArray(param)) {
+      output.concat(parseGlosses(...param))
+    }
+  })
+  return output
+}
+
+/**
+ * Merge glosses.
+ *
+ * Merges all duplicate glosses into single glosses containing multiple
+ * definitions.
+ *
+ * @param {Gloss[]} A flat array of {Gloss} objects.
+ * @return {Gloss[]} A flat array of {Gloss} objects with duplicates merged.
+ */
+function mergeGlosses (quotes) {
+  quotes = Array.isArray(quotes) ? quotes : []
+
+  const map = new Map()
+  quotes.forEach(gloss => {
+    const key = gloss.getName()
+    if (map.has(key) && gloss.hasDef()) {
+      // merge glosses with the same name.
+      map.set(key, map.get(key).withGloss(gloss))
+    } else {
+      // Add new gloss to the list.
+      map.set(key, gloss)
+    }
+  })
+
+  return Array.from(map.values())
+}
+
 function $GlossList (...glosses) {
   AbstractObjectList.call(this)
-  this.items = []
-  if (!!glosses && typeof glosses.forEach === 'function') {
-    glosses.forEach(gloss => {
-      if (isGloss(gloss)) {
-        this.items.push(gloss)
-      }
-    })
-  }
+  this.items = mergeGlosses(parseGlosses(...arguments))
 }
 
 $GlossList.prototype = Object.create(AbstractObjectList.prototype)

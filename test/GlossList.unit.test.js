@@ -41,9 +41,9 @@ describe('GlossList(): Parameters', function () {
     it('accepts entry objects for parameters one, two, and three.', () => {
       expect(function () {
         new GlossList(
-          new Gloss('source', 'Three'),
-          new Gloss('source', 'Four'),
-          new Gloss('source', 'Five')
+          new Gloss('Three'),
+          new Gloss('Four'),
+          new Gloss('Five')
         )
       }).not.to.throw(Error)
     })
