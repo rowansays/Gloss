@@ -29,7 +29,7 @@ function parseQuotes (...params) {
       }
     } else if (isQuote(param)) {
       output.push(param)
-    } else if (isList(param)) {
+    } else if (isList(param) || Array.isArray(param)) {
       param.forEach(subParam => {
         output.push(subParam)
       })
