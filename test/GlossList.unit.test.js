@@ -14,8 +14,8 @@ function Gloss (name, memo, ...quotes) {
 Gloss.prototype.getMemo = function () { return this.memo }
 Gloss.prototype.getName = function () { return this.name }
 Gloss.prototype.getSize = function () { return this.quotes.length }
-Gloss.prototype.sortByName = function () { return this.quotes }
-Gloss.prototype.getItems = function () { return this.quotes }
+Gloss.prototype.sortDefsByName = function () { return this.quotes }
+Gloss.prototype.withDef = function () { return this }
 
 describe('GlossList()', () => {
   it('is a function.', () => {
