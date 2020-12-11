@@ -40,16 +40,15 @@ $Term.prototype.getDef = function (index) {
 $Term.prototype.getDefs = function () {
   return this.defs.getItems()
 }
-$Term.prototype.getMemo = function () {
+$Term.prototype.getMemo = function (index) {
   switch (this.memos.getSize()) {
     case 0 :
       return ''
     case 1 :
-      return this.memos.getItem(0).getName()
+      return this.memos.getItem(0)
     default :
-      break
+      return this.memos.getItem(index)
   }
-  return this.memos
 }
 $Term.prototype.getName = function () {
   return this.name.getName()
@@ -75,6 +74,16 @@ $Term.prototype.sortDefsByName = function () {
  */
 $Term.prototype.withDef = function () {
   return new $Term(this.name, this.memo, this.defs, ...arguments)
+}
+/**
+ * Clone an instance while adding one or more memos.
+ *
+ * @param {...Quote} One or more values that can be coerced into a quote.
+ * @return {$Term}
+ */
+$Term.prototype.withMemo = function () {
+  const newMemo = this.memos.withQuote(this.memo, ...arguments)
+  return new $Term(this.name, newMemo, this.defs)
 }
 
 function Term () {

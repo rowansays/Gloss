@@ -10,7 +10,8 @@ function isGloss (aught) {
     typeof aught.getMemo === 'function' &&
     typeof aught.getName === 'function' &&
     typeof aught.getSize === 'function' &&
-    typeof aught.withDef === 'function'
+    typeof aught.withDef === 'function' &&
+    typeof aught.withMemo === 'function'
 }
 
 export { isGloss }

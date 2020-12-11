@@ -1,6 +1,7 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { Phrase, Term } from '../index.js'
+import { Term } from '../src/Glosses/Term.js'
+import { Phrase } from '../src/Quotes/Phrase.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -26,6 +27,17 @@ describe('Term(): Integration Tests', function () {
       expect(term.getSize()).to.equal(1)
       expect(term.getDef(0).hasReference('here')).to.be.true
       expect(term.getDef(0).hasReference('there')).to.be.true
+    })
+  })
+  describe('withMemo()', function () {
+    it('merges two phrases having different memos.', () => {
+      const memo1 = Phrase('They are dangerous.', 'yourImagination')
+      const memo2 = Phrase('They are mageistic.', 'myImagination')
+      const term = Term('a', memo1).withMemo(memo2)
+      expect(term.getMemo(0).getName()).to.equal(memo1.getName())
+      expect(term.getMemo(0).getReference()).to.equal(memo1.getReference())
+      expect(term.getMemo(1).getName()).to.equal(memo2.getName())
+      expect(term.getMemo(1).getReference()).to.equal(memo2.getReference())
     })
   })
 })
