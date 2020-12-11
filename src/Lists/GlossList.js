@@ -1,12 +1,20 @@
+/**
+ * Gloss list factory.
+ *
+ * A gloss list is a flat list that constains zero or more glosses.
+ *
+ * @see AbstractObjectList()
+ */
+
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { isGloss } from '../Predicates/isGloss.js'
 
-function $GlossList (...entries) {
+function $GlossList (...glosses) {
   AbstractObjectList.call(this)
   this.items = []
-  if (!!entries && typeof entries.forEach === 'function') {
-    entries.forEach(gloss => {
+  if (!!glosses && typeof glosses.forEach === 'function') {
+    glosses.forEach(gloss => {
       if (isGloss(gloss)) {
         this.items.push(gloss)
       }

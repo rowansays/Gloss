@@ -1,9 +1,5 @@
-import { AbstractWork } from '../Abstracts/AbstractWork.js'
-import { freeze } from '../Utility/freeze.js'
-import { GlossList } from '../Lists/GlossList.js'
-
 /**
- * Glossary constructor.
+ * Glossary factory.
  *
  * A glossary is a work that contains a list of entries from a single reference.
  *
@@ -12,6 +8,11 @@ import { GlossList } from '../Lists/GlossList.js'
  *   glosses originate.
  * @param {Gloss} ...glosses  Zero or more glosses.
  */
+
+import { AbstractWork } from '../Abstracts/AbstractWork.js'
+import { freeze } from '../Utility/freeze.js'
+import { GlossList } from '../Lists/GlossList.js'
+
 function $Glossary (id, referenceKey, ...glosses) {
   AbstractWork.call(this, id)
   this.glosses = GlossList(...glosses)

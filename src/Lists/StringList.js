@@ -2,6 +2,9 @@
  * String list
  *
  * A string list is a flat, indexed collection of non-empty, unique strings.
+ *
+ * @param {...string|number|NamedObject} strings Zero or more values that can
+ *   be coerced to strings.
  */
 
 import { AbstractScalarList, castString } from '../../index.js'

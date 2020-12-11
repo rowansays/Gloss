@@ -1,11 +1,12 @@
 /**
- * $Term constructor.
+ * Term factory.
  *
- * A term is the simplest form of gloss.
+ * A term is the simplest form of gloss. Instances contain a name, zero or more
+ * memos, and zero or more definitions.
  *
- * @param {string|Quote} name Required.
  * @param {string|Quote|QuoteList} name Required.
- *
+ * @param {Array|QuoteList} memos.
+ * @param {...Quote|...String} definitions.
  *
  * @prop {Quote} name
  * @prop {QuoteList} memos

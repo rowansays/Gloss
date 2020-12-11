@@ -1,3 +1,11 @@
+/**
+ * Quote list factory
+ *
+ * A quote list is a flat list of unique, non-empty quote objects.
+ *
+ * @param {...Quote|QuoteList|Array|string|number} quotes
+ */
+
 import { AbstractObjectList, castString, isList, isQuote, Phrase } from '../../index.js'
 import { freeze } from '../Utility/freeze.js'
 
