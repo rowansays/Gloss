@@ -50,6 +50,9 @@ $Term.prototype.getMemo = function (index) {
       return this.memos.getItem(index)
   }
 }
+$Term.prototype.getMemos = function () {
+  return this.memos.getItems()
+}
 $Term.prototype.getName = function () {
   return this.name.getName()
 }
