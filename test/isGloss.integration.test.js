@@ -8,7 +8,7 @@ var expect = chai.expect
 var it = mocha.it
 
 describe('isGloss() + various constructors.', () => {
-  it('Instances of Normal() are quotes.', function () {
+  it('Instances of Term() are glosses.', function () {
     expect(isGloss(Term('a'))).to.be.true
   })
 })
