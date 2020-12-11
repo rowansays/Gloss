@@ -63,6 +63,12 @@ $Term.prototype.getSize = function () {
   return this.defs.getSize()
 }
 /**
+ * @return {bool}
+ */
+$Term.prototype.hasDef = function () {
+  return this.defs.getSize() > 0
+}
+/**
  * @return {$Term}
  */
 $Term.prototype.sortDefsByName = function () {
