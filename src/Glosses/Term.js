@@ -79,6 +79,24 @@ $Term.prototype.withDef = function () {
   return new $Term(this.name, this.memo, this.defs, ...arguments)
 }
 /**
+ * Clone an instance while merging in one or more glosses.
+ *
+ * @param {...Quote} One or more glosses.
+ * @return {$Term}
+ */
+$Term.prototype.withGloss = function (...glosses) {
+  if (!!glosses && typeof glosses.forEach === 'function') {
+    const memos = this.getMemos()
+    const defs = this.getDefs()
+    glosses.forEach(gloss => {
+      gloss.getMemos().forEach(memo => { memos.push(memo) })
+      gloss.getDefs().forEach(def => { defs.push(def) })
+    })
+    return Term(this.name, memos, defs)
+  }
+  return this
+}
+/**
  * Clone an instance while adding one or more memos.
  *
  * @param {...Quote} One or more values that can be coerced into a quote.

@@ -16,7 +16,8 @@ Gloss.prototype.getName = function () { return this.name }
 Gloss.prototype.getSize = function () { return this.quotes.length }
 Gloss.prototype.sortDefsByName = function () { return this.quotes }
 Gloss.prototype.withDef = function () { return this }
-Gloss.prototype.withMemo = function () { return this }
+Gloss.prototype.withGloss = function () { return this }
+Gloss.prototype.withMemo = function () {return this}
 
 describe('GlossList()', () => {
   it('is a function.', () => {

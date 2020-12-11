@@ -11,6 +11,7 @@ function isGloss (aught) {
     typeof aught.getName === 'function' &&
     typeof aught.getSize === 'function' &&
     typeof aught.withDef === 'function' &&
+    typeof aught.withGloss === 'function' &&
     typeof aught.withMemo === 'function'
 }
 

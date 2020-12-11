@@ -34,6 +34,7 @@ describe('isGloss(Gloss)', () => {
     Gloss.prototype.getSize = function () {return 0}
     Gloss.prototype.withDef = function () {return new Gloss()}
     Gloss.prototype.withMemo = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.true
   })
 })
@@ -44,6 +45,7 @@ describe('isGloss(UnrecognizedType)', () => {
     Gloss.prototype.getSize = function () {return 0}
     Gloss.prototype.withDef = function () {return new Gloss()}
     Gloss.prototype.withMemo = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.false
   })
   it('returns false for objects that lack a getName() method.', () => {
@@ -52,6 +54,7 @@ describe('isGloss(UnrecognizedType)', () => {
     Gloss.prototype.getSize = function () {return 0}
     Gloss.prototype.withDef = function () {return new Gloss()}
     Gloss.prototype.withMemo = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.false
   })
   it('returns false for objects that lack a getSize() method.', () => {
@@ -60,6 +63,7 @@ describe('isGloss(UnrecognizedType)', () => {
     Gloss.prototype.getName = function () {return ''}
     Gloss.prototype.withDef = function () {return new Gloss()}
     Gloss.prototype.withMemo = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.false
   })
   it('returns false for objects that lack a withDef() method.', () => {
@@ -68,6 +72,7 @@ describe('isGloss(UnrecognizedType)', () => {
     Gloss.prototype.getName = function () {return ''}
     Gloss.prototype.getSize = function () {return 0}
     Gloss.prototype.withMemo = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.false
   })
   it('returns false for objects that lack a withMemo() method.', () => {
@@ -76,6 +81,16 @@ describe('isGloss(UnrecognizedType)', () => {
     Gloss.prototype.getName = function () {return ''}
     Gloss.prototype.getSize = function () {return 0}
     Gloss.prototype.withDef = function () {return new Gloss()}
+    Gloss.prototype.withGloss = function () {return new Gloss()}
+    expect(isGloss(new Gloss())).to.be.false
+  })
+  it('returns false for objects that lack a withGloss() method.', () => {
+    function Gloss () {}
+    Gloss.prototype.getMemo = function () {return ''}
+    Gloss.prototype.getName = function () {return ''}
+    Gloss.prototype.getSize = function () {return 0}
+    Gloss.prototype.withDef = function () {return new Gloss()}
+    Gloss.prototype.withMemo = function () {return new Gloss()}
     expect(isGloss(new Gloss())).to.be.false
   })
 })
