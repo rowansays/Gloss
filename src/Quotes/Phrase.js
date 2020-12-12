@@ -23,7 +23,7 @@ Object.defineProperty($Phrase.prototype, 'constructor', {
 })
 
 $Phrase.prototype.getFull = function () {
-  return this.value
+  return ''
 }
 $Phrase.prototype.getName = function () {
   return this.value

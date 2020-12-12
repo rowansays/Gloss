@@ -45,8 +45,8 @@ describe('Phrase(): Instance Methods', function () {
     it('returns empty string when value is empty.', () => {
       expect(Phrase().getFull()).to.equal('')
     })
-    it('returns value', () => {
-      expect(aether.getFull()).to.equal('Aether')
+    it('returns empty string when value is non-empty', () => {
+      expect(aether.getFull()).to.equal('')
     })
   })
   describe('getName()', function () {
