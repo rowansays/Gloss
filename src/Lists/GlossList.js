@@ -9,6 +9,7 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { isGloss } from '../Predicates/isGloss.js'
+import { isList } from '../Predicates/isList.js'
 
 /**
  * Parse glosses parameter.
