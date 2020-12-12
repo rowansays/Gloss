@@ -33,6 +33,7 @@ function renderGloss (gloss) {
   const size = sortedGloss.getSize()
 
   const dt = document.createElement('dt')
+  dt.classList.add('GlossName')
   dt.appendChild(document.createTextNode(sortedGloss.getName()))
 
   const fragment = document.createDocumentFragment()
