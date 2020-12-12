@@ -17,6 +17,7 @@
     "@rollup/plugin-babel": "5.2.2",
     "@rollup/plugin-commonjs": "17.0.0",
     "@rollup/plugin-node-resolve": "11.0.0",
+    "@vanilla-jsx/jsx-runtime": "1.4.0",
     "chai": "4.2.0",
     "cz-conventional-changelog": "3.3.0",
     "mocha": "8.2.1",
@@ -29,7 +30,8 @@
       [
         "@babel/plugin-transform-react-jsx",
         {
-          "pragma": "createElement"
+          "runtime": "automatic",
+          "importSource": "@vanilla-jsx"
         }
       ]
     ],
