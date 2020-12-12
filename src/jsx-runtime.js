@@ -67,16 +67,26 @@ exports.jsxs = exports.jsx = (tag, { ref, children, ...props } = {}) => {
 }
 
 exports.Fragment = ({ children } = {}) => {
-  const element = document.createDocumentFragment()
+  const fragment = document.createDocumentFragment();
+
   if (children) {
-    if (children instanceof Array) {
-      children.forEach((child) => {
-        element.append(child)
-      })
-    } else {
-      element.append(children)
-    }
+    const flat = flattenChildren(children)
+    flat.forEach(child => {
+      fragment.appendChild(child)
+    })
   }
 
-  return element
+  return fragment;
+}
+
+function flattenChildren (children) {
+  let flat = []
+  if (Array.isArray(children)) {
+    children.forEach((child) => {
+      flat = flat.concat(flattenChildren(child))
+    });
+  } else {
+    flat.push(children);
+  }
+  return flat
 }
