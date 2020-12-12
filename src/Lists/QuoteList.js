@@ -30,6 +30,7 @@ function parseQuotes (...params) {
     } else if (isQuote(param)) {
       output.push(param)
     } else if (isList(param) || Array.isArray(param)) {
+      // This is TOO trusting for arrays.
       param.forEach(subParam => {
         output.push(subParam)
       })
