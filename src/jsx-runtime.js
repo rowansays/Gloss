@@ -31,31 +31,31 @@ exports.jsxs = exports.jsx = (tag, { ref, children, ...props } = {}) => {
     const element = document.createElement(tag)
 
     Object.keys(props).forEach((key) => {
-      if (!props[key]) {
-
-      } else if (typeof props[key] === 'function') {
-        element[key] = props[key]
-      } else {
-        element.setAttribute(key, props[key])
+      if (props && props[key]) {
+        if (typeof props[key] === 'function') {
+          element[key] = props[key]
+        } else {
+          element.setAttribute(key, props[key])
+        }
       }
     })
 
-    if (!children) {
-
-    } else if (children instanceof Array) {
-      children.forEach((child) => {
-        child && element.append(child)
-      })
-    } else {
-      element.append(children)
+    if (children) {
+      if (children instanceof Array) {
+        children.forEach((child) => {
+          child && element.append(child)
+        })
+      } else {
+        element.append(children)
+      }
     }
 
-    if (!ref) {
-
-    } else if (typeof ref === 'function') {
-      ref(element)
-    } else {
-      element.setAttribute('ref', ref)
+    if (ref) {
+      if (typeof ref === 'function') {
+        ref(element)
+      } else {
+        element.setAttribute('ref', ref)
+      }
     }
 
     return element
@@ -68,15 +68,14 @@ exports.jsxs = exports.jsx = (tag, { ref, children, ...props } = {}) => {
 
 exports.Fragment = ({ children } = {}) => {
   const element = document.createDocumentFragment()
-
-  if (!children) {
-
-  } else if (children instanceof Array) {
-    children.forEach((child) => {
-      element.append(child)
-    })
-  } else {
-    element.append(children)
+  if (children) {
+    if (children instanceof Array) {
+      children.forEach((child) => {
+        element.append(child)
+      })
+    } else {
+      element.append(children)
+    }
   }
 
   return element
