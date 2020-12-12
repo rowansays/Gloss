@@ -44,7 +44,7 @@ function renderGloss (gloss) {
   return fragment
 }
 
-function renderDefintion(phrase, i, total) {
+function renderDefintion (phrase, i, total) {
   const dd = document.createElement('dd')
   const span = document.createElement('span')
   const quote = phrase.getFull()
