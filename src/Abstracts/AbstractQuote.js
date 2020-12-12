@@ -1,5 +1,12 @@
 import { castString } from '../../index.js'
 
+/**
+ * Pseudo-abstract quote constructor.
+ *
+ * The one thing that all different types of quotes have is references. This
+ * constructor exists to provided interface methods that allow each different
+ * type of quote to interact with it's references in a uniform manner.
+ */
 function AbstractQuote () {}
 
 AbstractQuote.prototype.getReference = function (index) {
