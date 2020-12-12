@@ -23,9 +23,9 @@ AbstractObjectList.prototype.getItem = function (key) {
           return item
         }
       }
-      return void(1)
+      return undefined
     default:
-      return void(1)
+      return undefined
   }
 }
 /**
