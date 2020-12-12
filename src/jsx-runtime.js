@@ -28,56 +28,56 @@ SOFTWARE.
 
 exports.jsxs = exports.jsx = (tag, { ref, children, ...props } = {}) => {
   if (typeof tag === 'string') {
-      const element = document.createElement(tag);
+    const element = document.createElement(tag)
 
-      Object.keys(props).forEach((key) => {
-          if (!props[key]) {
+    Object.keys(props).forEach((key) => {
+      if (!props[key]) {
 
-          } else if (typeof props[key] === 'function') {
-              element[key] = props[key];
-          } else {
-              element.setAttribute(key, props[key]);
-          }
-      });
-
-      if (!children) {
-
-      } else if (children instanceof Array) {
-          children.forEach((child) => {
-              child && element.append(child);
-          });
+      } else if (typeof props[key] === 'function') {
+        element[key] = props[key]
       } else {
-          element.append(children);
+        element.setAttribute(key, props[key])
       }
+    })
 
-      if (!ref) {
+    if (!children) {
 
-      } else if (typeof ref === 'function') {
-          ref(element);
-      } else {
-          element.setAttribute('ref', ref)
-      }
+    } else if (children instanceof Array) {
+      children.forEach((child) => {
+        child && element.append(child)
+      })
+    } else {
+      element.append(children)
+    }
 
-      return element;
+    if (!ref) {
+
+    } else if (typeof ref === 'function') {
+      ref(element)
+    } else {
+      element.setAttribute('ref', ref)
+    }
+
+    return element
   } else if (typeof tag === 'function') {
-      return tag({ ref, children, ...props });
+    return tag({ ref, children, ...props })
   } else {
-      console.error('未知 tag 类型', tag);
+    console.error('未知 tag 类型', tag)
   }
 }
 
 exports.Fragment = ({ children } = {}) => {
-  const element = document.createDocumentFragment();
+  const element = document.createDocumentFragment()
 
   if (!children) {
 
   } else if (children instanceof Array) {
-      children.forEach((child) => {
-          element.append(child);
-      });
+    children.forEach((child) => {
+      element.append(child)
+    })
   } else {
-      element.append(children);
+    element.append(children)
   }
 
-  return element;
+  return element
 }
