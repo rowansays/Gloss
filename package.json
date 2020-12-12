@@ -12,6 +12,9 @@
   "author": "Rowan Weathers (https://rowansays.com/)",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "7.12.10",
+    "@babel/preset-react": "7.12.10",
+    "@rollup/plugin-babel": "5.2.2",
     "@rollup/plugin-commonjs": "17.0.0",
     "@rollup/plugin-node-resolve": "11.0.0",
     "chai": "4.2.0",
