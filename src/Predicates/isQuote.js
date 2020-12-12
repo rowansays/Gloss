@@ -10,7 +10,6 @@ function isQuote (aught) {
     typeof aught.getFull === 'function' &&
     typeof aught.getName === 'function' &&
     typeof aught.getReference === 'function' &&
-    typeof aught.getSize === 'function' &&
     typeof aught.hasReference === 'function' &&
     typeof aught.withReference === 'function'
 }
