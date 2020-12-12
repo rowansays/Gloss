@@ -39,9 +39,7 @@ function renderGloss (gloss) {
   const fragment = document.createDocumentFragment()
   fragment.appendChild(dt)
   sortedGloss.defs.forEach((def, i) => {
-    const dd = document.createElement('dd')
-    dd.appendChild(renderDefintion(def, i, size))
-    fragment.appendChild(dd)
+    fragment.appendChild(renderDefintion(def, i, size))
   })
   return fragment
 }
