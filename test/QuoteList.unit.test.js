@@ -5,108 +5,75 @@ import { QuoteList } from '../src/Lists/QuoteList.js'
 import chai from 'chai'
 import mocha from 'mocha'
 import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
-import { testFactoryFunction } from './helpers/factories.js'
+import { testFactoryFunction, testNameProp } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-testFactoryFunction('QuoteList', QuoteList, QuoteList())
+const props = { name: 'Nobody' }
+const empty = QuoteList(props)
+
+testFactoryFunction('QuoteList', QuoteList, empty)
 
 describe('QuoteList.prototype', function () {
   it('has a has() method.', () => {
-    expect(typeof QuoteList().has).to.equal('function')
+    expect(typeof empty.has).to.equal('function')
   })
   it('has a withQuote() method.', () => {
-    expect(typeof QuoteList().withQuote).to.equal('function')
+    expect(typeof empty.withQuote).to.equal('function')
   })
-  testAbstractObjectListPrototype(QuoteList())
+  testAbstractObjectListPrototype(empty)
 })
-describe('QuoteList(): Function Signatures', function () {
-  describe('()', () => {
-    it('does not require parameters.', () => {
-      expect(function () { QuoteList() }).not.to.throw(Error)
-      expect(QuoteList().getSize()).to.equal(0)
+
+describe('empty: Function Signatures', function () {
+  testNameProp(QuoteList)
+  describe("({ name: 'nobody', quotes: [] })", () => {
+    it('accepts an empty array.', () => {
+      const ql = QuoteList({ name: 'nobody', quotes: [] })
+      expect(ql.getSize()).to.equal(0)
     })
-  })
-  describe('(string)', () => {
-    it('does not require parameters.', () => {
-      expect(function () { QuoteList() }).not.to.throw(Error)
-      expect(QuoteList().getSize()).to.equal(0)
-    })
-    it('accepts a non-empty string.', () => {
-      const ql = QuoteList('A')
-      expect(ql.getSize()).to.equal(1)
-      expect(ql.getItemName(0)).to.equal('A')
-    })
-    it('trims spaces from both sides of a non-empty string.', () => {
-      expect(QuoteList(' A ',).getItemName(0)).to.equal('A')
-    })
-    it('rejects an empty string.', () => {
-      expect(QuoteList('').getSize()).to.equal(0)
-    })
-    it('rejects a space character.', () => {
-      expect(QuoteList(' ').getSize()).to.equal(0)
-    })
-    it('rejects multiple space characters.', () => {
-      expect(QuoteList('   ').getSize()).to.equal(0)
-    })
-    it('rejects a tab character.', () => {
-      expect(QuoteList('  ').getSize()).to.equal(0)
-    })
-    it('rejects multiple tab characters.', () => {
-      expect(QuoteList('      ').getSize()).to.equal(0)
-    })
-  })
-  describe('(string, string, string)', () => {
-    it('accepts strings.', () => {
-      const ql = QuoteList('A', 'B', 'C')
+    it('accepts an array of strings.', () => {
+      const ql = QuoteList({ name: 'nobody', quotes: ['a', 'b', 'c'] })
       expect(ql.getSize()).to.equal(3)
+      expect(ql.has('a')).to.be.true
+      expect(ql.has('b')).to.be.true
+      expect(ql.has('c')).to.be.true
     })
-    it('stores strings in the order they are provided.', () => {
-      const ql = QuoteList('a', 'b', 'c')
-      expect(ql.getItemName(0)).to.equal('a')
-      expect(ql.getItemName(1)).to.equal('b')
-      expect(ql.getItemName(2)).to.equal('c')
-    })
-    it('rejects empty strings.', () => {
-      expect(QuoteList('', '', '').getSize()).to.equal(0)
-    })
-    it('rejects space characters.', () => {
-      expect(QuoteList(' ', '  ', '   ').getSize()).to.equal(0)
-    })
-    it('rejects tabs characters.', () => {
-      expect(QuoteList(' ', '    ', '      ').getSize()).to.equal(0)
-    })
-  })
-  describe('(number)', () => {
-    it('accepts an integer.', () => {
-      const ql = QuoteList(123)
-      expect(ql.getSize()).to.equal(1)
-      expect(ql.getItemName(0)).to.equal('123')
-    })
-  })
-  describe('(number, number, number)', () => {
-    it('accepts integers.', () => {
-      const ql = QuoteList(1, 2, 3)
+    it('accepts an array of integers.', () => {
+      const ql = QuoteList({ name: 'nobody', quotes: [1, 2, 3] })
       expect(ql.getSize()).to.equal(3)
+      expect(ql.has('1')).to.be.true
+      expect(ql.has('2')).to.be.true
+      expect(ql.has('3')).to.be.true
     })
-  })
-  describe('(QuoteList)', () => {
-    it('accepts a QuoteList.', () => {
-      const ql1 = QuoteList(1, 2, 3)
-      const ql2 = QuoteList(ql1)
-      expect(ql2.getSize()).to.equal(3)
-    })
-  })
-  describe('(QuoteList, QuoteList, QuoteList)', () => {
-    it('accepts QuoteLists.', () => {
-      const ql = QuoteList(
-        QuoteList(1, 2, 3),
-        QuoteList(4, 5, 6),
-        QuoteList(7, 8, 9)
-      )
+    it('accepts an array of QuoteLists.', () => {
+      const ql = QuoteList({ name: 'nobody', quotes: [
+        QuoteList({ name: 'nobody', quotes: ['a', 'b', 'c'] }),
+        QuoteList({ name: 'nobody', quotes: ['d', 'e', 'f'] }),
+        QuoteList({ name: 'nobody', quotes: ['g', 'h', 'i'] })
+      ] })
       expect(ql.getSize()).to.equal(9)
+      expect(ql.has('a')).to.be.true
+      expect(ql.has('b')).to.be.true
+      expect(ql.has('c')).to.be.true
+      expect(ql.has('d')).to.be.true
+      expect(ql.has('e')).to.be.true
+      expect(ql.has('f')).to.be.true
+      expect(ql.has('g')).to.be.true
+      expect(ql.has('h')).to.be.true
+      expect(ql.has('i')).to.be.true
+    })
+    it('merges an array of QuoteLists.', () => {
+      const ql = QuoteList({ name: 'nobody', quotes: [
+        QuoteList({ name: 'nobody', quotes: ['a', 'b', 'c'] }),
+        QuoteList({ name: 'nobody', quotes: ['a', 'b', 'c'] }),
+        QuoteList({ name: 'nobody', quotes: ['a', 'b', 'c'] })
+      ] })
+      expect(ql.getSize()).to.equal(3)
+      expect(ql.has('a')).to.be.true
+      expect(ql.has('b')).to.be.true
+      expect(ql.has('c')).to.be.true
     })
   })
 })
