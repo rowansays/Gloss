@@ -5,28 +5,14 @@ import { QuoteList } from '../src/Lists/QuoteList.js'
 import chai from 'chai'
 import mocha from 'mocha'
 import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('QuoteList()', () => {
-  it('is a function.', () => {
-    expect(typeof QuoteList).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { QuoteList() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(QuoteList())).to.equal(true)
-    if (typeof QuoteList().__proto__ === 'object') {
-      expect(Object.isFrozen(QuoteList().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('QuoteList', QuoteList, QuoteList())
+
 describe('QuoteList.prototype', function () {
   testAbstractObjectListPrototype(QuoteList())
 })

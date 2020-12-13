@@ -1,6 +1,7 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Book } from '../src/References/Book.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -21,23 +22,8 @@ const frankenBook = Book(
   'Lackington, Hughes, Harding, Mavor, & Jones'
 )
 
-describe('Book()', () => {
-  it('is a function.', () => {
-    expect(typeof Book).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { Book() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(Book())).to.equal(true)
-    if (typeof Book().__proto__ === 'object') {
-      expect(Object.isFrozen(Book().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('Book', Book, Book())
+
 describe('Book(): Parameters', function () {
   describe('1. id', () => {
     it('accepts an abstract work as parameter one.', () => {

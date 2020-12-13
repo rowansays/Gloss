@@ -1,6 +1,7 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Webpage } from '../src/References/Webpage.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -20,23 +21,8 @@ const wikiPage = new Webpage(
   'https://wikipedia.org'
 )
 
-describe('Webpage()', () => {
-  it('is a function.', () => {
-    expect(typeof Webpage).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { Webpage() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(Webpage())).to.equal(true)
-    if (typeof Webpage().__proto__ === 'object') {
-      expect(Object.isFrozen(Webpage().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('Webpage', Webpage, Webpage())
+
 describe('Webpage(): Parameters', function () {
   describe('1. id', () => {
     it('accepts a work instance as parameter 1.', () => {

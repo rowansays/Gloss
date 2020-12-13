@@ -1,28 +1,14 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Normal } from '../src/Quotes/Normal.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('Normal()', () => {
-  it('is a function.', () => {
-    expect(typeof Normal).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { Normal(1, 2) }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(Normal(1, 2))).to.equal(true)
-    if (typeof Normal(1, 2).__proto__ === 'object') {
-      expect(Object.isFrozen(Normal(1, 2).__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('Normal', Normal, Normal('a', 'b'))
+
 describe('Normal(): Function Signature', function () {
   describe('(normal, actual)', () => {
     it('accepts a non-empty string for parameters 1 and 2.', () => {

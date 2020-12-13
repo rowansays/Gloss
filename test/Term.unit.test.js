@@ -1,6 +1,7 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Term } from '../src/Glosses/Term.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -21,23 +22,7 @@ Quote.prototype.getName = function () { return this.name }
 Quote.prototype.getSource = function () { return this.source }
 
 describe('Term() Unit Tests', () => {
-  describe('Term()', () => {
-    it('is a function.', () => {
-      expect(typeof Term).to.equal('function')
-    })
-    it('can be constructed without the "new" keyword.', function () {
-      expect(function () { Term('a') }).not.to.throw(Error)
-    })
-    it('creates frozen instances.', function () {
-      expect(Object.isFrozen(Term('a'))).to.equal(true)
-      if (typeof Term('a').__proto__ === 'object') {
-        expect(Object.isFrozen(Term('a').__proto__)).to.equal(true)
-      }
-    })
-    it('does not accidentally freeze the built-in Object prototype.', function () {
-      expect(Object.isFrozen(Object.prototype)).to.equal(false)
-    })
-  })
+  testFactoryFunction('Term', Term, Term('a'))
   describe('Term(): Function Signatures', function () {
     describe('(name)', () => {
       it('accepts a non-empty string as parameter one.', () => {

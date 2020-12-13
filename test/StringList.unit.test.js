@@ -1,28 +1,14 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { StringList } from '../src/Lists/StringList.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('StringList()', () => {
-  it('is a function.', () => {
-    expect(typeof StringList).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { StringList() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(StringList())).to.equal(true)
-    if (typeof StringList().__proto__ === 'object') {
-      expect(Object.isFrozen(StringList().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('StringList', StringList, StringList())
+
 describe('StringList(): Parameters', function () {
   describe('1+. ...strings', () => {
     it('accepts a string.', () => {

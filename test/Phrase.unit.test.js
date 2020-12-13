@@ -1,28 +1,14 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Phrase } from '../src/Quotes/Phrase.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('Phrase()', () => {
-  it('is a function.', () => {
-    expect(typeof Phrase).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { Phrase() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(Phrase())).to.equal(true)
-    if (typeof Phrase().__proto__ === 'object') {
-      expect(Object.isFrozen(Phrase().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('Phrase', Phrase, Phrase())
+
 describe('Phrase(): Parameters', function () {
   describe('1. value', () => {
     it('accepts a string as parameter 1.', () => {

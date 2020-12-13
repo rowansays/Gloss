@@ -5,6 +5,7 @@ import { GlossList } from '../src/Lists/GlossList.js'
 import chai from 'chai'
 import mocha from 'mocha'
 import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
+import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -23,23 +24,8 @@ Gloss.prototype.withDef = function () { return this }
 Gloss.prototype.withGloss = function () { return this }
 Gloss.prototype.withMemo = function () {return this}
 
-describe('GlossList()', () => {
-  it('is a function.', () => {
-    expect(typeof GlossList).to.equal('function')
-  })
-  it('can be constructed without the "new" keyword.', function () {
-    expect(function () { GlossList() }).not.to.throw(Error)
-  })
-  it('creates frozen instances.', function () {
-    expect(Object.isFrozen(GlossList())).to.equal(true)
-    if (typeof GlossList().__proto__ === 'object') {
-      expect(Object.isFrozen(GlossList().__proto__)).to.equal(true)
-    }
-  })
-  it('does not accidentally freeze the built-in Object prototype.', function () {
-    expect(Object.isFrozen(Object.prototype)).to.equal(false)
-  })
-})
+testFactoryFunction('GlossList', GlossList, GlossList())
+
 describe('GlossList.prototype', () => {
   const g = GlossList()
   it('.has()', () => { expect(typeof g.has).to.equal('function') })
