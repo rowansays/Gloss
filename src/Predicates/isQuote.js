@@ -11,6 +11,7 @@ function isQuote (aught) {
     typeof aught.getName === 'function' &&
     typeof aught.getReference === 'function' &&
     typeof aught.hasReference === 'function' &&
+    typeof aught.isAbbr === 'function' &&
     typeof aught.withReference === 'function'
 }
 
