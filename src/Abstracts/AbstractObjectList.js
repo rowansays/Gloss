@@ -1,6 +1,13 @@
-function AbstractObjectList () {
+import { AbstractNamed } from './AbstractNamed.js'
+
+function AbstractObjectList (props) {
+  AbstractNamed.call(this, props)
   this._defaultSortMethod = 'getName'
 }
+
+AbstractObjectList.prototype = Object.create(AbstractNamed.prototype)
+AbstractObjectList.prototype.constructor = AbstractNamed;
+
 AbstractObjectList.prototype.forEach = function () {
   return this.items.forEach(...arguments)
 }
