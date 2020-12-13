@@ -11,7 +11,7 @@ var it = mocha.it
 
 describe('isQuote() + various constructors.', () => {
   it('Instances of Normal() are quotes.', function () {
-    expect(isQuote(new Normal())).to.be.true
+    expect(isQuote(new Normal(1, 2))).to.be.true
   })
   it('Instances of Phrase() are quotes.', function () {
     expect(isQuote(new Phrase())).to.be.true
