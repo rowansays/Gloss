@@ -4,8 +4,8 @@ export { AbstractScalarList } from './src/Abstracts/AbstractScalarList.js'
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'
 export { AbstractQuote } from './src/Abstracts/AbstractQuote.js'
 
-// Dom
-export { renderGlossary } from './src/Dom/renderGlossary.js'
+// Components
+export { ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'

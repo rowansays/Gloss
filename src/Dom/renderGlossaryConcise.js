@@ -3,64 +3,63 @@
  *
  * @return {Element} Section element.
  */
-function renderGlossaryConcise (glossary) {
-  const section = document.createElement('section')
-  const heading = document.createElement('h1')
-  const headingText = document.createTextNode(glossary.getTitle())
-
-  heading.appendChild(headingText)
-  section.classList.add('GlossaryConcise')
-  section.appendChild(heading)
-  section.appendChild(renderGlossList(glossary))
-  return section
-}
-/**
- * Render gloss list.
- *
- * @return {Element} Definition list element.
- */
-function renderGlossList (glossary) {
-  const list = document.createElement('dl')
-  list.classList.add('GlossList')
+function ConciseGlossary (glossary) {
+  const glosses = []
   glossary.forEach(gloss => {
-    list.appendChild(renderGloss(gloss))
+    glosses.push(<Gloss gloss={gloss} />)
   })
-  return list
+
+  return (
+    <section class="GlossaryConcise">
+      <h1 class="GlossaryTitle">{glossary.getTitle()}</h1>
+      <dl class="GlossList">{glosses}</dl>
+    </section>
+  )
 }
 
-function renderGloss (gloss) {
-  const sortedGloss = gloss.sortDefsByName()
-  const size = sortedGloss.getSize()
+function Gloss (props) {
+  const { gloss } = props
+  const sorted = gloss.sortDefsByName()
+  const size = sorted.getSize()
 
-  const dt = document.createElement('dt')
-  dt.classList.add('GlossName')
-  dt.appendChild(document.createTextNode(sortedGloss.getName()))
-
-  const fragment = document.createDocumentFragment()
-  fragment.appendChild(dt)
-  sortedGloss.defs.forEach((def, i) => {
-    fragment.appendChild(renderDefintion(def, i, size))
+  const defs = []
+  sorted.defs.forEach((def, i) => {
+    const seperator = i < size - 1 ? ', ' : ''
+    defs.push(<GlossDef def={def} seperator={seperator} />)
   })
-  return fragment
+
+  return (
+    <>
+      <GlossName gloss={gloss} />
+      {defs}
+    </>
+  )
 }
 
-function renderDefintion (phrase, i, total) {
-  const dd = document.createElement('dd')
-  const span = document.createElement('span')
-  const quote = phrase.getFull()
-
-  if (quote !== '') {
-    dd.title = quote
-  }
-
-  span.appendChild(document.createTextNode(phrase.getName()))
-  dd.appendChild(span)
-
-  if (i < total - 1) {
-    dd.appendChild(document.createTextNode(', '))
-  }
-
-  return dd
+/**
+ * Render a name of a gloss.
+ *
+ * @param {Quote} def The definition to render.
+ */
+function GlossName (props) {
+  const { gloss } = props
+  return (
+    <dt class="GlossName">{gloss.getName()}</dt>
+  )
 }
 
-export { renderGlossaryConcise }
+/**
+ * Render a definition for a gloss.
+ *
+ * @param {Quote} def The definition to render.
+ */
+function GlossDef (props) {
+  const { def, seperator } = props
+  return (
+    <dd class="GlossDef" title={def.getFull()}>
+      <span>{def.getName()}</span>{seperator}
+    </dd>
+  )
+}
+
+export { ConciseGlossary }
