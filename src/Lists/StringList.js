@@ -7,7 +7,8 @@
  *   be coerced to strings.
  */
 
-import { AbstractScalarList, castString } from '../../index.js'
+import { AbstractScalarList } from '../Abstracts/AbstractScalarList.js'
+import { castString } from '../Utility/castString.js'
 import { freeze } from '../Utility/freeze.js'
 
 function $StringList (...strings) {

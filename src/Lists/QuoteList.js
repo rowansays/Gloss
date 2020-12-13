@@ -6,7 +6,11 @@
  * @param {...Quote|QuoteList|Array|string|number} quotes
  */
 
-import { AbstractObjectList, castString, isList, isQuote, Phrase } from '../../index.js'
+import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
+import { castString } from '../Utility/castString.js'
+import { isList } from '../Predicates/isList.js'
+import { isQuote } from '../Predicates/isQuote.js'
+import { Phrase } from '../Quotes/Phrase.js'
 import { freeze } from '../Utility/freeze.js'
 
 /**

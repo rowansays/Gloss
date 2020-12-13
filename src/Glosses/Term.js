@@ -13,7 +13,10 @@
  * @prop {QuoteList} definitions
  */
 
-import { castString, isQuote, Phrase, QuoteList } from '../../index.js'
+import { castString } from '../Utility/castString.js'
+import { isQuote } from '../Predicates/isQuote.js'
+import { Phrase } from '../Quotes/Phrase.js'
+import { QuoteList } from '../Lists/QuoteList.js'
 import { freeze } from '../Utility/freeze.js'
 
 function validateName (aught) {

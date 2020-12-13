@@ -4,7 +4,9 @@
  * A part of speech is a type of quote.
  */
 
-import { AbstractQuote, castString, StringList } from '../../index.js'
+import { AbstractQuote } from '../Abstracts/AbstractQuote.js'
+import { castString } from '../Utility/castString.js'
+import { StringList } from '../Lists/StringList.js'
 import { freeze } from '../Utility/freeze.js'
 
 function $Speech (name, $case, ...reference) {

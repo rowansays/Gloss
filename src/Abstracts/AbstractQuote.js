@@ -1,4 +1,4 @@
-import { castString } from '../../index.js'
+import { castString } from '../Utility/castString.js'
 
 /**
  * Pseudo-abstract quote constructor.

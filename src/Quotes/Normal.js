@@ -9,7 +9,9 @@
  * @param {...string} reference
  */
 
-import { AbstractQuote, castString, StringList } from '../../index.js'
+import { AbstractQuote } from '../Abstracts/AbstractQuote.js'
+import { castString } from '../Utility/castString.js'
+import { StringList } from '../Lists/StringList.js'
 import { freeze } from '../Utility/freeze.js'
 
 function $Normal (normal, actual, ...reference) {
