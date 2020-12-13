@@ -18,9 +18,9 @@ function ConciseGlossary (glossary) {
   })
 
   return (
-    <section class="GlossaryConcise">
-      <h1 class="GlossaryTitle">{glossary.getTitle()}</h1>
-      <dl class="GlossList">{glosses}</dl>
+    <section class='GlossaryConcise'>
+      <h1 class='GlossaryTitle'>{glossary.getTitle()}</h1>
+      <dl class='GlossList'>{glosses}</dl>
     </section>
   )
 }
@@ -52,7 +52,7 @@ function Gloss (props) {
 function GlossName (props) {
   const { gloss } = props
   return (
-    <dt class="GlossName">{gloss.getName()}</dt>
+    <dt class='GlossName'>{gloss.getName()}</dt>
   )
 }
 
@@ -64,7 +64,7 @@ function GlossName (props) {
 function GlossDef (props) {
   const { def, seperator } = props
   return (
-    <dd class="GlossDef" title={def.getFull() || undefined}>
+    <dd class='GlossDef' title={def.getFull() || undefined}>
       <span>{def.getName()}</span>{seperator}
     </dd>
   )
