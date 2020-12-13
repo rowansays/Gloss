@@ -32,6 +32,9 @@ $Normal.prototype.getFull = function () {
 $Normal.prototype.getName = function () {
   return this.normal
 }
+$Normal.prototype.isAbbr = function () {
+  return true
+}
 $Normal.prototype.withReference = function (...reference) {
   const references = this.references.withString(...reference).getItems()
   return new this.constructor(this.normal, this.actual, ...references)

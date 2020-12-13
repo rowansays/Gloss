@@ -38,5 +38,14 @@ AbstractQuote.prototype.hasReference = function (refKey) {
       return this.references.getSize() > 0
   }
 }
+/**
+ * Does this quote's getName() method return an abbreviated form of a longer
+ * quotation?
+ *
+ * @return {bool}
+ */
+AbstractQuote.prototype.isAbbr = function () {
+  return false
+}
 
 export { AbstractQuote }
