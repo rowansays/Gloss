@@ -38,7 +38,10 @@ $QuoteList.prototype.has = function (name) {
   return false
 }
 $QuoteList.prototype.withQuote = function () {
-  return new $QuoteList(...this.items, ...arguments)
+  return new $QuoteList({
+    name: this.name,
+    items: [...this.items, ...arguments]
+  })
 }
 
 Object.defineProperty($QuoteList.prototype, 'constructor', {
