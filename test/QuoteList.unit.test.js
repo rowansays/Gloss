@@ -14,6 +14,12 @@ var it = mocha.it
 testFactoryFunction('QuoteList', QuoteList, QuoteList())
 
 describe('QuoteList.prototype', function () {
+  it('has a has() method.', () => {
+    expect(typeof QuoteList().has).to.equal('function')
+  })
+  it('has a withQuote() method.', () => {
+    expect(typeof QuoteList().withQuote).to.equal('function')
+  })
   testAbstractObjectListPrototype(QuoteList())
 })
 describe('QuoteList(): Function Signatures', function () {
