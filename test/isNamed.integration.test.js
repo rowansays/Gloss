@@ -36,6 +36,9 @@ describe('isNamed() Integration Tests.', () => {
     it('Values returned by Glossary() are named.', function () {
       expect(isNamed(Glossary())).to.be.true
     })
+    it('Values returned by GlossList() are not named.', function () {
+      expect(isNamed(GlossList({ name: 'nobody' }))).to.be.true
+    })
     it('Values returned by HybridGlossary() are named.', function () {
       expect(isNamed(HybridGlossary())).to.be.true
     })
@@ -44,6 +47,9 @@ describe('isNamed() Integration Tests.', () => {
     })
     it('Values returned by Phrase() are named.', function () {
       expect(isNamed(Phrase())).to.be.true
+    })
+    it('Values returned by QuoteList() are not named.', function () {
+      expect(isNamed(QuoteList({ name: 'nobody' }))).to.be.true
     })
     it('Values returned by Speech() are named.', function () {
       expect(isNamed(Speech())).to.be.true
@@ -56,12 +62,6 @@ describe('isNamed() Integration Tests.', () => {
     })
   })
   describe('Overlooks unnamed objects.', () => {
-    it('Values returned by GlossList() are not named.', function () {
-      expect(isNamed(GlossList())).to.be.false
-    })
-    it('Values returned by QuoteList() are not named.', function () {
-      expect(isNamed(QuoteList())).to.be.false
-    })
     it('Values returned by StringList() are not named.', function () {
       expect(isNamed(StringList())).to.be.false
     })
