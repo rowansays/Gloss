@@ -6,6 +6,7 @@ export { AbstractQuote } from './src/Abstracts/AbstractQuote.js'
 
 // Components
 export { renderConciseGlossary, ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
+export { renderVerboseGlossary, VerboseGlossary } from './src/Dom/VerboseGlossary.jsx'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'
