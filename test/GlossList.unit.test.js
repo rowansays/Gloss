@@ -1,6 +1,10 @@
+// System under test.
+import { GlossList } from '../src/Lists/GlossList.js'
+
+// Test library
 import chai from 'chai'
 import mocha from 'mocha'
-import { GlossList } from '../src/Lists/GlossList.js'
+import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -36,6 +40,11 @@ describe('GlossList()', () => {
     expect(Object.isFrozen(Object.prototype)).to.equal(false)
   })
 })
+describe('GlossList.prototype', () => {
+  const g = GlossList()
+  it('.has()', () => { expect(typeof g.has).to.equal('function') })
+  testAbstractObjectListPrototype(g)
+})
 describe('GlossList(): Parameters', function () {
   describe('1.+ ...entries', () => {
     it('accepts a gloss for parameters one, two, and three.', () => {
@@ -69,9 +78,6 @@ describe('GlossList(): Parameters', function () {
 })
 describe('GlossList(): Instance Methods', function () {
   describe('has()', function () {
-    it('is a function.', () => {
-      expect(typeof GlossList().has).to.equal('function')
-    })
     it('returns false when list is empty.', () => {
       expect(GlossList().has('a')).to.be.false
     })
@@ -84,36 +90,18 @@ describe('GlossList(): Instance Methods', function () {
   })
   describe('Inherited from AbstractObjectList()', function () {
     describe('getItems()', function () {
-      it('does exist.', () => {
-        expect(!!GlossList().getItems).to.be.true
-      })
-      it('is a function.', () => {
-        expect(typeof GlossList().getItems).to.equal('function')
-      })
       it('returns empty array when no referenes exist.', () => {
         expect(Array.isArray(GlossList().getItems())).to.be.true
         expect(GlossList().getItems().length).to.equal(0)
       })
     })
     describe('getSize()', function () {
-      it('does exist.', () => {
-        expect(!!GlossList().getSize).to.be.true
-      })
-      it('is a function.', () => {
-        expect(typeof GlossList().getSize).to.equal('function')
-      })
       it('returns an integer with a value of zero when no referenes exist.', () => {
         expect(Number.isInteger(GlossList().getSize())).to.be.true
         expect(GlossList().getSize()).to.equal(0)
       })
     })
     describe('sortAscBy()', function () {
-      it('does exist.', () => {
-        expect(!!GlossList().sortAscBy).to.be.true
-      })
-      it('is a function.', () => {
-        expect(typeof GlossList().sortAscBy).to.equal('function')
-      })
       it('returns an empty GlossList instance when no referenes exist.', () => {
         const list = GlossList()
         const sorted = list.sortAscBy()
@@ -134,12 +122,6 @@ describe('GlossList(): Instance Methods', function () {
       })
     })
     describe('sortDescBy()', function () {
-      it('does exist.', () => {
-        expect(!!GlossList().sortDescBy).to.be.true
-      })
-      it('is a function.', () => {
-        expect(typeof GlossList().sortDescBy).to.equal('function')
-      })
       it('returns an empty GlossList instance when no entries exist.', () => {
         const list = GlossList()
         const sorted = list.sortDescBy()

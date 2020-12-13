@@ -1,6 +1,10 @@
+// Sustem under test.
+import { QuoteList } from '../src/Lists/QuoteList.js'
+
+// Testing library.
 import chai from 'chai'
 import mocha from 'mocha'
-import { QuoteList } from '../src/Lists/QuoteList.js'
+import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -22,6 +26,9 @@ describe('QuoteList()', () => {
   it('does not accidentally freeze the built-in Object prototype.', function () {
     expect(Object.isFrozen(Object.prototype)).to.equal(false)
   })
+})
+describe('QuoteList.prototype', function () {
+  testAbstractObjectListPrototype(QuoteList())
 })
 describe('QuoteList(): Function Signatures', function () {
   describe('()', () => {
