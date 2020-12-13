@@ -23,7 +23,7 @@ import { freeze } from '../Utility/freeze.js'
  * @return {Quote[]} A flat array of quotes.
  */
 function parseQuotes (...params) {
-  const output = []
+  let output = []
   params = Array.isArray(params) ? params : []
   params.forEach(param => {
     if (typeof param === 'string' || typeof param === 'number') {
@@ -33,11 +33,12 @@ function parseQuotes (...params) {
       }
     } else if (isQuote(param)) {
       output.push(param)
-    } else if (isList(param) || Array.isArray(param)) {
-      // This is TOO trusting for arrays.
+    } else if (isList(param)) {
       param.forEach(subParam => {
         output.push(subParam)
       })
+    } else if (Array.isArray(param)) {
+      output = output.concat(parseQuotes(...param))
     }
   })
   return output
