@@ -26,8 +26,20 @@ export function testNameProp (func) {
     it('accepts non-empty strings.', () => {
       expect(function () { func({ name: 'nobody' }) }).to.not.throw(Error)
     })
+    it('  - trims leading and trailing spaces.', () => {
+      expect(func({ name: '   nobody   ' }).getName()).to.equal('nobody')
+    })
+    it('  - trims leading and trailing tabs.', () => {
+      expect(func({ name: "\t\t\tnobody\t\t\t" }).getName()).to.equal('nobody')
+    })
+    it('  - trims leading and trailing spaces and tabs.', () => {
+      expect(func({ name: "\t \t nobody \t \t" }).getName()).to.equal('nobody')
+    })
     it('accepts integers.', () => {
       expect(function () { func({ name: 123 }) }).to.not.throw(Error)
+    })
+    it('  - casts integers to strings.', () => {
+      expect(func({ name: 123 }).getName()).to.equal('123')
     })
     it('rejects empty names', () => {
       expect(function () { func() }).to.throw(Error)
@@ -42,10 +54,10 @@ export function testNameProp (func) {
       expect(function () { func({ name: '   ' })}).to.throw(Error)
     })
     it('rejects a tab character.', () => {
-      expect(function () { func({ name: '  ' })}).to.throw(Error)
+      expect(function () { func({ name: "\t" })}).to.throw(Error)
     })
     it('rejects multiple tab characters.', () => {
-      expect(function () { func({ name: '      ' })}).to.throw(Error)
+      expect(function () { func({ name: "\t\t\t" })}).to.throw(Error)
     })
   })
 }
