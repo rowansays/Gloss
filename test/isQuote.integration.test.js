@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { isQuote } from '../src/Predicates/isQuote.js'
+import { isQuote } from '../src/Utility/isQuote.js'
 import { Normal } from '../src/Quotes/Normal.js'
 import { Phrase } from '../src/Quotes/Phrase.js'
 import { Speech } from '../src/Quotes/Speech.js'

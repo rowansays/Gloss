@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { isGloss } from '../src/Predicates/isGloss.js'
+import { isGloss } from '../src/Utility/isGloss.js'
 import { Term } from '../src/Glosses/Term.js'
 
 var describe = mocha.describe

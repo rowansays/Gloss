@@ -20,12 +20,6 @@ export { GlossList } from './src/Lists/GlossList.js'
 export { QuoteList } from './src/Lists/QuoteList.js'
 export { StringList } from './src/Lists/StringList.js'
 
-// Predicate
-export { isList } from './src/Predicates/isList.js'
-export { isQuote } from './src/Predicates/isQuote.js'
-export { isReference } from './src/Predicates/isReference.js'
-export { isWork } from './src/Predicates/isWork.js'
-
 // Quotes
 export { Normal } from './src/Quotes/Normal.js'
 export { Phrase } from './src/Quotes/Phrase.js'
@@ -37,6 +31,10 @@ export { Webpage } from './src/References/Webpage.js'
 
 // Utility
 export { castString } from './src/Utility/castString.js'
+export { isList } from './src/Utility/isList.js'
+export { isQuote } from './src/Utility/isQuote.js'
+export { isReference } from './src/Utility/isReference.js'
+export { isWork } from './src/Utility/isWork.js'
 
 // Everything Else
 export { Card } from './src/Card.js'

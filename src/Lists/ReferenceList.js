@@ -1,6 +1,6 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
-import { isReference } from '../Predicates/isReference.js'
+import { isReference } from '../Utility/isReference.js'
 
 function $ReferenceList (...entries) {
   AbstractObjectList.call(this)

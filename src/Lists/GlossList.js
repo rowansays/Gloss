@@ -8,8 +8,8 @@
 
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
-import { isGloss } from '../Predicates/isGloss.js'
-import { isList } from '../Predicates/isList.js'
+import { isGloss } from '../Utility/isGloss.js'
+import { isList } from '../Utility/isList.js'
 
 /**
  * Parse glosses parameter.

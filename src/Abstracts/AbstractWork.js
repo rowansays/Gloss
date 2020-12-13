@@ -1,4 +1,4 @@
-import { isWork } from '../Predicates/isWork.js'
+import { isWork } from '../Utility/isWork.js'
 
 function AbstractWork (key, title, subtitle, description, author, date, url) {
   let props = {}
