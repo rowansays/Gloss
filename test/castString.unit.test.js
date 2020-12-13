@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { castString } from '../index.js'
+import { castString } from '../src/Utility/castString.js'
 
 var describe = mocha.describe
 var expect = chai.expect

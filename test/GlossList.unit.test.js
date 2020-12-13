@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { GlossList } from '../index.js'
+import { GlossList } from '../src/Lists/GlossList.js'
 
 var describe = mocha.describe
 var expect = chai.expect

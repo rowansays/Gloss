@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { Term } from '../index.js'
+import { Term } from '../src/Glosses/Term.js'
 
 var describe = mocha.describe
 var expect = chai.expect
