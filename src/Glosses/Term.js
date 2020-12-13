@@ -14,28 +14,27 @@
  */
 
 import { castString } from '../Utility/castString.js'
-import { isQuote } from '../Utility/isQuote.js'
-import { Phrase } from '../Quotes/Phrase.js'
 import { QuoteList } from '../Lists/QuoteList.js'
 import { freeze } from '../Utility/freeze.js'
 
-function validateName (aught) {
+function validateName (aught, constructor, number) {
+  number = Number.isInteger(number) ? number : 1
   const clean = castString(aught)
   if (clean === '') {
     throw new TypeError('' +
-      '$Term(): Parameter 1 "name" is required and must evaluate to a ' +
-      'non-empty string. It may be either: a string, a number, or an object ' +
-      'having a getName() method.'
+      `${constructor}: Parameter ${number} "props" must possess a "name" ` +
+      'property whose value is either a string, a number, or an object that ' +
+      `has a getName() method. A value with type "${typeof aught}" was ` +
+      'provided.'
     )
   }
-
-  return isQuote(aught) ? aught : Phrase(clean)
+  return clean
 }
 
-function $Term (name, memos, ...defs) {
-  this.name = validateName(name)
-  this.memos = QuoteList(memos)
-  this.defs = QuoteList(...defs)
+function $Term (props) {
+  this.name = validateName(props.name, '$Term()')
+  this.memos = QuoteList(props.memos)
+  this.defs = QuoteList(props.defs)
 }
 $Term.prototype.getDef = function (index) {
   return this.defs.getItem(index)
@@ -57,9 +56,23 @@ $Term.prototype.getMemos = function () {
   return this.memos.getItems()
 }
 $Term.prototype.getName = function () {
-  return this.name.getName()
+  return this.name
 }
 /**
+ * Get Properties.
+ *
+ * @return {Object} A plain javascript object that can be used as the props
+ *   parameter to create a new instance.
+ */
+$Term.prototype.getProps = function () {
+  const { name, memos, defs } = this
+  return { name, memos, defs }
+}
+/**
+ * Get size.
+ *
+ * The size of a gloss is equal to the quantity of its definitions.
+ *
  * @return {number}
  */
 $Term.prototype.getSize = function () {
@@ -84,8 +97,10 @@ $Term.prototype.sortDefsByName = function () {
  * @param {...Quote} One or more quote objects.
  * @return {$Term}
  */
-$Term.prototype.withDef = function () {
-  return new $Term(this.name, this.memo, this.defs, ...arguments)
+$Term.prototype.withDef = function (...defs) {
+  const props = this.getProps()
+  props.defs = props.defs.withQuote(...defs)
+  return new this.constructor(props)
 }
 /**
  * Clone an instance while merging in one or more glosses.
@@ -95,13 +110,12 @@ $Term.prototype.withDef = function () {
  */
 $Term.prototype.withGloss = function (...glosses) {
   if (!!glosses && typeof glosses.forEach === 'function') {
-    const memos = this.getMemos()
-    const defs = this.getDefs()
+    const props = this.getProps()
     glosses.forEach(gloss => {
-      gloss.getMemos().forEach(memo => { memos.push(memo) })
-      gloss.getDefs().forEach(def => { defs.push(def) })
+      props.memos = props.memos.withQuote(...gloss.getMemos())
+      props.defs = props.defs.withQuote(...gloss.getDefs())
     })
-    return Term(this.name, memos, defs)
+    return new $Term(props)
   }
   return this
 }
@@ -112,12 +126,13 @@ $Term.prototype.withGloss = function (...glosses) {
  * @return {$Term}
  */
 $Term.prototype.withMemo = function () {
-  const newMemo = this.memos.withQuote(this.memo, ...arguments)
-  return new $Term(this.name, newMemo, this.defs)
+  const props = this.getProps()
+  props.memos = props.memos.withQuote(this.memo, ...arguments)
+  return new this.constructor(props)
 }
 
-function Term () {
-  const obj = new $Term(...arguments)
+function Term (name, memos, ...defs) {
+  const obj = new $Term({ name, memos, defs })
   freeze(obj, $Term)
   return obj
 }

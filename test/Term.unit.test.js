@@ -73,6 +73,14 @@ describe('Term() Unit Tests', () => {
         expect(function () { Term(new UnnamedObject()) }).to.throw(TypeError)
       })
     })
+    describe('(name, memo, def)', () => {
+      it('accepts a non-empty string as parameter three.', () => {
+        expect(function () { Term('a', '', 'BANANA') }).not.to.throw(Error)
+      })
+      it('accepts a non-empty string as parameter three.', () => {
+        expect(function () { Term('a', '', 'BANANA') }).not.to.throw(Error)
+      })
+    })
   })
   describe('Term: Instance Methods', function () {
     describe('getMemo()', function () {
@@ -93,6 +101,20 @@ describe('Term() Unit Tests', () => {
       })
       it('returns value of name.', () => {
         expect(Term('Poetic Edda').getName()).to.equal('Poetic Edda')
+      })
+    })
+    describe('getDef()', function () {
+      it('is a function.', () => {
+        expect(typeof Term('a').getDef).to.equal('function')
+      })
+      it('returns value of first def parameter.', () => {
+        expect(Term('a', 'b', 'c').getDef(0).getName()).to.equal('c')
+      })
+      it('returns value of second def parameter.', () => {
+        expect(Term('a', 'b', 'c', 'd').getDef(1).getName()).to.equal('d')
+      })
+      it('returns value of third def parameter.', () => {
+        expect(Term('a', 'b', 'c', 'd', 'e').getDef(2).getName()).to.equal('e')
       })
     })
     describe('withDef()', function () {
