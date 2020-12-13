@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { StringList } from '../src/Lists/QuoteList.js'
+import { StringList } from '../src/Lists/StringList.js'
 
 var describe = mocha.describe
 var expect = chai.expect
