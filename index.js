@@ -5,7 +5,7 @@ export { AbstractWork } from './src/Abstracts/AbstractWork.js'
 export { AbstractQuote } from './src/Abstracts/AbstractQuote.js'
 
 // Components
-export { ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
+export { renderConciseGlossary, ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'

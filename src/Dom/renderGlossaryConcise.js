@@ -1,8 +1,16 @@
+import { render } from 'preact'
+
 /**
  * Render concise glossary.
  *
  * @return {Element} Section element.
  */
+function renderConciseGlossary () {
+  const fragment = document.createDocumentFragment()
+  render(ConciseGlossary(...arguments), fragment)
+  return fragment
+}
+
 function ConciseGlossary (glossary) {
   const glosses = []
   glossary.forEach(gloss => {
@@ -62,4 +70,4 @@ function GlossDef (props) {
   )
 }
 
-export { ConciseGlossary }
+export { renderConciseGlossary, ConciseGlossary }

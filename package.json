@@ -30,7 +30,7 @@
         "@babel/plugin-transform-react-jsx",
         {
           "runtime": "automatic",
-          "importSource": ""
+          "importSource": "preact"
         }
       ]
     ],
@@ -48,5 +48,8 @@
       "*.test.js"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "preact": "10.5.7",
+    "preact-jsx-runtime": "1.2.0"
+  }
 }
