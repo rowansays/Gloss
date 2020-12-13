@@ -11,9 +11,10 @@ function AbstractNamed (props) {
   const clean = props ? castString(props.name) : ''
   if (clean === '') {
     throw new TypeError('' +
-      'The "props" parameter must possess a "name" property whose value is ' +
-      'either a string, a number, or an object that has a getName() method. ' +
-      `A value with type "${typeof aught}" was provided.`
+      `${this.constructor.name}() - The "props" parameter must possess a ` +
+      '"name" property whose value is either a string, a number, or an ' +
+      'object that has a getName() method. A value with type ' +
+      `"${typeof aught}" was provided.`
     )
   }
 
