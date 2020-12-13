@@ -33,8 +33,8 @@ function validateName (aught, constructor, number) {
 
 function $Term (props) {
   this.name = validateName(props.name, '$Term()')
-  this.memos = QuoteList(props.memos)
-  this.defs = QuoteList(props.defs)
+  this.memos = QuoteList({ name: 'Term memos', quotes: props.memos })
+  this.defs = QuoteList({ name: 'Term definitions', quotes: props.defs })
 }
 $Term.prototype.getDef = function (index) {
   return this.defs.getItem(index)
