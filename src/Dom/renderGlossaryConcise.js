@@ -64,7 +64,7 @@ function GlossName (props) {
 function GlossDef (props) {
   const { def, seperator } = props
   return (
-    <dd class="GlossDef" title={def.getFull()}>
+    <dd class="GlossDef" title={def.getFull() || undefined}>
       <span>{def.getName()}</span>{seperator}
     </dd>
   )
