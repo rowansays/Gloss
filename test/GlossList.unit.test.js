@@ -38,14 +38,32 @@ describe('GlossList()', () => {
 })
 describe('GlossList(): Parameters', function () {
   describe('1.+ ...entries', () => {
-    it('accepts entry objects for parameters one, two, and three.', () => {
+    it('accepts a gloss for parameters one, two, and three.', () => {
       expect(function () {
-        new GlossList(
-          new Gloss('Three'),
-          new Gloss('Four'),
-          new Gloss('Five')
-        )
+        GlossList(new Gloss('a'), new Gloss('b'), new Gloss('c'))
       }).not.to.throw(Error)
+    })
+    it('accepts an array of glosses for parameter one.', () => {
+      const gl = GlossList([new Gloss('a'), new Gloss('b'), new Gloss('c')])
+      expect(gl.has('a')).to.be.true
+      expect(gl.has('b')).to.be.true
+      expect(gl.has('c')).to.be.true
+    })
+    it('accepts a GlossList as parameter one.', () => {
+      const gl1 = GlossList(new Gloss('a'), new Gloss('b'), new Gloss('c'))
+      const gl2 = GlossList(gl1)
+      expect(gl2.has('a')).to.be.true
+      expect(gl2.has('b')).to.be.true
+      expect(gl2.has('c')).to.be.true
+    })
+    it('accepts a mixture of parameter types.', () => {
+      const gloss = new Gloss('a')
+      const array = [new Gloss('b')]
+      const list = GlossList(new Gloss('c'))
+      const gl = GlossList(gloss, array, list)
+      expect(gl.has('a')).to.be.true
+      expect(gl.has('b')).to.be.true
+      expect(gl.has('c')).to.be.true
     })
   })
 })

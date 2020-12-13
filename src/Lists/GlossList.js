@@ -18,7 +18,7 @@ import { isList } from '../Utility/isList.js'
  * @return {Gloss[]} An array of glosses.
  */
 function parseGlosses (...params) {
-  const output = []
+  let output = []
   params = Array.isArray(params) ? params : []
   params.forEach(param => {
     if (isGloss(param)) {
@@ -28,7 +28,7 @@ function parseGlosses (...params) {
         output.push(subParam)
       })
     } else if (Array.isArray(param)) {
-      output.concat(parseGlosses(...param))
+      output = output.concat(parseGlosses(...param))
     }
   })
   return output
