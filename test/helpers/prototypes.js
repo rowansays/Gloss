@@ -5,7 +5,7 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-function test(method, instance, tests) {
+export function test(method, instance, tests) {
   tests = typeof tests === 'function' ? tests : () => {}
   describe(`${method}()`, function () {
     it('is in prototype chain', () => {
