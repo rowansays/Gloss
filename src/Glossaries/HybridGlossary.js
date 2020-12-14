@@ -28,7 +28,8 @@ function $HybridGlossary (id, ...glossaries) {
     })
   })
 
-  this.glosses = GlossList(...glosses)
+  const name = id && id.getName() ? id.getName() : 'Anonymous'
+  this.glosses = GlossList({ name: name, items: glosses })
 }
 
 $HybridGlossary.prototype = Object.create(AbstractWork.prototype)

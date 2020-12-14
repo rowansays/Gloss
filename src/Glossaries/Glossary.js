@@ -15,7 +15,8 @@ import { GlossList } from '../Lists/GlossList.js'
 
 function $Glossary (id, referenceKey, ...glosses) {
   AbstractWork.call(this, id)
-  this.glosses = GlossList(...glosses)
+  const name = id && id.getName() ? id.getName() : 'Anonymous'
+  this.glosses = GlossList({ name: name, items: glosses })
   this.referenceKey = typeof referenceKey === 'string' ? referenceKey : ''
 }
 
