@@ -4,15 +4,13 @@
  * @param {mixed} aught The value which may be a quote.
  * @return {bool} True if the object can be used as a quote; false otherwise.
  */
-function isQuote (aught) {
-  return !!aught &&
+export function isQuote (aught) {
+  return aught &&
     typeof aught === 'object' &&
-    typeof aught.getFull === 'function' &&
+    typeof aught.getFreq === 'function' &&
     typeof aught.getName === 'function' &&
-    typeof aught.getReference === 'function' &&
-    typeof aught.hasReference === 'function' &&
-    typeof aught.isAbbr === 'function' &&
-    typeof aught.withReference === 'function'
+    typeof aught.getProps === 'function' &&
+    typeof aught.getSize === 'function' &&
+    typeof aught.isSingular === 'function' &&
+    typeof aught.withQuote === 'function'
 }
-
-export { isQuote }
