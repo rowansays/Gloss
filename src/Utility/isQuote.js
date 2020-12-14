@@ -5,7 +5,7 @@
  * @return {bool} True if the object can be used as a quote; false otherwise.
  */
 export function isQuote (aught) {
-  return aught &&
+  return !!aught &&
     typeof aught === 'object' &&
     typeof aught.getFreq === 'function' &&
     typeof aught.getName === 'function' &&
