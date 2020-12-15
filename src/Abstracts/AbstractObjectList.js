@@ -2,6 +2,7 @@ import { AbstractNamed } from './AbstractNamed.js'
 
 function AbstractObjectList (props) {
   AbstractNamed.call(this, props)
+  this._defaultGetMethod = 'getName'
   this._defaultSortMethod = 'getName'
 }
 
@@ -26,7 +27,7 @@ AbstractObjectList.prototype.getItem = function (key) {
     case 'string':
       for (let i = 0; i < this.getSize(); i++) {
         const item = this.getItem(i)
-        if (item.getName() === key) {
+        if (item.[this._defaultGetMethod]() === key) {
           return item
         }
       }
