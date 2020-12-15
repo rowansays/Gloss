@@ -1,23 +1,22 @@
-/**
- * Quote factory.
- *
- * A Quote is the simplest form of gloss. Instances contain a name, zero or more
- * memos, and zero or more Quoteinitions.
- *
- * @param {string|Quote|QuoteList} name Required.
- * @param {Array|QuoteList} memos.
- * @param {...Quote|...String} Quoteinitions.
- *
- * @prop {Quote} name
- * @prop {QuoteList} memos
- * @prop {QuoteList} Quoteinitions
- */
-
 import { castString } from '../Utility/castString.js'
 import { castStringArray } from '../Utility/castStringArray.js'
 import { freeze } from '../Utility/freeze.js'
 import { isQuote } from '../Utility/isQuote.js'
 
+/**
+ * Quote constructor.
+ *
+ * Creates instances containing one or more quotations from a reference.
+ *
+ * @param {...$Quote|Object} quotes Zero or more objects that represent a
+ *   quote. Recognized values include instances of $Quote or any object with
+ *   the following properties:
+ *
+ *      1. name {string} Any value that can be coerced to a string.
+ *      2. refs {string[]} An array of values that can be coerced to strings.
+ *
+ * @return {$Quote}
+ */
 function $Quote (...quotes) {
   if (quotes.length < 1) {
     throw new Error('no quotes')
@@ -135,6 +134,11 @@ $Quote.prototype.withQuote = function (...quotes) {
 }
 /**
  * Add one or more references to this quote.
+ *
+ * The provided reference(s) will be added to all quotations represented by
+ * this instance.
+ *
+ * @param {string} ref One or more strings representing the key of a reference.
  */
 $Quote.prototype.withRef = function (...refs) {
   const props = []
@@ -145,18 +149,67 @@ $Quote.prototype.withRef = function (...refs) {
   return $Quote.makeFrozen(...props)
 }
 
+/**
+ * Quote factory.
+ *
+ * This function shares a signature with &Quote()
+ *
+ * @param {...$Quote|Object} quotes Zero or more objects that represent a quote.
+ * @return {$Quote} A new quotation.
+ */
 function Quote () {
   return $Quote.makeFrozen(...arguments)
 }
 
-function Phrase (name, ref) {
-  return $Quote.makeFrozen({ name: name, refs: [ref] })
+/**
+ * Phrase factory.
+ *
+ * Create a quote from a single reference.
+ *
+ * @param {string} verbatim Required. The quote as it appears in the reference.
+ * @param {string} ref The key of the reference in which this quote was taken.
+ * @return {$Quote} A singular quotation.
+ */
+function Phrase (verbatim, ref) {
+  return $Quote.makeFrozen({ name: verbatim, refs: [ref] })
 }
 
-function Normal (normal, actual, ref) {
+/**
+ * Normalized phrase factory.
+ *
+ * A normalized phrase is one that has been paraphrased to a simpler form
+ * consistent with quotations from other sources.
+ *
+ * For example...
+ *
+ * Imagine that the term "Book" appears in Reference #1 and we want to quote it
+ * We can use the Phrase function:
+ *
+ * ```
+ * const book = Prase('Book', 'reference1')
+ * ```
+ *
+ * Now imagine that the idea of a book is contained in Reference #2 however,
+ * the word "Tome" is used. To allow the term "Tome" to be understood as a
+ * "Book" we can normalize it using Normal().
+ *
+ * ```
+ * const tome = Normal('Book', 'Tome', 'reference2')
+ * ```
+ *
+ * Doing so will allow these 2 quotes to be understood as the same idea and
+ * merged together by other processes - namely those in `QuoteList()`.
+ *
+ * @param {string} normal The normalized form of the quote.
+ * @param {string} verbatim Required. The quote as it appears in the reference.
+ * @param {string} ref The key of the reference in which this quote was taken.
+ *
+ * @return {$Quote} A compound quotation.
+ */
+function Normal (normal, verbatim, ref) {
   return $Quote.makeFrozen(
     { name: normal, refs: [] },
-    { name: actual, refs: [ref] }
+    { name: verbatim, refs: [ref] }
   )
 }
 
