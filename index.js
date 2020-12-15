@@ -18,6 +18,7 @@ export { Term } from './src/Glosses/Term.js'
 // Lists
 export { GlossList } from './src/Lists/GlossList.js'
 export { QuoteList } from './src/Lists/QuoteList.js'
+export { ReferenceList } from './src/Lists/ReferenceList.js'
 export { StringList } from './src/Lists/StringList.js'
 
 // Quotes
