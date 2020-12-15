@@ -1,20 +1,22 @@
-function renderReferenceList () {
+import { render } from 'preact'
+
+export function renderReferenceList () {
   const fragment = document.createDocumentFragment()
   render(ReferenceList(...arguments), fragment)
   return fragment
 }
 
-function ReferenceList (props) {
+export function ReferenceList (props) {
   const { list } = props
 
   return (
-    <ul>{refs}</ul>
+    <ul>{list}</ul>
   )
 }
 
-function ReferenceListItem (props) {
+export function ReferenceListItem (props) {
   const list = { props }
   return (
-    <ul>{refs}</ul>
+    <ul>{list}</ul>
   )
 }
