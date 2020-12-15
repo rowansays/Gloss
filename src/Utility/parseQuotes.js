@@ -1,7 +1,7 @@
 import { castString } from './castString.js'
 import { isList } from './isList.js'
 import { isQuote } from './isQuote.js'
-import { Phrase } from '../Quotes/Phrase.js'
+import { Phrase } from '../Quotes/Quote.js'
 
 /**
  * Parse quotes parameter.
@@ -14,7 +14,9 @@ import { Phrase } from '../Quotes/Phrase.js'
  */
 export function parseQuotes (...params) {
   let output = []
+
   params = Array.isArray(params) ? params : []
+
   params.forEach(param => {
     if (typeof param === 'string' || typeof param === 'number') {
       const clean = castString(param)
