@@ -10,7 +10,7 @@ function isList (aught) {
   return !!aught &&
     typeof aught === 'object' &&
     typeof aught.forEach === 'function' &&
-    typeof aught.has === 'function' &&
+    //typeof aught.has === 'function' &&
     typeof aught.getItem === 'function' &&
     typeof aught.getItems === 'function' &&
     typeof aught.getSize === 'function'
