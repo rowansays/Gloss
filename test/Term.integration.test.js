@@ -1,7 +1,7 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Term } from '../src/Glosses/Term.js'
-import { Phrase } from '../src/Quotes/Phrase.js'
+import { Phrase } from '../src/Quotes/Quote.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -9,7 +9,7 @@ var it = mocha.it
 
 describe('Term(): Integration Tests', function () {
   describe('Term(name, memo, ...Phrase())', () => {
-    it('accepts Quote objects for parameters three, four, and five.', () => {
+    it('accepts $Quote instances for parameters 3, 4, & 5.', () => {
       const def0 = Phrase('Three', 'source')
       const def1 = Phrase('Four', 'source')
       const def2 = Phrase('Five', 'source')
@@ -24,9 +24,13 @@ describe('Term(): Integration Tests', function () {
       const def1 = Phrase('Klingon', 'here')
       const def2 = Phrase('Klingon', 'there')
       const term = Term('a', '', def1).withDef(def2)
-      expect(term.getSize()).to.equal(1)
-      expect(term.getDef(0).hasReference('here')).to.be.true
-      expect(term.getDef(0).hasReference('there')).to.be.true
+
+      const def = term.getDef('Klingon')
+      expect(term.getSize(), 'term.getSize()').to.equal(1)
+      expect(def.getSize(), 'def.getSize()').to.equal(1)
+      expect(def.getFreq(), 'def.getFreq()').to.equal(2)
+      expect(def.hasRef('here')).to.be.true
+      expect(def.hasRef('there')).to.be.true
     })
   })
   describe('withMemo()', function () {
@@ -34,10 +38,11 @@ describe('Term(): Integration Tests', function () {
       const memo1 = Phrase('They are dangerous.', 'yourImagination')
       const memo2 = Phrase('They are mageistic.', 'myImagination')
       const term = Term('a', memo1).withMemo(memo2)
+
       expect(term.getMemo(0).getName()).to.equal(memo1.getName())
-      expect(term.getMemo(0).getReference()).to.equal(memo1.getReference())
+      expect(term.getMemo(0).hasRef('yourImagination')).to.equal(true)
       expect(term.getMemo(1).getName()).to.equal(memo2.getName())
-      expect(term.getMemo(1).getReference()).to.equal(memo2.getReference())
+      expect(term.getMemo(1).hasRef('myImagination')).to.equal(true)
     })
   })
 })
