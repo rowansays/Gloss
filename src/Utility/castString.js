@@ -1,3 +1,9 @@
+/**
+ * Coerce a value to a string.
+ *
+ * @param {mixed} aught Any value.
+ * @return {Array} A string.
+ */
 function castString (aught) {
   // Extract "name" value from objects with a getName() method.
   if (!!aught && typeof aught.getName === 'function') {
