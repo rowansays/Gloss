@@ -29,8 +29,8 @@ function Gloss (props) {
   const { gloss } = props
   const sorted = gloss.sortDefsByName()
   const size = sorted.getSize()
-
   const defs = []
+
   sorted.defs.forEach((def, i) => {
     const seperator = i < size - 1 ? ', ' : ''
     defs.push(<GlossDef def={def} seperator={seperator} />)
@@ -64,7 +64,7 @@ function GlossName (props) {
 function GlossDef (props) {
   const { def, seperator } = props
   return (
-    <dd class='GlossDef' title={def.getFull() || undefined}>
+    <dd class='GlossDef'>
       <span>{def.getName()}</span>{seperator}
     </dd>
   )
