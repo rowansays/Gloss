@@ -121,6 +121,9 @@ $Quote.prototype.hasRef = function (key) {
 $Quote.prototype.isSingular = function () {
   return Object.keys(this.map).length === 1
 }
+$Quote.prototype.slice = function () {
+  return $Quote.makeFrozen(this.getProps().slice(...arguments))
+}
 $Quote.prototype.withQuote = function (...quotes) {
   return $Quote.makeFrozen(...this.getProps().concat(quotes))
 }

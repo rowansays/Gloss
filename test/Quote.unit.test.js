@@ -26,6 +26,50 @@ describe('Quote() Factory Function Unit Tests', function () {
     test('getProps', instance)
     test('getSize', instance)
     test('isSingular', instance)
+    test('slice', instance, () => {
+      const songwritters = Quote(
+        Quote({ name: 'Johnny', refs: ['Cash'] }),
+        Quote({ name: 'Nick', refs: ['Cave'] }),
+        Quote({ name: 'Tom', refs: ['Waits'] }),
+        Quote({ name: 'Leonard', refs: ['Cohen'] }),
+      )
+      it('clones a quote', () => {
+        expectQuote(songwritters.slice(0), 'Johnny', 4, 4, 3, false)
+        expectQuote(songwritters.slice(0, 4), 'Johnny', 4, 4, 3, false)
+      })
+      it('plucks first quote', () => {
+        expectQuote(songwritters.slice(0, 1), 'Johnny', 1, 1, 0, true)
+      })
+      it('plucks second quote', () => {
+        expectQuote(songwritters.slice(1, 2), 'Nick', 1, 1, 0, true)
+      })
+      it('plucks third quote', () => {
+        const slice =
+        expectQuote(songwritters.slice(2, 3), 'Tom', 1, 1, 0, true)
+      })
+      it('plucks fourth quote', () => {
+        expectQuote(songwritters.slice(3, 4), 'Leonard', 1, 1, 0, true)
+      })
+      it('plucks fourth quote', () => {
+        expectQuote(songwritters.slice(3, 4), 'Leonard', 1, 1, 0, true)
+      })
+      it('plucks first two quotes', () => {
+        expectQuote(songwritters.slice(0, 2), 'Johnny', 2, 2, 1, false)
+      })
+      it('plucks middle two quotes', () => {
+        expectQuote(songwritters.slice(1, 3), 'Nick', 2, 2, 1, false)
+      })
+      it('plucks last two quotes', () => {
+        expectQuote(songwritters.slice(2, 4), 'Tom', 2, 2, 1, false)
+      })
+      it('plucks first three quotes', () => {
+        expectQuote(songwritters.slice(0, 3), 'Johnny', 3, 3, 2, false)
+      })
+      it('plucks last three quotes', () => {
+        expectQuote(songwritters.slice(1, 4), 'Nick', 3, 3, 2, false)
+      })
+
+    })
     test('withQuote', instance, () => {
       it('accepts 1 plain object.', () => {
         const q = instance.withQuote({ name: 'b', refs: [2] })
