@@ -24,7 +24,7 @@ AbstractScalarList.prototype.get = function (index) {
 /**
  * @return {Array} A mutable clone of the items array.
  */
-AbstractScalarList.prototype.getItems = function (index) {
+AbstractScalarList.prototype.entries = function (index) {
   return [...this.items]
 }
 /**

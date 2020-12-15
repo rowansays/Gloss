@@ -25,10 +25,10 @@ export function testAbstractObjectListPrototype (instance) {
       expect(instance.get(0)).to.be.undefined
     })
   })
-  test('getItems', instance, () => {
+  test('entries', instance, () => {
     it('returns empty array when no items exist.', () => {
-      expect(Array.isArray(instance.getItems())).to.be.true
-      expect(instance.getItems().length).to.equal(0)
+      expect(Array.isArray(instance.entries())).to.be.true
+      expect(instance.entries().length).to.equal(0)
     })
   })
   test('getName', instance)

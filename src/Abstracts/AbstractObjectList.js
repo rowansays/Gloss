@@ -9,6 +9,12 @@ function AbstractObjectList (props) {
 AbstractObjectList.prototype = Object.create(AbstractNamed.prototype)
 AbstractObjectList.prototype.constructor = AbstractNamed
 
+/**
+ * @return {Array} A clone of the items array.
+ */
+AbstractObjectList.prototype.entries = function () {
+  return [...this.items]
+}
 AbstractObjectList.prototype.forEach = function () {
   return this.items.forEach(...arguments)
 }
@@ -35,12 +41,6 @@ AbstractObjectList.prototype.get = function (key) {
     default:
       return undefined
   }
-}
-/**
- * @return {Array} A clone of the items array.
- */
-AbstractObjectList.prototype.getItems = function () {
-  return [...this.items]
 }
 /**
  * @return {Number} An integer representing the total number of items in this

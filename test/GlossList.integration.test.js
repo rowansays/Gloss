@@ -90,10 +90,10 @@ describe('GlossList: Integration Tests', function () {
       })
     })
     describe('Inherited from AbstractObjectList()', function () {
-      describe('getItems()', function () {
+      describe('entries()', function () {
         it('returns empty array when no referenes exist.', () => {
-          expect(Array.isArray(GlossList().getItems())).to.be.true
-          expect(GlossList().getItems().length).to.equal(0)
+          expect(Array.isArray(GlossList().entries())).to.be.true
+          expect(GlossList().entries().length).to.equal(0)
         })
       })
       describe('getSize()', function () {

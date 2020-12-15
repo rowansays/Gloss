@@ -25,7 +25,7 @@ Object.defineProperty($StringList.prototype, 'constructor', {
 })
 
 $StringList.prototype.withString = function (...string) {
-  const items = this.getItems().concat(string)
+  const items = this.entries().concat(string)
   return new $StringList(...items)
 }
 

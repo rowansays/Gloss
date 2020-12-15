@@ -48,7 +48,7 @@ $Term.prototype.getDef = function (index) {
   return this.defs.get(index)
 }
 $Term.prototype.getDefs = function () {
-  return this.defs.getItems()
+  return this.defs.entries()
 }
 $Term.prototype.getMemo = function (index) {
   switch (this.memos.getSize()) {
@@ -61,7 +61,7 @@ $Term.prototype.getMemo = function (index) {
   }
 }
 $Term.prototype.getMemos = function () {
-  return this.memos.getItems()
+  return this.memos.entries()
 }
 $Term.prototype.getName = function () {
   return this.name
@@ -96,7 +96,7 @@ $Term.prototype.hasDef = function () {
  * @return {$Term}
  */
 $Term.prototype.sortDefsByName = function () {
-  const sortedDefs = this.defs.sortAscBy().getItems()
+  const sortedDefs = this.defs.sortAscBy().entries()
   return Term(this.getName(), this.getMemo(), ...sortedDefs)
 }
 /**

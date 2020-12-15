@@ -14,7 +14,7 @@ AbstractQuote.prototype.getReference = function (index) {
   return castString(this.references.get(index))
 }
 AbstractQuote.prototype.getReferences = function (index) {
-  return [...this.references.getItems()]
+  return [...this.references.entries()]
 }
 /**
  * Does this quote have a reference?
