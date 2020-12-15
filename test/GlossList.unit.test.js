@@ -21,15 +21,15 @@ describe('GlossList(): Parameters', function () {
   describe("({ name: 'nobody', items: [] })", () => {
     it('accepts an empty array.', () => {
       const gl = GlossList({ name: 'nobody', items: [] })
-      expect(gl.getSize()).to.equal(0)
+      expect(gl.length).to.equal(0)
     })
     it('ignores string items.', () => {
       const gl = GlossList({ name: 'nobody', items: ['a', 'b', 'c'] })
-      expect(gl.getSize()).to.equal(0)
+      expect(gl.length).to.equal(0)
     })
     it('ignores number items.', () => {
       const gl = GlossList({ name: 'nobody', items: [1, 2, 3] })
-      expect(gl.getSize()).to.equal(0)
+      expect(gl.length).to.equal(0)
     })
   })
 })

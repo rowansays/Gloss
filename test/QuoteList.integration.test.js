@@ -11,7 +11,7 @@ describe('QuoteList(): Parameters', function () {
   describe('single: {Phrase}', () => {
     it('accepts a Quote.', () => {
       const ql = QuoteList({ name: 'nobody', items: [ Phrase('a') ] })
-      expect(ql.getSize()).to.equal(1)
+      expect(ql.length).to.equal(1)
       expect(ql.getItemName(0)).to.equal('a')
     })
   })
@@ -22,7 +22,7 @@ describe('QuoteList(): Parameters', function () {
         items: [ Phrase('f'), Phrase('z'), Phrase('t') ]
       })
 
-      expect(q.getSize()).to.equal(3)
+      expect(q.length).to.equal(3)
     })
     it('stores phrases in the order they were provided.', () => {
       const q = QuoteList({
@@ -42,7 +42,7 @@ describe('QuoteList(): Parameters', function () {
       ]
     })
     it('does not allow duplicate phrases.', () => {
-      expect(quantumRobin.getSize()).to.equal(1)
+      expect(quantumRobin.length).to.equal(1)
     })
     it('merges duplicate phrases into a single item.', () => {
       expect(quantumRobin.get(0).hasRef('ref1')).to.be.true
@@ -56,7 +56,7 @@ describe('QuoteList(): Parameters', function () {
         name: 'nobody',
         items: [ Normal('x', 'xx'), Normal('y', 'yy'), Normal('z', 'zz') ]
       })
-      expect(q.getSize()).to.equal(3)
+      expect(q.length).to.equal(3)
     })
 
     it('merges normalized phrases with the same name.', () => {
@@ -69,7 +69,7 @@ describe('QuoteList(): Parameters', function () {
         ]
       })
 
-      expect(q.getSize()).to.equal(1)
+      expect(q.length).to.equal(1)
     })
   })
 })

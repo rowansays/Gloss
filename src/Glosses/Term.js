@@ -35,6 +35,7 @@ function $Term (props) {
   this.name = validateName(props.name, '$Term()')
   this.memos = QuoteList({ name: 'Term memos', items: props.memos })
   this.defs = QuoteList({ name: 'Term definitions', items: props.defs })
+  this.length = this.defs.length
 }
 /**
  * Return a frozen instance of $Term.
@@ -51,7 +52,7 @@ $Term.prototype.getDefs = function () {
   return this.defs.entries()
 }
 $Term.prototype.getMemo = function (index) {
-  switch (this.memos.getSize()) {
+  switch (this.memos.length) {
     case 0 :
       return ''
     case 1 :
@@ -77,20 +78,10 @@ $Term.prototype.getProps = function () {
   return { name, memos, defs }
 }
 /**
- * Get size.
- *
- * The size of a gloss is equal to the quantity of its definitions.
- *
- * @return {number}
- */
-$Term.prototype.getSize = function () {
-  return this.defs.getSize()
-}
-/**
  * @return {bool}
  */
 $Term.prototype.hasDef = function () {
-  return this.defs.getSize() > 0
+  return this.defs.length > 0
 }
 /**
  * @return {$Term}

@@ -30,6 +30,7 @@ function $HybridGlossary (id, ...glossaries) {
 
   const name = id && id.getName() ? id.getName() : 'Anonymous'
   this.glosses = GlossList({ name: name, items: glosses })
+  this.length = this.glosses.length
 }
 
 $HybridGlossary.prototype = Object.create(AbstractWork.prototype)
@@ -40,9 +41,6 @@ $HybridGlossary.prototype.forEach = function () {
 $HybridGlossary.prototype.getRef = function (index) {
   index = Number.isInteger(index) ? index : 1
   return this.references[index] ? this.references[index] : ''
-}
-$HybridGlossary.prototype.getSize = function () {
-  return this.glosses.getSize()
 }
 
 function HybridGlossary () {

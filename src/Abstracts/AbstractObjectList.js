@@ -31,7 +31,7 @@ AbstractObjectList.prototype.get = function (key) {
     case 'number':
       return this.items[key]
     case 'string':
-      for (let i = 0; i < this.getSize(); i++) {
+      for (let i = 0; i < this.length; i++) {
         const item = this.get(i)
         if (item[this._defaultGetMethod]() === key) {
           return item
@@ -41,13 +41,6 @@ AbstractObjectList.prototype.get = function (key) {
     default:
       return undefined
   }
-}
-/**
- * @return {Number} An integer representing the total number of items in this
- *   list.
- */
-AbstractObjectList.prototype.getSize = function () {
-  return this.items.length
 }
 /**
  * Sort items in ascending order by a given accessor method.

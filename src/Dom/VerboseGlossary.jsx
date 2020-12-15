@@ -49,7 +49,7 @@ function Gloss (props) {
   const defs = []
   sorted.defs.forEach((quote, i) => {
     let def
-    if (quote.getSize() > 1) {
+    if (quote.length > 1) {
       def = <DefinitionMultiple quote={quote} refs={refs} />
     } else {
       def = <DefinitionSingle quote={quote} refs={refs} />
@@ -86,7 +86,7 @@ function DefinitionMultiple (props) {
   return (
     <>
       <tr class='Head'>
-        <td class='Term' rowspan={quote.getSize()}>
+        <td class='Term' rowspan={quote.length}>
           {quote.getName()}
         </td>
         <Quote quote={head} refs={refs} />

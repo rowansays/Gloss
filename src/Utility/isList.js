@@ -14,7 +14,7 @@ function isList (aught) {
     typeof aught.entries === 'function' &&
     typeof aught.forEach === 'function' &&
     typeof aught.get === 'function' &&
-    typeof aught.getSize === 'function'
+    typeof aught.length === 'number'
 }
 
 export { isList }

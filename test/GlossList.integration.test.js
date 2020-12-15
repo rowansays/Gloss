@@ -20,7 +20,7 @@ describe('GlossList: Integration Tests', function () {
       ]
     })
 
-    expect(gl.getSize()).to.equal(1)
+    expect(gl.length).to.equal(1)
   })
 
   /*
@@ -30,7 +30,7 @@ describe('GlossList: Integration Tests', function () {
       Phrase('b'),
       Phrase('c')
     ] })
-    expect(gl.getSize()).to.equal(3)
+    expect(gl.length).to.equal(3)
     expect(gl.has('a')).to.be.true
     expect(gl.has('b')).to.be.true
     expect(gl.has('c')).to.be.true
@@ -47,7 +47,7 @@ describe('GlossList: Integration Tests', function () {
         Phrase('g'), Phrase('h'), Phrase('i')
       ] })
     ] })
-    expect(ql.getSize()).to.equal(9)
+    expect(ql.length).to.equal(9)
     expect(ql.has('a')).to.be.true
     expect(ql.has('b')).to.be.true
     expect(ql.has('c')).to.be.true
@@ -70,7 +70,7 @@ describe('GlossList: Integration Tests', function () {
         Phrase('a'), Phrase('b'), Phrase('c')
       ] })
     ] })
-    expect(ql.getSize()).to.equal(3)
+    expect(ql.length).to.equal(3)
     expect(ql.has('a')).to.be.true
     expect(ql.has('b')).to.be.true
     expect(ql.has('c')).to.be.true
@@ -96,10 +96,10 @@ describe('GlossList: Integration Tests', function () {
           expect(GlossList().entries().length).to.equal(0)
         })
       })
-      describe('getSize()', function () {
+      describe('length', function () {
         it('returns an integer with a value of zero when no referenes exist.', () => {
-          expect(Number.isInteger(GlossList().getSize())).to.be.true
-          expect(GlossList().getSize()).to.equal(0)
+          expect(Number.isInteger(GlossList().length)).to.be.true
+          expect(GlossList().length).to.equal(0)
         })
       })
       describe('sortAscBy()', function () {
@@ -107,7 +107,7 @@ describe('GlossList: Integration Tests', function () {
           const list = GlossList()
           const sorted = list.sortAscBy()
           expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(GlossList().getSize()).to.equal(0)
+          expect(GlossList().length).to.equal(0)
         })
         it('sorts by name.', () => {
           const list = GlossList(
@@ -127,7 +127,7 @@ describe('GlossList: Integration Tests', function () {
           const list = GlossList()
           const sorted = list.sortDescBy()
           expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(GlossList().getSize()).to.equal(0)
+          expect(GlossList().length).to.equal(0)
         })
         it('sorts by name.', () => {
           const list = GlossList(

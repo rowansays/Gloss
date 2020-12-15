@@ -64,6 +64,7 @@ function mergeGlosses (quotes) {
 function $GlossList (props) {
   AbstractObjectList.call(this, props)
   this.items = mergeGlosses(parseGlosses(props.items))
+  this.length = this.items.length
 }
 
 $GlossList.prototype = Object.create(AbstractObjectList.prototype)
@@ -74,7 +75,7 @@ $GlossList.prototype = Object.create(AbstractObjectList.prototype)
  * @return {boolean}
  */
 $GlossList.prototype.has = function (name) {
-  for (let i = 0; i < this.getSize(); i++) {
+  for (let i = 0; i < this.length; i++) {
     if (this.get(i).getName() === name) {
       return true
     }

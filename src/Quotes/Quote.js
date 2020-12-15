@@ -55,6 +55,7 @@ function $Quote (...quotes) {
     })
   })
 
+  this.length = Object.keys(map).length
   this.map = map
   this.refs = refs
 }
@@ -86,15 +87,6 @@ $Quote.prototype.getFreq = function () {
 }
 $Quote.prototype.getName = function () {
   return this.name
-}
-/**
- * Get size.
- *
- * @return {number} int (>= 0) - The total number of unique phrases represented
- *   in this instance.
- */
-$Quote.prototype.getSize = function () {
-  return Object.keys(this.map).length
 }
 /**
  * Get Properties.

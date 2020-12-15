@@ -12,7 +12,7 @@ function expectQuote(q, name, size, freq, altSize, isSingular) {
   expect(q.getAltNames().length, ` "There must be ${altSize} alt names."`).to.equal(altSize)
   expect(q.getFreq(), `getFreq() must return "${freq}"`).to.equal(freq)
   expect(q.getName(), `getName() must return "${name}"`).to.equal(name)
-  expect(q.getSize(), `getSize() must return "${size}"`).to.equal(size)
+  expect(q.length, `length must equal "${size}"`).to.equal(size)
   expect(q.isSingular(), `isSingular() must return "${isSingular}"`).to.equal(isSingular)
 }
 
@@ -25,7 +25,6 @@ describe('Quote() Unit Tests', function () {
     test('getFreq', instance)
     test('getName', instance)
     test('getProps', instance)
-    test('getSize', instance)
     test('isSingular', instance)
     test('slice', instance, () => {
       const songwritters = Quote(

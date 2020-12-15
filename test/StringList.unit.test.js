@@ -18,16 +18,16 @@ describe('StringList(): Parameters', function () {
       expect(function () { StringList('A', 'B', 'C') }).not.to.throw(Error)
     })
     it('does not store duplicates.', () => {
-      expect(StringList('A', 'A', 'A').getSize()).to.equal(1)
+      expect(StringList('A', 'A', 'A').length).to.equal(1)
     })
     it('does not store empty strings.', () => {
-      expect(StringList('', '', '').getSize()).to.equal(0)
+      expect(StringList('', '', '').length).to.equal(0)
     })
     it('considers a space to be empty.', () => {
-      expect(StringList(' ', '  ', '   ').getSize()).to.equal(0)
+      expect(StringList(' ', '  ', '   ').length).to.equal(0)
     })
     it('considers a tabs to be empty.', () => {
-      expect(StringList(' ', '    ', '      ').getSize()).to.equal(0)
+      expect(StringList(' ', '    ', '      ').length).to.equal(0)
     })
     it('trims spaces from boths sides of a string.', () => {
       expect(StringList(' A ',).get(0)).to.equal('A')
@@ -83,21 +83,21 @@ describe('StringList(): Instance Methods', function () {
       expect(StringList('A').get(0)).to.equal('A')
     })
   })
-  describe('getSize()', function () {
-    it('is a function.', () => {
-      expect(typeof StringList().getSize).to.equal('function')
+  describe('length', function () {
+    it('is an integer.', () => {
+      expect(Number.isInteger(StringList().length)).to.be.true
     })
     it('returns zero when no strings exist.', () => {
-      expect(StringList().getSize()).to.equal(0)
+      expect(StringList().length).to.equal(0)
     })
     it('returns one when there is only one string.', () => {
-      expect(StringList('a').getSize()).to.equal(1)
+      expect(StringList('a').length).to.equal(1)
     })
     it('returns two when there are two strings.', () => {
-      expect(StringList('a', 'b').getSize()).to.equal(2)
+      expect(StringList('a', 'b').length).to.equal(2)
     })
     it('returns three when there are three strings.', () => {
-      expect(StringList('a', 'b', 'c').getSize()).to.equal(3)
+      expect(StringList('a', 'b', 'c').length).to.equal(3)
     })
   })
   describe('sort()', function () {

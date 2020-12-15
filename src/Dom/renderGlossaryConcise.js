@@ -28,7 +28,7 @@ function ConciseGlossary (glossary) {
 function Gloss (props) {
   const { gloss } = props
   const sorted = gloss.sortDefsByName()
-  const size = sorted.getSize()
+  const size = sorted.length
   const defs = []
 
   sorted.defs.forEach((def, i) => {

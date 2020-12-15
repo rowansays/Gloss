@@ -20,6 +20,5 @@ describe('Glossary() Unit Tests', function () {
     test('forEach', instance)
     test('getGloss', instance)
     test('getRef', instance)
-    test('getSize', instance)
   })
 })

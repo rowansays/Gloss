@@ -35,7 +35,7 @@ AbstractQuote.prototype.hasReference = function (refKey) {
       return this.references.has(refKey)
     case 0 :
     default :
-      return this.references.getSize() > 0
+      return this.references.length > 0
   }
 }
 /**

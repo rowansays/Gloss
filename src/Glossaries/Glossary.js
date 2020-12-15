@@ -30,6 +30,7 @@ function $Glossary (props) {
   const name = this.title !== '' ? this.title : 'Anonymous'
 
   this.glosses = GlossList({ name: name, items: refGlosses })
+  this.length = this.glosses.length
   this.ref = ref
 }
 
@@ -46,9 +47,6 @@ $Glossary.prototype.getName = function () {
 }
 $Glossary.prototype.getRef = function () {
   return this.ref
-}
-$Glossary.prototype.getSize = function () {
-  return this.glosses.getSize()
 }
 
 function Glossary (props) {

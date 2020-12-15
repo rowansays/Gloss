@@ -16,6 +16,7 @@ function $QuoteList (props) {
   const parsed = parseQuotes(props.items)
   const merged = mergeQuotes(parsed)
   this.items = merged
+  this.length = merged.length
 }
 
 $QuoteList.prototype = Object.create(AbstractObjectList.prototype)
@@ -30,7 +31,7 @@ $QuoteList.prototype.getItemName = function (index) {
  * @return {boolean}
  */
 $QuoteList.prototype.has = function (name) {
-  for (let i = 0; i < this.getSize(); i++) {
+  for (let i = 0; i < this.length; i++) {
     if (this.get(i).getName() === name) {
       return true
     }

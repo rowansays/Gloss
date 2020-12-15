@@ -32,12 +32,6 @@ export function testAbstractObjectListPrototype (instance) {
     })
   })
   test('getName', instance)
-  test('getSize', instance, () => {
-    it('returns an integer with a value of zero when no items exist.', () => {
-      expect(Number.isInteger(instance.getSize())).to.be.true
-      expect(instance.getSize()).to.equal(0)
-    })
-  })
   test('has', instance, () => {
     it('returns false when list is empty.', () => {
       expect(instance.has('a')).to.be.false
@@ -47,14 +41,14 @@ export function testAbstractObjectListPrototype (instance) {
     it('returns an empty instance when no referenes exist.', () => {
       const sorted = instance.sortAscBy()
       expect(sorted.constructor).to.equal(instance.constructor)
-      expect(sorted.getSize()).to.equal(0)
+      expect(sorted.length).to.equal(0)
     })
   })
   test('sortDescBy', instance, () => {
     it('returns an empty GlossList instance when no entries exist.', () => {
       const sorted = instance.sortDescBy()
       expect(sorted.constructor).to.equal(instance.constructor)
-      expect(sorted.getSize()).to.equal(0)
+      expect(sorted.length).to.equal(0)
     })
   })
 }

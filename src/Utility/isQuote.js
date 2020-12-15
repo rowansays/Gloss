@@ -12,8 +12,8 @@ export function isQuote (aught) {
     typeof aught.getFreq === 'function' &&
     typeof aught.getName === 'function' &&
     typeof aught.getProps === 'function' &&
-    typeof aught.getSize === 'function' &&
     typeof aught.isSingular === 'function' &&
+    typeof aught.length === 'number' &&
     typeof aught.slice === 'function' &&
     typeof aught.withQuote === 'function' &&
     typeof aught.withRef === 'function'

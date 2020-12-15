@@ -31,18 +31,18 @@ describe('empty: Function Signatures', function () {
   describe("({ name: 'nobody', items: [] })", () => {
     it('accepts an empty array.', () => {
       const ql = QuoteList({ name: 'nobody', items: [] })
-      expect(ql.getSize()).to.equal(0)
+      expect(ql.length).to.equal(0)
     })
     it('accepts an array of strings.', () => {
       const ql = QuoteList({ name: 'nobody', items: ['a', 'b', 'c'] })
-      expect(ql.getSize()).to.equal(3)
+      expect(ql.length).to.equal(3)
       expect(ql.has('a')).to.be.true
       expect(ql.has('b')).to.be.true
       expect(ql.has('c')).to.be.true
     })
     it('accepts an array of integers.', () => {
       const ql = QuoteList({ name: 'nobody', items: [1, 2, 3] })
-      expect(ql.getSize()).to.equal(3)
+      expect(ql.length).to.equal(3)
       expect(ql.has('1')).to.be.true
       expect(ql.has('2')).to.be.true
       expect(ql.has('3')).to.be.true
@@ -53,7 +53,7 @@ describe('empty: Function Signatures', function () {
         QuoteList({ name: 'nobody', items: ['d', 'e', 'f'] }),
         QuoteList({ name: 'nobody', items: ['g', 'h', 'i'] })
       ] })
-      expect(ql.getSize()).to.equal(9)
+      expect(ql.length).to.equal(9)
       expect(ql.has('a')).to.be.true
       expect(ql.has('b')).to.be.true
       expect(ql.has('c')).to.be.true
@@ -70,7 +70,7 @@ describe('empty: Function Signatures', function () {
         QuoteList({ name: 'nobody', items: ['a', 'b', 'c'] }),
         QuoteList({ name: 'nobody', items: ['a', 'b', 'c'] })
       ] })
-      expect(ql.getSize()).to.equal(3)
+      expect(ql.length).to.equal(3)
       expect(ql.has('a')).to.be.true
       expect(ql.has('b')).to.be.true
       expect(ql.has('c')).to.be.true

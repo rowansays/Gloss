@@ -26,8 +26,8 @@ describe('Term(): Integration Tests', function () {
       const term = Term('a', '', def1).withDef(def2)
 
       const def = term.getDef('Klingon')
-      expect(term.getSize(), 'term.getSize()').to.equal(1)
-      expect(def.getSize(), 'def.getSize()').to.equal(1)
+      expect(term.length, 'term.length').to.equal(1)
+      expect(def.length, 'def.length').to.equal(1)
       expect(def.getFreq(), 'def.getFreq()').to.equal(2)
       expect(def.hasRef('here')).to.be.true
       expect(def.hasRef('there')).to.be.true

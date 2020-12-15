@@ -110,15 +110,15 @@ describe('Term() Unit Tests', () => {
         expect(Term('a').withDef().constructor.name).to.equal('$Term')
       })
       it('adds a definition to an empty term.', () => {
-        expect(Term('a').withDef('Klingon').getSize()).to.equal(1)
+        expect(Term('a').withDef('Klingon').length).to.equal(1)
       })
       it('adds three definitions to an empty term.', () => {
         const term = Term('a').withDef('Klingon', 'Vulcan', 'Andorian')
-        expect(term.getSize()).to.equal(3)
+        expect(term.length).to.equal(3)
       })
       it('merges three definitions to an empty term.', () => {
         const term = Term('a').withDef('Klingon', 'Klingon', 'Klingon')
-        expect(term.getSize()).to.equal(1)
+        expect(term.length).to.equal(1)
       })
     })
     describe('withMemo()', function () {

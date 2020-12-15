@@ -16,6 +16,7 @@ function $StringList (...strings) {
   this.items = Array.isArray(strings)
     ? Array.from(new Set(strings)).map(castString).filter(Boolean)
     : []
+  this.length = this.items.length
 }
 
 $StringList.prototype = Object.create(AbstractScalarList.prototype)
