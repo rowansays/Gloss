@@ -20,6 +20,7 @@ describe('Quote() Unit Tests', function () {
   const instance = Quote({ name: 'a', refs: [1] })
   testFactoryFunction('Quote', Quote, instance)
   describe('Prototype', function () {
+    test('forEach', instance)
     test('getAltNames', instance)
     test('getFreq', instance)
     test('getName', instance)

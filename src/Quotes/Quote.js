@@ -67,6 +67,12 @@ $Quote.makeFrozen = function () {
   freeze(o, $Quote)
   return o
 }
+$Quote.prototype.forEach = function (func) {
+  return this.getProps().forEach((...args) => {
+    const quote = $Quote.makeFrozen(args[0])
+    func(quote, ...args.slice(1))
+  })
+}
 $Quote.prototype.getAltNames = function () {
   return Object.keys(this.map).slice(1)
 }
