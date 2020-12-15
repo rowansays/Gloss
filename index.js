@@ -21,9 +21,7 @@ export { QuoteList } from './src/Lists/QuoteList.js'
 export { StringList } from './src/Lists/StringList.js'
 
 // Quotes
-export { Normal } from './src/Quotes/Normal.js'
-export { Phrase } from './src/Quotes/Phrase.js'
-export { Speech } from './src/Quotes/Speech.js'
+export { Quote, Normal, Phrase } from './src/Quotes/Quote.js'
 
 // References
 export { Book } from './src/References/Book.js'
