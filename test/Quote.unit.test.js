@@ -16,7 +16,7 @@ function expectQuote(q, name, size, freq, altSize, isSingular) {
   expect(q.isSingular(), `isSingular() must return "${isSingular}"`).to.equal(isSingular)
 }
 
-describe('Quote() Factory Function Unit Tests', function () {
+describe('Quote() Unit Tests', function () {
   const instance = Quote({ name: 'a', refs: [1] })
   testFactoryFunction('Quote', Quote, instance)
   describe('Prototype', function () {
