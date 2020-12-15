@@ -24,13 +24,24 @@ function $Quote (...quotes) {
   }
 
   const map = Object.create(null)
+  const refs = []
 
   quotes.forEach((aught, i) => {
     aught = isQuote(aught) ? aught.getProps() : aught
     aught = Array.isArray(aught) ? aught : [aught]
     aught.forEach(dirty => {
       const name = castString(dirty.name)
-      const refs = castStringArray(dirty.refs)
+      const refStrings = castStringArray(dirty.refs)
+      const refNumbers = []
+      refStrings.forEach(ref => {
+        let index = refs.indexOf(ref)
+        if (index === -1) {
+          index = refs.length
+          refs.push(ref)
+        }
+        refNumbers.push(index)
+      })
+
       if (name === '') {
         throw new Error('Invalid name')
       }
@@ -40,14 +51,13 @@ function $Quote (...quotes) {
       }
 
       map[name] = Array.isArray(map[name])
-        ? [...refs, ...map[name]]
-        : refs
+        ? [...map[name], ...refNumbers]
+        : refNumbers
     })
   })
 
   this.map = map
-  this.size = Object.keys(map).length
-  this.freq = this.getRefs().length
+  this.refs = refs
 }
 /**
  * Return a frozen instance of $Quote.
@@ -67,7 +77,7 @@ $Quote.prototype.getAltNames = function () {
  *   this phrase and all of it's derivatives appear.
  */
 $Quote.prototype.getFreq = function () {
-  return this.freq
+  return this.refs.length
 }
 $Quote.prototype.getName = function () {
   return this.name
@@ -79,7 +89,7 @@ $Quote.prototype.getName = function () {
  *   in this instance.
  */
 $Quote.prototype.getSize = function () {
-  return this.size
+  return Object.keys(this.map).length
 }
 /**
  * Get Properties.
@@ -90,20 +100,23 @@ $Quote.prototype.getSize = function () {
 $Quote.prototype.getProps = function () {
   const o = []
   Object.keys(this.map).forEach(name => {
-    o.push({ name: name, refs: this.map[name] })
+    const refs = this.map[name].reduce((output, index) => {
+      output.push(this.refs[index])
+      return output
+    }, [])
+    o.push({ name, refs })
   })
   return o
 }
 $Quote.prototype.getRefs = function (key) {
   if (typeof key === 'undefined') {
-    let o = []
-    Object.keys(this.map).forEach(Quote => {
-      o = o.concat(this.map[Quote])
-    })
-    return Array.from(new Set(o)).filter(castString).filter(Boolean)
+    return this.refs
   } else if (Array.isArray(this.map[key])) {
     return this.map[key]
   }
+}
+$Quote.prototype.hasRef = function (key) {
+  return this.refs.indexOf(key) > -1
 }
 $Quote.prototype.isSingular = function () {
   return Object.keys(this.map).length === 1

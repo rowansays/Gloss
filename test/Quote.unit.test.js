@@ -51,7 +51,6 @@ describe('Quote() Factory Function Unit Tests', function () {
       })
     })
   })
-
   describe('Constructor Signature', function () {
     describe('Plain objects: unique ', function () {
       it('accepts 1 object.', () => {
@@ -236,5 +235,4 @@ describe('Quote() Factory Function Unit Tests', function () {
       })
     })
   })
-
 })
