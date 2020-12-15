@@ -133,6 +133,17 @@ $Quote.prototype.slice = function () {
 $Quote.prototype.withQuote = function (...quotes) {
   return $Quote.makeFrozen(...this.getProps().concat(quotes))
 }
+/**
+ * Add one or more references to this quote.
+ */
+$Quote.prototype.withRef = function (...refs) {
+  const props = []
+  this.getProps().forEach(prop => {
+    prop.refs = prop.refs.concat(refs)
+    props.push(prop)
+  })
+  return $Quote.makeFrozen(...props)
+}
 
 function Quote () {
   return $Quote.makeFrozen(...arguments)

@@ -95,6 +95,48 @@ describe('Quote() Unit Tests', function () {
         expectQuote(q, 'a', 3, 3, 2, false)
       })
     })
+    test('withRef', instance, () => {
+      it('appends 1 ref to a single quote.', () => {
+        const q = instance.withRef(2)
+        expectQuote(q, 'a', 1, 2, 0, true)
+        expect(q.hasRef(1)).to.be.true
+        expect(q.hasRef(2)).to.be.true
+      })
+      it('appends 2 refs to a single quote.', () => {
+        const q = instance.withRef('cow', 'lick')
+        expectQuote(q, 'a', 1, 3, 0, true)
+        expect(q.hasRef(1)).to.be.true
+        expect(q.hasRef('cow')).to.be.true
+        expect(q.hasRef('lick')).to.be.true
+      })
+      it('appends 1 ref to a double quote.', () => {
+        const q = Quote(
+          Quote({ name: 'Bubble' }),
+          Quote({ name: 'Bobble' })
+        ).withRef('eye')
+
+        expectQuote(q, 'Bubble', 2, 1, 1, false)
+
+        const props = q.getProps()
+        props.forEach(quote => {
+          expect(quote.refs[0]).to.equal('eye')
+        })
+      })
+      it('appends 2 refs to a double quote.', () => {
+        const q = Quote(
+          Quote({ name: 'Bubble' }),
+          Quote({ name: 'Bobble' })
+        ).withRef('eye', 'ball')
+
+        expectQuote(q, 'Bubble', 2, 2, 1, false)
+
+        const props = q.getProps()
+        props.forEach(quote => {
+          expect(quote.refs[0]).to.equal('eye')
+          expect(quote.refs[1]).to.equal('ball')
+        })
+      })
+    })
   })
   describe('Constructor Signature', function () {
     describe('Plain objects: unique ', function () {

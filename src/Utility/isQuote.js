@@ -15,5 +15,6 @@ export function isQuote (aught) {
     typeof aught.getSize === 'function' &&
     typeof aught.isSingular === 'function' &&
     typeof aught.slice === 'function' &&
-    typeof aught.withQuote === 'function'
+    typeof aught.withQuote === 'function' &&
+    typeof aught.withRef === 'function'
 }
