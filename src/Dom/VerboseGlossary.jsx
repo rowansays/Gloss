@@ -1,4 +1,5 @@
 import { render } from 'preact'
+import { isList } from '../Utility/isList.js'
 
 /**
  * Render Verbose glossary.
@@ -110,9 +111,11 @@ function Quote (props) {
   const { quote, refs } = props
 
   const items = []
-  console.log('quote.getRefs()', quote.getRefs())
   quote.getRefs().forEach(key => {
-    items.push(<span>{refs[key].title} </span>)
+    if (isList(refs)) {
+      const ref = refs.getItem(key)
+      items.push(<i> - {ref.getName()} ({ref.getDate()})</i>)
+    }
   })
 
   return (<td class='Description'>{quote.getName()} {items}</td>)
