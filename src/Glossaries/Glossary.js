@@ -39,7 +39,7 @@ $Glossary.prototype.forEach = function () {
   return this.glosses.forEach(...arguments)
 }
 $Glossary.prototype.getGloss = function (key) {
-  return this.glosses.getItem(key)
+  return this.glosses.get(key)
 }
 $Glossary.prototype.getName = function () {
   return `${this.title} ${this.subtitle}`

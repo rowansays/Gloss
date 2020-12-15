@@ -20,9 +20,9 @@ export function test (method, instance, tests) {
 
 export function testAbstractObjectListPrototype (instance) {
   test('forEach', instance)
-  test('getItem', instance, () => {
+  test('get', instance, () => {
     it('returns undefined no items exist.', () => {
-      expect(instance.getItem(0)).to.be.undefined
+      expect(instance.get(0)).to.be.undefined
     })
   })
   test('getItems', instance, () => {

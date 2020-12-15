@@ -75,7 +75,7 @@ $GlossList.prototype = Object.create(AbstractObjectList.prototype)
  */
 $GlossList.prototype.has = function (name) {
   for (let i = 0; i < this.getSize(); i++) {
-    if (this.getItem(i).getName() === name) {
+    if (this.get(i).getName() === name) {
       return true
     }
   }

@@ -45,9 +45,9 @@ describe('QuoteList(): Parameters', function () {
       expect(quantumRobin.getSize()).to.equal(1)
     })
     it('merges duplicate phrases into a single item.', () => {
-      expect(quantumRobin.getItem(0).hasRef('ref1')).to.be.true
-      expect(quantumRobin.getItem(0).hasRef('ref2')).to.be.true
-      expect(quantumRobin.getItem(0).hasRef('ref3')).to.be.true
+      expect(quantumRobin.get(0).hasRef('ref1')).to.be.true
+      expect(quantumRobin.get(0).hasRef('ref2')).to.be.true
+      expect(quantumRobin.get(0).hasRef('ref3')).to.be.true
     })
   })
   describe('Normal()', () => {

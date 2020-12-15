@@ -18,7 +18,7 @@ AbstractScalarList.prototype.has = function (name) {
  * @param {Number} An integer representing the index of the item to retrieve.
  * @return {mixed}
  */
-AbstractScalarList.prototype.getItem = function (index) {
+AbstractScalarList.prototype.get = function (index) {
   return this.items[index]
 }
 /**

@@ -45,7 +45,7 @@ $Term.makeFrozen = function () {
   return o
 }
 $Term.prototype.getDef = function (index) {
-  return this.defs.getItem(index)
+  return this.defs.get(index)
 }
 $Term.prototype.getDefs = function () {
   return this.defs.getItems()
@@ -55,9 +55,9 @@ $Term.prototype.getMemo = function (index) {
     case 0 :
       return ''
     case 1 :
-      return this.memos.getItem(0)
+      return this.memos.get(0)
     default :
-      return this.memos.getItem(index)
+      return this.memos.get(index)
   }
 }
 $Term.prototype.getMemos = function () {

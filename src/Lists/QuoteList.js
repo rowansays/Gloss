@@ -21,7 +21,7 @@ function $QuoteList (props) {
 $QuoteList.prototype = Object.create(AbstractObjectList.prototype)
 
 $QuoteList.prototype.getItemName = function (index) {
-  return this.getItem(index).getName()
+  return this.get(index).getName()
 }
 
 /**
@@ -31,7 +31,7 @@ $QuoteList.prototype.getItemName = function (index) {
  */
 $QuoteList.prototype.has = function (name) {
   for (let i = 0; i < this.getSize(); i++) {
-    if (this.getItem(i).getName() === name) {
+    if (this.get(i).getName() === name) {
       return true
     }
   }

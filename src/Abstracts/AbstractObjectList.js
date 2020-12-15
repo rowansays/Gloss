@@ -20,13 +20,13 @@ AbstractObjectList.prototype.forEach = function () {
  *   the item to retrieve.
  * @return {mixed}
  */
-AbstractObjectList.prototype.getItem = function (key) {
+AbstractObjectList.prototype.get = function (key) {
   switch (typeof key) {
     case 'number':
       return this.items[key]
     case 'string':
       for (let i = 0; i < this.getSize(); i++) {
-        const item = this.getItem(i)
+        const item = this.get(i)
         if (item[this._defaultGetMethod]() === key) {
           return item
         }

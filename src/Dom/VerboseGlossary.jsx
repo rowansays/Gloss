@@ -113,7 +113,7 @@ function Quote (props) {
   const items = []
   quote.getRefs().forEach(key => {
     if (isList(refs)) {
-      const ref = refs.getItem(key)
+      const ref = refs.get(key)
       items.push(<i> - {ref.getName()} ({ref.getDate()})</i>)
     }
   })
