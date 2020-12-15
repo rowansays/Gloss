@@ -9,7 +9,7 @@ var expect = chai.expect
 var it = mocha.it
 
 function expectQuote(q, name, size, freq, altSize, isSingular) {
-  expect(q.getAltNames().length, ` "The must be ${altSize} alt names."`).to.equal(altSize)
+  expect(q.getAltNames().length, ` "There must be ${altSize} alt names."`).to.equal(altSize)
   expect(q.getFreq(), `getFreq() must return "${freq}"`).to.equal(freq)
   expect(q.getName(), `getName() must return "${name}"`).to.equal(name)
   expect(q.getSize(), `getSize() must return "${size}"`).to.equal(size)
