@@ -111,6 +111,25 @@ $Term.prototype.withDef = function (...defs) {
   return new this.constructor(props)
 }
 /**
+ * Add one or more references to all definitions of this term.
+ *
+ * @param {string} ref One or more strings representing the key of a reference.
+ */
+$Term.prototype.withDefRef = function (...ref) {
+  const defs = []
+  this.defs.forEach(def => {
+    defs.push(def.withRef(...ref))
+  })
+
+  if (defs.length === 0) {
+    return this
+  }
+
+  const props = this.getProps()
+  props.defs = defs
+  return $Term.makeFrozen(props)
+}
+/**
  * Clone an instance while merging in one or more glosses.
  *
  * @param {...Quote} One or more glosses.

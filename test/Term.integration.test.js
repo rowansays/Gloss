@@ -45,4 +45,16 @@ describe('Term(): Integration Tests', function () {
       expect(term.getMemo(1).hasRef('myImagination')).to.equal(true)
     })
   })
+  describe('withDefRef()', function () {
+    it('appends a reference to all definitions.', () => {
+      const ref = 'myImagination'
+      const term = Term('a', '', Phrase('Bunnies'), Phrase('Kittens'))
+      expect(term.getDef(0).hasRef(ref)).to.be.false
+      expect(term.getDef(1).hasRef(ref)).to.be.false
+
+      const term2 = term.withDefRef(ref)
+      expect(term2.getDef(0).hasRef(ref)).to.be.true
+      expect(term2.getDef(1).hasRef(ref)).to.be.true
+    })
+  })
 })
