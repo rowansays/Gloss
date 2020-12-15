@@ -36,6 +36,14 @@ function $Term (props) {
   this.memos = QuoteList({ name: 'Term memos', items: props.memos })
   this.defs = QuoteList({ name: 'Term definitions', items: props.defs })
 }
+/**
+ * Return a frozen instance of $Term.
+ */
+$Term.makeFrozen = function () {
+  const o = new $Term(...arguments)
+  freeze(o, $Term)
+  return o
+}
 $Term.prototype.getDef = function (index) {
   return this.defs.getItem(index)
 }
@@ -132,9 +140,7 @@ $Term.prototype.withMemo = function (...memos) {
 }
 
 function Term (name, memos, ...defs) {
-  const obj = new $Term({ name, memos, defs })
-  freeze(obj, $Term)
-  return obj
+  return $Term.makeFrozen({ name, memos, defs })
 }
 
 export { Term }
