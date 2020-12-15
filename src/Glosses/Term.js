@@ -125,9 +125,9 @@ $Term.prototype.withGloss = function (...glosses) {
  * @param {...Quote} One or more values that can be coerced into a quote.
  * @return {$Term}
  */
-$Term.prototype.withMemo = function () {
+$Term.prototype.withMemo = function (...memos) {
   const props = this.getProps()
-  props.memos = props.memos.withQuote(this.memo, ...arguments)
+  props.memos = props.memos.withQuote(memos)
   return new this.constructor(props)
 }
 
