@@ -7,7 +7,7 @@ function AbstractObjectList (props) {
 }
 
 AbstractObjectList.prototype = Object.create(AbstractNamed.prototype)
-AbstractObjectList.prototype.constructor = AbstractNamed;
+AbstractObjectList.prototype.constructor = AbstractNamed
 
 AbstractObjectList.prototype.forEach = function () {
   return this.items.forEach(...arguments)
@@ -27,7 +27,7 @@ AbstractObjectList.prototype.getItem = function (key) {
     case 'string':
       for (let i = 0; i < this.getSize(); i++) {
         const item = this.getItem(i)
-        if (item.[this._defaultGetMethod]() === key) {
+        if (item[this._defaultGetMethod]() === key) {
           return item
         }
       }
