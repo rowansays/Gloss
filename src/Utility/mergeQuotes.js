@@ -25,7 +25,7 @@ export function mergeQuotes (quotes) {
   const map = new Map()
   quotes.forEach(quote => {
     const key = quote.getName()
-    if (map.has(key) && quote.hasReference()) {
+    if (map.has(key)) {
       // merge quotes with the same name.
       map.set(key, map.get(key).withReference(...quote.getReferences()))
     } else {
