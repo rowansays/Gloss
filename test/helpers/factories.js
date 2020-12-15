@@ -1,10 +1,10 @@
 import chai from 'chai'
 import mocha from 'mocha'
 
-var expect = chai.expect
-var it = mocha.it
+const expect = chai.expect
+const it = mocha.it
 
-export function testFactoryFunction(name, func, instance) {
+export function testFactoryFunction (name, func, instance) {
   describe(`${name} Factory Tests`, () => {
     it('is a function.', () => {
       expect(typeof func).to.equal('function')
@@ -30,10 +30,10 @@ export function testNameProp (func) {
       expect(func({ name: '   nobody   ' }).getName()).to.equal('nobody')
     })
     it('  - trims leading and trailing tabs.', () => {
-      expect(func({ name: "\t\t\tnobody\t\t\t" }).getName()).to.equal('nobody')
+      expect(func({ name: '\t\t\tnobody\t\t\t' }).getName()).to.equal('nobody')
     })
     it('  - trims leading and trailing spaces and tabs.', () => {
-      expect(func({ name: "\t \t nobody \t \t" }).getName()).to.equal('nobody')
+      expect(func({ name: '\t \t nobody \t \t' }).getName()).to.equal('nobody')
     })
     it('accepts integers.', () => {
       expect(function () { func({ name: 123 }) }).to.not.throw(Error)
@@ -48,16 +48,16 @@ export function testNameProp (func) {
       expect(function () { func({ name: '' }) }).to.throw(Error)
     })
     it('rejects a space character.', () => {
-      expect(function () { func({ name: ' ' })}).to.throw(Error)
+      expect(function () { func({ name: ' ' }) }).to.throw(Error)
     })
     it('rejects multiple space characters.', () => {
-      expect(function () { func({ name: '   ' })}).to.throw(Error)
+      expect(function () { func({ name: '   ' }) }).to.throw(Error)
     })
     it('rejects a tab character.', () => {
-      expect(function () { func({ name: "\t" })}).to.throw(Error)
+      expect(function () { func({ name: '\t' }) }).to.throw(Error)
     })
     it('rejects multiple tab characters.', () => {
-      expect(function () { func({ name: "\t\t\t" })}).to.throw(Error)
+      expect(function () { func({ name: '\t\t\t' }) }).to.throw(Error)
     })
   })
 }

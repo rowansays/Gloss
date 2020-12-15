@@ -1,11 +1,11 @@
 import chai from 'chai'
 import mocha from 'mocha'
 
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+const describe = mocha.describe
+const expect = chai.expect
+const it = mocha.it
 
-export function test(method, instance, tests) {
+export function test (method, instance, tests) {
   tests = typeof tests === 'function' ? tests : () => {}
   describe(`${method}()`, function () {
     it('is in prototype chain', () => {
@@ -18,7 +18,7 @@ export function test(method, instance, tests) {
   })
 }
 
-export function testAbstractObjectListPrototype(instance) {
+export function testAbstractObjectListPrototype (instance) {
   test('forEach', instance)
   test('getItem', instance, () => {
     it('returns undefined no items exist.', () => {

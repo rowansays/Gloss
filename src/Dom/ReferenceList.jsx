@@ -13,7 +13,7 @@ function ReferenceList (props) {
 }
 
 function ReferenceListItem (props) {
-  const list = {props}
+  const list = { props }
   return (
     <ul>{refs}</ul>
   )

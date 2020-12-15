@@ -52,7 +52,7 @@ function Gloss (props) {
   })
 
   return (
-    <tbody class="Gloss">
+    <tbody class='Gloss'>
       <th class='GlossName' colspan='2'>{gloss.getName()}</th>
       {defs}
     </tbody>
@@ -65,20 +65,20 @@ function Gloss (props) {
 function DefinitionSingle (quote) {
   return (
     <>
-      <tr class="Head">
-        <td class="Term">{quote.getName()}</td>
+      <tr class='Head'>
+        <td class='Term'>{quote.getName()}</td>
         <Quote quote={quote} />
       </tr>
     </>
   )
 }
 function DefinitionMultiple (quote) {
-  const head = quote.slice(0 ,1)
+  const head = quote.slice(0, 1)
   const tail = quote.slice(1)
   return (
     <>
-      <tr class="Head">
-        <td class="Term" rowspan={quote.getSize()}>
+      <tr class='Head'>
+        <td class='Term' rowspan={quote.getSize()}>
           {quote.getName()}
         </td>
         <Quote quote={head} />
@@ -90,9 +90,8 @@ function DefinitionMultiple (quote) {
 
 function Quote (props) {
   const { quote } = props
-  return (<td class="Description">{quote.getName()}</td>)
+  return (<td class='Description'>{quote.getName()}</td>)
 }
-
 
 function Quotes (props) {
   const { quotes } = props
