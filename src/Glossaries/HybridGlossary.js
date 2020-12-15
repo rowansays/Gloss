@@ -22,7 +22,7 @@ function $HybridGlossary (id, ...glossaries) {
 
   glossaries = !!glossaries && Array.isArray(glossaries) ? glossaries : []
   glossaries.forEach((glossary, index) => {
-    this.references[index + 1] = glossary.getReference()
+    this.references[index + 1] = glossary.getRef()
     glossary.forEach(gloss => {
       glosses.push(gloss)
     })
@@ -37,7 +37,7 @@ $HybridGlossary.prototype = Object.create(AbstractWork.prototype)
 $HybridGlossary.prototype.forEach = function () {
   return this.glosses.forEach(...arguments)
 }
-$HybridGlossary.prototype.getReference = function (index) {
+$HybridGlossary.prototype.getRef = function (index) {
   index = Number.isInteger(index) ? index : 1
   return this.references[index] ? this.references[index] : ''
 }

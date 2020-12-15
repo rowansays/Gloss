@@ -45,7 +45,7 @@ $Glossary.prototype.getName = function () {
   return `${this.title} ${this.subtitle}`
 }
 $Glossary.prototype.getRef = function () {
-  return this.referenceKey
+  return this.ref
 }
 $Glossary.prototype.getSize = function () {
   return this.glosses.getSize()
