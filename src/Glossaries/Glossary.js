@@ -10,14 +10,27 @@
  */
 
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
+import { castString } from '../Utility/castString.js'
 import { freeze } from '../Utility/freeze.js'
 import { GlossList } from '../Lists/GlossList.js'
 
-function $Glossary (id, referenceKey, ...glosses) {
+function $Glossary (props) {
+  let { id, ref, glosses } = props || {}
+  ref = castString(ref)
+
   AbstractWork.call(this, id)
-  const name = id && id.getName() ? id.getName() : 'Anonymous'
-  this.glosses = GlossList({ name: name, items: glosses })
-  this.referenceKey = typeof referenceKey === 'string' ? referenceKey : ''
+
+  const refGlosses = []
+  if (!!glosses && typeof glosses.forEach === 'function') {
+    glosses.forEach(gloss => {
+      refGlosses.push(gloss.withDefRef(ref))
+    })
+  }
+
+  const name = this.title !== '' ? this.title : 'Anonymous'
+
+  this.glosses = GlossList({ name: name, items: refGlosses })
+  this.ref = ref
 }
 
 $Glossary.prototype = Object.create(AbstractWork.prototype)
@@ -25,14 +38,20 @@ $Glossary.prototype = Object.create(AbstractWork.prototype)
 $Glossary.prototype.forEach = function () {
   return this.glosses.forEach(...arguments)
 }
-$Glossary.prototype.getReference = function () {
+$Glossary.prototype.getGloss = function (key) {
+  return this.glosses.getItem(key)
+}
+$Glossary.prototype.getName = function () {
+  return `${this.title} ${this.subtitle}`
+}
+$Glossary.prototype.getRef = function () {
   return this.referenceKey
 }
 $Glossary.prototype.getSize = function () {
   return this.glosses.getSize()
 }
 
-function Glossary () {
+function Glossary (props) {
   const obj = new $Glossary(...arguments)
   freeze(obj, $Glossary)
   return obj
