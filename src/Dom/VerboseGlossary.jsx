@@ -5,16 +5,21 @@ import { render } from 'preact'
  *
  * @return {Element} Section element.
  */
-function renderVerboseGlossary () {
+function renderVerboseGlossary (...args) {
   const fragment = document.createDocumentFragment()
-  render(VerboseGlossary(...arguments), fragment)
+  const props = {
+    glossary: args[0],
+    refs: args[1]
+  }
+  render(VerboseGlossary(props), fragment)
   return fragment
 }
 
-function VerboseGlossary (glossary) {
+function VerboseGlossary (props) {
+  const { glossary, refs } = props
   const glosses = []
   glossary.forEach(gloss => {
-    glosses.push(<Gloss gloss={gloss} />)
+    glosses.push(<Gloss gloss={gloss} refs={refs} />)
   })
 
   return (
@@ -37,16 +42,16 @@ function VerboseGlossary (glossary) {
  * Table body element
  */
 function Gloss (props) {
-  const { gloss } = props
+  const { gloss, refs } = props
   const sorted = gloss.sortDefsByName()
 
   const defs = []
   sorted.defs.forEach((quote, i) => {
     let def
     if (quote.getSize() > 1) {
-      def = DefinitionMultiple(quote)
+      def = <DefinitionMultiple quote={quote} refs={refs} />
     } else {
-      def = DefinitionSingle(quote)
+      def = <DefinitionSingle quote={quote} refs={refs} />
     }
     defs.push(def)
   })
@@ -62,17 +67,19 @@ function Gloss (props) {
 /**
  * Multiple table rows for all quotes within a definition
  */
-function DefinitionSingle (quote) {
+function DefinitionSingle (props) {
+  const { quote, refs } = props
   return (
     <>
       <tr class='Head'>
         <td class='Term'>{quote.getName()}</td>
-        <Quote quote={quote} />
+        <Quote quote={quote} refs={refs} />
       </tr>
     </>
   )
 }
-function DefinitionMultiple (quote) {
+function DefinitionMultiple (props) {
+  const { quote, refs } = props
   const head = quote.slice(0, 1)
   const tail = quote.slice(1)
   return (
@@ -81,27 +88,34 @@ function DefinitionMultiple (quote) {
         <td class='Term' rowspan={quote.getSize()}>
           {quote.getName()}
         </td>
-        <Quote quote={head} />
+        <Quote quote={head} refs={refs} />
       </tr>
-      <Quotes quotes={tail} />
+      <Quotes quotes={tail} refs={refs} />
     </>
   )
 }
 
-function Quote (props) {
-  const { quote } = props
-  return (<td class='Description'>{quote.getName()}</td>)
-}
-
 function Quotes (props) {
-  const { quotes } = props
+  const { quotes, refs } = props
 
   const rows = []
   quotes.forEach(quote => {
-    rows.push(<tr><Quote quote={quote} /></tr>)
+    rows.push(<tr><Quote quote={quote} refs={refs} /></tr>)
   })
 
   return (<>{rows}</>)
+}
+
+function Quote (props) {
+  const { quote, refs } = props
+
+  const items = []
+  console.log('quote.getRefs()', quote.getRefs())
+  quote.getRefs().forEach(key => {
+    items.push(<span>{refs[key].title} </span>)
+  })
+
+  return (<td class='Description'>{quote.getName()} {items}</td>)
 }
 
 export { renderVerboseGlossary, VerboseGlossary }
