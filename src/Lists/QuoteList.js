@@ -13,7 +13,7 @@ import { parseQuotes } from '../Utility/parseQuotes.js'
 
 function $QuoteList (props) {
   AbstractObjectList.call(this, props)
-  const parsed = parseQuotes(props.quotes)
+  const parsed = parseQuotes(props.items)
   const merged = mergeQuotes(parsed)
   this.items = merged
 }
