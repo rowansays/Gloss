@@ -1,5 +1,10 @@
+import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
+
 function AbstractScalarList () {}
 
+AbstractScalarList.prototype.add = function (...items) {
+  return makeFrozenInstanceOf(this.constructor, [...this.items, ...items])
+}
 /**
  * @return {undefined}
  */
