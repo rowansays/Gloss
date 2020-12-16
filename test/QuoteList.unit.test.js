@@ -4,7 +4,7 @@ import { QuoteList } from '../src/Lists/QuoteList.js'
 // Testing library.
 import chai from 'chai'
 import mocha from 'mocha'
-import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
+import { testObjectListInterface } from './helpers/prototypes.js'
 import { testFactoryFunction, testNameProp } from './helpers/factories.js'
 
 var describe = mocha.describe
@@ -17,13 +17,7 @@ const empty = QuoteList(props)
 testFactoryFunction('QuoteList', QuoteList, empty)
 
 describe('QuoteList.prototype', function () {
-  it('has a has() method.', () => {
-    expect(typeof empty.has).to.equal('function')
-  })
-  it('has a withQuote() method.', () => {
-    expect(typeof empty.withQuote).to.equal('function')
-  })
-  testAbstractObjectListPrototype(empty)
+  testObjectListInterface(empty)
 })
 
 describe('empty: Function Signatures', function () {

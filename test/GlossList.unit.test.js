@@ -4,7 +4,7 @@ import { GlossList } from '../src/Lists/GlossList.js'
 // Test library
 import chai from 'chai'
 import mocha from 'mocha'
-import { testAbstractObjectListPrototype } from './helpers/prototypes.js'
+import { testObjectListInterface } from './helpers/prototypes.js'
 import { testFactoryFunction, testNameProp } from './helpers/factories.js'
 
 var describe = mocha.describe
@@ -14,7 +14,7 @@ var it = mocha.it
 testFactoryFunction('GlossList', GlossList, GlossList({ name: 'nobody' }))
 
 describe('GlossList.prototype', () => {
-  testAbstractObjectListPrototype(GlossList({ name: 'nobody' }))
+  testObjectListInterface(GlossList({ name: 'nobody' }))
 })
 describe('GlossList(): Parameters', function () {
   testNameProp(GlossList)

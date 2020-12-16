@@ -2,12 +2,19 @@ import chai from 'chai'
 import mocha from 'mocha'
 import { StringList } from '../src/Lists/StringList.js'
 import { testFactoryFunction } from './helpers/factories.js'
+import {
+  testListInterface,
+  testMethodReturnsFrozenInstance
+} from './helpers/prototypes.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
 testFactoryFunction('StringList', StringList, StringList())
+testListInterface(StringList())
+
+testMethodReturnsFrozenInstance('sort', StringList())
 
 describe('StringList(): Parameters', function () {
   describe('1+. ...strings', () => {
@@ -114,33 +121,33 @@ describe('StringList(): Instance Methods', function () {
       expect(list.get(2)).to.equal('c')
     })
   })
-  describe('withString()', function () {
+  describe('add()', function () {
     it('is a function.', () => {
-      expect(typeof StringList().withString).to.equal('function')
+      expect(typeof StringList().add).to.equal('function')
     })
     it('returns an instance of $StringList.', () => {
-      expect(StringList().withString().constructor.name).to.equal('$StringList')
+      expect(StringList().add().constructor.name).to.equal('$StringList')
     })
     it('appends a single, unique string.', () => {
-      const list = StringList('a', 'b').withString('c')
+      const list = StringList('a', 'b').add('c')
       expect(list.get(0)).to.equal('a')
       expect(list.get(1)).to.equal('b')
       expect(list.get(2)).to.equal('c')
     })
     it('appends two, unique strings.', () => {
-      const list = StringList('a').withString('b', 'c')
+      const list = StringList('a').add('b', 'c')
       expect(list.get(0)).to.equal('a')
       expect(list.get(1)).to.equal('b')
       expect(list.get(2)).to.equal('c')
     })
     it('ignores non-strings.', () => {
-      const list = StringList('a').withString(null, [], {})
+      const list = StringList('a').add(null, [], {})
       expect(list.get(0)).to.equal('a')
       expect(list.get(1)).to.equal(void 1)
       expect(list.get(2)).to.equal(void 1)
     })
     it('coerces numbers to strings.', () => {
-      const list = StringList('a').withString(1, 2)
+      const list = StringList('a').add(1, 2)
       expect(list.get(0)).to.equal('a')
       expect(list.get(1)).to.equal('1')
       expect(list.get(2)).to.equal('2')
