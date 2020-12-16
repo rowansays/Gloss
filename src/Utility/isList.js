@@ -9,6 +9,7 @@
 function isList (aught) {
   return !!aught &&
     typeof aught === 'object' &&
+    typeof aught.add === 'function' &&
     typeof aught.entries === 'function' &&
     typeof aught.forEach === 'function' &&
     typeof aught.get === 'function' &&
