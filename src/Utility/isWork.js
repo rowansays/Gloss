@@ -11,6 +11,7 @@ function isWork (aught) {
     typeof aught.getDate === 'function' &&
     typeof aught.getDescription === 'function' &&
     typeof aught.getKey === 'function' &&
+    typeof aught.getName === 'function' &&
     typeof aught.getSubtitle === 'function' &&
     typeof aught.getTitle === 'function' &&
     typeof aught.getUrl === 'function'
