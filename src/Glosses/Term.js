@@ -98,7 +98,7 @@ $Term.prototype.sortDefsByName = function () {
  */
 $Term.prototype.withDef = function (...defs) {
   const props = this.getProps()
-  props.defs = props.defs.withQuote(...defs)
+  props.defs = props.defs.add(...defs)
   return new this.constructor(props)
 }
 /**
@@ -130,8 +130,8 @@ $Term.prototype.withGloss = function (...glosses) {
   if (!!glosses && typeof glosses.forEach === 'function') {
     const props = this.getProps()
     glosses.forEach(gloss => {
-      props.memos = props.memos.withQuote(...gloss.getMemos())
-      props.defs = props.defs.withQuote(...gloss.getDefs())
+      props.memos = props.memos.add(...gloss.getMemos())
+      props.defs = props.defs.add(...gloss.getDefs())
     })
     return new $Term(props)
   }
@@ -145,7 +145,7 @@ $Term.prototype.withGloss = function (...glosses) {
  */
 $Term.prototype.withMemo = function (...memos) {
   const props = this.getProps()
-  props.memos = props.memos.withQuote(memos)
+  props.memos = props.memos.add(memos)
   return new this.constructor(props)
 }
 
