@@ -37,6 +37,9 @@ AbstractObjectList.prototype.get = function (key) {
         }
       }
       return undefined
+    case 'object':
+      const index = this.items.indexOf(key)
+      return index > -1 ? this.items[index] : undefined
     default:
       return undefined
   }
