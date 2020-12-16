@@ -3,6 +3,7 @@ import mocha from 'mocha'
 import { Quote } from '../src/Quotes/Quote.js'
 import { testFactoryFunction } from './helpers/factories.js'
 import { test } from './helpers/prototypes.js'
+import { aliceBook, devilsBook, frankenBook, prideBook } from './data/refs.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -16,22 +17,41 @@ function expectQuote(q, name, size, freq, altSize, isSingular) {
   expect(q.isSingular(), `isSingular() must return "${isSingular}"`).to.equal(isSingular)
 }
 
-describe('Quote() Unit Tests', function () {
-  const instance = Quote({ name: 'a', refs: [1] })
+describe('Quote: Tests', function () {
+  const instance = Quote({ name: 'a', refs: [frankenBook] })
   testFactoryFunction('Quote', Quote, instance)
   describe('Prototype', function () {
     test('forEach', instance)
     test('getAltNames', instance)
     test('getFreq', instance)
     test('getName', instance)
-    test('getProps', instance)
+    test('getProps', instance, () => {
+      const props = instance.getProps()
+      describe('For a singular quote with 1 reference, it', function () {
+        it ('returns an array that contains a single object which', () => {
+          expect(props).to.be.an('array')
+            .that.has.lengthOf(1)
+            .and.property(0)
+              .which.is.an('object')
+        })
+        it ('  1. has a valid name property.', () => {
+          expect(props[0]).to.have.property('name', instance.getName())
+        })
+        it ('  2. has a valid refs property.', () => {
+          expect(props[0]).to.have.property('refs')
+            .which.is.an('array')
+              .that.has.lengthOf(1)
+              .and.includes(frankenBook)
+        })
+      })
+    })
     test('isSingular', instance)
     test('slice', instance, () => {
       const songwritters = Quote(
-        Quote({ name: 'Johnny', refs: ['Cash'] }),
-        Quote({ name: 'Nick', refs: ['Cave'] }),
-        Quote({ name: 'Tom', refs: ['Waits'] }),
-        Quote({ name: 'Leonard', refs: ['Cohen'] }),
+        Quote({ name: 'Johnny', refs: [aliceBook] }),
+        Quote({ name: 'Nick', refs: [devilsBook] }),
+        Quote({ name: 'Tom', refs: [frankenBook] }),
+        Quote({ name: 'Leonard', refs: [prideBook] }),
       )
       it('clones a quote', () => {
         expectQuote(songwritters.slice(0), 'Johnny', 4, 4, 3, false)
@@ -68,93 +88,88 @@ describe('Quote() Unit Tests', function () {
       it('plucks last three quotes', () => {
         expectQuote(songwritters.slice(1, 4), 'Nick', 3, 3, 2, false)
       })
-
     })
     test('withQuote', instance, () => {
       it('accepts 1 plain object.', () => {
-        const q = instance.withQuote({ name: 'b', refs: [2] })
+        const q = instance.withQuote({ name: 'b', refs: [aliceBook] })
         expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('accepts 2 plain objects.', () => {
         const q = instance.withQuote(
-          { name: 'b', refs: [2] },
-          { name: 'c', refs: [3] }
+          { name: 'b', refs: [aliceBook] },
+          { name: 'c', refs: [devilsBook] }
         )
         expectQuote(q, 'a', 3, 3, 2, false)
       })
       it('accepts 1 quote.', () => {
-        const q = instance.withQuote(Quote({ name: 'b', refs: [2] }))
+        const q = instance.withQuote(Quote({ name: 'b', refs: [aliceBook] }))
         expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('accepts 2 quotes.', () => {
         const q = instance.withQuote(
-          Quote({ name: 'b', refs: [2] }),
-          Quote({ name: 'c', refs: [3] })
+          Quote({ name: 'b', refs: [aliceBook] }),
+          Quote({ name: 'c', refs: [devilsBook] })
         )
         expectQuote(q, 'a', 3, 3, 2, false)
       })
     })
+
     test('withRef', instance, () => {
       it('appends 1 ref to a single quote.', () => {
-        const q = instance.withRef(2)
+        const q = instance.withRef(aliceBook)
         expectQuote(q, 'a', 1, 2, 0, true)
-        expect(q.hasRef(1)).to.be.true
-        expect(q.hasRef(2)).to.be.true
+        expect(q.hasRef(frankenBook)).to.be.true
+        expect(q.hasRef(aliceBook)).to.be.true
       })
       it('appends 2 refs to a single quote.', () => {
-        const q = instance.withRef('cow', 'lick')
+        const q = instance.withRef(aliceBook, devilsBook)
         expectQuote(q, 'a', 1, 3, 0, true)
-        expect(q.hasRef(1)).to.be.true
-        expect(q.hasRef('cow')).to.be.true
-        expect(q.hasRef('lick')).to.be.true
+        expect(q.hasRef(frankenBook)).to.be.true
+        expect(q.hasRef(aliceBook)).to.be.true
+        expect(q.hasRef(devilsBook)).to.be.true
       })
       it('appends 1 ref to a double quote.', () => {
         const q = Quote(
-          Quote({ name: 'Bubble' }),
-          Quote({ name: 'Bobble' })
-        ).withRef('eye')
+          Quote({ name: 'Bubble', refs: [aliceBook] }),
+          Quote({ name: 'Bobble', refs: [aliceBook] })
+        ).withRef(frankenBook)
 
-        expectQuote(q, 'Bubble', 2, 1, 1, false)
-
-        const props = q.getProps()
-        props.forEach(quote => {
-          expect(quote.refs[0]).to.equal('eye')
-        })
+        expectQuote(q, 'Bubble', 2, 2, 1, false)
+        expect(q.hasRef(aliceBook)).to.equal(true)
+        expect(q.hasRef(frankenBook)).to.equal(true)
       })
       it('appends 2 refs to a double quote.', () => {
         const q = Quote(
-          Quote({ name: 'Bubble' }),
-          Quote({ name: 'Bobble' })
-        ).withRef('eye', 'ball')
+          Quote({ name: 'Bubble', refs: [aliceBook] }),
+          Quote({ name: 'Bobble', refs: [devilsBook] })
+        ).withRef(frankenBook, prideBook)
 
-        expectQuote(q, 'Bubble', 2, 2, 1, false)
-
-        const props = q.getProps()
-        props.forEach(quote => {
-          expect(quote.refs[0]).to.equal('eye')
-          expect(quote.refs[1]).to.equal('ball')
-        })
+        expectQuote(q, 'Bubble', 2, 4, 1, false)
+        expect(q.hasRef(aliceBook)).to.equal(true)
+        expect(q.hasRef(devilsBook)).to.equal(true)
+        expect(q.hasRef(frankenBook)).to.equal(true)
+        expect(q.hasRef(prideBook)).to.equal(true)
       })
     })
   })
   describe('Constructor Signature', function () {
     describe('Plain objects: unique ', function () {
       it('accepts 1 object.', () => {
-        const q = Quote({ name: 'a', refs: [2] })
+        const q = Quote({ name: 'a', refs: [aliceBook] })
         expectQuote(q, 'a', 1, 1, 0, true)
       })
       it('accepts 2 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'b', refs: [2] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'b', refs: [devilsBook] }
         )
         expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('accepts 3 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'b', refs: [2] },
-          { name: 'c', refs: [3] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'b', refs: [devilsBook] },
+          { name: 'c', refs: [frankenBook] }
         )
         expectQuote(q, 'a', 3, 3, 2, false)
       })
@@ -162,16 +177,16 @@ describe('Quote() Unit Tests', function () {
     describe('Plain objects: identical names & refs', function () {
       it('merges 2 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'a', refs: [1] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'a', refs: [aliceBook] }
         )
         expectQuote(q, 'a', 1, 1, 0, true)
       })
       it('merges 3 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'a', refs: [1] },
-          { name: 'a', refs: [1] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'a', refs: [aliceBook] },
+          { name: 'a', refs: [aliceBook] }
         )
         expectQuote(q, 'a', 1, 1, 0, true)
       })
@@ -179,16 +194,16 @@ describe('Quote() Unit Tests', function () {
     describe('Plain objects: identical names & unique refs', function () {
       it('merges 2 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'a', refs: [2] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'a', refs: [devilsBook] }
         )
         expectQuote(q, 'a', 1, 2, 0, true)
       })
       it('merges 3 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'a', refs: [2] },
-          { name: 'a', refs: [3] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'a', refs: [devilsBook] },
+          { name: 'a', refs: [frankenBook] }
         )
         expectQuote(q, 'a', 1, 3, 0, true)
       })
@@ -196,37 +211,37 @@ describe('Quote() Unit Tests', function () {
     describe('Plain objects: unique names & identical refs', function () {
       it('merges 2 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'b', refs: [1] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'b', refs: [aliceBook] }
         )
         expectQuote(q, 'a', 2, 1, 1, false)
       })
       it('merges 3 objects.', () => {
         const q = Quote(
-          { name: 'a', refs: [1] },
-          { name: 'b', refs: [1] },
-          { name: 'c', refs: [1] }
+          { name: 'a', refs: [aliceBook] },
+          { name: 'b', refs: [aliceBook] },
+          { name: 'c', refs: [aliceBook] }
         )
         expectQuote(q, 'a', 3, 1, 2, false)
       })
     })
     describe('Quotes: unique ', function () {
       it('accepts 1 quote.', () => {
-        const q = Quote(Quote({ name: 'a', refs: [2] }))
+        const q = Quote(Quote({ name: 'a', refs: [aliceBook] }))
         expectQuote(q, 'a', 1, 1, 0, true)
       })
       it('accepts 2 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'b', refs: [2] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'b', refs: [devilsBook] })
         )
         expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('accepts 3 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'b', refs: [2] }),
-          Quote({ name: 'c', refs: [3] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'b', refs: [devilsBook] }),
+          Quote({ name: 'c', refs: [frankenBook] })
         )
         expectQuote(q, 'a', 3, 3, 2, false)
       })
@@ -234,16 +249,16 @@ describe('Quote() Unit Tests', function () {
     describe('Quotes: identical names & refs', function () {
       it('merges 2 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'a', refs: [1] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'a', refs: [aliceBook] })
         )
         expectQuote(q, 'a', 1, 1, 0, true)
       })
       it('merges 3 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'a', refs: [1] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'a', refs: [aliceBook] })
         )
         expectQuote(q, 'a', 1, 1, 0, true)
       })
@@ -251,16 +266,16 @@ describe('Quote() Unit Tests', function () {
     describe('Quotes: identical names & unique refs', function () {
       it('merges 2 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'a', refs: [2] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'a', refs: [devilsBook] })
         )
         expectQuote(q, 'a', 1, 2, 0, true)
       })
       it('merges 3 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'a', refs: [2] }),
-          Quote({ name: 'a', refs: [3] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'a', refs: [devilsBook] }),
+          Quote({ name: 'a', refs: [frankenBook] })
         )
         expectQuote(q, 'a', 1, 3, 0, true)
       })
@@ -268,16 +283,16 @@ describe('Quote() Unit Tests', function () {
     describe('Quotes: unique names & identical refs', function () {
       it('merges 2 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'b', refs: [1] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'b', refs: [aliceBook] })
         )
         expectQuote(q, 'a', 2, 1, 1, false)
       })
       it('merges 3 quotes.', () => {
         const q = Quote(
-          Quote({ name: 'a', refs: [1] }),
-          Quote({ name: 'b', refs: [1] }),
-          Quote({ name: 'c', refs: [1] })
+          Quote({ name: 'a', refs: [aliceBook] }),
+          Quote({ name: 'b', refs: [aliceBook] }),
+          Quote({ name: 'c', refs: [aliceBook] })
         )
         expectQuote(q, 'a', 3, 1, 2, false)
       })
@@ -306,7 +321,7 @@ describe('Quote() Unit Tests', function () {
       it('does not require refs #1', () => {
         const q = Quote(
           { name: 'a' },
-          { name: 'b', refs: [1] }
+          { name: 'b', refs: [aliceBook] }
         )
         expectQuote(q, 'a', 2, 1, 1, false)
       })

@@ -1,7 +1,8 @@
 import { castString } from '../Utility/castString.js'
-import { castStringArray } from '../Utility/castStringArray.js'
 import { freeze } from '../Utility/freeze.js'
 import { isQuote } from '../Utility/isQuote.js'
+import { ReferenceList } from '../Lists/ReferenceList.js'
+import { isReference } from '../Utility/isReference.js'
 
 /**
  * Quote constructor.
@@ -28,11 +29,12 @@ function $Quote (...quotes) {
   quotes.forEach((aught, i) => {
     aught = isQuote(aught) ? aught.getProps() : aught
     aught = Array.isArray(aught) ? aught : [aught]
-    aught.forEach(dirty => {
-      const name = castString(dirty.name)
-      const refStrings = castStringArray(dirty.refs)
+    aught.forEach(prop => {
+      prop = validateQuoteProp(prop)
+
       const refNumbers = []
-      refStrings.forEach(ref => {
+      const refList = ReferenceList(...prop.refs)
+      refList.forEach(ref => {
         let index = refs.indexOf(ref)
         if (index === -1) {
           index = refs.length
@@ -41,6 +43,7 @@ function $Quote (...quotes) {
         refNumbers.push(index)
       })
 
+      const name = castString(prop.name)
       if (name === '') {
         throw new Error('Invalid name')
       }
@@ -57,7 +60,8 @@ function $Quote (...quotes) {
 
   this.length = Object.keys(map).length
   this.map = map
-  this.refs = refs
+
+  this.refs = ReferenceList(...refs)
 }
 /**
  * Return a frozen instance of $Quote.
@@ -98,22 +102,25 @@ $Quote.prototype.getProps = function () {
   const o = []
   Object.keys(this.map).forEach(name => {
     const refs = this.map[name].reduce((output, index) => {
-      output.push(this.refs[index])
+      output.push(this.getRef(index))
       return output
     }, [])
     o.push({ name, refs })
   })
   return o
 }
-$Quote.prototype.getRefs = function (key) {
+$Quote.prototype.getRefs = function (key) { // Find a use-case for this :)
   if (typeof key === 'undefined') {
     return this.refs
   } else if (Array.isArray(this.map[key])) {
     return this.map[key]
   }
 }
+$Quote.prototype.getRef = function (key) {
+  return this.refs.get(key)
+}
 $Quote.prototype.hasRef = function (key) {
-  return this.refs.indexOf(key) > -1
+  return this.refs.has(key)
 }
 $Quote.prototype.isSingular = function () {
   return Object.keys(this.map).length === 1
@@ -139,6 +146,40 @@ $Quote.prototype.withRef = function (...refs) {
     props.push(prop)
   })
   return $Quote.makeFrozen(...props)
+}
+
+function validateQuoteProp (aught) {
+  if (typeof aught !== 'object') {
+    throw new Error('prop must be an object.')
+  }
+
+  const o = {
+    name: aught.name,
+    refs: aught.refs,
+  }
+
+  if (typeof o.name !== 'string' || o.name === '') {
+    throw new Error('prop.name must be a non-empty string.')
+  }
+
+  if (typeof o.refs === 'undefined') {
+    o.refs = []
+  }
+
+  if (!Array.isArray(o.refs)) {
+    throw new Error('prop.refs must be an array.')
+  }
+
+  o.refs.forEach(ref => {
+    if (!isReference(ref)) {
+      throw new Error('' +
+        'prop.refs must contain only reference objects. A value with a type ' +
+        `of "${typeof ref}" was provided. Here is its string value: "${ref}".`
+      )
+    }
+  })
+
+  return o
 }
 
 /**
