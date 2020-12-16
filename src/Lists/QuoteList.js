@@ -25,13 +25,6 @@ $QuoteList.prototype.getItemName = function (index) {
   return this.get(index).getName()
 }
 
-$QuoteList.prototype.withQuote = function () {
-  return new $QuoteList({
-    name: this.name,
-    items: [...this.items, ...arguments]
-  })
-}
-
 Object.defineProperty($QuoteList.prototype, 'constructor', {
   value: $QuoteList
 })
