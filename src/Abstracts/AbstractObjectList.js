@@ -1,20 +1,12 @@
-import { AbstractNamed } from './AbstractNamed.js'
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
 
-function AbstractObjectList (props) {
-  AbstractNamed.call(this, props)
+function AbstractObjectList () {
   this._defaultGetMethod = 'getName'
   this._defaultSortMethod = 'getName'
 }
 
-AbstractObjectList.prototype = Object.create(AbstractNamed.prototype)
-AbstractObjectList.prototype.constructor = AbstractNamed
-
 AbstractObjectList.prototype.add = function (...items) {
-  return makeFrozenInstanceOf(this.constructor, [{
-    name: this.name,
-    items: [...this.items, ...items]
-  }])
+  return makeFrozenInstanceOf(this.constructor, [...this.items, ...items])
 }
 /**
  * @return {Array} A clone of the items array.
@@ -69,10 +61,7 @@ AbstractObjectList.prototype.sortAscBy = function (method) {
     }
     return 0
   })
-  return makeFrozenInstanceOf(this.constructor, [{
-    name: this.name,
-    items: sorted
-  }])
+  return makeFrozenInstanceOf(this.constructor, sorted)
 }
 /**
  * Sort items in descending order by a given accessor method.
@@ -91,10 +80,7 @@ AbstractObjectList.prototype.sortDescBy = function (method) {
     }
     return 0
   })
-  return makeFrozenInstanceOf(this.constructor, [{
-    name: this.name,
-    items: sorted
-  }])
+  return makeFrozenInstanceOf(this.constructor, sorted)
 }
 
 function validateAccessor (list, item, name) {

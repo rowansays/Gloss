@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { Normal, Phrase, Quote } from '../src/Quotes/Quote.js'
+import { Normal, Phrase } from '../src/Quotes/Quote.js'
 import { QuoteList } from '../src/Lists/QuoteList.js'
 
 var describe = mocha.describe
@@ -11,37 +11,35 @@ describe('QuoteList Integration Tests', function () {
   describe('Parameters', function () {
     describe('single: {Phrase}', () => {
       it('accepts a Quote.', () => {
-        const ql = QuoteList({ name: 'nobody', items: [ Phrase('a') ] })
+        const ql = QuoteList(Phrase('a'))
         expect(ql.length).to.equal(1)
         expect(ql.getItemName(0)).to.equal('a')
       })
     })
     describe('Phrase())', () => {
       it('accepts unique phrases.', () => {
-        const q = QuoteList({
-          name: 'nobody',
-          items: [ Phrase('f'), Phrase('z'), Phrase('t') ]
-        })
-
+        const q = QuoteList(
+          Phrase('f'),
+          Phrase('z'),
+          Phrase('t')
+        )
         expect(q.length).to.equal(3)
       })
       it('stores phrases in the order they were provided.', () => {
-        const q = QuoteList({
-          name: 'nobody',
-          items: [ Phrase('f'), Phrase('z'), Phrase('t') ]
-        })
+        const q = QuoteList(
+          Phrase('f'),
+          Phrase('z'),
+          Phrase('t')
+        )
         expect(q.getItemName(0)).to.equal('f')
         expect(q.getItemName(1)).to.equal('z')
         expect(q.getItemName(2)).to.equal('t')
       })
-      const quantumRobin = QuoteList({
-        name: 'nobody',
-        items: [
-          Phrase('Quantum robin', 'ref1'),
-          Phrase('Quantum robin', 'ref2'),
-          Phrase('Quantum robin', 'ref3')
-        ]
-      })
+      const quantumRobin = QuoteList(
+        Phrase('Quantum robin', 'ref1'),
+        Phrase('Quantum robin', 'ref2'),
+        Phrase('Quantum robin', 'ref3')
+      )
       it('does not allow duplicate phrases.', () => {
         expect(quantumRobin.length).to.equal(1)
       })
@@ -53,27 +51,21 @@ describe('QuoteList Integration Tests', function () {
     })
     describe('Normal()', () => {
       it('accepts unique normalized phrases.', () => {
-        const q = QuoteList({
-          name: 'nobody',
-          items: [ Normal('x', 'xx'), Normal('y', 'yy'), Normal('z', 'zz') ]
-        })
+        const q = QuoteList(
+          Normal('x', 'xx'),
+          Normal('y', 'yy'),
+          Normal('z', 'zz')
+        )
         expect(q.length).to.equal(3)
       })
       it('merges normalized phrases with the same name.', () => {
-        const q = QuoteList({
-          name: 'nobody',
-          items: [
-            Normal('x', 'xx', 'alphabet-1'),
-            Normal('x', 'xy', 'alphabet-2'),
-            Normal('x', 'xz', 'alphabet-3')
-          ]
-        })
-
+        const q = QuoteList(
+          Normal('x', 'xx', 'alphabet-1'),
+          Normal('x', 'xy', 'alphabet-2'),
+          Normal('x', 'xz', 'alphabet-3')
+        )
         expect(q.length).to.equal(1)
       })
     })
-  })
-  describe('add()', function () {
-
   })
 })

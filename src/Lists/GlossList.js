@@ -61,10 +61,12 @@ function mergeGlosses (quotes) {
   return Array.from(map.values())
 }
 
-function $GlossList (props) {
-  AbstractObjectList.call(this, props)
-  this.items = mergeGlosses(parseGlosses(props.items))
-  this.length = this.items.length
+function $GlossList (...props) {
+  AbstractObjectList.call(this)
+  const parsed = parseGlosses(props)
+  const merged = mergeGlosses(parsed)
+  this.items = merged
+  this.length = merged.length
 }
 
 $GlossList.prototype = Object.create(AbstractObjectList.prototype)
@@ -73,8 +75,8 @@ Object.defineProperty($GlossList.prototype, 'constructor', {
   value: $GlossList
 })
 
-function GlossList (props) {
-  const list = new $GlossList(props)
+function GlossList (...glosses) {
+  const list = new $GlossList(...glosses)
   freeze(list, $GlossList)
   return list
 }

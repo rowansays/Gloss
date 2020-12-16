@@ -2,18 +2,16 @@ import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { isReference } from '../Utility/isReference.js'
 
-function $ReferenceList (props) {
-  AbstractObjectList.call(this, props)
+function $ReferenceList (...refs) {
+  AbstractObjectList.call(this)
   this._defaultGetMethod = 'getKey'
   this._defaultSortMethod = 'getDate'
   this.items = []
-  if (!!props.items && typeof props.items.forEach === 'function') {
-    props.items.forEach(ref => {
-      if (isReference(ref)) {
-        this.items.push(ref)
-      }
-    })
-  }
+  refs.forEach(ref => {
+    if (isReference(ref)) {
+      this.items.push(ref)
+    }
+  })
   this.length = this.items.length
 }
 

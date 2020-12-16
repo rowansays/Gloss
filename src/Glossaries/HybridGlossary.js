@@ -28,8 +28,7 @@ function $HybridGlossary (id, ...glossaries) {
     })
   })
 
-  const name = id && id.getName() ? id.getName() : 'Anonymous'
-  this.glosses = GlossList({ name: name, items: glosses })
+  this.glosses = GlossList(...glosses)
   this.length = this.glosses.length
 }
 

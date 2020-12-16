@@ -27,9 +27,7 @@ function $Glossary (props) {
     })
   }
 
-  const name = this.title !== '' ? this.title : 'Anonymous'
-
-  this.glosses = GlossList({ name: name, items: refGlosses })
+  this.glosses = GlossList(...refGlosses)
   this.length = this.glosses.length
   this.ref = ref
 }

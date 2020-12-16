@@ -10,15 +10,12 @@ var it = mocha.it
 
 describe('GlossList: Integration Tests', function () {
   it('merges phrases with the same names (case sensitive).', () => {
-    const gl = GlossList({
-      name: 'Nobody',
-      items: [
-        Term(3, '', Phrase('natural number', 'wikipedia')),
-        Term(3, '', Phrase('odd number', 'wikipedia')),
-        Term(3, '', Phrase('prime number', 'wikipedia')),
-        Term(3, '', Phrase('magic number', 'schoolhouse-rock')),
-      ]
-    })
+    const gl = GlossList(
+      Term(3, '', Phrase('natural number', 'wikipedia')),
+      Term(3, '', Phrase('odd number', 'wikipedia')),
+      Term(3, '', Phrase('prime number', 'wikipedia')),
+      Term(3, '', Phrase('magic number', 'schoolhouse-rock')),
+    )
 
     expect(gl.length).to.equal(1)
   })

@@ -11,9 +11,9 @@ import { freeze } from '../Utility/freeze.js'
 import { mergeQuotes } from '../Utility/mergeQuotes.js'
 import { parseQuotes } from '../Utility/parseQuotes.js'
 
-function $QuoteList (props) {
-  AbstractObjectList.call(this, props)
-  const parsed = parseQuotes(props.items)
+function $QuoteList (...quotes) {
+  AbstractObjectList.call(this)
+  const parsed = parseQuotes(quotes)
   const merged = mergeQuotes(parsed)
   this.items = merged
   this.length = merged.length
@@ -29,8 +29,8 @@ Object.defineProperty($QuoteList.prototype, 'constructor', {
   value: $QuoteList
 })
 
-function QuoteList (props) {
-  const obj = new $QuoteList(props)
+function QuoteList (...props) {
+  const obj = new $QuoteList(...props)
   freeze(obj, $QuoteList)
   return obj
 }
