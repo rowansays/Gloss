@@ -42,6 +42,9 @@ AbstractObjectList.prototype.get = function (key) {
       return undefined
   }
 }
+AbstractObjectList.prototype.has = function (key) {
+  return typeof this.get(key) !== 'undefined'
+}
 /**
  * Sort items in ascending order by a given accessor method.
  *

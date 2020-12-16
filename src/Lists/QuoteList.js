@@ -25,19 +25,6 @@ $QuoteList.prototype.getItemName = function (index) {
   return this.get(index).getName()
 }
 
-/**
- * Determine if a quote exists in the list by name.
- *
- * @return {boolean}
- */
-$QuoteList.prototype.has = function (name) {
-  for (let i = 0; i < this.length; i++) {
-    if (this.get(i).getName() === name) {
-      return true
-    }
-  }
-  return false
-}
 $QuoteList.prototype.withQuote = function () {
   return new $QuoteList({
     name: this.name,

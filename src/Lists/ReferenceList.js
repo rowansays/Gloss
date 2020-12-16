@@ -14,6 +14,7 @@ function $ReferenceList (props) {
       }
     })
   }
+  this.length = this.items.length
 }
 
 $ReferenceList.makeFrozen = function () {
