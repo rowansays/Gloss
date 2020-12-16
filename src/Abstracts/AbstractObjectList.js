@@ -37,15 +37,20 @@ AbstractObjectList.prototype.get = function (key) {
         }
       }
       return undefined
-    case 'object':
-      const index = this.items.indexOf(key)
-      return index > -1 ? this.items[index] : undefined
     default:
       return undefined
   }
 }
+/**
+ * @return {bool}
+ */
 AbstractObjectList.prototype.has = function (key) {
-  return typeof this.get(key) !== 'undefined'
+  switch (typeof key) {
+    case 'object' :
+      return this.items.indexOf(key) > -1
+    default :
+      return typeof this.get(key) !== 'undefined'
+  }
 }
 /**
  * Sort items in ascending order by a given accessor method.
