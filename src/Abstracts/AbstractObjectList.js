@@ -69,10 +69,10 @@ AbstractObjectList.prototype.sortAscBy = function (method) {
     }
     return 0
   })
-  return new this.constructor({
+  return makeFrozenInstanceOf(this.constructor, [{
     name: this.name,
     items: sorted
-  })
+  }])
 }
 /**
  * Sort items in descending order by a given accessor method.
@@ -91,10 +91,10 @@ AbstractObjectList.prototype.sortDescBy = function (method) {
     }
     return 0
   })
-  return new this.constructor({
+  return makeFrozenInstanceOf(this.constructor, [{
     name: this.name,
     items: sorted
-  })
+  }])
 }
 
 function validateAccessor (list, item, name) {

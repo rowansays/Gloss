@@ -37,7 +37,7 @@ AbstractScalarList.prototype.entries = function (index) {
  */
 AbstractScalarList.prototype.sort = function () {
   const sorted = [...this.items].sort(...arguments)
-  return new this.constructor(...sorted)
+  return makeFrozenInstanceOf(this.constructor, [...sorted])
 }
 
 export { AbstractScalarList }
