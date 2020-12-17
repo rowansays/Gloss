@@ -10,13 +10,11 @@
  */
 
 import { AbstractWork } from '../Abstracts/AbstractWork.js'
-import { castString } from '../Utility/castString.js'
 import { freeze } from '../Utility/freeze.js'
 import { GlossList } from '../Lists/GlossList.js'
 
 function $Glossary (props) {
   let { id, ref, glosses } = props || {}
-  ref = castString(ref)
 
   AbstractWork.call(this, id)
 
