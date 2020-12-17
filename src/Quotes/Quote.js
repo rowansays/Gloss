@@ -61,7 +61,10 @@ function $Quote (...quotes) {
 
   this.length = Object.keys(map).length
   this.map = map
-
+  this.mentions = 0
+  for (const key in this.map) {
+    this.mentions = this.mentions + this.map[key].length
+  }
   this.refs = ReferenceList(...refs)
 }
 /**
