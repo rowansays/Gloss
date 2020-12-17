@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "bundle": "NODE_ENV=production ./node_modules/.bin/rollup -c",
-    "test": "NODE_ENV=test npx mocha --reporter min & standard",
-    "test:watch": "NODE_ENV=test npx mocha --watch --parallel"
+    "test": "NODE_ENV=test npx mocha --reporter min --recursive & standard",
+    "test:watch": "NODE_ENV=test npx mocha --watch --parallel --recursive"
   },
   "author": "Rowan Weathers (https://rowansays.com/)",
   "license": "MIT",
