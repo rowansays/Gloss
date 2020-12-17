@@ -54,7 +54,7 @@ $Term.prototype.getDefs = function () {
 $Term.prototype.getMemo = function (index) {
   switch (this.memos.length) {
     case 0 :
-      return ''
+      return undefined
     case 1 :
       return this.memos.get(0)
     default :
