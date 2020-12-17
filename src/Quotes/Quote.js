@@ -94,6 +94,15 @@ $Quote.prototype.mapBy = function (type) {
   })
   return map
 }
+/**
+ * @return {$Quote[]}
+ */
+$Quote.prototype.flatten = function () {
+  return this.getProps().reduce((output, props) => {
+    output.push(new this.constructor(props))
+    return output
+  }, [])
+}
 $Quote.prototype.forEach = function (func) {
   return this.getProps().forEach((...args) => {
     const quote = $Quote.makeFrozen(args[0])
