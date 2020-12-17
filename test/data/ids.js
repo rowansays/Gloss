@@ -10,7 +10,7 @@ export const frankenObject = {
 
 export const aliceObject = {
   author: 'Lewis Carroll',
-  date: 'November 26, 1865',
+  date: '1865', // November 26, 1865
   description: 'The Millennium Fulcrum Edition 3.0',
   key: 'aliceInWonderland',
   subtitle: '',
