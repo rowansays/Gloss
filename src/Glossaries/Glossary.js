@@ -14,7 +14,7 @@ import { freeze } from '../Utility/freeze.js'
 import { GlossList } from '../Lists/GlossList.js'
 
 function $Glossary (props) {
-  let { id, ref, glosses } = props || {}
+  const { id, ref, glosses } = props || {}
 
   AbstractWork.call(this, id)
 

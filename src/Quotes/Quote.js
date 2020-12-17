@@ -155,7 +155,7 @@ function validateQuoteProp (aught) {
 
   const o = {
     name: aught.name,
-    refs: aught.refs,
+    refs: aught.refs
   }
 
   if (typeof o.name !== 'string' || o.name === '') {
