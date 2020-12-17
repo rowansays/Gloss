@@ -9,6 +9,19 @@ function AbstractObjectList () {
 AbstractObjectList.prototype.add = function (...items) {
   return makeFrozenInstanceOf(this.constructor, [...this.items, ...items])
 }
+AbstractObjectList.prototype.column = function (accessor, sortFunc) {
+  const column = []
+  this.forEach(item => {
+    if (typeof item[accessor] !== 'function') {
+      throw new TypeError('Invalid accessor.')
+    }
+    column.push(item[accessor]())
+  })
+  if (typeof sortFunc === 'function') {
+    column.sort(sortFunc)
+  }
+  return column
+}
 /**
  * @return {Array} A clone of the items array.
  */
