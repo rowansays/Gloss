@@ -1,4 +1,5 @@
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
+import { isList } from '../Utility/isList.js'
 
 function AbstractObjectList () {
   this._defaultGetMethod = 'getName'
@@ -91,6 +92,31 @@ AbstractObjectList.prototype.sortDescBy = function (method) {
   return makeFrozenInstanceOf(this.constructor, sorted)
 }
 
+/**
+ * Parse quotes parameter.
+ *
+ * Robust function which accepts just about any value that can be converted to
+ * a quote.
+ *
+ * @param {Array|Quote|*List|string} param
+ * @return {Quote[]} A flat array of quotes.
+ */
+AbstractObjectList.parseArgs = function (isValidItem, ...params) {
+  let output = []
+  params = Array.isArray(params) ? params : []
+  params.forEach(param => {
+    if (isValidItem(param)) {
+      output.push(param)
+    } else if (isList(param)) {
+      param.forEach(subParam => {
+        output.push(subParam)
+      })
+    } else if (Array.isArray(param)) {
+      output = output.concat(AbstractObjectList.parseArgs(isValidItem, ...param))
+    }
+  })
+  return output
+}
 function validateAccessor (list, item, name) {
   if (typeof item !== 'object') {
     return ''

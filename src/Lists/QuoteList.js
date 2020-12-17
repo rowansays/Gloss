@@ -9,11 +9,11 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { mergeQuotes } from '../Utility/mergeQuotes.js'
-import { parseQuotes } from '../Utility/parseQuotes.js'
+import { isQuote } from '../Utility/isQuote.js'
 
 function $QuoteList (...quotes) {
   AbstractObjectList.call(this)
-  const parsed = parseQuotes(quotes)
+  const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
   const merged = mergeQuotes(parsed)
   this.items = merged
   this.length = merged.length
@@ -24,7 +24,6 @@ $QuoteList.prototype = Object.create(AbstractObjectList.prototype)
 $QuoteList.prototype.getItemName = function (index) {
   return this.get(index).getName()
 }
-
 Object.defineProperty($QuoteList.prototype, 'constructor', {
   value: $QuoteList
 })

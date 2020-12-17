@@ -9,30 +9,6 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { isGloss } from '../Utility/isGloss.js'
-import { isList } from '../Utility/isList.js'
-
-/**
- * Parse glosses parameter.
- *
- * @param {...Gloss|GlossList|Array} param
- * @return {Gloss[]} An array of glosses.
- */
-function parseGlosses (...params) {
-  let output = []
-  params = Array.isArray(params) ? params : []
-  params.forEach(param => {
-    if (isGloss(param)) {
-      output.push(param)
-    } else if (isList(param)) {
-      param.forEach(subParam => {
-        output.push(subParam)
-      })
-    } else if (Array.isArray(param)) {
-      output = output.concat(parseGlosses(...param))
-    }
-  })
-  return output
-}
 
 /**
  * Merge glosses.
@@ -61,9 +37,9 @@ function mergeGlosses (quotes) {
   return Array.from(map.values())
 }
 
-function $GlossList (...props) {
+function $GlossList (...glosses) {
   AbstractObjectList.call(this)
-  const parsed = parseGlosses(props)
+  const parsed = AbstractObjectList.parseArgs(isGloss, glosses)
   const merged = mergeGlosses(parsed)
   this.items = merged
   this.length = merged.length

@@ -6,12 +6,8 @@ function $ReferenceList (...refs) {
   AbstractObjectList.call(this)
   this._defaultGetMethod = 'getKey'
   this._defaultSortMethod = 'getDate'
-  this.items = []
-  refs.forEach(ref => {
-    if (isReference(ref)) {
-      this.items.push(ref)
-    }
-  })
+  const parsed = AbstractObjectList.parseArgs(isReference, refs)
+  this.items = parsed
   this.length = this.items.length
 }
 
