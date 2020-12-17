@@ -42,9 +42,46 @@ describe('Quote: Tests', function () {
     test('getFreq', instance)
     test('getName', instance)
     test('getProps', instance, () => {
+      describe('Singular quote with 0 references', function () {
+        const props = Quote({ name: 'One', refs: [] }).getProps()
+        it ('returns an array with 1 object', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(1)
+          testQuoteProp(props[0], 'One', [])
+        })
+      })
+      describe('Double quote with 0 references', function () {
+        const props = Quote(
+          { name: 'One', refs: [] },
+          { name: 'Two', refs: [] }
+        ).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(2)
+          testQuoteProp(props[0], 'One', [])
+          testQuoteProp(props[1], 'Two', [])
+        })
+      })
+      describe('Sextuple quote with 2 references', function () {
+        const props = Quote(
+          { name: 'One', refs: [] },
+          { name: 'Two', refs: [frankenBook] },
+          { name: 'Three', refs: [] },
+          { name: 'Four', refs: [] },
+          { name: 'Five', refs: [aliceBook] },
+          { name: 'Six', refs: [] }
+        ).getProps()
+        it ('returns an array with 6 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(6)
+          testQuoteProp(props[0], 'One', [])
+          testQuoteProp(props[1], 'Two', [frankenBook])
+          testQuoteProp(props[2], 'Three', [])
+          testQuoteProp(props[3], 'Four', [])
+          testQuoteProp(props[4], 'Five', [aliceBook])
+          testQuoteProp(props[5], 'Six', [])
+        })
+      })
       describe('Singular quote with 1 reference', function () {
         const props = Quote({ name: 'One', refs: [aliceBook] }).getProps()
-        it ('returns an array with 2 objects', () => {
+        it ('returns an array with 1 object', () => {
           expect(props).to.be.an('array').that.has.lengthOf(1)
           testQuoteProp(props[0], 'One', [aliceBook])
         })
