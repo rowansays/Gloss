@@ -21,7 +21,7 @@ import { validateStringProp } from '../Utility/validate.js'
  */
 function $Quote (...quotes) {
   if (quotes.length < 1) {
-    throw new Error('no quotes')
+    throw new Error('$Quote() - No quotes were passed to the constructor.')
   }
 
   const map = Object.create(null)
