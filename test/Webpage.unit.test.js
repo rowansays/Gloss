@@ -18,14 +18,10 @@ const wikiWork = new MockWork({
   url: 'https://en.wikipedia.org/wiki/Unit_testing',
 })
 
-
 const wikiPage = Webpage(
   wikiWork,
   'https://wikipedia.org'
 )
-
-console.log('wikiWork', wikiWork)
-console.log('wikiPage', wikiPage)
 
 testFactoryFunction('Webpage', Webpage, Webpage())
 
