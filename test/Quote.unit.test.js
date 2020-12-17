@@ -17,34 +17,86 @@ function expectQuote(q, name, size, freq, altSize, isSingular) {
   expect(q.isSingular(), `isSingular() must return "${isSingular}"`).to.equal(isSingular)
 }
 
+/**
+ * Test one of the objects returned by $Quote.prototype.getProps()
+ * @return {undefined}
+ */
+function testQuoteProp (aught, name, refs) {
+  expect(aught).to.be.an('object')
+  expect(aught).to.have.property('name', name)
+  expect(aught)
+    .to.have.property('refs')
+    .that.is.an('array')
+    .that.has.lengthOf(refs.length)
+  refs.forEach(ref => {
+    expect(aught.refs).to.include(ref)
+  })
+}
+
 describe('Quote: Tests', function () {
   const instance = Quote({ name: 'a', refs: [frankenBook] })
-  testFactoryFunction('Quote', Quote, instance)
+  //testFactoryFunction('Quote', Quote, instance)
   describe('Prototype', function () {
+    /*
     test('forEach', instance)
     test('getAltNames', instance)
     test('getFreq', instance)
     test('getName', instance)
+    */
     test('getProps', instance, () => {
-      const props = instance.getProps()
-      describe('For a singular quote with 1 reference, it', function () {
-        it ('returns an array that contains a single object which', () => {
-          expect(props).to.be.an('array')
-            .that.has.lengthOf(1)
-            .and.property(0)
-              .which.is.an('object')
+      describe('Singular quote with 1 reference', function () {
+        const props = Quote({ name: 'One', refs: [aliceBook] }).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(1)
+          testQuoteProp(props[0], 'One', [aliceBook])
         })
-        it ('  1. has a valid name property.', () => {
-          expect(props[0]).to.have.property('name', instance.getName())
+      })
+      describe('Singular quote with 2 references', function () {
+        const props = Quote({ name: 'One', refs: [aliceBook, devilsBook] }).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(2)
+          testQuoteProp(props[0], 'One', [aliceBook])
+          testQuoteProp(props[1], 'One', [devilsBook])
         })
-        it ('  2. has a valid refs property.', () => {
-          expect(props[0]).to.have.property('refs')
-            .which.is.an('array')
-              .that.has.lengthOf(1)
-              .and.includes(frankenBook)
+      })
+      describe('Double quote with 1 reference each', function () {
+        const props = Quote(
+          { name: 'One', refs: [aliceBook] },
+          { name: 'Two', refs: [devilsBook] }
+        ).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(2)
+          testQuoteProp(props[0], 'One', [aliceBook])
+          testQuoteProp(props[1], 'Two', [devilsBook])
+        })
+      })
+      describe('Double quote with 3 total references.', function () {
+        const props = Quote(
+          { name: 'One', refs: [aliceBook, devilsBook] },
+          { name: 'Two', refs: [frankenBook] }
+        ).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(3)
+          testQuoteProp(props[0], 'One', [aliceBook])
+          testQuoteProp(props[1], 'One', [devilsBook])
+          testQuoteProp(props[2], 'Two', [frankenBook])
+        })
+      })
+      describe('Double quote with 2 references each.', function () {
+        const props = Quote(
+          { name: 'One', refs: [aliceBook, devilsBook] },
+          { name: 'Two', refs: [frankenBook, prideBook] }
+        ).getProps()
+        it ('returns an array with 2 objects', () => {
+          expect(props).to.be.an('array').that.has.lengthOf(4)
+          testQuoteProp(props[0], 'One', [aliceBook])
+          testQuoteProp(props[1], 'One', [devilsBook])
+          testQuoteProp(props[2], 'Two', [frankenBook])
+          testQuoteProp(props[3], 'Two', [prideBook])
         })
       })
     })
+    /*
     test('isSingular', instance)
     test('slice', instance, () => {
       const songwritters = Quote(
@@ -151,7 +203,9 @@ describe('Quote: Tests', function () {
         expect(q.hasRef(prideBook)).to.equal(true)
       })
     })
+    */
   })
+  /*
   describe('Constructor Signature', function () {
     describe('Plain objects: unique ', function () {
       it('accepts 1 object.', () => {
@@ -342,4 +396,5 @@ describe('Quote: Tests', function () {
       })
     })
   })
+  */
 })
