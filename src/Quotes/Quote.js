@@ -88,7 +88,7 @@ $Quote.prototype.getAltNames = function () {
  * Get frequency.
  *
  * @return {number} int (>= 0) - The total number of unique sources in which
- *   this phrase and all of it's derivatives appear.
+ *   this quote and all of it's derivatives appear.
  */
 $Quote.prototype.getFreq = function () {
   return this.refs.length
