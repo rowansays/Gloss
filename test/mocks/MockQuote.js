@@ -14,7 +14,6 @@ export function MockQuote (name, ...refs) {
 
 MockQuote.prototype.forEach = function () {}
 MockQuote.prototype.getAltNames = function () { return [] }
-MockQuote.prototype.getFreq = function () { return 1 }
 MockQuote.prototype.getName = function () { return this.name }
 MockQuote.prototype.getProps = function () { return { ...this } }
 MockQuote.prototype.isSingular = function () { return true }

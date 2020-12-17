@@ -9,11 +9,11 @@ var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-function expectQuote(q, name, size, freq, altSize, isSingular) {
+function expectQuote(q, name, size, mentions, altSize, isSingular) {
   expect(q.getAltNames().length, ` "There must be ${altSize} alt names."`).to.equal(altSize)
-  expect(q.getFreq(), `getFreq() must return "${freq}"`).to.equal(freq)
   expect(q.getName(), `getName() must return "${name}"`).to.equal(name)
   expect(q.length, `length must equal "${size}"`).to.equal(size)
+  expect(q.mentions, `mentions must equal "${mentions}"`).to.equal(mentions)
   expect(q.isSingular(), `isSingular() must return "${isSingular}"`).to.equal(isSingular)
 }
 
@@ -39,7 +39,6 @@ describe('Quote: Tests', function () {
   describe('Prototype', function () {
     test('forEach', instance)
     test('getAltNames', instance)
-    test('getFreq', instance)
     test('getName', instance)
     test('getProps', instance, () => {
       describe('Singular quote with 0 references', function () {
@@ -219,7 +218,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'Bobble', refs: [aliceBook] })
         ).withRef(frankenBook)
 
-        expectQuote(q, 'Bubble', 2, 2, 1, false)
+        expectQuote(q, 'Bubble', 2, 4, 1, false)
         expect(q.hasRef(aliceBook)).to.equal(true)
         expect(q.hasRef(frankenBook)).to.equal(true)
       })
@@ -229,7 +228,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'Bobble', refs: [devilsBook] })
         ).withRef(frankenBook, prideBook)
 
-        expectQuote(q, 'Bubble', 2, 4, 1, false)
+        expectQuote(q, 'Bubble', 2, 6, 1, false)
         expect(q.hasRef(aliceBook)).to.equal(true)
         expect(q.hasRef(devilsBook)).to.equal(true)
         expect(q.hasRef(frankenBook)).to.equal(true)
@@ -265,7 +264,7 @@ describe('Quote: Tests', function () {
           { name: 'a', refs: [aliceBook] },
           { name: 'a', refs: [aliceBook] }
         )
-        expectQuote(q, 'a', 1, 1, 0, true)
+        expectQuote(q, 'a', 1, 2, 0, true)
       })
       it('merges 3 objects.', () => {
         const q = Quote(
@@ -273,7 +272,7 @@ describe('Quote: Tests', function () {
           { name: 'a', refs: [aliceBook] },
           { name: 'a', refs: [aliceBook] }
         )
-        expectQuote(q, 'a', 1, 1, 0, true)
+        expectQuote(q, 'a', 1, 3, 0, true)
       })
     })
     describe('Plain objects: identical names & unique refs', function () {
@@ -299,7 +298,7 @@ describe('Quote: Tests', function () {
           { name: 'a', refs: [aliceBook] },
           { name: 'b', refs: [aliceBook] }
         )
-        expectQuote(q, 'a', 2, 1, 1, false)
+        expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('merges 3 objects.', () => {
         const q = Quote(
@@ -307,7 +306,7 @@ describe('Quote: Tests', function () {
           { name: 'b', refs: [aliceBook] },
           { name: 'c', refs: [aliceBook] }
         )
-        expectQuote(q, 'a', 3, 1, 2, false)
+        expectQuote(q, 'a', 3, 3, 2, false)
       })
     })
     describe('Quotes: unique ', function () {
@@ -337,7 +336,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'a', refs: [aliceBook] }),
           Quote({ name: 'a', refs: [aliceBook] })
         )
-        expectQuote(q, 'a', 1, 1, 0, true)
+        expectQuote(q, 'a', 1, 2, 0, true)
       })
       it('merges 3 quotes.', () => {
         const q = Quote(
@@ -345,7 +344,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'a', refs: [aliceBook] }),
           Quote({ name: 'a', refs: [aliceBook] })
         )
-        expectQuote(q, 'a', 1, 1, 0, true)
+        expectQuote(q, 'a', 1, 3, 0, true)
       })
     })
     describe('Quotes: identical names & unique refs', function () {
@@ -371,7 +370,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'a', refs: [aliceBook] }),
           Quote({ name: 'b', refs: [aliceBook] })
         )
-        expectQuote(q, 'a', 2, 1, 1, false)
+        expectQuote(q, 'a', 2, 2, 1, false)
       })
       it('merges 3 quotes.', () => {
         const q = Quote(
@@ -379,7 +378,7 @@ describe('Quote: Tests', function () {
           Quote({ name: 'b', refs: [aliceBook] }),
           Quote({ name: 'c', refs: [aliceBook] })
         )
-        expectQuote(q, 'a', 3, 1, 2, false)
+        expectQuote(q, 'a', 3, 3, 2, false)
       })
     })
     describe('Rejections: thrown errors', function () {

@@ -64,10 +64,6 @@ function Definition (props) {
   const sorted = new Map([...map].sort((a, b) => a[0] - b[0]))
   const rows = []
 
-  if (name === 'Activity') {
-    console.log(quote.getFreq(), quote)
-  }
-
   let yearNow
   let i = 1
   sorted.forEach((quotes, year) => {

@@ -9,7 +9,6 @@ export function isQuote (aught) {
     typeof aught === 'object' &&
     typeof aught.forEach === 'function' &&
     typeof aught.getAltNames === 'function' &&
-    typeof aught.getFreq === 'function' &&
     typeof aught.getName === 'function' &&
     typeof aught.getProps === 'function' &&
     typeof aught.isSingular === 'function' &&

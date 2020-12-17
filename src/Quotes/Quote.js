@@ -8,9 +8,17 @@ import { validateStringProp } from '../Utility/validate.js'
 /**
  * Quote constructor.
  *
- * Creates instances containing one or more quotations from a reference.
+ * Creates instances containing one or more quotations from an optional
+ *   reference.
  *
- * @param {...$Quote|Object} quotes Zero or more objects that represent a
+ * @class Quote
+ * @prop {number} length - The number of values contained within this quote.
+ *   This number includes the quote's name as well as the names of all its
+ *   analogs.
+ * @prop {number} mentions - The number of times that this quote, or one of its
+ *   analogs appear across all of its references.
+ *
+ * @param {...$Quote|...Object} quotes Zero or more objects that represent a
  *   quote. Recognized values include instances of $Quote or any object with
  *   the following properties:
  *
@@ -111,15 +119,6 @@ $Quote.prototype.forEach = function (func) {
 }
 $Quote.prototype.getAltNames = function () {
   return Object.keys(this.map).slice(1)
-}
-/**
- * Get frequency.
- *
- * @return {number} int (>= 0) - The total number of unique sources in which
- *   this quote and all of it's derivatives appear.
- */
-$Quote.prototype.getFreq = function () {
-  return this.refs.length
 }
 $Quote.prototype.getName = function () {
   return this.name

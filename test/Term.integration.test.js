@@ -29,7 +29,7 @@ describe('Term(): Integration Tests', function () {
       const def = term.getDef('Klingon')
       expect(term.length, 'term.length').to.equal(1)
       expect(def.length, 'def.length').to.equal(1)
-      expect(def.getFreq(), 'def.getFreq()').to.equal(2)
+      expect(def.mentions, 'def.getFreq()').to.equal(2)
       expect(def.hasRef(aliceBook)).to.be.true
       expect(def.hasRef(devilsBook)).to.be.true
     })
