@@ -170,6 +170,7 @@ function validateQuoteProp (aught) {
     throw new Error('prop.refs must be an array.')
   }
 
+  o.refs = o.refs.filter(Boolean)
   o.refs.forEach(ref => {
     if (!isReference(ref)) {
       throw new Error('' +
