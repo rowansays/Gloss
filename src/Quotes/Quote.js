@@ -75,6 +75,25 @@ $Quote.makeFrozen = function () {
   freeze(o, $Quote)
   return o
 }
+/**
+ * @param {string} The value to map by
+ * @return {Map}
+ */
+$Quote.prototype.mapBy = function (type) {
+  const getValue = (quote) => {
+    switch (type) {
+      case 'year': return quote.getRef(0).date
+      default : throw new Error('Unsupported map type.')
+    }
+  }
+  const map = new Map()
+  this.flatten().forEach(quote => {
+    const key = getValue(quote)
+    const value = map.has(key) ? map.get(key).concat(quote) : [quote]
+    map.set(key, value)
+  })
+  return map
+}
 $Quote.prototype.forEach = function (func) {
   return this.getProps().forEach((...args) => {
     const quote = $Quote.makeFrozen(args[0])
