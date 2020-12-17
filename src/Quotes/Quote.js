@@ -109,7 +109,13 @@ $Quote.prototype.getProps = function () {
       output.push(this.getRef(index))
       return output
     }, [])
-    o.push({ name, refs })
+    if (refs.length > 0) {
+      refs.forEach(ref => {
+        o.push({ name: name, refs: [ref] })
+      })
+    } else {
+      o.push({ name: name, refs: [] })
+    }
   })
   return o
 }
