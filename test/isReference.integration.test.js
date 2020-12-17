@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { isReference } from '../src/Utility/isReference.js'
+import { isReference } from '../src/Utility/predicate.js'
 import { Book } from '../src/References/Book.js'
 import { Webpage } from '../src/References/Webpage.js'
 

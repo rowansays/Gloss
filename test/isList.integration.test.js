@@ -1,5 +1,5 @@
 // System under test.
-import { isList } from '../src/Utility/isList.js'
+import { isList } from '../src/Utility/predicate.js'
 
 // Factories that should return lists.
 import { GlossList } from '../src/Lists/GlossList.js'

@@ -8,7 +8,7 @@
 
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
-import { isGloss } from '../Utility/isGloss.js'
+import { isGloss } from '../Utility/predicate.js'
 
 /**
  * Merge glosses.

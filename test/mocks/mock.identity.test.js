@@ -5,9 +5,11 @@ import { MockQuote } from './MockQuote.js'
 import { MockRef } from './MockRef.js'
 import { MockWork } from './MockWork.js'
 
-import { isQuote } from '../../src/Utility/isQuote.js'
-import { isReference } from '../../src/Utility/isReference.js'
-import { isWork } from '../../src/Utility/isWork.js'
+import {
+  isQuote,
+  isReference,
+  isWork
+} from '../../src/Utility/predicate.js'
 
 var describe = mocha.describe
 var expect = chai.expect

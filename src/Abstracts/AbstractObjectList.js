@@ -1,5 +1,5 @@
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
-import { isList } from '../Utility/isList.js'
+import { isList } from '../Utility/predicate.js'
 
 function AbstractObjectList () {
   this._defaultGetMethod = 'getName'

@@ -1,8 +1,7 @@
 import { castString } from '../Utility/castString.js'
 import { freeze } from '../Utility/freeze.js'
-import { isQuote } from '../Utility/isQuote.js'
+import { isQuote, isReference } from '../Utility/predicate.js'
 import { ReferenceList } from '../Lists/ReferenceList.js'
-import { isReference } from '../Utility/isReference.js'
 import { validateStringProp } from '../Utility/validate.js'
 
 /**

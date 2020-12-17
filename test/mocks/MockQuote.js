@@ -1,4 +1,4 @@
-import { isReference } from '../../src/Utility/isReference.js'
+import { isReference } from '../../src/Utility/predicate.js'
 
 export function MockQuote (name, ...refs) {
   this.name = name

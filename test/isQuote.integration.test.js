@@ -1,6 +1,6 @@
 import chai from 'chai'
 import mocha from 'mocha'
-import { isQuote } from '../src/Utility/isQuote.js'
+import { isQuote } from '../src/Utility/predicate.js'
 import { Normal, Phrase, Quote } from '../src/Quotes/Quote.js'
 import { wikipedia } from './mocks/MockRef.js'
 

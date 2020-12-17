@@ -1,5 +1,5 @@
 import { castString } from './castString.js'
-import { isReference } from './isReference.js'
+import { isReference } from './predicate.js'
 
 /**
  * Validate reference when passed as a property.

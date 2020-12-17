@@ -9,7 +9,7 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { freeze } from '../Utility/freeze.js'
 import { mergeQuotes } from '../Utility/mergeQuotes.js'
-import { isQuote } from '../Utility/isQuote.js'
+import { isQuote } from '../Utility/predicate.js'
 
 function $QuoteList (...quotes) {
   AbstractObjectList.call(this)

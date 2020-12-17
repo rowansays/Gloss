@@ -1,5 +1,5 @@
 // System under test.
-import { isNamed } from '../src/Utility/isNamed.js'
+import { isNamed } from '../src/Utility/predicate.js'
 
 // Factories that should produce named values.
 import { Book } from '../src/References/Book.js'

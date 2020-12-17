@@ -1,5 +1,5 @@
 // System under test.
-import { isNamed } from '../src/Utility/isNamed.js'
+import { isNamed } from '../src/Utility/predicate.js'
 
 // Testing libraries.
 import chai from 'chai'
