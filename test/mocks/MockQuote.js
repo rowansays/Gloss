@@ -8,7 +8,8 @@ export function MockQuote (name, ...refs) {
       this.refs.push(ref)
     }
   })
-  this.length = this.refs.length
+  this.length = 1
+  this.mentions = this.refs.length
 }
 
 MockQuote.prototype.forEach = function () {}

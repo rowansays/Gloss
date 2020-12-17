@@ -14,6 +14,7 @@ export function isQuote (aught) {
     typeof aught.getProps === 'function' &&
     typeof aught.isSingular === 'function' &&
     typeof aught.length === 'number' &&
+    typeof aught.mentions === 'number' &&
     typeof aught.slice === 'function' &&
     typeof aught.withQuote === 'function' &&
     typeof aught.withRef === 'function'
