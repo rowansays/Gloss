@@ -3,6 +3,7 @@ import { freeze } from '../Utility/freeze.js'
 import { isQuote } from '../Utility/isQuote.js'
 import { ReferenceList } from '../Lists/ReferenceList.js'
 import { isReference } from '../Utility/isReference.js'
+import { validateStringProp } from '../Utility/validate.js'
 
 /**
  * Quote constructor.
@@ -30,7 +31,7 @@ function $Quote (...quotes) {
     aught = isQuote(aught) ? aught.getProps() : aught
     aught = Array.isArray(aught) ? aught : [aught]
     aught.forEach(prop => {
-      prop = validateQuoteProp(prop)
+      prop = validateQuoteProp('$Quote', prop)
 
       const refNumbers = []
       const refList = ReferenceList(...prop.refs)
@@ -147,49 +148,52 @@ $Quote.prototype.withRef = function (...refs) {
   })
   return $Quote.makeFrozen(...props)
 }
-
-function validateQuoteProp (aught) {
+function validateQuoteProp (funcName, aught) {
   if (typeof aught !== 'object') {
     throw new Error('prop must be an object.')
   }
 
-  const o = {
-    name: aught.name,
-    refs: aught.refs
+  return {
+    name: validateStringProp(funcName, 'props.name', aught.name),
+    refs: validateRefsArrayProp(funcName, 'props.refs', aught.refs)
+  }
+}
+function validateRefsArrayProp (funcName, paramName, aught) {
+  aught = typeof aught === 'undefined' ? [] : aught
+
+  if (!Array.isArray(aught)) {
+    throw new Error('' +
+      `${funcName}(): the "${paramName}" parameter must be an array. a value` +
+      `with a type of "${typeof aught}" was provided.  Here is its string ` +
+      `value: "${aught}".`
+    )
   }
 
-  if (typeof o.name !== 'string' || o.name === '') {
-    throw new Error('prop.name must be a non-empty string.')
-  }
+  const o = aught.filter(Boolean)
 
-  if (typeof o.refs === 'undefined') {
-    o.refs = []
-  }
-
-  if (!Array.isArray(o.refs)) {
-    throw new Error('prop.refs must be an array.')
-  }
-
-  o.refs = o.refs.filter(Boolean)
-  o.refs.forEach(ref => {
+  o.forEach(ref => {
     if (!isReference(ref)) {
       throw new Error('' +
-        'prop.refs must contain only reference objects. A value with a type ' +
-        `of "${typeof ref}" was provided. Here is its string value: "${ref}".`
+        `${funcName}(): the ${paramName} parameter must contain only ` +
+        `reference objects. A value with a type of "${typeof ref}" was ` +
+        `provided. Here is its string value: "${ref}".`
       )
     }
   })
 
   return o
 }
-
 /**
  * Quote factory.
  *
  * This function shares a signature with &Quote()
  *
- * @param {...$Quote|Object} quotes Zero or more objects that represent a quote.
- * @return {$Quote} A new quotation.
+ * @param {...$Quote|...Object} quotes Zero or more objects that represent a
+ *   quote.
+ *
+ * @return {$Quote} A new quote.
+ * @thorws {TypeError} When an invalid name or reference is present in
+ *   arguments.
  */
 function Quote () {
   return $Quote.makeFrozen(...arguments)
@@ -201,10 +205,13 @@ function Quote () {
  * Create a quote from a single reference.
  *
  * @param {string} verbatim Required. The quote as it appears in the reference.
- * @param {string} ref The key of the reference in which this quote was taken.
- * @return {$Quote} A singular quotation.
+ * @param {string} [ref] The key of the reference in which this quote was taken.
+ *
+ * @return {$Quote} A singular quote.
+ * @thorws {TypeError} When name coerces to an empty string
  */
 function Phrase (verbatim, ref) {
+  verbatim = validateStringProp('Phrase', 'verbatim', verbatim)
   return $Quote.makeFrozen({ name: verbatim, refs: [ref] })
 }
 
@@ -234,13 +241,16 @@ function Phrase (verbatim, ref) {
  * Doing so will allow these 2 quotes to be understood as the same idea and
  * merged together by other processes - namely those in `QuoteList()`.
  *
- * @param {string} normal The normalized form of the quote.
+ * @param {string} normal Required. The normalized form of the quote.
  * @param {string} verbatim Required. The quote as it appears in the reference.
- * @param {string} ref The key of the reference in which this quote was taken.
+ * @param {string} [ref] The key of the reference in which this quote was taken.
  *
- * @return {$Quote} A compound quotation.
+ * @return {$Quote} A compound quote.
+ * @thorws {TypeError} When name coerces to an empty string
  */
 function Normal (normal, verbatim, ref) {
+  normal = validateStringProp('Normal', 'normal', normal)
+  verbatim = validateStringProp('Normal', 'verbatim', verbatim)
   return $Quote.makeFrozen(
     { name: normal, refs: [] },
     { name: verbatim, refs: [ref] }
