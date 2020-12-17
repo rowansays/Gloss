@@ -35,14 +35,12 @@ function testQuoteProp (aught, name, refs) {
 
 describe('Quote: Tests', function () {
   const instance = Quote({ name: 'a', refs: [frankenBook] })
-  //testFactoryFunction('Quote', Quote, instance)
+  testFactoryFunction('Quote', Quote, instance)
   describe('Prototype', function () {
-    /*
     test('forEach', instance)
     test('getAltNames', instance)
     test('getFreq', instance)
     test('getName', instance)
-    */
     test('getProps', instance, () => {
       describe('Singular quote with 1 reference', function () {
         const props = Quote({ name: 'One', refs: [aliceBook] }).getProps()
@@ -96,7 +94,6 @@ describe('Quote: Tests', function () {
         })
       })
     })
-    /*
     test('isSingular', instance)
     test('slice', instance, () => {
       const songwritters = Quote(
@@ -165,7 +162,6 @@ describe('Quote: Tests', function () {
         expectQuote(q, 'a', 3, 3, 2, false)
       })
     })
-
     test('withRef', instance, () => {
       it('appends 1 ref to a single quote.', () => {
         const q = instance.withRef(aliceBook)
@@ -203,9 +199,7 @@ describe('Quote: Tests', function () {
         expect(q.hasRef(prideBook)).to.equal(true)
       })
     })
-    */
   })
-  /*
   describe('Constructor Signature', function () {
     describe('Plain objects: unique ', function () {
       it('accepts 1 object.', () => {
@@ -396,5 +390,4 @@ describe('Quote: Tests', function () {
       })
     })
   })
-  */
 })
