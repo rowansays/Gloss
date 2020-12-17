@@ -1,37 +1,43 @@
 import chai from 'chai'
 import mocha from 'mocha'
 import { Webpage } from '../src/References/Webpage.js'
+import { MockWork } from './mocks/MockWork.js'
 import { testFactoryFunction } from './helpers/factories.js'
 
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-function Work() {}
-Work.prototype.getAuthor = function () { return 'The contributors'}
-Work.prototype.getDate = function () { return 'n.d.' }
-Work.prototype.getDescription = function () { return 'Everthing that the authors of Wikipedia have to say about unit testing.' }
-Work.prototype.getKey = function () { return 'wikipedia:unitTesting' }
-Work.prototype.getSubtitle = function () { return 'From Wikipedia, the free encyclopedia' }
-Work.prototype.getTitle = function () { return 'Unit Testing' }
-Work.prototype.getUrl = function () { return 'https://en.wikipedia.org/wiki/Unit_testing' }
+const wikiWork = new MockWork({
+  author: 'The contributors',
+  date: 'n.d.',
+  description: 'Everthing that the authors of Wikipedia have to say about unit testing.',
+  key: 'wikipedia:unitTesting',
+  subtitle: 'From Wikipedia, the free encyclopedia',
+  title: 'Unit Testing',
+  url: 'https://en.wikipedia.org/wiki/Unit_testing',
+})
 
-const wikiPage = new Webpage(
-  new Work(),
+
+const wikiPage = Webpage(
+  wikiWork,
   'https://wikipedia.org'
 )
+
+console.log('wikiWork', wikiWork)
+console.log('wikiPage', wikiPage)
 
 testFactoryFunction('Webpage', Webpage, Webpage())
 
 describe('Webpage(): Parameters', function () {
   describe('1. id', () => {
     it('accepts a work instance as parameter 1.', () => {
-      expect(function () { new Webpage(new Work()) }).not.to.throw(Error)
+      expect(function () { Webpage(wikiWork) }).not.to.throw(Error)
     })
   })
   describe('2. publisher', () => {
     it('accepts a string as parameter 2.', () => {
-      expect(function () { new Webpage(new Work(), '') }).not.to.throw(Error)
+      expect(function () { Webpage(wikiWork, '') }).not.to.throw(Error)
     })
   })
 })

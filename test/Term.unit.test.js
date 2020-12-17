@@ -2,6 +2,7 @@ import chai from 'chai'
 import mocha from 'mocha'
 import { Term } from '../src/Glosses/Term.js'
 import { testFactoryFunction } from './helpers/factories.js'
+import { MockQuote } from './mocks/MockQuote.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -72,12 +73,12 @@ describe('Term() Unit Tests', () => {
       it('is a function.', () => {
         expect(typeof Term('a').getMemo).to.equal('function')
       })
-      it('returns empty string when no memo exists.', () => {
-        expect(Term('a').getMemo()).to.equal('')
+      it('returns undefined when no memo exists.', () => {
+        expect(Term('a').getMemo()).to.equal(undefined)
       })
-      it('returns memo string when memo does exist.', () => {
-        const memo = 'The book not the show.'
-        expect(Term('American Gods', memo).getMemo().getName()).to.equal(memo)
+      it('returns the only memo when one memo exists.', () => {
+        const memo = new MockQuote('The book not the show.')
+        expect(Term('American Gods', memo).getMemo()).to.equal(memo)
       })
     })
     describe('getName()', function () {
@@ -89,17 +90,21 @@ describe('Term() Unit Tests', () => {
       })
     })
     describe('getDef()', function () {
+      const d1 = new MockQuote('Klingon')
+      const d2 = new MockQuote('Vulcan')
+      const d3 = new MockQuote('Andorian')
+      const term = Term('a', '', d1, d2, d3)
       it('is a function.', () => {
         expect(typeof Term('a').getDef).to.equal('function')
       })
       it('returns value of first def parameter.', () => {
-        expect(Term('a', 'b', 'c').getDef(0).getName()).to.equal('c')
+        expect(term.getDef(0)).to.equal(d1)
       })
       it('returns value of second def parameter.', () => {
-        expect(Term('a', 'b', 'c', 'd').getDef(1).getName()).to.equal('d')
+        expect(term.getDef(1)).to.equal(d2)
       })
       it('returns value of third def parameter.', () => {
-        expect(Term('a', 'b', 'c', 'd', 'e').getDef(2).getName()).to.equal('e')
+        expect(term.getDef(2)).to.equal(d3)
       })
     })
     describe('withDef()', function () {
@@ -109,31 +114,49 @@ describe('Term() Unit Tests', () => {
       it('returns an instance of $Term.', () => {
         expect(Term('a').withDef().constructor.name).to.equal('$Term')
       })
-      it('adds a definition to an empty term.', () => {
-        expect(Term('a').withDef('Klingon').length).to.equal(1)
+      it('adds a single definition to an empty term.', () => {
+        expect(Term('a').withDef(new MockQuote('Klingon')).length).to.equal(1)
       })
-      it('adds three definitions to an empty term.', () => {
-        const term = Term('a').withDef('Klingon', 'Vulcan', 'Andorian')
+      it('adds three unique definitions to an empty term.', () => {
+        const term = Term('a').withDef(
+          new MockQuote('Klingon'),
+          new MockQuote('Vulcan'),
+          new MockQuote('Andorian')
+        )
         expect(term.length).to.equal(3)
       })
-      it('merges three definitions to an empty term.', () => {
-        const term = Term('a').withDef('Klingon', 'Klingon', 'Klingon')
+      it('merges three identical definitions to an empty term.', () => {
+        const term = Term('a').withDef(
+          new MockQuote('Klingon'),
+          new MockQuote('Klingon'),
+          new MockQuote('Klingon')
+        )
         expect(term.length).to.equal(1)
       })
     })
     describe('withMemo()', function () {
       it('Allows a string memo to be appended.', () => {
-        const memo1 = 'They are dangerous.'
-        const memo2 = 'They are mageistic.'
+        const memo1 = new MockQuote('They are dangerous.')
+        const memo2 = new MockQuote('They are mageistic.')
         const term = Term('a', memo1).withMemo(memo2)
-        expect(term.getMemo(0).getName()).to.equal(memo1)
-        expect(term.getMemo(1).getName()).to.equal(memo2)
+        expect(term.getMemo(0)).to.equal(memo1)
+        expect(term.getMemo(1)).to.equal(memo2)
       })
     })
     describe('withGloss()', function () {
       it('Allows a single gloss to be merged.', () => {
-        const term1 = Term('Klingon', 'They are dangerous.', 'aliens', 'warlike')
-        const term2 = Term('Klingon(TNG)', 'They are mageistic.', 'honorable', 'spiritual')
+        const term1 = Term(
+          'Klingon',
+          new MockQuote('They are dangerous.'),
+          new MockQuote('aliens'),
+          new MockQuote('warlike')
+        )
+        const term2 = Term(
+          'Klingon(TNG)',
+          new MockQuote('They are mageistic.'),
+          new MockQuote('honorable'),
+          new MockQuote('spiritual')
+        )
         const term3 = term1.withGloss(term2)
         expect(term3.getName()).to.equal('Klingon')
         expect(term3.getMemo(0).getName()).to.equal('They are dangerous.')

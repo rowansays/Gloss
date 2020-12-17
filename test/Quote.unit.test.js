@@ -317,7 +317,7 @@ describe('Quote: Tests', function () {
         expect(function () { Quote({ name: ['abc'], refs: '123' }) }).to.throw(Error)
       })
     })
-    describe('Everything Else...', function () {
+    describe('Refs are optional', function () {
       it('does not require refs #1', () => {
         const q = Quote(
           { name: 'a' },
@@ -333,6 +333,12 @@ describe('Quote: Tests', function () {
           { name: 'd' },
         )
         expectQuote(q, 'a', 4, 0, 3, false)
+      })
+      it('strips falsey values from refs', () => {
+        expectQuote(
+          Quote({ name: 'a', refs: [undefined] }),
+          'a', 1, 0, 0, true
+        )
       })
     })
   })

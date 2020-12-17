@@ -3,7 +3,7 @@ import mocha from 'mocha'
 import { Glossary } from '../src/Glossaries/Glossary.js'
 import { testFactoryFunction } from './helpers/factories.js'
 import { test } from './helpers/prototypes.js'
-import { frankenstein } from './data/ids.js'
+import { frankenObject } from './data/ids.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -11,7 +11,7 @@ var it = mocha.it
 
 describe('Glossary() Unit Tests', function () {
   const instance = Glossary({
-    id: frankenstein,
+    id: frankenObject,
     ref: 'abc',
     glosses: []
   })

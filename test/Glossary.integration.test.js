@@ -3,7 +3,7 @@ import mocha from 'mocha'
 import { Glossary } from '../src/Glossaries/Glossary.js'
 import { Term } from '../src/Glosses/Term.js'
 import { Phrase } from '../src/Quotes/Quote.js'
-import { frankenstein } from './data/ids.js'
+import { frankenBook, nobodysWork } from './data/refs.js'
 
 var describe = mocha.describe
 var expect = chai.expect
@@ -12,10 +12,10 @@ var it = mocha.it
 describe('Glossary() Integration Tests', function () {
   describe('Constructor Signature', function () {
     it('assigns reference to all gloss definitions.', () => {
-      const ref = 'glitter'
+      const ref = frankenBook
       const g = Glossary({
-        id: frankenstein,
-        ref: ref,
+        id: nobodysWork,
+        ref: frankenBook,
         glosses: [
           Term('Characters',
             '',

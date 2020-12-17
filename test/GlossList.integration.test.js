@@ -4,86 +4,81 @@ import { GlossList } from '../src/Lists/GlossList.js'
 import { Phrase } from '../src/Quotes/Quote.js'
 import { Term } from '../src/Glosses/Term.js'
 
+import { MockRef } from './mocks/MockRef.js'
+
 var describe = mocha.describe
 var expect = chai.expect
 var it = mocha.it
 
-describe('GlossList: Integration Tests', function () {
-  it('merges phrases with the same names (case sensitive).', () => {
-    const gl = GlossList(
-      Term(3, '', Phrase('natural number', 'wikipedia')),
-      Term(3, '', Phrase('odd number', 'wikipedia')),
-      Term(3, '', Phrase('prime number', 'wikipedia')),
-      Term(3, '', Phrase('magic number', 'schoolhouse-rock')),
-    )
+const wikipedia = new MockRef('wikipedia', 'Wikipedia')
+const schoolHouseRock = new MockRef('school-rock', 'Schoolhouse Rock')
 
+const a = () => { return Term('A', '', Phrase('the first letter', wikipedia)) }
+const b = () => { return Term('B', '', Phrase('the second letter', wikipedia)) }
+const c = () => { return Term('C', '', Phrase('the third letter', wikipedia)) }
+const d = () => { return Term('D', '', Phrase('the fourth letter', wikipedia)) }
+const e = () => { return Term('E', '', Phrase('the fifth letter', wikipedia)) }
+const f = () => { return Term('F', '', Phrase('the sixth letter', wikipedia)) }
+const g = () => { return Term('G', '', Phrase('the seventh letter', wikipedia)) }
+const h = () => { return Term('H', '', Phrase('the eighth letter', wikipedia)) }
+const i = () => { return Term('I', '', Phrase('the ninth letter', wikipedia)) }
+
+describe('GlossList: Integration Tests', function () {
+  it('merges terms with the same names (case sensitive).', () => {
+    const gl = GlossList(
+      Term(3, '', Phrase('natural number', wikipedia)),
+      Term(3, '', Phrase('odd number', wikipedia)),
+      Term(3, '', Phrase('magic number', schoolHouseRock)),
+    )
     expect(gl.length).to.equal(1)
   })
-
-  /*
-  it('accepts an array of phrases.', () => {
-    const gl = GlossList({ name: 'nobody', items: [
-      Phrase('a'),
-      Phrase('b'),
-      Phrase('c')
-    ] })
+  it('accepts an array of unique phrases.', () => {
+    const gl = GlossList(a(), b(), c())
     expect(gl.length).to.equal(3)
-    expect(gl.has('a')).to.be.true
-    expect(gl.has('b')).to.be.true
-    expect(gl.has('c')).to.be.true
-  })
-  it('accepts an array of GlossLists containing Phrases.', () => {
-    const ql = GlossList({ name: 'nobody', items: [
-      GlossList({ name: 'nobody', items: [
-        Phrase('a'), Phrase('b'), Phrase('c')
-      ] }),
-      GlossList({ name: 'nobody', items: [
-        Phrase('d'), Phrase('e'), Phrase('f')
-      ] }),
-      GlossList({ name: 'nobody', items: [
-        Phrase('g'), Phrase('h'), Phrase('i')
-      ] })
-    ] })
-    expect(ql.length).to.equal(9)
-    expect(ql.has('a')).to.be.true
-    expect(ql.has('b')).to.be.true
-    expect(ql.has('c')).to.be.true
-    expect(ql.has('d')).to.be.true
-    expect(ql.has('e')).to.be.true
-    expect(ql.has('f')).to.be.true
-    expect(ql.has('g')).to.be.true
-    expect(ql.has('h')).to.be.true
-    expect(ql.has('i')).to.be.true
-  })
-  it('  - merges an array of GlossLists.', () => {
-    const ql = GlossList({ name: 'nobody', items: [
-      GlossList({ name: 'nobody', items: [
-        Phrase('a'), Phrase('b'), Phrase('c')
-      ] }),
-      GlossList({ name: 'nobody', items: [
-        Phrase('a'), Phrase('b'), Phrase('c')
-      ] }),
-      GlossList({ name: 'nobody', items: [
-        Phrase('a'), Phrase('b'), Phrase('c')
-      ] })
-    ] })
-    expect(ql.length).to.equal(3)
-    expect(ql.has('a')).to.be.true
-    expect(ql.has('b')).to.be.true
-    expect(ql.has('c')).to.be.true
+    expect(gl.has('A')).to.be.true
+    expect(gl.has('B')).to.be.true
+    expect(gl.has('C')).to.be.true
   })
 
+  it('accepts an array of GlossLists containing Phrases.', () => {
+    const ql = GlossList(
+      GlossList(a(), b(), c()),
+      GlossList(d(), e(), f()),
+      GlossList(g(), h(), i())
+    )
+    expect(ql.length).to.equal(9)
+    expect(ql.has('A')).to.be.true
+    expect(ql.has('B')).to.be.true
+    expect(ql.has('C')).to.be.true
+    expect(ql.has('D')).to.be.true
+    expect(ql.has('E')).to.be.true
+    expect(ql.has('F')).to.be.true
+    expect(ql.has('G')).to.be.true
+    expect(ql.has('H')).to.be.true
+    expect(ql.has('I')).to.be.true
+  })
+  it('merges an array of GlossLists.', () => {
+    const ql = GlossList(
+      GlossList(a(), b(), c()),
+      GlossList(a(), b(), c()),
+      GlossList(a(), b(), c()),
+    )
+    expect(ql.length).to.equal(3)
+    expect(ql.has('A')).to.be.true
+    expect(ql.has('B')).to.be.true
+    expect(ql.has('C')).to.be.true
+  })
 
   describe('GlossList(): Instance Methods', function () {
     describe('has()', function () {
       it('returns false when list is empty.', () => {
-        expect(GlossList({ name: 'nobody' }).has('a')).to.be.false
+        expect(GlossList().has('a')).to.be.false
       })
       it('returns false when a given gloss does not exist.', () => {
-        expect(GlossList({ name: 'nobody', items: a })).has('b')).to.be.false
+        expect(GlossList(a(), b(), c()).has('D')).to.be.false
       })
       it('returns true when a given gloss does exist.', () => {
-        expect(GlossList({ name: 'nobody', items: [Term('a')]}).has('a')).to.be.true
+        expect(GlossList(a()).has('A')).to.be.true
       })
     })
     describe('Inherited from AbstractObjectList()', function () {
@@ -141,5 +136,4 @@ describe('GlossList: Integration Tests', function () {
       })
     })
   })
-  */
 })
