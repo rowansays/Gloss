@@ -1,5 +1,4 @@
 import { render } from 'preact'
-import { isList } from '../Utility/isList.js'
 
 /**
  * Render Verbose glossary.
@@ -30,7 +29,8 @@ function VerboseGlossary (props) {
         <thead>
           <tr>
             <th>Definition</th>
-            <th>References</th>
+            <th>Date</th>
+            <th>Mention</th>
           </tr>
         </thead>
         {glosses}
@@ -38,87 +38,75 @@ function VerboseGlossary (props) {
     </section>
   )
 }
-
 /**
  * Table body element
  */
 function Gloss (props) {
-  const { gloss, refs } = props
+  const { gloss } = props
   const sorted = gloss.sortDefsByName()
 
   const defs = []
   sorted.defs.forEach((quote, i) => {
-    let def
-    if (quote.length > 1) {
-      def = <DefinitionMultiple quote={quote} refs={refs} />
-    } else {
-      def = <DefinitionSingle quote={quote} refs={refs} />
-    }
-    defs.push(def)
+    defs.push(<Definition quote={quote} />)
   })
 
   return (
     <tbody class='Gloss'>
-      <th class='GlossName' colspan='2'>{gloss.getName()}</th>
+      <th class='GlossName' colspan='3'>{gloss.getName()}</th>
       {defs}
     </tbody>
   )
 }
-
-/**
- * Multiple table rows for all quotes within a definition
- */
-function DefinitionSingle (props) {
-  const { quote, refs } = props
-  return (
-    <>
-      <tr class='Head'>
-        <td class='Term'>{quote.getName()}</td>
-        <Quote quote={quote} refs={refs} />
-      </tr>
-    </>
-  )
-}
-function DefinitionMultiple (props) {
-  const { quote, refs } = props
-  const head = quote.slice(0, 1)
-  const tail = quote.slice(1)
-  return (
-    <>
-      <tr class='Head'>
-        <td class='Term' rowspan={quote.length}>
-          {quote.getName()}
-        </td>
-        <Quote quote={head} refs={refs} />
-      </tr>
-      <Quotes quotes={tail} refs={refs} />
-    </>
-  )
-}
-
-function Quotes (props) {
-  const { quotes, refs } = props
-
+function Definition (props) {
+  const { quote } = props
+  const name = quote.getName()
+  const map = quote.mapBy('year')
+  const sorted = new Map([...map].sort((a, b) => a[0] - b[0]))
   const rows = []
-  quotes.forEach(quote => {
-    rows.push(<tr><Quote quote={quote} refs={refs} /></tr>)
+
+  if (name === 'Activity') {
+    console.log(quote.getFreq(), quote)
+  }
+
+  let yearNow
+  let i = 1
+  sorted.forEach((quotes, year) => {
+    console.log('year: ', year, 'yearNow: ', yearNow)
+    quotes.forEach(subQuote => {
+      if (i === 1) {
+        rows.push(
+          <tr class='Definition'>
+            <td class='DefinitionTerm' rowspan={quote.mentions}>{name}</td>
+            <td class='DefinitionYear' rowspan={quotes.length}>{year}</td>
+            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+          </tr>
+        )
+      } else if (year !== yearNow) {
+        rows.push(
+          <tr class='Definition'>
+            <td class='DefinitionYear' rowspan={quotes.length}>{year}</td>
+            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+          </tr>
+        )
+      } else {
+        rows.push(
+          <tr class='Definition'>
+            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+          </tr>
+        )
+      }
+      i = i + 1
+      yearNow = year
+    })
   })
 
   return (<>{rows}</>)
 }
-
-function Quote (props) {
-  const { quote, refs } = props
-
-  const items = []
-  quote.getRefs().forEach(key => {
-    if (isList(refs)) {
-      const ref = refs.get(key)
-      items.push(<i> - {ref.getName()} ({ref.getDate()})</i>)
-    }
-  })
-
-  return (<td class='Description'>{quote.getName()} {items}</td>)
+function DataCell (props) {
+  const { quote } = props
+  return (
+    <span>{quote.getName()} - {quote.getRef(0).getName()}</span>
+  )
 }
 
 export { renderVerboseGlossary, VerboseGlossary }
