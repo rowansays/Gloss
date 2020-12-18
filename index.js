@@ -2,7 +2,6 @@
 export { AbstractObjectList } from './src/Abstracts/AbstractObjectList.js'
 export { AbstractScalarList } from './src/Abstracts/AbstractScalarList.js'
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'
-export { AbstractQuote } from './src/Abstracts/AbstractQuote.js'
 
 // Components
 export { renderConciseGlossary, ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
@@ -30,10 +29,12 @@ export { Webpage } from './src/References/Webpage.js'
 
 // Utility
 export { castString } from './src/Utility/castString.js'
-export { isList } from './src/Utility/isList.js'
-export { isQuote } from './src/Utility/isQuote.js'
-export { isReference } from './src/Utility/isReference.js'
-export { isWork } from './src/Utility/isWork.js'
+export {
+  isList,
+  isQuote,
+  isReference,
+  isWork
+} from './src/Utility/predicate.js'
 
 // Everything Else
 export { Card } from './src/Card.js'
