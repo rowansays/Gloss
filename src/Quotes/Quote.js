@@ -145,13 +145,6 @@ $Quote.prototype.getProps = function () {
   })
   return o
 }
-$Quote.prototype.getRefs = function (key) { // Find a use-case for this :)
-  if (typeof key === 'undefined') {
-    return this.refs
-  } else if (Array.isArray(this.map[key])) {
-    return this.map[key]
-  }
-}
 $Quote.prototype.getRef = function (key) {
   return this.refs.get(key)
 }
