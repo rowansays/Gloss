@@ -1,6 +1,5 @@
 // Abstracts
 export { AbstractObjectList } from './src/Abstracts/AbstractObjectList.js'
-export { AbstractScalarList } from './src/Abstracts/AbstractScalarList.js'
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'
 
 // Components
@@ -18,7 +17,6 @@ export { Term } from './src/Glosses/Term.js'
 export { GlossList } from './src/Lists/GlossList.js'
 export { QuoteList } from './src/Lists/QuoteList.js'
 export { ReferenceList } from './src/Lists/ReferenceList.js'
-export { StringList } from './src/Lists/StringList.js'
 
 // Quotes
 export { Quote, Normal, Phrase } from './src/Quotes/Quote.js'
@@ -28,7 +26,7 @@ export { Book } from './src/References/Book.js'
 export { Webpage } from './src/References/Webpage.js'
 
 // Utility
-export { castString } from './src/Utility/castString.js'
+export { castString } from './src/Utility/cast.js'
 export {
   isList,
   isQuote,
