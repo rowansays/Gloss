@@ -14,7 +14,6 @@ import { Webpage } from '../../src/References/Webpage.js'
 import { GlossList } from '../../src/Lists/GlossList.js'
 import { QuoteList } from '../../src/Lists/QuoteList.js'
 import { ReferenceList } from '../../src/Lists/ReferenceList.js'
-import { StringList } from '../../src/Lists/StringList.js'
 
 describe('isNamed() Integration Tests.', () => {
   describe('Recognizes named objects.', () => {
@@ -52,9 +51,6 @@ describe('isNamed() Integration Tests.', () => {
     })
     test('Values returned by ReferenceList() are not named.', function () {
       expect(isNamed(ReferenceList())).toBe(false)
-    })
-    test('Values returned by StringList() are not named.', function () {
-      expect(isNamed(StringList())).toBe(false)
     })
   })
 })

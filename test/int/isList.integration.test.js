@@ -5,7 +5,6 @@ import { isList } from '../../src/Utility/predicate.js'
 import { GlossList } from '../../src/Lists/GlossList.js'
 import { QuoteList } from '../../src/Lists/QuoteList.js'
 import { ReferenceList } from '../../src/Lists/ReferenceList.js'
-import { StringList } from '../../src/Lists/StringList.js'
 
 // Factories that should not return lists.
 import { Book } from '../../src/References/Book.js'
@@ -26,9 +25,6 @@ describe('isList() Integration Tests.', () => {
     })
     test('returned by ReferenceList().', function () {
       expect(isList(ReferenceList({ name: '123', items: [] }))).toBe(true)
-    })
-    test('returned by StringList().', function () {
-      expect(isList(StringList())).toBe(true)
     })
   })
   describe('Denies values', () => {
