@@ -6,7 +6,7 @@ export default [
   {
     input: 'index.js',
     output: {
-      file: 'dist/symbolism.iife.js',
+      file: 'dist/gloss.iife.js',
       format: 'iife',
       name: 'LibGlossary'
     },
