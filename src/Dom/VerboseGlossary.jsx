@@ -67,7 +67,6 @@ function Definition (props) {
   let yearNow
   let i = 1
   sorted.forEach((quotes, year) => {
-    console.log('year: ', year, 'yearNow: ', yearNow)
     quotes.forEach(subQuote => {
       if (i === 1) {
         rows.push(
