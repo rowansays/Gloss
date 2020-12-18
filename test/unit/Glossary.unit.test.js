@@ -1,13 +1,7 @@
-import chai from 'chai'
-import mocha from 'mocha'
-import { Glossary } from '../src/Glossaries/Glossary.js'
-import { testFactoryFunction } from './helpers/factories.js'
-import { test } from './helpers/prototypes.js'
-import { frankenObject } from './data/ids.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { Glossary } from '../../src/Glossaries/Glossary.js'
+import { testFactoryFunction } from '../helpers/factories.js'
+import { testProtoFunc } from '../helpers/prototypes.js'
+import { frankenObject } from '../data/ids.js'
 
 describe('Glossary() Unit Tests', function () {
   const instance = Glossary({
@@ -17,8 +11,8 @@ describe('Glossary() Unit Tests', function () {
   })
   testFactoryFunction('Glossary', Glossary, instance)
   describe('Prototype', function () {
-    test('forEach', instance)
-    test('getGloss', instance)
-    test('getRef', instance)
+    testProtoFunc('forEach', instance)
+    testProtoFunc('getGloss', instance)
+    testProtoFunc('getRef', instance)
   })
 })

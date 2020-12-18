@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "bundle": "NODE_ENV=production ./node_modules/.bin/rollup -c",
-    "test": "NODE_ENV=test npx mocha --reporter min --recursive & standard",
-    "test:watch": "NODE_ENV=test npx mocha --watch --parallel --recursive"
+    "bundle": "./node_modules/.bin/rollup -c",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test.w": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
   },
   "author": "Rowan Weathers (https://rowansays.com/)",
   "license": "MIT",
@@ -17,9 +17,8 @@
     "@rollup/plugin-babel": "5.2.2",
     "@rollup/plugin-commonjs": "17.0.0",
     "@rollup/plugin-node-resolve": "11.0.0",
-    "chai": "4.2.0",
     "cz-conventional-changelog": "3.3.0",
-    "mocha": "8.2.1",
+    "jest": "26.6.3",
     "rollup": "2.34.1",
     "standard": "16.0.3",
     "standard-version": "9.0.0"

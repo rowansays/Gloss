@@ -1,15 +1,8 @@
 // System under test.
-import { GlossList } from '../src/Lists/GlossList.js'
+import { GlossList } from '../../src/Lists/GlossList.js'
 
-// Test library
-import chai from 'chai'
-import mocha from 'mocha'
-import { testObjectListInterface } from './helpers/prototypes.js'
-import { testFactoryFunction } from './helpers/factories.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { testObjectListInterface } from '../helpers/prototypes.js'
+import { testFactoryFunction } from '../helpers/factories.js'
 
 testFactoryFunction('GlossList', GlossList, GlossList())
 
@@ -20,15 +13,15 @@ describe('GlossList(): Parameters', function () {
   describe("()", () => {
     it('accepts an empty array.', () => {
       const gl = GlossList()
-      expect(gl.length).to.equal(0)
+      expect(gl.length).toBe(0)
     })
     it('ignores string items.', () => {
       const gl = GlossList('a', 'b', 'c')
-      expect(gl.length).to.equal(0)
+      expect(gl.length).toBe(0)
     })
     it('ignores number items.', () => {
       const gl = GlossList(1, 2, 3)
-      expect(gl.length).to.equal(0)
+      expect(gl.length).toBe(0)
     })
   })
 })

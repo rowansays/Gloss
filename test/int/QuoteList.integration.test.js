@@ -1,71 +1,65 @@
-import chai from 'chai'
-import mocha from 'mocha'
-import { Normal, Phrase } from '../src/Quotes/Quote.js'
-import { QuoteList } from '../src/Lists/QuoteList.js'
-import { aliceBook, devilsBook, frankenBook, prideBook } from './data/refs.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { Normal, Phrase } from '../../src/Quotes/Quote.js'
+import { QuoteList } from '../../src/Lists/QuoteList.js'
+import { aliceBook, devilsBook, frankenBook, prideBook } from '../data/refs.js'
 
 describe('QuoteList Integration Tests', function () {
   describe('Parameters', function () {
     describe('single: {Phrase}', () => {
-      it('accepts a Quote.', () => {
+      test('accepts a Quote.', () => {
         const ql = QuoteList(Phrase('a', aliceBook))
-        expect(ql.length).to.equal(1)
-        expect(ql.getItemName(0)).to.equal('a')
+        expect(ql.length).toBe(1)
+        expect(ql.getItemName(0)).toBe('a')
       })
     })
     describe('Phrase())', () => {
-      it('accepts unique phrases.', () => {
+      test('accepts unique phrases.', () => {
         const q = QuoteList(
           Phrase('f', aliceBook),
           Phrase('z', devilsBook),
           Phrase('t', frankenBook)
         )
-        expect(q.length).to.equal(3)
+        expect(q.length).toBe(3)
       })
-      it('stores phrases in the order they were provided.', () => {
+      test('stores phrases in the order they were provided.', () => {
         const q = QuoteList(
           Phrase('f', aliceBook),
           Phrase('z', devilsBook),
           Phrase('t', frankenBook)
         )
-        expect(q.getItemName(0)).to.equal('f')
-        expect(q.getItemName(1)).to.equal('z')
-        expect(q.getItemName(2)).to.equal('t')
+        expect(q.getItemName(0)).toBe('f')
+        expect(q.getItemName(1)).toBe('z')
+        expect(q.getItemName(2)).toBe('t')
       })
       const quantumRobin = QuoteList(
         Phrase('Quantum robin', aliceBook),
         Phrase('Quantum robin', devilsBook),
         Phrase('Quantum robin', frankenBook)
       )
-      it('does not allow duplicate phrases.', () => {
-        expect(quantumRobin.length).to.equal(1)
+      test('does not allow duplicate phrases.', () => {
+        expect(quantumRobin.length).toBe(1)
       })
-      it('merges duplicate phrases into a single item.', () => {
-        expect(quantumRobin.get(0).hasRef(aliceBook)).to.be.true
-        expect(quantumRobin.get(0).hasRef(devilsBook)).to.be.true
-        expect(quantumRobin.get(0).hasRef(frankenBook)).to.be.true
+      test('merges duplicate phrases into a single item.', () => {
+        expect(quantumRobin.get(0).hasRef(aliceBook)).toBe(true)
+        expect(quantumRobin.get(0).hasRef(devilsBook)).toBe(true)
+        expect(quantumRobin.get(0).hasRef(frankenBook)).toBe(true)
       })
     })
     describe('Normal()', () => {
-      it('accepts unique normalized phrases.', () => {
+      test('accepts unique normalized phrases.', () => {
         const q = QuoteList(
           Normal('x', 'xx', aliceBook),
           Normal('y', 'yy', aliceBook),
           Normal('z', 'zz', aliceBook)
         )
-        expect(q.length).to.equal(3)
+        expect(q.length).toBe(3)
       })
-      it('merges normalized phrases with the same name.', () => {
+      test('merges normalized phrases with the same name.', () => {
         const q = QuoteList(
           Normal('x', 'xx', aliceBook),
           Normal('x', 'xy', devilsBook),
           Normal('x', 'xz', frankenBook)
         )
-        expect(q.length).to.equal(1)
+        expect(q.length).toBe(1)
       })
     })
   })

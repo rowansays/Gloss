@@ -1,14 +1,8 @@
-import chai from 'chai'
-import mocha from 'mocha'
-import { GlossList } from '../src/Lists/GlossList.js'
-import { Phrase } from '../src/Quotes/Quote.js'
-import { Term } from '../src/Glosses/Term.js'
+import { GlossList } from '../../src/Lists/GlossList.js'
 
-import { MockRef } from './mocks/MockRef.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { Phrase } from '../../src/Quotes/Quote.js'
+import { Term } from '../../src/Glosses/Term.js'
+import { MockRef } from '../mocks/MockRef.js'
 
 const wikipedia = new MockRef('wikipedia', 'Wikipedia')
 const schoolHouseRock = new MockRef('school-rock', 'Schoolhouse Rock')
@@ -24,114 +18,114 @@ const h = () => { return Term('H', '', Phrase('the eighth letter', wikipedia)) }
 const i = () => { return Term('I', '', Phrase('the ninth letter', wikipedia)) }
 
 describe('GlossList: Integration Tests', function () {
-  it('merges terms with the same names (case sensitive).', () => {
+  test('merges terms with the same names (case sensitive).', () => {
     const gl = GlossList(
       Term(3, '', Phrase('natural number', wikipedia)),
       Term(3, '', Phrase('odd number', wikipedia)),
       Term(3, '', Phrase('magic number', schoolHouseRock)),
     )
-    expect(gl.length).to.equal(1)
+    expect(gl.length).toBe(1)
   })
-  it('accepts an array of unique phrases.', () => {
+  test('accepts an array of unique phrases.', () => {
     const gl = GlossList(a(), b(), c())
-    expect(gl.length).to.equal(3)
-    expect(gl.has('A')).to.be.true
-    expect(gl.has('B')).to.be.true
-    expect(gl.has('C')).to.be.true
+    expect(gl.length).toBe(3)
+    expect(gl.has('A')).toBe(true)
+    expect(gl.has('B')).toBe(true)
+    expect(gl.has('C')).toBe(true)
   })
 
-  it('accepts an array of GlossLists containing Phrases.', () => {
+  test('accepts an array of GlossLists containing Phrases.', () => {
     const ql = GlossList(
       GlossList(a(), b(), c()),
       GlossList(d(), e(), f()),
       GlossList(g(), h(), i())
     )
-    expect(ql.length).to.equal(9)
-    expect(ql.has('A')).to.be.true
-    expect(ql.has('B')).to.be.true
-    expect(ql.has('C')).to.be.true
-    expect(ql.has('D')).to.be.true
-    expect(ql.has('E')).to.be.true
-    expect(ql.has('F')).to.be.true
-    expect(ql.has('G')).to.be.true
-    expect(ql.has('H')).to.be.true
-    expect(ql.has('I')).to.be.true
+    expect(ql.length).toBe(9)
+    expect(ql.has('A')).toBe(true)
+    expect(ql.has('B')).toBe(true)
+    expect(ql.has('C')).toBe(true)
+    expect(ql.has('D')).toBe(true)
+    expect(ql.has('E')).toBe(true)
+    expect(ql.has('F')).toBe(true)
+    expect(ql.has('G')).toBe(true)
+    expect(ql.has('H')).toBe(true)
+    expect(ql.has('I')).toBe(true)
   })
-  it('merges an array of GlossLists.', () => {
+  test('merges an array of GlossLists.', () => {
     const ql = GlossList(
       GlossList(a(), b(), c()),
       GlossList(a(), b(), c()),
       GlossList(a(), b(), c()),
     )
-    expect(ql.length).to.equal(3)
-    expect(ql.has('A')).to.be.true
-    expect(ql.has('B')).to.be.true
-    expect(ql.has('C')).to.be.true
+    expect(ql.length).toBe(3)
+    expect(ql.has('A')).toBe(true)
+    expect(ql.has('B')).toBe(true)
+    expect(ql.has('C')).toBe(true)
   })
 
   describe('GlossList(): Instance Methods', function () {
     describe('has()', function () {
-      it('returns false when list is empty.', () => {
-        expect(GlossList().has('a')).to.be.false
+      test('returns false when list is empty.', () => {
+        expect(GlossList().has('a')).toBe(false)
       })
-      it('returns false when a given gloss does not exist.', () => {
-        expect(GlossList(a(), b(), c()).has('D')).to.be.false
+      test('returns false when a given gloss does not exist.', () => {
+        expect(GlossList(a(), b(), c()).has('D')).toBe(false)
       })
-      it('returns true when a given gloss does exist.', () => {
-        expect(GlossList(a()).has('A')).to.be.true
+      test('returns true when a given gloss does exist.', () => {
+        expect(GlossList(a()).has('A')).toBe(true)
       })
     })
     describe('Inherited from AbstractObjectList()', function () {
       describe('entries()', function () {
-        it('returns empty array when no referenes exist.', () => {
-          expect(Array.isArray(GlossList().entries())).to.be.true
-          expect(GlossList().entries().length).to.equal(0)
+        test('returns empty array when no referenes exist.', () => {
+          expect(Array.isArray(GlossList().entries())).toBe(true)
+          expect(GlossList().entries().length).toBe(0)
         })
       })
       describe('length', function () {
-        it('returns an integer with a value of zero when no referenes exist.', () => {
-          expect(Number.isInteger(GlossList().length)).to.be.true
-          expect(GlossList().length).to.equal(0)
+        test('returns an integer with a value of zero when no referenes exist.', () => {
+          expect(Number.isInteger(GlossList().length)).toBe(true)
+          expect(GlossList().length).toBe(0)
         })
       })
       describe('sortAscBy()', function () {
-        it('returns an empty GlossList instance when no referenes exist.', () => {
+        test('returns an empty GlossList instance when no referenes exist.', () => {
           const list = GlossList()
           const sorted = list.sortAscBy()
-          expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(GlossList().length).to.equal(0)
+          expect(sorted.constructor.name).toBe('$GlossList')
+          expect(GlossList().length).toBe(0)
         })
-        it('sorts by name.', () => {
+        test('sorts by name.', () => {
           const list = GlossList(
             Term('Bobcat'),
             Term('Calico'),
             Term('Aegean')
           )
           const sorted = list.sortAscBy('Name')
-          expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(sorted.get(0).getName()).to.equal('Aegean')
-          expect(sorted.get(1).getName()).to.equal('Bobcat')
-          expect(sorted.get(2).getName()).to.equal('Calico')
+          expect(sorted.constructor.name).toBe('$GlossList')
+          expect(sorted.get(0).getName()).toBe('Aegean')
+          expect(sorted.get(1).getName()).toBe('Bobcat')
+          expect(sorted.get(2).getName()).toBe('Calico')
         })
       })
       describe('sortDescBy()', function () {
-        it('returns an empty GlossList instance when no entries exist.', () => {
+        test('returns an empty GlossList instance when no entries exist.', () => {
           const list = GlossList()
           const sorted = list.sortDescBy()
-          expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(GlossList().length).to.equal(0)
+          expect(sorted.constructor.name).toBe('$GlossList')
+          expect(GlossList().length).toBe(0)
         })
-        it('sorts by name.', () => {
+        test('sorts by name.', () => {
           const list = GlossList(
             Term('Bobcat'),
             Term('Aegean'),
             Term('Calico')
           )
           const sorted = list.sortDescBy('Name')
-          expect(sorted.constructor.name).to.equal('$GlossList')
-          expect(sorted.get(0).getName()).to.equal('Calico')
-          expect(sorted.get(1).getName()).to.equal('Bobcat')
-          expect(sorted.get(2).getName()).to.equal('Aegean')
+          expect(sorted.constructor.name).toBe('$GlossList')
+          expect(sorted.get(0).getName()).toBe('Calico')
+          expect(sorted.get(1).getName()).toBe('Bobcat')
+          expect(sorted.get(2).getName()).toBe('Aegean')
         })
       })
     })

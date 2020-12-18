@@ -1,11 +1,5 @@
-import chai from 'chai'
-import mocha from 'mocha'
-import { Book } from '../src/References/Book.js'
-import { testFactoryFunction } from './helpers/factories.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { Book } from '../../src/References/Book.js'
+import { testFactoryFunction } from '../helpers/factories.js'
 
 function Work() {}
 Work.prototype.getAuthor = function () { return 'Mary Shelley'}
@@ -26,122 +20,122 @@ testFactoryFunction('Book', Book, Book())
 
 describe('Book(): Parameters', function () {
   describe('1. id', () => {
-    it('accepts an abstract work as parameter one.', () => {
-      expect(function () { new Book(new Work()) }).not.to.throw(Error)
+    test('accepts an abstract work as parameter one.', () => {
+      expect(function () { new Book(new Work()) }).not.toThrow(Error)
     })
   })
   describe('2. publisher', () => {
-    it('accepts a string as parameter 2.', () => {
-      expect(function () { new Book(new Work(), '') }).not.to.throw(Error)
+    test('accepts a string as parameter 2.', () => {
+      expect(function () { new Book(new Work(), '') }).not.toThrow(Error)
     })
   })
 })
 describe('Book: Instance Methods', function () {
   describe('getName()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getName).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getName).toBe('function')
     })
-    it('returns value of title property when no parameters are defined.', () => {
-      expect(frankenBook.getName()).to.equal('Frankenstein')
+    test('returns value of title property when no parameters are defined.', () => {
+      expect(frankenBook.getName()).toBe('Frankenstein')
     })
-    it('returns title when parameter 1 is "short".', () => {
+    test('returns title when parameter 1 is "short".', () => {
       const name = frankenBook.getName('long')
-      expect(name).to.equal('Frankenstein Or, The Modern Prometheus')
+      expect(name).toBe('Frankenstein Or, The Modern Prometheus')
     })
-    it('concatenates title and subtitle when parameter 1 is "long".', () => {
+    test('concatenates title and subtitle when parameter 1 is "long".', () => {
       const name = frankenBook.getName('long')
-      expect(name).to.equal('Frankenstein Or, The Modern Prometheus')
+      expect(name).toBe('Frankenstein Or, The Modern Prometheus')
     })
-    it('returns title when parameter 1 is unrecognized.', () => {
+    test('returns title when parameter 1 is unrecognized.', () => {
       const name = frankenBook.getName([])
-      expect(name).to.equal('Frankenstein')
+      expect(name).toBe('Frankenstein')
     })
   })
   describe('getDescription()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getDescription).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getDescription).toBe('function')
     })
-    it('returns empty when no description exists.', () => {
-      expect(Book().getDescription()).to.equal('')
+    test('returns empty when no description exists.', () => {
+      expect(Book().getDescription()).toBe('')
     })
-    it('returns string when a valid description exists.', () => {
-      expect(frankenBook.getDescription()).to.equal('A novel by Mary Shelly published in 1818')
+    test('returns string when a valid description exists.', () => {
+      expect(frankenBook.getDescription()).toBe('A novel by Mary Shelly published in 1818')
     })
   })
   describe('getKey()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getKey).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getKey).toBe('function')
     })
-    it('returns empty when no description exists.', () => {
-      expect(Book().getKey()).to.equal('')
+    test('returns empty when no description exists.', () => {
+      expect(Book().getKey()).toBe('')
     })
-    it('returns string when a valid description exists.', () => {
-      expect(frankenBook.getKey()).to.equal('frankenstein')
+    test('returns string when a valid description exists.', () => {
+      expect(frankenBook.getKey()).toBe('frankenstein')
     })
   })
   describe('getName()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getName).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getName).toBe('function')
     })
-    it('returns value of title property when no parameters are defined.', () => {
-      expect(frankenBook.getName()).to.equal('Frankenstein')
+    test('returns value of title property when no parameters are defined.', () => {
+      expect(frankenBook.getName()).toBe('Frankenstein')
     })
-    it('returns title when parameter 1 is "short".', () => {
+    test('returns title when parameter 1 is "short".', () => {
       const name = frankenBook.getName('long')
-      expect(name).to.equal('Frankenstein Or, The Modern Prometheus')
+      expect(name).toBe('Frankenstein Or, The Modern Prometheus')
     })
-    it('concatenates title and subtitle when parameter 1 is "long".', () => {
+    test('concatenates title and subtitle when parameter 1 is "long".', () => {
       const name = frankenBook.getName('long')
-      expect(name).to.equal('Frankenstein Or, The Modern Prometheus')
+      expect(name).toBe('Frankenstein Or, The Modern Prometheus')
     })
-    it('returns title when parameter 1 is unrecognized.', () => {
+    test('returns title when parameter 1 is unrecognized.', () => {
       const name = frankenBook.getName([])
-      expect(name).to.equal('Frankenstein')
+      expect(name).toBe('Frankenstein')
     })
   })
   describe('getPublisher()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getPublisher).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getPublisher).toBe('function')
     })
-    it('returns empty when no publisher exists.', () => {
-      expect(Book().getPublisher()).to.equal('')
+    test('returns empty when no publisher exists.', () => {
+      expect(Book().getPublisher()).toBe('')
     })
-    it('returns string when a valid publisher exists.', () => {
-      expect(frankenBook.getPublisher()).to.equal('Lackington, Hughes, Harding, Mavor, & Jones')
+    test('returns string when a valid publisher exists.', () => {
+      expect(frankenBook.getPublisher()).toBe('Lackington, Hughes, Harding, Mavor, & Jones')
     })
   })
   describe('getSubtitle()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getSubtitle).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getSubtitle).toBe('function')
     })
-    it('returns empty when no subtitle exists.', () => {
-      expect(Book().getSubtitle()).to.equal('')
+    test('returns empty when no subtitle exists.', () => {
+      expect(Book().getSubtitle()).toBe('')
     })
-    it('returns string when a valid subtitle exists.', () => {
-      expect(frankenBook.getSubtitle()).to.equal('Or, The Modern Prometheus')
+    test('returns string when a valid subtitle exists.', () => {
+      expect(frankenBook.getSubtitle()).toBe('Or, The Modern Prometheus')
     })
   })
   describe('getTitle()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getTitle).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getTitle).toBe('function')
     })
-    it('returns empty when no description exists.', () => {
-      expect(Book().getTitle()).to.equal('')
+    test('returns empty when no description exists.', () => {
+      expect(Book().getTitle()).toBe('')
     })
-    it('returns string when a valid description exists.', () => {
-      expect(frankenBook.getTitle()).to.equal('Frankenstein')
+    test('returns string when a valid description exists.', () => {
+      expect(frankenBook.getTitle()).toBe('Frankenstein')
     })
   })
   describe('getUrl()', function () {
-    it('is a function.', () => {
-      expect(typeof Book().getUrl).to.equal('function')
+    test('is a function.', () => {
+      expect(typeof Book().getUrl).toBe('function')
     })
-    it('returns empty when no url exists.', () => {
-      expect(Book().getUrl()).to.equal('')
+    test('returns empty when no url exists.', () => {
+      expect(Book().getUrl()).toBe('')
     })
-    it('returns string when a valid url exists.', () => {
+    test('returns string when a valid url exists.', () => {
       const url = frankenBook.getUrl()
-      expect(url).to.equal('https://www.gutenberg.org/ebooks/84')
+      expect(url).toBe('https://www.gutenberg.org/ebooks/84')
     })
   })
 })

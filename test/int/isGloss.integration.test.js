@@ -1,14 +1,8 @@
-import chai from 'chai'
-import mocha from 'mocha'
-import { isGloss } from '../src/Utility/predicate.js'
-import { Term } from '../src/Glosses/Term.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+import { isGloss } from '../../src/Utility/predicate.js'
+import { Term } from '../../src/Glosses/Term.js'
 
 describe('isGloss() + various constructors.', () => {
-  it('Instances of Term() are glosses.', function () {
-    expect(isGloss(Term('a'))).to.be.true
+  test('Instances of Term() are glosses.', function () {
+    expect(isGloss(Term('a'))).toBe(true)
   })
 })

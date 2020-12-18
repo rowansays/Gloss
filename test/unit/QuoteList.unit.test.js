@@ -1,15 +1,9 @@
-// Sustem under test.
-import { QuoteList } from '../src/Lists/QuoteList.js'
+// System under test.
+import { QuoteList } from '../../src/Lists/QuoteList.js'
 
-// Testing library.
-import chai from 'chai'
-import mocha from 'mocha'
-import { testObjectListInterface } from './helpers/prototypes.js'
-import { testFactoryFunction } from './helpers/factories.js'
-
-var describe = mocha.describe
-var expect = chai.expect
-var it = mocha.it
+// Helpers.
+import { testObjectListInterface } from '../helpers/prototypes.js'
+import { testFactoryFunction } from '../helpers/factories.js'
 
 const props = { name: 'Nobody' }
 const empty = QuoteList(props)
@@ -20,13 +14,13 @@ describe('QuoteList.prototype', function () {
 })
 describe('Function Signatures', function () {
   describe("()", () => {
-    it('accepts undefined.', () => {
+    test('accepts undefined.', () => {
       const ql = QuoteList()
-      expect(ql.length).to.equal(0)
+      expect(ql.length).toBe(0)
     })
-    it('accepts three QuoteList instances.', () => {
+    test('accepts three QuoteList instances.', () => {
       const ql = QuoteList(QuoteList(), QuoteList(), QuoteList())
-      expect(ql.length).to.equal(0)
+      expect(ql.length).toBe(0)
     })
   })
 })
