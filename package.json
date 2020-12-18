@@ -49,7 +49,6 @@
     ]
   },
   "dependencies": {
-    "preact": "10.5.7",
-    "preact-jsx-runtime": "1.2.0"
+    "preact": "10.5.7"
   }
 }
