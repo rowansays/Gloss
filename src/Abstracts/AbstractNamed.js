@@ -1,4 +1,4 @@
-import { castString } from '../Utility/castString.js'
+import { castString } from '../Utility/cast.js'
 
 /**
  * Abstract Named Object constructor.

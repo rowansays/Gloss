@@ -1,4 +1,4 @@
-import { castString } from '../Utility/castString.js'
+import { castString } from '../Utility/cast.js'
 import { freeze } from '../Utility/freeze.js'
 import { isQuote, isReference } from '../Utility/predicate.js'
 import { ReferenceList } from '../Lists/ReferenceList.js'

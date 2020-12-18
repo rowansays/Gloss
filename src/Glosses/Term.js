@@ -13,7 +13,7 @@
  * @prop {QuoteList} definitions
  */
 
-import { castString } from '../Utility/castString.js'
+import { castString } from '../Utility/cast.js'
 import { QuoteList } from '../Lists/QuoteList.js'
 import { freeze } from '../Utility/freeze.js'
 

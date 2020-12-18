@@ -1,4 +1,4 @@
-import { castString } from './castString.js'
+import { castString } from './cast.js'
 import { isReference } from './predicate.js'
 
 /**
