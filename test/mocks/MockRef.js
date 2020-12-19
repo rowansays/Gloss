@@ -1,10 +1,11 @@
 export function MockRef (key, name) {
+  this.desc = ''
+  this.length = 1
   this.name = name
-  this.key = key
+  this.refs = []
+  this.url = ''
 }
-MockRef.prototype.getKey = function () { return this.key }
-MockRef.prototype.getName = function () { return this.name }
-MockRef.prototype.getUrl = function () { return 'https://example.com' }
+
 
 export const wikipedia = new MockRef('wikipedia', 'Wikipedia')
 export const wiktionary = new MockRef('wiktionary', 'Wiktionary')

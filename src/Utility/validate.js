@@ -1,5 +1,5 @@
 import { castString } from './cast.js'
-import { isReference } from './predicate.js'
+import { isRef } from './predicate.js'
 
 /**
  * Validate reference when passed as a property.
@@ -12,7 +12,7 @@ import { isReference } from './predicate.js'
  * @throws {TypeError}
  */
 export function validateRefProp (funcName, paramName, aught) {
-  if (!isReference(aught)) {
+  if (!isRef(aught)) {
     throw new TypeError('' +
       `${funcName}() - the ${paramName} parameter must contain a single ` +
       `reference object. A value with a type of "${typeof aught}" was ` +

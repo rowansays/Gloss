@@ -4,7 +4,7 @@ import { MockWork } from './MockWork.js'
 
 import {
   isQuote,
-  isReference,
+  isRef,
   isWork
 } from '../../src/Utility/predicate.js'
 
@@ -13,7 +13,7 @@ describe('Mock Identity Tests', () => {
   const aliceQuote = new MockQuote('That\'s very curious!', aliceBook)
   describe('MockRef() instances', function () {
     test('are recognized as a reference', () => {
-      expect(isReference(aliceBook)).toBe(true)
+      expect(isRef(aliceBook)).toBe(true)
     })
   })
   describe('MockQuote() instances', () => {

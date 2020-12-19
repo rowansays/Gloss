@@ -1,10 +1,10 @@
-import { isReference } from '../../src/Utility/predicate.js'
+import { isRef } from '../../src/Utility/predicate.js'
 
 export function MockQuote (name, ...refs) {
   this.name = name
   this.refs = []
   refs.forEach(ref => {
-    if (isReference(ref)) {
+    if (isRef(ref)) {
       this.refs.push(ref)
     }
   })

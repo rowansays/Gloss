@@ -1,7 +1,7 @@
 import { castString } from '../Utility/cast.js'
 import { freeze } from '../Utility/freeze.js'
-import { isQuote, isReference } from '../Utility/predicate.js'
-import { ReferenceList } from '../Lists/ReferenceList.js'
+import { isQuote, isRef } from '../Utility/predicate.js'
+import { RefList } from '../Refs/RefList.js'
 import { validateStringProp } from '../Utility/validate.js'
 
 /**
@@ -41,7 +41,7 @@ function $Quote (...quotes) {
       prop = validateQuoteProp('$Quote', prop)
 
       const refNumbers = []
-      const refList = ReferenceList(...prop.refs)
+      const refList = RefList(...prop.refs)
       refList.forEach(ref => {
         let index = refs.indexOf(ref)
         if (index === -1) {
@@ -72,7 +72,7 @@ function $Quote (...quotes) {
   for (const key in this.map) {
     this.mentions = this.mentions + this.map[key].length
   }
-  this.refs = ReferenceList(...refs)
+  this.refs = RefList(...refs)
 }
 /**
  * Return a frozen instance of $Quote.
@@ -89,7 +89,7 @@ $Quote.makeFrozen = function () {
 $Quote.prototype.mapBy = function (type) {
   const getValue = (quote) => {
     switch (type) {
-      case 'year': return quote.getRef(0).date
+      case 'datePublished': return quote.getRef(0).datePublished
       default : throw new Error('Unsupported map type.')
     }
   }
@@ -200,7 +200,7 @@ function validateRefsArrayProp (funcName, paramName, aught) {
   const o = aught.filter(Boolean)
 
   o.forEach(ref => {
-    if (!isReference(ref)) {
+    if (!isRef(ref)) {
       throw new Error('' +
         `${funcName}(): the ${paramName} parameter must contain only ` +
         `reference objects. A value with a type of "${typeof ref}" was ` +

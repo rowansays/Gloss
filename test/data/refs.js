@@ -1,13 +1,16 @@
-import { Card } from '../../src/Card.js'
-import { Book } from '../../src/References/Book.js'
-import { aliceObject, devilsObject, frankenObject, prideObject } from './ids.js'
+import { Book } from '../../src/Refs/Book.js'
+import {
+  aliceObject,
+  devilsObject,
+  frankenObject,
+  prideObject
+} from './ids.js'
 
-export const nobodysWork = Card({
+export const nobodysWork = Book({
   title: 'Nobody\'s Work',
   subtitle: 'Nothing to see here.',
-  key: 'nobodysWork',
   author: 'Nobody',
-  date: '2020-12-16',
+  datePublished: '2020',
   description: 'Nobody knows what this is.',
   url: 'https://example.com'
 })

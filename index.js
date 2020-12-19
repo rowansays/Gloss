@@ -16,21 +16,21 @@ export { Term } from './src/Glosses/Term.js'
 // Lists
 export { GlossList } from './src/Lists/GlossList.js'
 export { QuoteList } from './src/Lists/QuoteList.js'
-export { ReferenceList } from './src/Lists/ReferenceList.js'
 
 // Quotes
 export { Quote, Normal, Phrase } from './src/Quotes/Quote.js'
 
 // References
-export { Book } from './src/References/Book.js'
-export { Webpage } from './src/References/Webpage.js'
+export { Book } from './src/Refs/Book.js'
+export { Ref } from './src/Refs/Ref.js'
+export { RefList } from './src/Refs/RefList.js'
 
 // Utility
 export { castString } from './src/Utility/cast.js'
 export {
   isList,
   isQuote,
-  isReference,
+  isRef,
   isWork
 } from './src/Utility/predicate.js'
 

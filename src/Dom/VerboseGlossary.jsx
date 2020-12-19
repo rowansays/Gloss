@@ -60,7 +60,7 @@ function Gloss (props) {
 function Definition (props) {
   const { quote } = props
   const name = quote.getName()
-  const map = quote.mapBy('year')
+  const map = quote.mapBy('datePublished')
   const sorted = new Map([...map].sort((a, b) => a[0] - b[0]))
   const rows = []
 
@@ -100,7 +100,7 @@ function Definition (props) {
 function DataCell (props) {
   const { quote } = props
   return (
-    <span>{quote.getName()} - {quote.getRef(0).getName()}</span>
+    <span>{quote.getName()} - {quote.getRef(0).name}</span>
   )
 }
 

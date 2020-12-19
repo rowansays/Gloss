@@ -2,7 +2,6 @@ import {
   isGloss,
   isNamed,
   isQuote,
-  isReference,
   isRef
 } from '../../src/Utility/predicate.js'
 
@@ -72,8 +71,8 @@ testObjectPredicate('isNamed', isNamed, () => {
 
 testObjectPredicate('isQuote', isQuote)
 
-testObjectPredicate('isReference', isReference, () => {
+testObjectPredicate('isRef', isRef, () => {
   test('recognizes valid references.', async () => {
-    expect(isReference(new MockRef('abc', 'def'))).toBe(true)
+    expect(isRef(new MockRef('abc', 'def'))).toBe(true)
   })
 })

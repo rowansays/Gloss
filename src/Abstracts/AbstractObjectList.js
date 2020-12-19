@@ -6,6 +6,8 @@ function AbstractObjectList () {
   this._defaultSortMethod = 'getName'
 }
 
+AbstractObjectList.prototype = Object.create(null)
+
 AbstractObjectList.prototype.add = function (...items) {
   return makeFrozenInstanceOf(this.constructor, [...this.items, ...items])
 }

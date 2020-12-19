@@ -9,31 +9,28 @@ export const frankenObject = {
 }
 
 export const aliceObject = {
-  author: 'Lewis Carroll',
-  date: '1865', // November 26, 1865
-  description: 'The Millennium Fulcrum Edition 3.0',
-  key: 'aliceInWonderland',
-  subtitle: '',
   title: 'Alice\'s Adventures in Wonderland',
+  subtitle: '',
+  author: 'Lewis Carroll',
+  datePublished: '1865', // November 26, 1865
+  desc: 'The Millennium Fulcrum Edition 3.0',
   url: 'https://www.gutenberg.org/ebooks/11'
 }
 
 export const devilsObject = {
   title: 'The Devil\s Dictionary',
   subtitle: '',
-  description: '',
   author: 'Ambrose Bierce',
-  date: '1911',
-  key: 'devilsDictionary',
+  datePublished: '1911',
+  desc: '',
   url: 'https://www.gutenberg.org/ebooks/972'
 }
 
 export const prideObject = {
   title: 'Pride and Prejudice',
   subtitle: '',
-  description: '',
   author: 'Jane Austen',
-  date: '1813',
-  key: 'prideAndPrejudice',
+  datePublished: '1813',
+  desc: '',
   url: 'https://www.gutenberg.org/ebooks/1342'
 }
