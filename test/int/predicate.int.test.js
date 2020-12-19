@@ -1,5 +1,6 @@
 // Import predicates
 import {
+  isGloss,
   isList,
   isNamed,
   isQuote,
@@ -17,6 +18,12 @@ import { QuoteList } from '../../src/Lists/QuoteList.js'
 import { ReferenceList } from '../../src/Lists/ReferenceList.js'
 import { Term } from '../../src/Glosses/Term.js'
 import { Webpage } from '../../src/References/Webpage.js'
+
+describe('isGloss() + various constructors.', () => {
+  test('Instances of Term() are glosses.', function () {
+    expect(isGloss(Term('a'))).toBe(true)
+  })
+})
 
 describe('isList() Integration Tests.', () => {
   describe('Approves value', () => {
