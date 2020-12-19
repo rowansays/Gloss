@@ -26,10 +26,6 @@ describe('Book(): Unit Tests', () => {
     test('constructs with only a non-empty title.', () => {
       expect(Book({ title: 'abc' })).toMatchObject({ title: 'abc' })
     })
-    test('concatenates title and subtitle to make name property.', () => {
-      const b = Book({ title: 'abc', subtitle: 'def' })
-      expect(b.name).toBe('abc def')
-    })
     test('sets length property to one for single refs.', () => {
       const b = Book({ title: 'abc' })
       expect(b.length).toBe(1)
@@ -39,7 +35,7 @@ describe('Book(): Unit Tests', () => {
       expect(r).toMatchObject({
         author: frankenProp.author,
         datePublished: frankenProp.datePublished,
-        name: frankenProp.title + ' ' + frankenProp.subtitle,
+        name: frankenProp.title,
         desc: frankenProp.desc,
         type: 'RefBook',
         url: frankenProp.url,

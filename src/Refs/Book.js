@@ -21,19 +21,14 @@ $Book.parseRef = (ref, i) => {
     )
   }
 
-  const subtitle = castString(ref.subtitle)
-  name = subtitle !== ''
-    ? title + ' ' + subtitle
-    : title
-
   const o = Object.create(null)
   o.title = title,
-  o.subtitle = subtitle,
+  o.subtitle = castString(ref.subtitle),
   o.author = castString(ref.author),
   o.datePublished = castString(ref.datePublished),
 
   // From abstract
-  o.name = name,
+  o.name = title,
   o.desc = castString(ref.desc),
   o.url = castString(ref.url)
 
