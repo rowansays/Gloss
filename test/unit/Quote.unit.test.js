@@ -11,9 +11,20 @@ function expectQuote(q, name, size, mentions, altSize, isSingular) {
   expect(q.isSingular()).toBe(isSingular)
 }
 
-describe('Quote: Tests', () => {
+
+
+describe('Quote() Unit Tests', () => {
   const instance = Quote({ name: 'a', refs: [frankenBook] })
   testFactoryFunction('Quote', Quote, instance)
+  test('it is idempotent.', () => {
+    const a = Quote(
+      { name: 'a' },
+      { name: 'b', refs: [aliceBook] }
+    )
+    const b = Quote(a)
+    expect(a).toStrictEqual(b)
+    expect(a === b).toBe(false)
+  })
   describe('Prototype', () => {
     testProtoFunc('forEach', instance)
     testProtoFunc('getAltNames', instance)
