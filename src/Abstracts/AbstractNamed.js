@@ -12,16 +12,12 @@ function AbstractNamed (props) {
   if (clean === '') {
     throw new TypeError('' +
       `${this.constructor.name}() - The "props" parameter must possess a ` +
-      '"name" property whose value is either a string, a number, or an ' +
-      'object that has a getName() method. A value with type ' +
-      `"${typeof aught}" was provided.`
+      '"name" property whose value is either a string or a number. ' +
+      `A value with type "${typeof aught}" was provided.`
     )
   }
 
   this.name = clean
-}
-AbstractNamed.prototype.getName = function () {
-  return this.name
 }
 
 export { AbstractNamed }

@@ -8,7 +8,7 @@ function $Book (...props) {
     datePublished: { enumerable: true, value: this.refs[0].datePublished },
     subtitle: { enumerable: true, value: this.refs[0].subtitle },
     title: { enumerable: true, value: this.refs[0].title },
-    type: { enumerable: true, value: 'RefBook' },
+    type: { enumerable: true, value: 'RefBook' }
   })
   Object.freeze(this)
 }
@@ -22,14 +22,14 @@ $Book.parseRef = (ref, i) => {
   }
 
   const o = Object.create(null)
-  o.title = title,
-  o.subtitle = castString(ref.subtitle),
-  o.author = castString(ref.author),
-  o.datePublished = castString(ref.datePublished),
+  o.title = title
+  o.subtitle = castString(ref.subtitle)
+  o.author = castString(ref.author)
+  o.datePublished = castString(ref.datePublished)
 
   // From abstract
-  o.name = title,
-  o.desc = castString(ref.desc),
+  o.name = title
+  o.desc = castString(ref.desc)
   o.url = castString(ref.url)
 
   return o

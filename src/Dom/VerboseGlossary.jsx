@@ -46,47 +46,49 @@ function Gloss (props) {
   const sorted = gloss.sortDefsByName()
 
   const defs = []
-  sorted.defs.forEach((quote, i) => {
-    defs.push(<Definition quote={quote} />)
+  sorted.defs.forEach((def, i) => {
+    defs.push(<Definition def={def} />)
   })
 
   return (
     <tbody class='Gloss'>
-      <th class='GlossName' colspan='3'>{gloss.getName()}</th>
+      <th class='GlossName' colspan='3'>{gloss.name}</th>
       {defs}
     </tbody>
   )
 }
 function Definition (props) {
-  const { quote } = props
-  const name = quote.getName()
-  const map = quote.mapBy('datePublished')
+  const { def } = props
+  console.log('DEF', def)
+  const name = def.name
+  const map = def.mapBy('datePublished')
   const sorted = new Map([...map].sort((a, b) => a[0] - b[0]))
+  console.log('SORTED', sorted)
   const rows = []
 
   let yearNow
   let i = 1
   sorted.forEach((quotes, year) => {
-    quotes.forEach(subQuote => {
+    quotes.forEach(quote => {
       if (i === 1) {
         rows.push(
           <tr class='Definition'>
-            <td class='DefinitionTerm' rowspan={quote.mentions}>{name}</td>
+            <td class='DefinitionTerm' rowspan={def.length}>{name}</td>
             <td class='DefinitionYear' rowspan={quotes.length}>{year}</td>
-            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+            <td class='DefinitionData'><DataCell quote={quote} /></td>
           </tr>
         )
       } else if (year !== yearNow) {
         rows.push(
           <tr class='Definition'>
             <td class='DefinitionYear' rowspan={quotes.length}>{year}</td>
-            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+            <td class='DefinitionData'><DataCell quote={quote} /></td>
           </tr>
         )
       } else {
         rows.push(
           <tr class='Definition'>
-            <td class='DefinitionData'><DataCell quote={subQuote} /></td>
+            <td class='DefinitionData'><DataCell quote={quote} /></td>
           </tr>
         )
       }
@@ -99,8 +101,9 @@ function Definition (props) {
 }
 function DataCell (props) {
   const { quote } = props
+  const reduced = quote.reduce()
   return (
-    <span>{quote.getName()} - {quote.getRef(0).name}</span>
+    <span>{reduced.name} - {reduced.ref.name}</span>
   )
 }
 

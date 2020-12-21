@@ -36,6 +36,12 @@ function assignProperties (obj, props) {
   obj.subtitle = subtitle && typeof subtitle === 'string' ? subtitle.trim() : ''
   obj.title = title && typeof title === 'string' ? title.trim() : ''
   obj.url = url && typeof url === 'string' ? url.trim() : ''
+
+  let name = obj.title
+  if (obj.subtitle !== '') {
+    name = name + ' ' + obj.subtitle
+  }
+  obj.name = name
 }
 
 AbstractWork.prototype.getAuthor = function () {
@@ -49,12 +55,6 @@ AbstractWork.prototype.getDescription = function () {
 }
 AbstractWork.prototype.getKey = function () {
   return this.key
-}
-AbstractWork.prototype.getName = function (type) {
-  type = type === 'long' ? 'long' : 'short'
-  return type === 'short'
-    ? this.title
-    : this.title + ' ' + this.subtitle
 }
 AbstractWork.prototype.getSubtitle = function () {
   return this.subtitle

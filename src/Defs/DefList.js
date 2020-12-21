@@ -7,36 +7,68 @@
  */
 
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
-import { freeze } from '../Utility/freeze.js'
-import { isQuote } from '../Utility/predicate.js'
+import { isDef, isQuote } from '../Utility/predicate.js'
+import { Def } from '../Defs/Def.js'
 
-function $QuoteList (...quotes) {
+/**
+ * Definiton List.
+ *
+ * $params {...$Def|$Quote} Zero of more definitions or quotes or an mixture
+ *   thereof.
+ */
+function $DefList (...items) {
   AbstractObjectList.call(this)
-  const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
-  this.items = parsed
-  this.length = parsed.length
+  const isValidItem = (x) => isDef(x) || isQuote(x)
+  const parsed = AbstractObjectList.parseArgs(isValidItem, items)
 
-  /*
-  const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
-  const merged = mergeQuotes(parsed)
-  this.items = merged
-  this.length = merged.length
-  */
+  // Extract all quotes from parseditems.
+  const quotes = []
+  parsed.forEach(item => {
+    if (isQuote(item)) {
+      quotes.push(item)
+    } else if (isDef(item)) {
+      item.quotes.forEach(quote => {
+        quotes.push(quote)
+      })
+    }
+  })
+
+  const map = new Map()
+  quotes.forEach(quote => {
+    const key = quote.name
+    if (map.has(key)) {
+      map.get(key).push(quote)
+    } else {
+      map.set(key, [quote])
+    }
+  })
+
+  const defs = []
+  for (const key of map.keys()) {
+    const def = Def(...map.get(key))
+    defs.push(def)
+  }
+
+  this.items = defs
+  this.length = defs.length
+  Object.freeze(this)
 }
 
-$QuoteList.prototype = Object.create(AbstractObjectList.prototype)
+$DefList.prototype = Object.create(AbstractObjectList.prototype)
 
-Object.defineProperty($QuoteList.prototype, 'constructor', {
-  value: $QuoteList
+Object.defineProperty($DefList.prototype, 'constructor', {
+  value: $DefList
 })
 
-$QuoteList.prototype.reduceQuotes = function () {
+$DefList.prototype.reduceQuotes = function () {
   const reduced = []
   this.items.forEach(quote => {
     reduced.push(quote.reduce())
   })
   return new this.constructor(reduced)
 }
+
+Object.freeze($DefList.prototype)
 
 /**
  * Merge quotes.
@@ -76,10 +108,9 @@ export function mergeQuotes (quotes) {
 
   return Array.from(map.values())
 }
-function QuoteList (...props) {
-  const obj = new $QuoteList(...props)
-  freeze(obj, $QuoteList)
-  return obj
+
+function DefList (...items) {
+  return new $DefList(...items)
 }
 
-export { $QuoteList, QuoteList }
+export { $DefList, DefList }

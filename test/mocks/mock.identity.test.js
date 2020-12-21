@@ -10,7 +10,7 @@ import {
 
 describe('Mock Identity Tests', () => {
   const aliceBook = new MockRef('alice', 'Alice in Wonderland')
-  const aliceQuote = new MockQuote('That\'s very curious!', aliceBook)
+  const aliceQuote = new MockQuote('That\'s very curious!', '', aliceBook)
   describe('MockRef() instances', function () {
     test('are recognized as a reference', () => {
       expect(isRef(aliceBook)).toBe(true)

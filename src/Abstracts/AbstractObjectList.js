@@ -14,10 +14,13 @@ AbstractObjectList.prototype.add = function (...items) {
 AbstractObjectList.prototype.column = function (accessor, sortFunc) {
   const column = []
   this.forEach(item => {
-    if (typeof item[accessor] !== 'function') {
+    if (typeof item[accessor] === 'function') {
+      column.push(item[accessor]())
+    } else if (typeof item[accessor] !== 'undefined') {
+      column.push(item[accessor])
+    } else {
       throw new TypeError('Invalid accessor.')
     }
-    column.push(item[accessor]())
   })
   if (typeof sortFunc === 'function') {
     column.sort(sortFunc)
@@ -48,7 +51,7 @@ AbstractObjectList.prototype.get = function (key) {
     case 'string':
       for (let i = 0; i < this.length; i++) {
         const item = this.get(i)
-        if (item[this._defaultGetMethod]() === key) {
+        if (item.name === key) {
           return item
         }
       }
@@ -74,13 +77,13 @@ AbstractObjectList.prototype.has = function (key) {
  * @return {List} A clone of the this object with all items sorted by the
  *   specified accessor.
  */
-AbstractObjectList.prototype.sortAscBy = function (method) {
-  method = validateAccessor(this, this.items[0], method)
+AbstractObjectList.prototype.sortAscBy = function (prop) {
+  prop = 'name'
   const sorted = [...this.items].sort((a, b) => {
-    if (a[method]() < b[method]()) {
+    if (a[prop] < b[prop]) {
       return -1
     }
-    if (a[method]() > b[method]()) {
+    if (a[prop] > b[prop]) {
       return 1
     }
     return 0
@@ -93,13 +96,13 @@ AbstractObjectList.prototype.sortAscBy = function (method) {
  * @return {List} A clone of the this object with all items sorted by the
  *   specified accessor.
  */
-AbstractObjectList.prototype.sortDescBy = function (method) {
-  method = validateAccessor(this, this.items[0], method)
+AbstractObjectList.prototype.sortDescBy = function (prop) {
+  prop = 'name'
   const sorted = [...this.items].sort((a, b) => {
-    if (a[method]() < b[method]()) {
+    if (a[prop] < b[prop]) {
       return 1
     }
-    if (a[method]() > b[method]()) {
+    if (a[prop] > b[prop]) {
       return -1
     }
     return 0
@@ -131,26 +134,6 @@ AbstractObjectList.parseArgs = function (isValidItem, ...params) {
     }
   })
   return output
-}
-function validateAccessor (list, item, name) {
-  if (typeof item !== 'object') {
-    return ''
-  }
-
-  const partial = typeof name === 'string' ? name : ''
-  if (partial === '') {
-    return list._defaultSortMethod
-  }
-
-  const method = partial !== '' && partial.slice(0, 3) !== 'get'
-    ? 'get' + partial
-    : partial
-
-  if (typeof item[method] === 'function') {
-    return method
-  }
-
-  return list._defaultSortMethod
 }
 
 export { AbstractObjectList }

@@ -1,13 +1,94 @@
-import { Term } from '../../src/Glosses/Term.js'
+import { $Term } from '../../src/Glosses/Term.js'
 import { testFactoryFunction } from '../helpers/factories.js'
 import { MockQuote } from '../mocks/MockQuote.js'
 
-function NamedObject () {}
-NamedObject.prototype.getName = function () {return 'This is my name'}
+import { $Def } from '../../src/Defs/Def.js'
+import { $DefList } from '../../src/Defs/DefList.js'
 
-function UnnamedObject () {}
-UnnamedObject.prototype.getName = function () {return ''}
+import { $Quote } from '../../src/Quotes/Quote.js'
+import { $QuoteList } from '../../src/Lists/QuoteList.js'
 
+describe('$Term', () => {
+  it('is a function', () => {
+    expect(typeof $Term).toBe('function')
+  })
+  it('is idempotent', () => {
+    const a = new $Term({
+      name: 'a',
+      memos: [new MockQuote('One')],
+      defs: [new MockQuote('Two')]
+    })
+    const b = new $Term(a)
+    expect(a).toStrictEqual(b)
+    expect(a === b).toBe(false)
+  })
+  it('throws if called without the new keyword', () => {
+    expect(() => { $Term() }).toThrow()
+  })
+  it('throws if no parameters are passed', function () {
+    expect(() => { new $Term() }).toThrow()
+  })
+  it('constructs frozen instances', function () {
+    expect(Object.isFrozen(new $Term({ name: 'a' }))).toBe(true)
+  })
+  it('constructs instances with frozen prototypes', function () {
+    const t = new $Term({ name: 'a' })
+    expect(Object.isFrozen(Object.getPrototypeOf(t))).toBe(true)
+  })
+  it('constructs instances of $Term', function () {
+    expect(new $Term({ name: 'a' })).toBeInstanceOf($Term)
+  })
+  it('constructs with default properties defined', function () {
+    const term = new $Term({ name: 'a' })
+    expect(term.name).toBe('a')
+    expect(term.length).toBe(0)
+    expect(term.memos).toBeInstanceOf($QuoteList)
+    expect(term.defs).toBeInstanceOf($DefList)
+  })
+  it('accepts 1 quote object for optional "defs" prop', function () {
+    const props = {
+      name: 'a',
+      defs: [ new $Quote({ name: 'b' }) ]
+    }
+    const term = new $Term(props)
+    expect(term.name).toBe(props.name)
+    expect(term.length).toBe(1)
+    expect(term.defs.get(0).name).toBe('b')
+  })
+  it('accepts 2 quote objects with unique names as defs', function () {
+    const props = {
+      name: 'a',
+      defs: [
+        new $Quote({ name: 'b' }),
+        new $Quote({ name: 'c' })
+      ]
+    }
+    const term = new $Term(props)
+    expect(term.name).toBe(props.name)
+    expect(term.length).toBe(2)
+    expect(term.defs.get(0).name).toBe('b')
+    expect(term.defs.get(1).name).toBe('c')
+  })
+  it('merges 2 quote objects with same names', function () {
+    const props = {
+      name: 'a',
+      defs: [
+        new $Quote({ name: 'b' }),
+        new $Quote({ name: 'b' })
+      ]
+    }
+    const term = new $Term(props)
+    expect(term.name).toBe(props.name)
+    expect(term.length).toBe(1)
+    expect(term.defs.get(0).name).toBe('b')
+  })
+})
+
+
+
+
+
+/*
 describe('Term() Unit Tests', () => {
   testFactoryFunction('Term', Term, Term('a'))
   describe('Term(): Function Signatures', function () {
@@ -65,14 +146,6 @@ describe('Term() Unit Tests', () => {
       test('returns the only memo when one memo exists.', () => {
         const memo = new MockQuote('The book not the show.')
         expect(Term('American Gods', memo).getMemo()).toBe(memo)
-      })
-    })
-    describe('getName()', function () {
-      test('is a function.', () => {
-        expect(typeof Term('a').getName).toBe('function')
-      })
-      test('returns value of name.', () => {
-        expect(Term('Poetic Edda').getName()).toBe('Poetic Edda')
       })
     })
     describe('getDef()', function () {
@@ -144,14 +217,15 @@ describe('Term() Unit Tests', () => {
           new MockQuote('spiritual')
         )
         const term3 = term1.withGloss(term2)
-        expect(term3.getName()).toBe('Klingon')
-        expect(term3.getMemo(0).getName()).toBe('They are dangerous.')
-        expect(term3.getMemo(1).getName()).toBe('They are mageistic.')
-        expect(term3.getDef(0).getName()).toBe('aliens')
-        expect(term3.getDef(1).getName()).toBe('warlike')
-        expect(term3.getDef(2).getName()).toBe('honorable')
-        expect(term3.getDef(3).getName()).toBe('spiritual')
+        expect(term3.name).toBe('Klingon')
+        expect(term3.getMemo(0).name).toBe('They are dangerous.')
+        expect(term3.getMemo(1).name).toBe('They are mageistic.')
+        expect(term3.getDef(0).name).toBe('aliens')
+        expect(term3.getDef(1).name).toBe('warlike')
+        expect(term3.getDef(2).name).toBe('honorable')
+        expect(term3.getDef(3).name).toBe('spiritual')
       })
     })
   })
 })
+*/

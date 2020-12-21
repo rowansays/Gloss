@@ -1,22 +1,10 @@
 import { isRef } from '../../src/Utility/predicate.js'
 
-export function MockQuote (name, ...refs) {
+export function MockQuote (name, from, ref) {
   this.name = name
-  this.refs = []
-  refs.forEach(ref => {
-    if (isRef(ref)) {
-      this.refs.push(ref)
-    }
-  })
-  this.length = 1
-  this.mentions = this.refs.length
+  this.from = from
+  this.ref = ref
 }
 
-MockQuote.prototype.forEach = function () {}
-MockQuote.prototype.getAltNames = function () { return [] }
-MockQuote.prototype.getName = function () { return this.name }
-MockQuote.prototype.getProps = function () { return { ...this } }
-MockQuote.prototype.isSingular = function () { return true }
-MockQuote.prototype.slice = function () { return this }
-MockQuote.prototype.withQuote = function () { return this }
+MockQuote.prototype.reduce = function () { return this }
 MockQuote.prototype.withRef = function () { return this }

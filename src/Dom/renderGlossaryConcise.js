@@ -52,7 +52,7 @@ function Gloss (props) {
 function GlossName (props) {
   const { gloss } = props
   return (
-    <dt class='GlossName'>{gloss.getName()}</dt>
+    <dt class='GlossName'>{gloss.name}</dt>
   )
 }
 
@@ -65,7 +65,7 @@ function GlossDef (props) {
   const { def, seperator } = props
   return (
     <dd class='GlossDef'>
-      <span>{def.getName()}</span>{seperator}
+      <span>{def.name}</span>{seperator}
     </dd>
   )
 }

@@ -1,9 +1,9 @@
-import { castString as $castString } from '@rowansays/helpers'
-import { castArray } from '@rowansays/helpers'
+import { castString as $castString, castArray } from '@rowansays/helpers'
+
 import { isNamed } from './predicate.js'
 
 export function castString (aught) {
-  return isNamed(aught) ? aught.getName() : $castString(aught)
+  return isNamed(aught) ? aught.name : $castString(aught)
 }
 
 export function castStringArray (aught) {

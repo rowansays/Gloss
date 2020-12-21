@@ -9,7 +9,7 @@ describe('Glossary() Integration Tests', function () {
       const ref = frankenBook
       const g = Glossary({
         id: nobodysWork,
-        ref: frankenBook,
+        ref: ref,
         glosses: [
           Term('Characters',
             '',
@@ -27,14 +27,14 @@ describe('Glossary() Integration Tests', function () {
       })
 
       const characters = g.getGloss('Characters')
-      expect(characters.getDef('Clerval').hasRef(ref)).toBe(true)
-      expect(characters.getDef('Elizabeth').hasRef(ref)).toBe(true)
-      expect(characters.getDef('Justine').hasRef(ref)).toBe(true)
+      expect(characters.def('Clerval').quote(0).ref).toBe(ref)
+      expect(characters.def('Elizabeth').quote(0).ref).toBe(ref)
+      expect(characters.def('Justine').quote(0).ref).toBe(ref)
 
       const places = g.getGloss('Places')
-      expect(places.getDef('Geneva').hasRef(ref)).toBe(true)
-      expect(places.getDef('Naples').hasRef(ref)).toBe(true)
-      expect(places.getDef('St. Petersburg').hasRef(ref)).toBe(true)
+      expect(places.def('Geneva').quote(0).ref).toBe(ref)
+      expect(places.def('Naples').quote(0).ref).toBe(ref)
+      expect(places.def('St. Petersburg').quote(0).ref).toBe(ref)
     })
   })
 })

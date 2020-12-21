@@ -21,19 +21,19 @@ export function testNameProp (func) {
       expect(function () { func({ name: 'nobody' }) }).to.not.throw(Error)
     })
     test('  - trims leading and trailing spaces.', () => {
-      expect(func({ name: '   nobody   ' }).getName()).to.equal('nobody')
+      expect(func({ name: '   nobody   ' }).name).to.equal('nobody')
     })
     test('  - trims leading and trailing tabs.', () => {
-      expect(func({ name: '\t\t\tnobody\t\t\t' }).getName()).to.equal('nobody')
+      expect(func({ name: '\t\t\tnobody\t\t\t' }).name).to.equal('nobody')
     })
     test('  - trims leading and trailing spaces and tabs.', () => {
-      expect(func({ name: '\t \t nobody \t \t' }).getName()).to.equal('nobody')
+      expect(func({ name: '\t \t nobody \t \t' }).name).to.equal('nobody')
     })
     test('accepts integers.', () => {
       expect(function () { func({ name: 123 }) }).to.not.throw(Error)
     })
     test('  - casts integers to strings.', () => {
-      expect(func({ name: 123 }).getName()).to.equal('123')
+      expect(func({ name: 123 }).name).to.equal('123')
     })
     test('rejects empty names', () => {
       expect(function () { func() }).to.throw(Error)

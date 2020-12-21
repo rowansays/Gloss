@@ -1,7 +1,5 @@
 import { castString } from '../Utility/cast.js'
-import { freeze } from '../Utility/freeze.js'
-import { isQuote, isRef } from '../Utility/predicate.js'
-import { RefList } from '../Refs/RefList.js'
+import { isRef } from '../Utility/predicate.js'
 import { validateStringProp } from '../Utility/validate.js'
 
 /**
@@ -26,191 +24,49 @@ import { validateStringProp } from '../Utility/validate.js'
  *
  * @return {$Quote}
  */
-function $Quote (...quotes) {
-  if (quotes.length < 1) {
-    throw new Error('$Quote() - No quotes were passed to the constructor.')
+function $Quote (props) {
+  const { name, from, ref } = props
+  if (props.length < 1) {
+    throw new Error('$Quote() - No props were passed to the constructor.')
   }
 
-  const map = Object.create(null)
-  const refs = []
-
-  quotes.forEach((aught, i) => {
-    aught = isQuote(aught) ? aught.getProps() : aught
-    aught = Array.isArray(aught) ? aught : [aught]
-    aught.forEach(prop => {
-      prop = validateQuoteProp('$Quote', prop)
-
-      const refNumbers = []
-      const refList = RefList(...prop.refs)
-      refList.forEach(ref => {
-        let index = refs.indexOf(ref)
-        if (index === -1) {
-          index = refs.length
-          refs.push(ref)
-        }
-        refNumbers.push(index)
-      })
-
-      const name = castString(prop.name)
-      if (name === '') {
-        throw new Error('Invalid name')
-      }
-
-      if (typeof this.name === 'undefined') {
-        this.name = name
-      }
-
-      map[name] = Array.isArray(map[name])
-        ? [...map[name], ...refNumbers]
-        : refNumbers
-    })
-  })
-
-  this.length = Object.keys(map).length
-  this.map = map
-  this.mentions = 0
-  for (const key in this.map) {
-    this.mentions = this.mentions + this.map[key].length
-  }
-  this.refs = RefList(...refs)
-}
-/**
- * Return a frozen instance of $Quote.
- */
-$Quote.makeFrozen = function () {
-  const o = new $Quote(...arguments)
-  freeze(o, $Quote)
-  return o
-}
-/**
- * @param {string} The value to map by
- * @return {Map}
- */
-$Quote.prototype.mapBy = function (type) {
-  const getValue = (quote) => {
-    switch (type) {
-      case 'datePublished': return quote.getRef(0).datePublished
-      default : throw new Error('Unsupported map type.')
-    }
-  }
-  const map = new Map()
-  this.flatten().forEach(quote => {
-    const key = getValue(quote)
-    const value = map.has(key) ? map.get(key).concat(quote) : [quote]
-    map.set(key, value)
-  })
-  return map
-}
-/**
- * @return {$Quote[]}
- */
-$Quote.prototype.flatten = function () {
-  return this.getProps().reduce((output, props) => {
-    output.push(new this.constructor(props))
-    return output
-  }, [])
-}
-$Quote.prototype.forEach = function (func) {
-  return this.getProps().forEach((...args) => {
-    const quote = $Quote.makeFrozen(args[0])
-    func(quote, ...args.slice(1))
-  })
-}
-$Quote.prototype.getAltNames = function () {
-  return Object.keys(this.map).slice(1)
-}
-$Quote.prototype.getName = function () {
-  return this.name
-}
-/**
- * Get Properties.
- *
- * @return {Object} A plain javascript object that can be used as the props
- *   parameter to create a new instance.
- */
-$Quote.prototype.getProps = function () {
-  const o = []
-  Object.keys(this.map).forEach(name => {
-    const refs = this.map[name].reduce((output, index) => {
-      output.push(this.getRef(index))
-      return output
-    }, [])
-    if (refs.length > 0) {
-      refs.forEach(ref => {
-        o.push({ name: name, refs: [ref] })
-      })
-    } else {
-      o.push({ name: name, refs: [] })
-    }
-  })
-  return o
-}
-$Quote.prototype.getRef = function (key) {
-  return this.refs.get(key)
-}
-$Quote.prototype.hasRef = function (key) {
-  return this.refs.has(key)
-}
-$Quote.prototype.isSingular = function () {
-  return Object.keys(this.map).length === 1
-}
-$Quote.prototype.slice = function () {
-  return $Quote.makeFrozen(this.getProps().slice(...arguments))
-}
-$Quote.prototype.withQuote = function (...quotes) {
-  return $Quote.makeFrozen(...this.getProps().concat(quotes))
-}
-/**
- * Add one or more references to this quote.
- *
- * The provided reference(s) will be added to all quotations represented by
- * this instance.
- *
- * @param {string} ref One or more strings representing the key of a reference.
- */
-$Quote.prototype.withRef = function (...refs) {
-  const props = []
-  this.getProps().forEach(prop => {
-    prop.refs = prop.refs.concat(refs)
-    props.push(prop)
-  })
-  return $Quote.makeFrozen(...props)
-}
-function validateQuoteProp (funcName, aught) {
-  if (typeof aught !== 'object') {
-    throw new Error('prop must be an object.')
+  const cleanName = castString(name)
+  if (name === '') {
+    throw new TypeError('$Quote() name property must not be empty.')
   }
 
-  return {
-    name: validateStringProp(funcName, 'props.name', aught.name),
-    refs: validateRefsArrayProp(funcName, 'props.refs', aught.refs)
-  }
-}
-function validateRefsArrayProp (funcName, paramName, aught) {
-  aught = typeof aught === 'undefined' ? [] : aught
+  const cleanRef = isRef(ref) ? ref : undefined
 
-  if (!Array.isArray(aught)) {
+  Object.defineProperties(this, {
+    name: { enumerable: true, value: cleanName },
+    from: { enumerable: true, value: castString(from) },
+    ref: { enumerable: true, value: cleanRef }
+  })
+
+  Object.freeze(this)
+}
+
+$Quote.prototype = Object.create(null)
+
+Object.defineProperty($Quote.prototype, 'constructor', { value: $Quote })
+
+$Quote.prototype.reduce = function () {
+  if (this.from === '') {
+    return this
+  }
+  return new $Quote({ name: this.from, ref: this.ref })
+}
+$Quote.prototype.withRef = function (ref) {
+  if (!isRef(ref)) {
     throw new Error('' +
-      `${funcName}(): the "${paramName}" parameter must be an array. a value` +
-      `with a type of "${typeof aught}" was provided.  Here is its string ` +
-      `value: "${aught}".`
+      '$Quote.withRef() Invalid reference passed as parameter 1.'
     )
   }
-
-  const o = aught.filter(Boolean)
-
-  o.forEach(ref => {
-    if (!isRef(ref)) {
-      throw new Error('' +
-        `${funcName}(): the ${paramName} parameter must contain only ` +
-        `reference objects. A value with a type of "${typeof ref}" was ` +
-        `provided. Here is its string value: "${ref}".`
-      )
-    }
-  })
-
-  return o
+  return new $Quote({ name: this.name, from: this.from, ref: ref })
 }
+
+Object.freeze($Quote.prototype)
+
 /**
  * Quote factory.
  *
@@ -224,7 +80,7 @@ function validateRefsArrayProp (funcName, paramName, aught) {
  *   arguments.
  */
 function Quote () {
-  return $Quote.makeFrozen(...arguments)
+  return new $Quote(...arguments)
 }
 
 /**
@@ -239,8 +95,10 @@ function Quote () {
  * @thorws {TypeError} When name coerces to an empty string
  */
 function Phrase (verbatim, ref) {
-  verbatim = validateStringProp('Phrase', 'verbatim', verbatim)
-  return $Quote.makeFrozen({ name: verbatim, refs: [ref] })
+  return new $Quote({
+    name: validateStringProp('Phrase', 'verbatim', verbatim),
+    ref: ref
+  })
 }
 
 /**
@@ -277,12 +135,11 @@ function Phrase (verbatim, ref) {
  * @thorws {TypeError} When name coerces to an empty string
  */
 function Normal (normal, verbatim, ref) {
-  normal = validateStringProp('Normal', 'normal', normal)
-  verbatim = validateStringProp('Normal', 'verbatim', verbatim)
-  return $Quote.makeFrozen(
-    { name: normal, refs: [] },
-    { name: verbatim, refs: [ref] }
-  )
+  return new $Quote({
+    name: validateStringProp('Normal', 'normal', normal),
+    from: validateStringProp('Normal', 'verbatim', verbatim),
+    ref: ref
+  })
 }
 
-export { Quote, Phrase, Normal }
+export { $Quote, Quote, Phrase, Normal }

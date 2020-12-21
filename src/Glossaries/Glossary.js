@@ -25,6 +25,7 @@ function $Glossary (props) {
     })
   }
 
+  this.name = `${this.title} ${this.subtitle}`
   this.glosses = GlossList(...refGlosses)
   this.length = this.glosses.length
   this.ref = ref
@@ -37,9 +38,6 @@ $Glossary.prototype.forEach = function () {
 }
 $Glossary.prototype.getGloss = function (key) {
   return this.glosses.get(key)
-}
-$Glossary.prototype.getName = function () {
-  return `${this.title} ${this.subtitle}`
 }
 $Glossary.prototype.getRef = function () {
   return this.ref

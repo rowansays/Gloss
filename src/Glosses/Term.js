@@ -13,30 +13,24 @@
  * @prop {QuoteList} definitions
  */
 
-import { castString } from '../Utility/cast.js'
-import { QuoteList } from '../Lists/QuoteList.js'
+import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
+import { $DefList } from '../Defs/DefList.js'
+import { $QuoteList } from '../Lists/QuoteList.js'
 import { freeze } from '../Utility/freeze.js'
 
-function validateName (aught, constructor, number) {
-  number = Number.isInteger(number) ? number : 1
-  const clean = castString(aught)
-  if (clean === '') {
-    throw new TypeError('' +
-      `${constructor}: Parameter ${number} "props" must possess a "name" ` +
-      'property whose value is either a string, a number, or an object that ' +
-      `has a getName() method. A value with type "${typeof aught}" was ` +
-      'provided.'
-    )
-  }
-  return clean
+function $Term (props) {
+  AbstractNamed.call(this, props)
+  const { defs, memos } = props
+  this.memos = new $QuoteList(memos)
+  this.defs = new $DefList(defs)
+  this.length = this.defs.length
+  Object.freeze(this)
 }
 
-function $Term (props) {
-  this.name = validateName(props.name, '$Term()')
-  this.memos = QuoteList(props.memos)
-  this.defs = QuoteList(props.defs)
-  this.length = this.defs.length
-}
+$Term.prototype = Object.create(AbstractNamed.prototype)
+
+Object.defineProperty($Term.prototype, 'constructor', { value: $Term })
+
 /**
  * Return a frozen instance of $Term.
  */
@@ -45,7 +39,7 @@ $Term.makeFrozen = function () {
   freeze(o, $Term)
   return o
 }
-$Term.prototype.getDef = function (index) {
+$Term.prototype.def = function (index) {
   return this.defs.get(index)
 }
 $Term.prototype.getDefs = function () {
@@ -63,9 +57,6 @@ $Term.prototype.getMemo = function (index) {
 }
 $Term.prototype.getMemos = function () {
   return this.memos.entries()
-}
-$Term.prototype.getName = function () {
-  return this.name
 }
 /**
  * Get Properties.
@@ -88,7 +79,7 @@ $Term.prototype.hasDef = function () {
  */
 $Term.prototype.sortDefsByName = function () {
   const sortedDefs = this.defs.sortAscBy().entries()
-  return Term(this.getName(), this.getMemo(), ...sortedDefs)
+  return Term(this.name, this.getMemo(), ...sortedDefs)
 }
 /**
  * Clone an instance while adding one or more definitions.
@@ -102,14 +93,14 @@ $Term.prototype.withDef = function (...defs) {
   return new this.constructor(props)
 }
 /**
- * Add one or more references to all definitions of this term.
+ * Add one reference to all definitions of this term.
  *
  * @param {string} ref One or more strings representing the key of a reference.
  */
-$Term.prototype.withDefRef = function (...ref) {
+$Term.prototype.withDefRef = function (ref) {
   const defs = []
   this.defs.forEach(def => {
-    defs.push(def.withRef(...ref))
+    defs.push(def.withRef(ref))
   })
 
   if (defs.length === 0) {
@@ -118,7 +109,8 @@ $Term.prototype.withDefRef = function (...ref) {
 
   const props = this.getProps()
   props.defs = defs
-  return $Term.makeFrozen(props)
+
+  return new $Term(props)
 }
 /**
  * Clone an instance while merging in one or more glosses.
@@ -149,8 +141,10 @@ $Term.prototype.withMemo = function (...memos) {
   return new this.constructor(props)
 }
 
+Object.freeze($Term.prototype)
+
 function Term (name, memos, ...defs) {
   return $Term.makeFrozen({ name, memos, defs })
 }
 
-export { Term }
+export { $Term, Term }

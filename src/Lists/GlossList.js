@@ -24,7 +24,7 @@ function mergeGlosses (quotes) {
 
   const map = new Map()
   quotes.forEach(gloss => {
-    const key = gloss.getName()
+    const key = gloss.name
     if (map.has(key) && gloss.hasDef()) {
       // merge glosses with the same name.
       map.set(key, map.get(key).withGloss(gloss))

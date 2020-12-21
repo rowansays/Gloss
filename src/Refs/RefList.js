@@ -1,11 +1,10 @@
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
-import { freeze } from '../Utility/freeze.js'
 import { isRef } from '../Utility/predicate.js'
 
 function $RefList (...refs) {
   AbstractObjectList.call(this)
   const parsed = AbstractObjectList.parseArgs(isRef, refs)
-  this.items = parsed
+  this.items = [...new Set(parsed)]
   this.length = this.items.length
   Object.freeze(this)
 }
@@ -20,4 +19,4 @@ function RefList (...refs) {
   return new $RefList(...refs)
 }
 
-export { RefList }
+export { $RefList, RefList }

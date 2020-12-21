@@ -9,7 +9,6 @@ function AbstractRef (...props) {
   props.forEach((ref, i) => {
     let newRef
     if (i === 0) {
-      const func = this.constructor.parseRef
       if (typeof this.constructor.parseRef !== 'function') {
         throw new TypeError('' +
           `The constructor ${this.constructor.name}() must provide a static ` +
@@ -32,7 +31,7 @@ function AbstractRef (...props) {
     length: { enumerable: true, value: refs.length },
     name: { enumerable: true, value: refs[0].name },
     refs: { value: refs },
-    url: { enumerable: true, value: refs[0].url },
+    url: { enumerable: true, value: refs[0].url }
   })
 }
 

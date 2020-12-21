@@ -1,3 +1,10 @@
+export function isDef (aught) {
+  return !!aught &&
+    typeof aught === 'object' &&
+    typeof aught.name === 'string' &&
+    typeof aught.length === 'number' &&
+    isList(aught.quotes)
+}
 /**
  * Can the provided value be used as a gloss?
  *
@@ -5,10 +12,9 @@
  * @return {bool} True if the object can be used as a gloss; false otherwise.
  */
 export function isGloss (aught) {
-  return !!aught &&
+  return isNamed(aught) &&
     typeof aught === 'object' &&
     typeof aught.getMemo === 'function' &&
-    typeof aught.getName === 'function' &&
     typeof aught.length === 'number' &&
     typeof aught.withDef === 'function' &&
     typeof aught.withGloss === 'function' &&
@@ -42,7 +48,7 @@ export function isList (aught) {
 export function isNamed (aught) {
   return !!aught &&
     typeof aught === 'object' &&
-    typeof aught.getName === 'function'
+    typeof aught.name === 'string'
 }
 /**
  * Can the provided value be used as a quote?
@@ -53,16 +59,10 @@ export function isNamed (aught) {
 export function isQuote (aught) {
   return !!aught &&
     typeof aught === 'object' &&
-    typeof aught.forEach === 'function' &&
-    typeof aught.getAltNames === 'function' &&
-    typeof aught.getName === 'function' &&
-    typeof aught.getProps === 'function' &&
-    typeof aught.isSingular === 'function' &&
-    typeof aught.length === 'number' &&
-    typeof aught.mentions === 'number' &&
-    typeof aught.slice === 'function' &&
-    typeof aught.withQuote === 'function' &&
-    typeof aught.withRef === 'function'
+    typeof aught.name === 'string' &&
+    typeof aught.from === 'string' &&
+    typeof aught.reduce === 'function' &&
+    (typeof aught.refs === 'undefined' || isRef(aught.refs))
 }
 /**
  * Can the provided value be used as a reference?
@@ -86,13 +86,12 @@ export function isRef (aught) {
  * @return {bool} True if the object can be used as a work; false otherwise.
  */
 export function isWork (aught) {
-  return !!aught &&
+  return isNamed(aught) &&
     typeof aught === 'object' &&
     typeof aught.getAuthor === 'function' &&
     typeof aught.getDate === 'function' &&
     typeof aught.getDescription === 'function' &&
     typeof aught.getKey === 'function' &&
-    typeof aught.getName === 'function' &&
     typeof aught.getSubtitle === 'function' &&
     typeof aught.getTitle === 'function' &&
     typeof aught.getUrl === 'function'
