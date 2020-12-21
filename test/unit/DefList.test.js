@@ -1,6 +1,6 @@
 import { $DefList } from '../../src/Defs/DefList.js'
-import { $Quote } from '../../src/Quotes/Quote.js'
-import { aliceBook, devilsBook, frankenBook, prideBook } from '../data/refs.js'
+import { MockRef } from '../mocks/MockRef.js'
+import { MockQuote } from '../mocks/MockQuote.js'
 
 describe('$DefList', () => {
   it('is a function', () => {
@@ -23,7 +23,7 @@ describe('$DefList', () => {
   })
   it('constructs with 1 quote', function () {
     const props = [
-      new $Quote({ name: 'Hello', refs: aliceBook })
+      new MockQuote('Hello', '', new MockRef('Alice in Wonderland', '1865'))
     ]
     const a = new $DefList(...props)
     expect(a).toMatchObject({ length: 1 })
@@ -31,22 +31,21 @@ describe('$DefList', () => {
   })
   it('constructs with 2 quotes having the same name', function () {
     const props = [
-      new $Quote({ name: 'Hello', refs: aliceBook }),
-      new $Quote({ name: 'Hello', refs: devilsBook })
+      new MockQuote('Hello', '', new MockRef('Alice in Wonderland', '1865')),
+      new MockQuote('Hello', '', new MockRef('Frankenstein', '1818'))
     ]
     const a = new $DefList(...props)
     expect(a).toMatchObject({ length: 1 })
     expect(a.get(0)).toMatchObject({ name: 'Hello', length: 2 })
   })
-  it('constructs with 4 quotes with the same names', function () {
+  it('constructs with 3 quotes having the same name', function () {
     const props = [
-      new $Quote({ name: 'Hello', refs: aliceBook }),
-      new $Quote({ name: 'Hello', refs: devilsBook }),
-      new $Quote({ name: 'Hello', refs: frankenBook }),
-      new $Quote({ name: 'Hello', refs: prideBook })
+      new MockQuote('Hello', '', new MockRef('Alice in Wonderland', '1865')),
+      new MockQuote('Hello', '', new MockRef('Frankenstein', '1818')),
+      new MockQuote('Hello', '', new MockRef('Pride and Prejudice', '1813'))
     ]
     const a = new $DefList(...props)
     expect(a).toMatchObject({ length: 1 })
-    expect(a.get(0)).toMatchObject({ name: 'Hello', length: 4  })
+    expect(a.get(0)).toMatchObject({ name: 'Hello', length: 3  })
   })
 })
