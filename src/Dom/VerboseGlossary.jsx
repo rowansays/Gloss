@@ -59,11 +59,9 @@ function Gloss (props) {
 }
 function Definition (props) {
   const { def } = props
-  console.log('DEF', def)
   const name = def.name
   const map = def.mapBy('datePublished')
   const sorted = new Map([...map].sort((a, b) => a[0] - b[0]))
-  console.log('SORTED', sorted)
   const rows = []
 
   let yearNow
