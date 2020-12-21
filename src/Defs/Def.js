@@ -50,6 +50,7 @@ Object.defineProperty($Def.prototype, 'constructor', {
 $Def.prototype.mapBy = function (type) {
   const getValue = (quote) => {
     switch (type) {
+      case 'year': return quote.ref.datePublished
       case 'datePublished': return quote.ref.datePublished
       default : throw new Error('Unsupported map type.')
     }
