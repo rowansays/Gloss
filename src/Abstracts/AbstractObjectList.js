@@ -1,5 +1,5 @@
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
-import { isList } from '../Utility/predicate.js'
+import { isIterableObject } from '@rowansays/helpers'
 
 function AbstractObjectList () {
   this._defaultGetMethod = 'getName'
@@ -109,7 +109,9 @@ AbstractObjectList.prototype.sortDescBy = function (prop) {
   })
   return makeFrozenInstanceOf(this.constructor, sorted)
 }
-
+AbstractObjectList.prototype[Symbol.iterator] = function () {
+  return this.items[Symbol.iterator]()
+}
 /**
  * Parse quotes parameter.
  *
@@ -125,11 +127,7 @@ AbstractObjectList.parseArgs = function (isValidItem, ...params) {
   params.forEach(param => {
     if (isValidItem(param)) {
       output.push(param)
-    } else if (isList(param)) {
-      param.forEach(subParam => {
-        output.push(subParam)
-      })
-    } else if (Array.isArray(param)) {
+    } else if (isIterableObject(param)) {
       output = output.concat(AbstractObjectList.parseArgs(isValidItem, ...param))
     }
   })
