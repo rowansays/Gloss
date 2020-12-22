@@ -77,9 +77,6 @@ $Term.prototype.from = function (...refs) {
   props.refs = props.refs.add(clean)
   return new this.constructor(props)
 }
-$Term.prototype.getDefs = function () {
-  return this.defs.entries()
-}
 $Term.prototype.getMemo = function (index) {
   switch (this.memos.length) {
     case 0 :
@@ -89,9 +86,6 @@ $Term.prototype.getMemo = function (index) {
     default :
       return this.memos.get(index)
   }
-}
-$Term.prototype.getMemos = function () {
-  return this.memos.entries()
 }
 /**
  * Get Properties.
