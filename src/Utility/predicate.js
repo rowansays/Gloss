@@ -16,9 +16,10 @@ export function isDef (aught) {
 export function isGloss (aught) {
   return isNamed(aught) &&
     typeof aught === 'object' &&
+    typeof aught.as === 'function' &&
+    typeof aught.from === 'function' &&
     typeof aught.getMemo === 'function' &&
     typeof aught.length === 'number' &&
-    typeof aught.withDef === 'function' &&
     typeof aught.withGloss === 'function' &&
     typeof aught.withMemo === 'function'
 }
