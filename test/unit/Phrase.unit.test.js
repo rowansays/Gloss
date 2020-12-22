@@ -14,6 +14,13 @@ describe('Phrase()', () => {
   })
   test('constructs a $Quote with expected properties', () => {
     const n = Phrase('verbatim', aliceBook)
-    expect(n).toMatchObject({ name: 'verbatim', from: '', ref: aliceBook })
+    expect(n).toMatchObject({
+      name: 'verbatim',
+      from: '',
+      refs: {
+        items: [aliceBook],
+        length: 1
+      }
+    })
   })
 })

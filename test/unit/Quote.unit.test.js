@@ -5,6 +5,8 @@ import { aliceBook, devilsBook } from '../data/refs.js'
 // Quote: Integration
 import { isQuote } from '../../src/Utility/predicate.js'
 
+
+
 describe('$Quote', () => {
   it('is a function', () => {
     expect(typeof $Quote).toBe('function')
@@ -31,17 +33,32 @@ describe('$Quote', () => {
   it('constructs instances of $Quote', function () {
     expect(new $Quote({ name: 'a' })).toBeInstanceOf($Quote)
   })
-  test('Accepts non-empty string for required prop "name"', function () {
+  test('accepts non-empty string for required prop "name"', function () {
     const a = new $Quote({ name: 'abc'})
-    expect(a).toMatchObject({ name: 'abc', from: '', ref: undefined })
+    expect(a).toMatchObject({
+      name: 'abc',
+      from: '',
+      refs: { items: [], length: 0 }
+    })
   })
-  test('Accepts non-empty string for optional prop "from"', function () {
+  test('accepts non-empty string for optional prop "from"', function () {
     const a = new $Quote({ name: 'abc', from: 'def' })
-    expect(a).toMatchObject({ name: 'abc', from: 'def', ref: undefined })
+    expect(a).toMatchObject({
+      name: 'abc',
+      from: 'def',
+      refs: { items: [], length: 0 }
+    })
   })
   test('accepts instance of $Ref for optional prop "ref"', function () {
     const a = new $Quote({ name: 'abc', ref: aliceBook })
-    expect(a).toMatchObject({ name: 'abc', from: '', ref: aliceBook })
+    expect(a).toMatchObject({
+      name: 'abc',
+      from: '',
+      refs: {
+        items: [aliceBook],
+        length: 1
+      }
+    })
   })
   test('prototype.reduce() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).reduce).toBe('function')
@@ -73,7 +90,14 @@ describe('$Quote', () => {
     const a = new $Quote({ name: '123', from: '456', ref: aliceBook })
     const b = a.withRef(devilsBook)
     expect(b === a).toBe(false)
-    expect(b).toMatchObject({ name: a.name, from: a.from, ref: devilsBook })
+    expect(b).toMatchObject({
+      name: a.name,
+      from: a.from,
+      refs: {
+        items: [devilsBook],
+        length: 1
+      }
+    })
   })
 })
 

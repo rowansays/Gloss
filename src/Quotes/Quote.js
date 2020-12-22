@@ -1,5 +1,6 @@
 import { castString } from '../Utility/cast.js'
-import { isRef } from '../Utility/predicate.js'
+import { isQuote, isRef } from '../Utility/predicate.js'
+import { RefList } from '../Refs/RefList.js'
 import { validateStringProp } from '../Utility/validate.js'
 
 /**
@@ -25,7 +26,7 @@ import { validateStringProp } from '../Utility/validate.js'
  * @return {$Quote}
  */
 function $Quote (props) {
-  const { name, from, ref } = props
+  const { name, from } = props
   if (props.length < 1) {
     throw new Error('$Quote() - No props were passed to the constructor.')
   }
@@ -35,12 +36,19 @@ function $Quote (props) {
     throw new TypeError('$Quote() name property must not be empty.')
   }
 
-  const cleanRef = isRef(ref) ? ref : undefined
+  let param
+  if (isQuote(props)) {
+    param = props.refs
+  } else if (isRef(props.ref)) {
+    param = [props.ref]
+  } else {
+    param = []
+  }
 
   Object.defineProperties(this, {
     name: { enumerable: true, value: cleanName },
     from: { enumerable: true, value: castString(from) },
-    ref: { enumerable: true, value: cleanRef }
+    refs: { enumerable: true, value: RefList(...param) }
   })
 
   Object.freeze(this)
@@ -55,6 +63,9 @@ $Quote.prototype.reduce = function () {
     return this
   }
   return new $Quote({ name: this.from, ref: this.ref })
+}
+$Quote.prototype.ref = function (index) {
+  return this.refs.get(index)
 }
 $Quote.prototype.withRef = function (ref) {
   if (!isRef(ref)) {

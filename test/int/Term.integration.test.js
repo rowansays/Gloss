@@ -23,8 +23,8 @@ describe('Term()', function () {
       const def = term.def('Klingon')
       expect(term.length).toBe(1)
       expect(def.length).toBe(2)
-      expect(def.quote(0).ref).toBe(aliceBook)
-      expect(def.quote(1).ref).toBe(devilsBook)
+      expect(def.quote(0).ref(0)).toBe(aliceBook)
+      expect(def.quote(1).ref(0)).toBe(devilsBook)
     })
   })
   describe('withMemo()', function () {
@@ -34,9 +34,9 @@ describe('Term()', function () {
       const term = Term('a', memo1).withMemo(memo2)
 
       expect(term.getMemo(0).name).toBe(memo1.name)
-      expect(term.getMemo(0).ref).toBe(aliceBook)
+      expect(term.getMemo(0).ref(0)).toBe(aliceBook)
       expect(term.getMemo(1).name).toBe(memo2.name)
-      expect(term.getMemo(1).ref).toBe(devilsBook)
+      expect(term.getMemo(1).ref(0)).toBe(devilsBook)
     })
   })
   describe('withDefRef()', function () {
@@ -44,10 +44,10 @@ describe('Term()', function () {
       const a = Term('a', '', Phrase('Bunnies'), Phrase('Kittens'))
       const b = a.withDefRef(aliceBook)
 
-      expect(typeof a.def(0).quote(0).ref).toBe('undefined')
-      expect(typeof a.def(1).quote(0).ref).toBe('undefined')
-      expect(b.def(0).quote(0).ref).toBe(aliceBook)
-      expect(b.def(1).quote(0).ref).toBe(aliceBook)
+      expect(typeof a.def(0).quote(0).ref(0)).toBe('undefined')
+      expect(typeof a.def(1).quote(0).ref(0)).toBe('undefined')
+      expect(b.def(0).quote(0).ref(0)).toBe(aliceBook)
+      expect(b.def(1).quote(0).ref(0)).toBe(aliceBook)
     })
   })
 })

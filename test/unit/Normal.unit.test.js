@@ -18,6 +18,13 @@ describe('Normal() Unit Tests', () => {
   })
   test('constructs a $Quote with expected properties', () => {
     const n = Normal('normal', 'actual', aliceBook)
-    expect(n).toMatchObject({ name: 'normal', from: 'actual', ref: aliceBook })
+    expect(n).toMatchObject({
+      name: 'normal',
+      from: 'actual',
+      refs: {
+        items: [aliceBook],
+        length: 1
+      }
+    })
   })
 })
