@@ -100,8 +100,13 @@ function Definition (props) {
 function DataCell (props) {
   const { quote } = props
   const reduced = quote.reduce()
+
+  const refs = reduced.map(ref => (
+    <i key={ref.name}>{ref.name}</i>
+  ))
+
   return (
-    <span>{reduced.name} - {reduced.ref.name}</span>
+    <span>{reduced.name} - {refs}</span>
   )
 }
 
