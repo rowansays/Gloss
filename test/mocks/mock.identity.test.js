@@ -9,16 +9,20 @@ import {
 } from '../../src/Utility/predicate.js'
 
 describe('Mock Identity Tests', () => {
-  const aliceBook = new MockRef('alice', 'Alice in Wonderland')
-  const aliceQuote = new MockQuote('That\'s very curious!', '', aliceBook)
   describe('MockRef() instances', function () {
     test('are recognized as a reference', () => {
-      expect(isRef(aliceBook)).toBe(true)
+      const a = new MockRef('alice', 'Alice in Wonderland')
+      expect(isRef(a)).toBe(true)
     })
   })
   describe('MockQuote() instances', () => {
+    const a = new MockQuote(
+      'That\'s very curious!',
+      '',
+      new MockRef('alice', 'Alice in Wonderland')
+    )
     test('are recognized as a quote', () => {
-      expect(isQuote(aliceQuote)).toBe(true)
+      expect(isQuote(a)).toBe(true)
     })
   })
   describe('MockWork() instances', () => {
