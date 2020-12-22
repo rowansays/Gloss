@@ -42,6 +42,28 @@ $Term.makeFrozen = function () {
   return o
 }
 /**
+ * Creates a new instance which prepends all references in `this.refs` to every
+ *   quote in each definition.
+ *
+ * @return {$Term} A new instance with modified definitions and quotes. If
+ *   `this.refs` is empty than `this` will be returned.
+ */
+$Term.prototype.applyRefs = function () {
+  if (this.defs.length === 0 || this.refs.length === 0) {
+    return this
+  }
+
+  const defs = []
+  this.defs.forEach(def => {
+    defs.push(def.from(...this.refs))
+  })
+
+  const props = this.getProps()
+  props.defs = defs
+
+  return new this.constructor(props)
+}
+/**
  * Clone an instance while adding one or more definitions.
  *
  * @param {...Quote} One or more quote objects.
@@ -57,6 +79,11 @@ $Term.prototype.def = function (index) {
 }
 /**
  * Clone an instance while prepending one or more references.
+ *
+ * This method only alters the value of this term's `refs` property. The
+ *   individual definitions will not be affected. $Term.prototype.applyRefs()
+ *   may be used to apply the Term's references to each quote in each
+ *   definition.
  *
  * Note: these references serve to form a segment of a reference path. They are
  *   not to be thought of as references from different sources, rather those
@@ -109,26 +136,6 @@ $Term.prototype.hasDef = function () {
 $Term.prototype.sortDefsByName = function () {
   const sortedDefs = this.defs.sortAscBy().entries()
   return Term(this.name, this.getMemo(), ...sortedDefs)
-}
-/**
- * Add one reference to all definitions of this term.
- *
- * @param {string} ref One or more strings representing the key of a reference.
- */
-$Term.prototype.withDefRef = function (ref) {
-  const defs = []
-  this.defs.forEach(def => {
-    defs.push(def.from(ref))
-  })
-
-  if (defs.length === 0) {
-    return this
-  }
-
-  const props = this.getProps()
-  props.defs = defs
-
-  return new $Term(props)
 }
 /**
  * Clone an instance while merging in one or more glosses.

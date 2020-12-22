@@ -14,6 +14,19 @@ describe('Term()', function () {
       expect(term.def(2).name).toBe(def2.name)
     })
   })
+  describe('applyRefs()', function () {
+    test('applies a single ref from fluent interface.', () => {
+      const a = Term('a')
+        .from(aliceBook)
+        .as(Phrase('Bunnies'), Phrase('Kittens'))
+      const b = a.applyRefs()
+
+      expect(typeof a.def(0).quote(0).ref(0)).toBe('undefined')
+      expect(typeof a.def(1).quote(0).ref(0)).toBe('undefined')
+      expect(b.def(0).quote(0).ref(0)).toBe(aliceBook)
+      expect(b.def(1).quote(0).ref(0)).toBe(aliceBook)
+    })
+  })
   describe('as()', function () {
     test('appends an existing phrase with a new reference.', () => {
       const def1 = Phrase('Klingon', aliceBook)
@@ -37,17 +50,6 @@ describe('Term()', function () {
       expect(term.getMemo(0).ref(0)).toBe(aliceBook)
       expect(term.getMemo(1).name).toBe(memo2.name)
       expect(term.getMemo(1).ref(0)).toBe(devilsBook)
-    })
-  })
-  describe('withDefRef()', function () {
-    test('appends a reference to all definitions.', () => {
-      const a = Term('a', '', Phrase('Bunnies'), Phrase('Kittens'))
-      const b = a.withDefRef(aliceBook)
-
-      expect(typeof a.def(0).quote(0).ref(0)).toBe('undefined')
-      expect(typeof a.def(1).quote(0).ref(0)).toBe('undefined')
-      expect(b.def(0).quote(0).ref(0)).toBe(aliceBook)
-      expect(b.def(1).quote(0).ref(0)).toBe(aliceBook)
     })
   })
 })
