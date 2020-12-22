@@ -1,5 +1,5 @@
 import { castString } from '../Utility/cast.js'
-import { isQuote, isRef } from '../Utility/predicate.js'
+import { isIterable, isQuote, isRef } from '../Utility/predicate.js'
 import { RefList } from '../Refs/RefList.js'
 import { validateStringProp } from '../Utility/validate.js'
 
@@ -37,7 +37,7 @@ function $Quote (props) {
   }
 
   let param
-  if (isQuote(props)) {
+  if (isIterable(props.refs)) {
     param = props.refs
   } else if (isRef(props.ref)) {
     param = [props.ref]
@@ -62,7 +62,7 @@ $Quote.prototype.reduce = function () {
   if (this.from === '') {
     return this
   }
-  return new $Quote({ name: this.from, ref: this.ref })
+  return new $Quote({ name: this.from, refs: this.refs })
 }
 $Quote.prototype.ref = function (index) {
   return this.refs.get(index)

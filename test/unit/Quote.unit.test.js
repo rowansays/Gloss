@@ -72,8 +72,15 @@ describe('$Quote', () => {
     const a = new $Quote({ name: 'abc', from: 'def', ref: aliceBook })
     const b = a.reduce()
     expect(b === a).toBe(false)
-    expect(b).toMatchObject({ name: a.from, from: '', ref: a.ref })
+    expect(b.name).toBe(a.from)
+    expect(b.from).toBe('')
   })
+  test('  - preserves the refs property.', function () {
+    const a = new $Quote({ name: 'abc', from: 'def', ref: aliceBook })
+    const b = a.reduce()
+    expect(b.ref(0)).toBe(a.ref(0))
+  })
+
   test('prototype.withRef() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).withRef).toBe('function')
   })
