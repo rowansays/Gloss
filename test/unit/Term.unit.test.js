@@ -1,22 +1,19 @@
 import { $Term } from '../../src/Glosses/Term.js'
-import { testFactoryFunction } from '../helpers/factories.js'
 import { MockQuote } from '../mocks/MockQuote.js'
-
-import { $Def } from '../../src/Defs/Def.js'
+import { MockRef } from '../mocks/MockRef.js'
 import { $DefList } from '../../src/Defs/DefList.js'
-
-import { $Quote } from '../../src/Quotes/Quote.js'
 import { $QuoteList } from '../../src/Lists/QuoteList.js'
 
 describe('$Term', () => {
   it('is a function', () => {
     expect(typeof $Term).toBe('function')
   })
-  it('is idempotent', () => {
+  it('is idempotent when simple', () => {
     const a = new $Term({
       name: 'a',
       memos: [new MockQuote('One')],
-      defs: [new MockQuote('Two')]
+      defs: [new MockQuote('Two')],
+      refs: [new MockRef('Three')]
     })
     const b = new $Term(a)
     expect(a).toStrictEqual(b)
@@ -45,22 +42,22 @@ describe('$Term', () => {
     expect(term.memos).toBeInstanceOf($QuoteList)
     expect(term.defs).toBeInstanceOf($DefList)
   })
-  it('accepts 1 quote object for optional "defs" prop', function () {
+  it('accepts 1 mock quote object for optional "defs" prop', function () {
     const props = {
       name: 'a',
-      defs: [ new $Quote({ name: 'b' }) ]
+      defs: [ new MockQuote('b') ]
     }
     const term = new $Term(props)
     expect(term.name).toBe(props.name)
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
   })
-  it('accepts 2 quote objects with unique names as defs', function () {
+  it('accepts 2 mock quote objects with unique names as defs', function () {
     const props = {
       name: 'a',
       defs: [
-        new $Quote({ name: 'b' }),
-        new $Quote({ name: 'c' })
+        new MockQuote('b'),
+        new MockQuote('c')
       ]
     }
     const term = new $Term(props)
@@ -73,8 +70,8 @@ describe('$Term', () => {
     const props = {
       name: 'a',
       defs: [
-        new $Quote({ name: 'b' }),
-        new $Quote({ name: 'b' })
+        new MockQuote('b'),
+        new MockQuote('b')
       ]
     }
     const term = new $Term(props)
