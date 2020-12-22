@@ -15,5 +15,17 @@ export default [
       babel({ babelHelpers: 'bundled' }),
       commonjs()
     ]
+  },
+  {
+    input: 'index.js',
+    output: {
+      file: 'dist/gloss.module.js',
+      format: 'es',
+    },
+    plugins: [
+      nodeResolve(),
+      babel({ babelHelpers: 'bundled' }),
+      commonjs()
+    ]
   }
 ]
