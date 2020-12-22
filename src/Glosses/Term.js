@@ -56,7 +56,7 @@ $Term.prototype.def = function (index) {
   return this.defs.get(index)
 }
 /**
- * Clone an instance while appending one or more references.
+ * Clone an instance while prepending one or more references.
  *
  * Note: these references serve to form a segment of a reference path. They are
  *   not to be thought of as references from different sources, rather those
