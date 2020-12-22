@@ -1,31 +1,23 @@
-import { AbstractRef } from './AbstractRef.js'
-import { castString } from '../Utility/cast.js'
-import { validateStringProp } from '../Utility/validate.js'
+import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 
-function $Ref (...props) {
-  AbstractRef.call(this, ...props)
+function $Ref (props) {
+  AbstractNamed.call(this, props)
   Object.defineProperties(this, {
     type: { enumerable: true, value: 'Ref' }
   })
   Object.freeze(this)
 }
 
-$Ref.parseRef = (ref) => {
-  const o = Object.create(null)
-  o.desc = castString(ref.desc)
-  o.name = validateStringProp('AbstractRef', 'ref.name', ref.name)
-  o.url = castString(ref.url)
-  return o
-}
-
-$Ref.prototype = Object.create(AbstractRef.prototype)
+$Ref.prototype = Object.create(AbstractNamed.prototype)
 
 Object.defineProperty($Ref.prototype, 'constructor', {
   value: $Ref
 })
 
+Object.freeze($Ref.prototype)
+
 function Ref () {
   return new $Ref(...arguments)
 }
 
-export { Ref }
+export { $Ref, Ref }

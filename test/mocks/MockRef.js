@@ -6,7 +6,7 @@ export function MockRef (name, year) {
   this.url = ''
   this.datePublished = year
 }
-
+MockRef.prototype.add = function () { return this }
 
 export const wikipedia = new MockRef('Wikipedia')
 export const wiktionary = new MockRef('Wiktionary')

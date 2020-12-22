@@ -1,46 +1,29 @@
-import { AbstractRef } from './AbstractRef.js'
+import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { castString } from '../Utility/cast.js'
 
-function $Book (...props) {
-  AbstractRef.call(this, ...props)
+function $Book (props) {
+  AbstractNamed.call(this, { name: props.title })
+
   Object.defineProperties(this, {
-    author: { enumerable: true, value: this.refs[0].author },
-    datePublished: { enumerable: true, value: this.refs[0].datePublished },
-    subtitle: { enumerable: true, value: this.refs[0].subtitle },
-    title: { enumerable: true, value: this.refs[0].title },
-    type: { enumerable: true, value: 'RefBook' }
+    type: { enumerable: true, value: 'RefBook' },
+    author: { enumerable: true, value: castString(props.author) },
+    datePublished: { enumerable: true, value: castString(props.datePublished) },
+    desc: { enumerable: true, value: castString(props.desc) },
+    subtitle: { enumerable: true, value: castString(props.subtitle) },
+    title: { enumerable: true, value: this.name },
+    url: { enumerable: true, value: castString(props.url) }
   })
   Object.freeze(this)
 }
 
-$Book.parseRef = (ref, i) => {
-  const title = castString(ref.title)
-  if (title === '') {
-    throw new TypeError('' +
-      `$Book() title property coerces to an empty string in parameter ${i}.`
-    )
-  }
-
-  const o = Object.create(null)
-  o.title = title
-  o.subtitle = castString(ref.subtitle)
-  o.author = castString(ref.author)
-  o.datePublished = castString(ref.datePublished)
-
-  // From abstract
-  o.name = title
-  o.desc = castString(ref.desc)
-  o.url = castString(ref.url)
-
-  return o
-}
-
-$Book.prototype = Object.create(AbstractRef.prototype)
+$Book.prototype = Object.create(AbstractNamed.prototype)
 
 Object.defineProperty($Book.prototype, 'constructor', {
   value: $Book
 })
 
-export function Book (...refs) {
+function Book (...refs) {
   return new $Book(...refs)
 }
+
+export { $Book, Book }
