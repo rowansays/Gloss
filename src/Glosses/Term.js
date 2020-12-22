@@ -41,6 +41,17 @@ $Term.makeFrozen = function () {
   freeze(o, $Term)
   return o
 }
+/**
+ * Clone an instance while adding one or more definitions.
+ *
+ * @param {...Quote} One or more quote objects.
+ * @return {$Term}
+ */
+$Term.prototype.as = function (...defs) {
+  const props = this.getProps()
+  props.defs = props.defs.add(...defs)
+  return new this.constructor(props)
+}
 $Term.prototype.def = function (index) {
   return this.defs.get(index)
 }
@@ -82,17 +93,6 @@ $Term.prototype.hasDef = function () {
 $Term.prototype.sortDefsByName = function () {
   const sortedDefs = this.defs.sortAscBy().entries()
   return Term(this.name, this.getMemo(), ...sortedDefs)
-}
-/**
- * Clone an instance while adding one or more definitions.
- *
- * @param {...Quote} One or more quote objects.
- * @return {$Term}
- */
-$Term.prototype.withDef = function (...defs) {
-  const props = this.getProps()
-  props.defs = props.defs.add(...defs)
-  return new this.constructor(props)
 }
 /**
  * Add one reference to all definitions of this term.

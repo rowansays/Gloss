@@ -79,6 +79,44 @@ describe('$Term', () => {
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
   })
+  it('merges 2 quote objects with same names', function () {
+    const props = {
+      name: 'a',
+      defs: [
+        new MockQuote('b'),
+        new MockQuote('b')
+      ]
+    }
+    const term = new $Term(props)
+    expect(term.name).toBe(props.name)
+    expect(term.length).toBe(1)
+    expect(term.defs.get(0).name).toBe('b')
+  })
+  it('has prototype.as() function.', () => {
+    expect(typeof new $Term({ name: 'a' }).as).toBe('function')
+  })
+  it('  - returns an instance of $Term.', () => {
+    expect(new $Term({ name: 'a' }).as().constructor.name).toBe('$Term')
+  })
+  it('  - adds a single definition to an empty term.', () => {
+    expect(new $Term({ name: 'a' }).as(new MockQuote('Klingon')).length).toBe(1)
+  })
+  it('  - adds three unique definitions to an empty term.', () => {
+    const term = new $Term({ name: 'a' }).as(
+      new MockQuote('Klingon'),
+      new MockQuote('Vulcan'),
+      new MockQuote('Andorian')
+    )
+    expect(term.length).toBe(3)
+  })
+  it('  - merges three identical definitions to an empty term.', () => {
+    const term = new $Term({ name: 'a' }).as(
+      new MockQuote('Klingon'),
+      new MockQuote('Klingon'),
+      new MockQuote('Klingon')
+    )
+    expect(term.length).toBe(1)
+  })
 })
 
 
@@ -161,33 +199,6 @@ describe('Term() Unit Tests', () => {
       })
       test('returns value of third def parameter.', () => {
         expect(term.getDef(2)).toBe(d3)
-      })
-    })
-    describe('withDef()', function () {
-      test('is a function.', () => {
-        expect(typeof Term('a').withDef).toBe('function')
-      })
-      test('returns an instance of $Term.', () => {
-        expect(Term('a').withDef().constructor.name).toBe('$Term')
-      })
-      test('adds a single definition to an empty term.', () => {
-        expect(Term('a').withDef(new MockQuote('Klingon')).length).toBe(1)
-      })
-      test('adds three unique definitions to an empty term.', () => {
-        const term = Term('a').withDef(
-          new MockQuote('Klingon'),
-          new MockQuote('Vulcan'),
-          new MockQuote('Andorian')
-        )
-        expect(term.length).toBe(3)
-      })
-      test('merges three identical definitions to an empty term.', () => {
-        const term = Term('a').withDef(
-          new MockQuote('Klingon'),
-          new MockQuote('Klingon'),
-          new MockQuote('Klingon')
-        )
-        expect(term.length).toBe(1)
       })
     })
     describe('withMemo()', function () {
