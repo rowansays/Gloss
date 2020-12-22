@@ -55,6 +55,28 @@ $Term.prototype.as = function (...defs) {
 $Term.prototype.def = function (index) {
   return this.defs.get(index)
 }
+/**
+ * Clone an instance while appending one or more references.
+ *
+ * Note: these references serve to form a segment of a reference path. They are
+ *   not to be thought of as references from different sources, rather those
+ *   that add specificity. The first reference passed should be the broadest
+ *   with each consecutive ref getting more and more specific. For example:
+ *   Earth, Antarctica, Ross Ice Shelf shows the appropriate order as does:
+ *   Frankenstein, Chapter 1, Page 10
+ *
+ * @param {...Ref} One or more reference objects.
+ * @return {$Term}
+ */
+$Term.prototype.from = function (...refs) {
+  const clean = new $RefList(...refs)
+  if (clean.length === 0) {
+    return this
+  }
+  const props = this.getProps()
+  props.refs = props.refs.add(clean)
+  return new this.constructor(props)
+}
 $Term.prototype.getDefs = function () {
   return this.defs.entries()
 }

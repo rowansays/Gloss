@@ -117,6 +117,28 @@ describe('$Term', () => {
     )
     expect(term.length).toBe(1)
   })
+  it('has prototype function: from()', () => {
+    expect(typeof new $Term({ name: 'a' }).from).toBe('function')
+  })
+  it('  - returns "this" when no parameters are passed', () => {
+    const a = new $Term({ name: 'a' })
+    const b = a.from()
+    expect(b === a).toBe(true)
+  })
+  it('  - returns "this" when unrecognizable parameters are passed', () => {
+    const a = new $Term({ name: 'a' })
+    const b = a.from('', 123, true, false, null, {}, [], new Map(), Symbol())
+    expect(b === a).toBe(true)
+  })
+  it('  - returns clone with a ref appended', () => {
+    const a = new $Term({ name: 'a', refs: new MockRef('Earth') })
+    const b = a.from(new MockRef('Antarctica'))
+    expect(b === a).toBe(false)
+    expect(b.name).toBe(a.name)
+    expect(b.refs.length).toBe(2)
+    expect(b.refs.get(0).name).toBe('Earth')
+    expect(b.refs.get(1).name).toBe('Antarctica')
+  })
 })
 
 
