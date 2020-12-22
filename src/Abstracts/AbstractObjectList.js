@@ -1,10 +1,7 @@
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
 import { isIterableObject } from '@rowansays/helpers'
 
-function AbstractObjectList () {
-  this._defaultGetMethod = 'getName'
-  this._defaultSortMethod = 'getName'
-}
+function AbstractObjectList () {}
 
 AbstractObjectList.prototype = Object.create(null)
 
