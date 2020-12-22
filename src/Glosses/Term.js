@@ -124,7 +124,7 @@ $Term.prototype.sortDefsByName = function () {
 $Term.prototype.withDefRef = function (ref) {
   const defs = []
   this.defs.forEach(def => {
-    defs.push(def.withRef(ref))
+    defs.push(def.from(ref))
   })
 
   if (defs.length === 0) {

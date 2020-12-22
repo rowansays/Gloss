@@ -63,6 +63,14 @@ describe('$Def', () => {
       )
     }).toThrow()
   })
+  it('has prototype function: from()', function () {
+    expect(typeof new $Def().from).toBe('function')
+  })
+  it('  - returns "this" when no parameters are provided', function () {
+    const a = new $Def()
+    const b = a.from()
+    expect(a === b).toBe(true)
+  })
   test('prototype.mapBy()', function () {
     expect(typeof new $Def().mapBy).toBe('function')
   })

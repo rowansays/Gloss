@@ -50,6 +50,19 @@ Object.defineProperty($Def.prototype, 'constructor', {
   value: $Def
 })
 
+/**
+ * Add a ref to each quote contained by this definition.
+ */
+$Def.prototype.from = function (ref) {
+  if (!isRef(ref)) {
+    return this
+  }
+  const quotes = []
+  this.quotes.forEach(quote => {
+    quotes.push(quote.from(ref))
+  })
+  return new $Def(...quotes)
+}
 $Def.prototype.mapBy = function (type) {
   const getValue = (quote) => {
     switch (type) {
@@ -76,19 +89,6 @@ $Def.prototype.quote = function (index) {
  */
 $Def.prototype.refs = function () {
   return new $RefList(this.quotes.column('refs'))
-}
-/**
- * Add a ref to each quote contained by this definition.
- */
-$Def.prototype.withRef = function (ref) {
-  if (!isRef(ref)) {
-    throw new Error('$Def.withRef() Invalid reference passed as parameter 1.')
-  }
-  const quotes = []
-  this.quotes.forEach(quote => {
-    quotes.push(quote.from(ref))
-  })
-  return new $Def(...quotes)
 }
 
 Object.freeze($Def.prototype)
