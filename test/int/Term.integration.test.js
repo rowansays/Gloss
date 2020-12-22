@@ -14,11 +14,11 @@ describe('Term()', function () {
       expect(term.def(2).name).toBe(def2.name)
     })
   })
-  describe('withDef()', function () {
+  describe('as()', function () {
     test('appends an existing phrase with a new reference.', () => {
       const def1 = Phrase('Klingon', aliceBook)
       const def2 = Phrase('Klingon', devilsBook)
-      const term = Term('a', '', def1).withDef(def2)
+      const term = Term('a', '', def1).as(def2)
 
       const def = term.def('Klingon')
       expect(term.length).toBe(1)
