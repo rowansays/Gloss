@@ -51,15 +51,16 @@ Object.defineProperty($Def.prototype, 'constructor', {
 })
 
 /**
- * Add a ref to each quote contained by this definition.
+ * Add one or more refs to each quote contained by this definition.
  */
-$Def.prototype.from = function (ref) {
-  if (!isRef(ref)) {
+$Def.prototype.from = function (...refs) {
+  const refList = new $RefList(...refs)
+  if (refList.length === 0) {
     return this
   }
   const quotes = []
   this.quotes.forEach(quote => {
-    quotes.push(quote.from(ref))
+    quotes.push(quote.from(...refList))
   })
   return new $Def(...quotes)
 }
