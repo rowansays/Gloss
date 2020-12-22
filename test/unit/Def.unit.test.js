@@ -106,9 +106,9 @@ describe('$Def', () => {
     expect(map.size).toBe(1)
 
     const _1900 = map.get('1900')
-    expect(_1900[0].ref.name).toBe('The Wonderful Wizard of OZ')
-    expect(_1900[1].ref.name).toBe('Whilomville Stories')
-    expect(_1900[2].ref.name).toBe('Claudine at School')
+    expect(_1900[0].ref(0).name).toBe('The Wonderful Wizard of OZ')
+    expect(_1900[1].ref(0).name).toBe('Whilomville Stories')
+    expect(_1900[2].ref(0).name).toBe('Claudine at School')
   })
   test('prototype.refs()', function () {
     expect(typeof new $Def().refs).toBe('function')

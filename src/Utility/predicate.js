@@ -1,3 +1,5 @@
+import { isIterable } from '@rowansays/helpers'
+
 export function isDef (aught) {
   return !!aught &&
     typeof aught === 'object' &&
@@ -61,8 +63,7 @@ export function isQuote (aught) {
     typeof aught === 'object' &&
     typeof aught.name === 'string' &&
     typeof aught.from === 'string' &&
-    typeof aught.reduce === 'function' &&
-    (typeof aught.refs === 'undefined' || isRef(aught.refs))
+    isIterable(aught.refs)
 }
 /**
  * Can the provided value be used as a reference?
