@@ -82,7 +82,7 @@ describe('$Quote', () => {
     expect(array.length).toBe(1)
     expect(array[0]).toBe(ref.name)
   })
-  test('  - applies callback once to each ref when 1 ref exists.', function () {
+  test('  - applies callback once to each ref when 3 refs exists.', function () {
     const ref1 = new MockRef('Jon')
     const ref2 = new MockRef('Arya')
     const ref3 = new MockRef('Bran')
