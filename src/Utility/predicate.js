@@ -71,13 +71,7 @@ export function isQuote (aught) {
  * @return {bool} True if the value can be used as a reference; false otherwise.
  */
 export function isRef (aught) {
-  return !!aught &&
-    typeof aught === 'object' &&
-    typeof aught.desc === 'string' &&
-    typeof aught.length === 'number' &&
-    typeof aught.name === 'string' &&
-    typeof Array.isArray(aught.refs) &&
-    typeof aught.url === 'string'
+  return isNamed(aught)
 }
 /**
  * Can the provided value be used as a work?
