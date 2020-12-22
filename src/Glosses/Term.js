@@ -140,8 +140,8 @@ $Term.prototype.withGloss = function (...glosses) {
   if (!!glosses && typeof glosses.forEach === 'function') {
     const props = this.getProps()
     glosses.forEach(gloss => {
-      props.memos = props.memos.add(...gloss.getMemos())
-      props.defs = props.defs.add(...gloss.getDefs())
+      props.memos = props.memos.add(...gloss.memos)
+      props.defs = props.defs.add(...gloss.defs)
     })
     return new $Term(props)
   }
