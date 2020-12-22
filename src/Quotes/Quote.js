@@ -63,7 +63,7 @@ $Quote.prototype.from = function (...refs) {
     return this
   }
 
-  const param = [...this.refs]
+  const param = []
   refs.forEach((ref, i) => {
     if (!isRef(ref)) {
       throw new Error('' +
@@ -72,6 +72,11 @@ $Quote.prototype.from = function (...refs) {
     }
     param.push(ref)
   })
+
+  this.refs.forEach(ref => {
+    param.push(ref)
+  })
+
   return new this.constructor({
     name: this.name,
     cite: this.cite,

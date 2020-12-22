@@ -82,14 +82,14 @@ describe('$Quote', () => {
     expect(newQuote === oldQuote).toBe(false)
     expect(newQuote.ref(0) === ref).toBe(true)
   })
-  test('  - creates a new instance appending 1 ref to 1 ref.', function () {
-    const ref1 = new MockRef('Nick Cave')
-    const ref2 = new MockRef('Johnny Cash')
+  test('  - creates a new instance prepending 1 ref to 1 ref.', function () {
+    const ref1 = new MockRef('Johnny Cash')
+    const ref2 = new MockRef('Nick Cave')
     const oldQuote = new $Quote({ name: 'and the mercy seat is waiting', ref: ref1 })
     const newQuote = oldQuote.from(ref2)
     expect(newQuote === oldQuote).toBe(false)
-    expect(newQuote.ref(0) === oldQuote.ref(0)).toBe(true)
-    expect(newQuote.ref(1) === ref2).toBe(true)
+    expect(newQuote.ref(0) === ref2).toBe(true)
+    expect(newQuote.ref(1) === oldQuote.ref(0)).toBe(true)
   })
   test('prototype.map() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).map).toBe('function')
