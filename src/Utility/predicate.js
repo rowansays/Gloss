@@ -91,3 +91,5 @@ export function isWork (aught) {
     typeof aught.getTitle === 'function' &&
     typeof aught.getUrl === 'function'
 }
+
+export { isIterable } from '@rowansays/helpers'
