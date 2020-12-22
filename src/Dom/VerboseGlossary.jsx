@@ -101,9 +101,9 @@ function DataCell (props) {
   const { quote } = props
   const reduced = quote.reduce()
 
-  const refs = reduced.map(ref => (
-    <i key={ref.name}>{ref.name}</i>
-  ))
+  const refs = reduced
+    .map(ref => (<i key={ref.name}>{ref.name}</i>))
+    .reduce((a, b) => [a, ', ', b])
 
   return (
     <span>{reduced.name} - {refs}</span>
