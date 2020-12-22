@@ -1,7 +1,7 @@
 export function MockRef (name, year) {
   this.desc = ''
   this.length = 1
-  this.name = name
+  this.name = name || 'unknown'
   this.refs = []
   this.url = ''
   this.datePublished = year
