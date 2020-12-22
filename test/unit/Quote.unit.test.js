@@ -6,8 +6,6 @@ import { MockRef } from '../mocks/MockRef.js'
 // Quote: Integration
 import { isQuote } from '../../src/Utility/predicate.js'
 
-
-
 describe('$Quote', () => {
   it('is a function', () => {
     expect(typeof $Quote).toBe('function')
@@ -77,18 +75,21 @@ describe('$Quote', () => {
     expect(() => { a.from('') }).toThrow()
     expect(() => { a.from({}) }).toThrow()
   })
-  test('  - creates a new instance with 1 reference.', function () {
-    const a = new $Quote({ name: '123', cite: '456', ref: aliceBook })
-    const b = a.from(devilsBook)
-    expect(b === a).toBe(false)
-    expect(b).toMatchObject({
-      name: a.name,
-      cite: a.cite,
-      refs: {
-        items: [devilsBook],
-        length: 1
-      }
-    })
+  test('  - creates a new instance adding 1 reference.', function () {
+    const ref = new MockRef('Austin Osman Spare')
+    const oldQuote = new $Quote({ name: '123', cite: '456' })
+    const newQuote = oldQuote.from(ref)
+    expect(newQuote === oldQuote).toBe(false)
+    expect(newQuote.ref(0) === ref).toBe(true)
+  })
+  test('  - creates a new instance appending 1 ref to 1 ref.', function () {
+    const ref1 = new MockRef('Nick Cave')
+    const ref2 = new MockRef('Johnny Cash')
+    const oldQuote = new $Quote({ name: 'and the mercy seat is waiting', ref: ref1 })
+    const newQuote = oldQuote.from(ref2)
+    expect(newQuote === oldQuote).toBe(false)
+    expect(newQuote.ref(0) === oldQuote.ref(0)).toBe(true)
+    expect(newQuote.ref(1) === ref2).toBe(true)
   })
   test('prototype.map() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).map).toBe('function')

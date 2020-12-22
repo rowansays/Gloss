@@ -62,14 +62,21 @@ $Quote.prototype.from = function (...refs) {
   if (refs.length === 0) {
     return this
   }
+
+  const param = [...this.refs]
   refs.forEach((ref, i) => {
     if (!isRef(ref)) {
       throw new Error('' +
-        `$Quote.from() Invalid reference passed as parameter ${i}.`
+        `$Quote.from() Invalid reference passed as parameter ${i + 1}.`
       )
     }
+    param.push(ref)
   })
-  return new this.constructor({ name: this.name, cite: this.cite, refs: refs })
+  return new this.constructor({
+    name: this.name,
+    cite: this.cite,
+    refs: param
+  })
 }
 $Quote.prototype.map = function (func) {
   if (typeof func !== 'function') {
