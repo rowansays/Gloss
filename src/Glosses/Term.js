@@ -16,13 +16,15 @@
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { $DefList } from '../Defs/DefList.js'
 import { $QuoteList } from '../Lists/QuoteList.js'
+import { $RefList } from '../Refs/RefList.js'
 import { freeze } from '../Utility/freeze.js'
 
 function $Term (props) {
   AbstractNamed.call(this, props)
-  const { defs, memos } = props
+  const { defs, memos, refs } = props
   this.memos = new $QuoteList(memos)
   this.defs = new $DefList(defs)
+  this.refs = new $RefList(refs)
   this.length = this.defs.length
   Object.freeze(this)
 }
@@ -65,8 +67,8 @@ $Term.prototype.getMemos = function () {
  *   parameter to create a new instance.
  */
 $Term.prototype.getProps = function () {
-  const { name, memos, defs } = this
-  return { name, memos, defs }
+  const { name, memos, defs, refs } = this
+  return { name, memos, defs, refs }
 }
 /**
  * @return {bool}
