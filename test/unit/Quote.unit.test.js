@@ -1,6 +1,7 @@
 // Quote Unit
 import { $Quote } from '../../src/Quotes/Quote.js'
 import { aliceBook, devilsBook } from '../data/refs.js'
+import { MockRef } from '../mocks/MockRef.js'
 
 // Quote: Integration
 import { isQuote } from '../../src/Utility/predicate.js'
@@ -60,6 +61,39 @@ describe('$Quote', () => {
       }
     })
   })
+  test('prototype.map() is a function.', function () {
+    expect(typeof new $Quote({ name: 'a' }).map).toBe('function')
+  })
+  test('  - throws when parameter one is undefined.', function () {
+    const a = new $Quote({ name: 'abc' })
+    expect(() => { a.map() }).toThrow()
+  })
+  test('  - returns empty array when no refs exist.', function () {
+    const a = new $Quote({ name: 'abc' })
+    const b = a.map(() => {})
+    expect(Array.isArray(b)).toBe(true)
+    expect(b.length).toBe(0)
+  })
+  test('  - applies callback once to each ref when 1 ref exists.', function () {
+    const ref = new MockRef()
+    const quote = new $Quote({ name: 'abc', ref: ref })
+    const array = quote.map(ref => ref.name)
+    expect(Array.isArray(array)).toBe(true)
+    expect(array.length).toBe(1)
+    expect(array[0]).toBe(ref.name)
+  })
+  test('  - applies callback once to each ref when 1 ref exists.', function () {
+    const ref1 = new MockRef('Jon')
+    const ref2 = new MockRef('Arya')
+    const ref3 = new MockRef('Bran')
+    const quote = new $Quote({ name: 'abc', refs: [ref1, ref2, ref3] })
+    const array = quote.map(ref => ref.name)
+    expect(Array.isArray(array)).toBe(true)
+    expect(array.length).toBe(3)
+    expect(array[0]).toBe(ref1.name)
+    expect(array[1]).toBe(ref2.name)
+    expect(array[2]).toBe(ref3.name)
+  })
   test('prototype.reduce() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).reduce).toBe('function')
   })
@@ -80,7 +114,6 @@ describe('$Quote', () => {
     const b = a.reduce()
     expect(b.ref(0)).toBe(a.ref(0))
   })
-
   test('prototype.withRef() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).withRef).toBe('function')
   })

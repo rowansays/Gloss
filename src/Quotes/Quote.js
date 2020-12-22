@@ -1,5 +1,5 @@
 import { castString } from '../Utility/cast.js'
-import { isIterable, isQuote, isRef } from '../Utility/predicate.js'
+import { isIterable, isRef } from '../Utility/predicate.js'
 import { RefList } from '../Refs/RefList.js'
 import { validateStringProp } from '../Utility/validate.js'
 
@@ -58,6 +58,16 @@ $Quote.prototype = Object.create(null)
 
 Object.defineProperty($Quote.prototype, 'constructor', { value: $Quote })
 
+$Quote.prototype.map = function (func) {
+  if (typeof func !== 'function') {
+    throw new TypeError('$Quote.map() Parameter 1 must be a function.')
+  }
+  const output = []
+  for (const ref of this.refs) {
+    output.push(func(ref))
+  }
+  return output
+}
 $Quote.prototype.reduce = function () {
   if (this.from === '') {
     return this
