@@ -13,7 +13,7 @@ AbstractObjectList.prototype.add = function (...items) {
 }
 AbstractObjectList.prototype.column = function (accessor, sortFunc) {
   const column = []
-  this.forEach(item => {
+  for (const item of this) {
     if (typeof item[accessor] === 'function') {
       column.push(item[accessor]())
     } else if (typeof item[accessor] !== 'undefined') {
@@ -21,7 +21,7 @@ AbstractObjectList.prototype.column = function (accessor, sortFunc) {
     } else {
       throw new TypeError('Invalid accessor.')
     }
-  })
+  }
   if (typeof sortFunc === 'function') {
     column.sort(sortFunc)
   }
