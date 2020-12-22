@@ -92,7 +92,7 @@ describe('$Term', () => {
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
   })
-  it('has prototype.as() function.', () => {
+  it('has prototype function: as().', () => {
     expect(typeof new $Term({ name: 'a' }).as).toBe('function')
   })
   it('  - returns an instance of $Term.', () => {
