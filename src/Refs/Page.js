@@ -39,13 +39,15 @@ function $Page (...pageNumbers) {
       throw new TypeError('$Page() - No valid page numbers could be recognized.')
     case 1 :
       value = `p. ${clean[0]}`
+      break
     default :
       value = `pp. ${clean.join(', ')}`
+      break
   }
 
   Object.defineProperties(this, {
     name: { enumerable: true, value: value },
-    numbers: { enumerable: true, value: clean },
+    numbers: { enumerable: true, value: clean }
   })
 
   Object.freeze(this)
