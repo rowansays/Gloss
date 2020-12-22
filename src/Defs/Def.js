@@ -5,6 +5,9 @@ import { $RefList } from '../Refs/RefList.js'
 
 /**
  * A definition is a named list of normalized quotes.
+ *
+ * @param {...Quote|...Def} items Zero or more objects that represent
+ *   definitions or quotes.
  */
 function $Def (...items) {
   let name
@@ -83,7 +86,7 @@ $Def.prototype.withRef = function (ref) {
   }
   const quotes = []
   this.quotes.forEach(quote => {
-    quotes.push(quote.withRef(ref))
+    quotes.push(quote.from(ref))
   })
   return new $Def(...quotes)
 }

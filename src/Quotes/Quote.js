@@ -26,7 +26,7 @@ import { validateStringProp } from '../Utility/validate.js'
  * @return {$Quote}
  */
 function $Quote (props) {
-  const { name, from } = props
+  const { name, cite } = props
   if (props.length < 1) {
     throw new Error('$Quote() - No props were passed to the constructor.')
   }
@@ -47,7 +47,7 @@ function $Quote (props) {
 
   Object.defineProperties(this, {
     name: { enumerable: true, value: cleanName },
-    from: { enumerable: true, value: castString(from) },
+    cite: { enumerable: true, value: castString(cite) },
     refs: { enumerable: true, value: RefList(...param) }
   })
 
@@ -58,6 +58,19 @@ $Quote.prototype = Object.create(null)
 
 Object.defineProperty($Quote.prototype, 'constructor', { value: $Quote })
 
+$Quote.prototype.from = function (...refs) {
+  if (refs.length === 0) {
+    return this
+  }
+  refs.forEach((ref, i) => {
+    if (!isRef(ref)) {
+      throw new Error('' +
+        `$Quote.from() Invalid reference passed as parameter ${i}.`
+      )
+    }
+  })
+  return new this.constructor({ name: this.name, cite: this.cite, refs: refs })
+}
 $Quote.prototype.map = function (func) {
   if (typeof func !== 'function') {
     throw new TypeError('$Quote.map() Parameter 1 must be a function.')
@@ -69,21 +82,13 @@ $Quote.prototype.map = function (func) {
   return output
 }
 $Quote.prototype.reduce = function () {
-  if (this.from === '') {
+  if (this.cite === '') {
     return this
   }
-  return new $Quote({ name: this.from, refs: this.refs })
+  return new $Quote({ name: this.cite, refs: this.refs })
 }
 $Quote.prototype.ref = function (index) {
   return this.refs.get(index)
-}
-$Quote.prototype.withRef = function (ref) {
-  if (!isRef(ref)) {
-    throw new Error('' +
-      '$Quote.withRef() Invalid reference passed as parameter 1.'
-    )
-  }
-  return new $Quote({ name: this.name, from: this.from, ref: ref })
 }
 
 Object.freeze($Quote.prototype)
@@ -149,16 +154,16 @@ function Phrase (verbatim, ref) {
  * merged together by other processes - namely those in `QuoteList()`.
  *
  * @param {string} normal Required. The normalized form of the quote.
- * @param {string} verbatim Required. The quote as it appears in the reference.
+ * @param {string} cite Required. The quote as it appears in the reference.
  * @param {string} [ref] The key of the reference in which this quote was taken.
  *
  * @return {$Quote} A compound quote.
  * @thorws {TypeError} When name coerces to an empty string
  */
-function Normal (normal, verbatim, ref) {
+function Normal (normal, cite, ref) {
   return new $Quote({
     name: validateStringProp('Normal', 'normal', normal),
-    from: validateStringProp('Normal', 'verbatim', verbatim),
+    cite: validateStringProp('Normal', 'verbatim', cite),
     ref: ref
   })
 }

@@ -20,7 +20,7 @@ describe('Normal() Unit Tests', () => {
     const n = Normal('normal', 'actual', aliceBook)
     expect(n).toMatchObject({
       name: 'normal',
-      from: 'actual',
+      cite: 'actual',
       refs: {
         items: [aliceBook],
         length: 1

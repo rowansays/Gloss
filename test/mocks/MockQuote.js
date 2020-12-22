@@ -1,10 +1,10 @@
 import { isRef } from '../../src/Utility/predicate.js'
 import { MockRef } from './MockRef.js'
 
-export function MockQuote (name, from, ref) {
+export function MockQuote (name, cite, ref) {
   ref = isRef(ref) ? ref : new MockRef('default')
   this.name = typeof name === 'string' ? name : 'default'
-  this.from = typeof from === 'string' ? from : ''
+  this.cite = typeof cite === 'string' ? cite : ''
   this.refs = {
     items: [ref],
     length: 1,
@@ -24,5 +24,5 @@ export function MockQuote (name, from, ref) {
   }
 }
 
+MockQuote.prototype.from = function () { return this }
 MockQuote.prototype.reduce = function () { return this }
-MockQuote.prototype.withRef = function () { return this }

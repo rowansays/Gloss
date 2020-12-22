@@ -16,7 +16,7 @@ describe('Phrase()', () => {
     const n = Phrase('verbatim', aliceBook)
     expect(n).toMatchObject({
       name: 'verbatim',
-      from: '',
+      cite: '',
       refs: {
         items: [aliceBook],
         length: 1

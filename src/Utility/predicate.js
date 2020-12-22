@@ -60,10 +60,9 @@ export function isNamed (aught) {
  * @return {bool} True if the object can be used as a quote; false otherwise.
  */
 export function isQuote (aught) {
-  return !!aught &&
-    typeof aught === 'object' &&
-    typeof aught.name === 'string' &&
-    typeof aught.from === 'string' &&
+  return isNamed(aught) &&
+    typeof aught.cite === 'string' &&
+    typeof aught.from === 'function' &&
     isIterable(aught.refs)
 }
 /**

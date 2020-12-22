@@ -13,7 +13,7 @@ describe('$Quote', () => {
     expect(typeof $Quote).toBe('function')
   })
   it('is idempotent', () => {
-    const a = new $Quote({ name: 'a', from: 'b', ref: aliceBook })
+    const a = new $Quote({ name: 'a', cite: 'b', ref: aliceBook })
     const b = new $Quote(a)
     expect(a).toStrictEqual(b)
     expect(a === b).toBe(false)
@@ -38,15 +38,15 @@ describe('$Quote', () => {
     const a = new $Quote({ name: 'abc'})
     expect(a).toMatchObject({
       name: 'abc',
-      from: '',
+      cite: '',
       refs: { items: [], length: 0 }
     })
   })
-  test('accepts non-empty string for optional prop "from"', function () {
-    const a = new $Quote({ name: 'abc', from: 'def' })
+  test('accepts non-empty string for optional prop "cite"', function () {
+    const a = new $Quote({ name: 'abc', cite: 'def' })
     expect(a).toMatchObject({
       name: 'abc',
-      from: 'def',
+      cite: 'def',
       refs: { items: [], length: 0 }
     })
   })
@@ -54,9 +54,38 @@ describe('$Quote', () => {
     const a = new $Quote({ name: 'abc', ref: aliceBook })
     expect(a).toMatchObject({
       name: 'abc',
-      from: '',
+      cite: '',
       refs: {
         items: [aliceBook],
+        length: 1
+      }
+    })
+  })
+  it('has prototype function: prototype.from().', function () {
+    expect(typeof new $Quote({ name: 'a' }).from).toBe('function')
+  })
+  test('  - returns "this" when no parameters are passed', function () {
+    const a = new $Quote({ name: 'abc', refs: [aliceBook] })
+    const b = a.from()
+    expect(b === a).toBe(true)
+  })
+  test('  - throws when a non-reference is provided.', function () {
+    const a = new $Quote({ name: 'abc', refs: [aliceBook] })
+    expect(() => { a.from(true) }).toThrow()
+    expect(() => { a.from(null) }).toThrow()
+    expect(() => { a.from('') }).toThrow()
+    expect(() => { a.from('') }).toThrow()
+    expect(() => { a.from({}) }).toThrow()
+  })
+  test('  - creates a new instance with 1 reference.', function () {
+    const a = new $Quote({ name: '123', cite: '456', ref: aliceBook })
+    const b = a.from(devilsBook)
+    expect(b === a).toBe(false)
+    expect(b).toMatchObject({
+      name: a.name,
+      cite: a.cite,
+      refs: {
+        items: [devilsBook],
         length: 1
       }
     })
@@ -97,47 +126,22 @@ describe('$Quote', () => {
   test('prototype.reduce() is a function.', function () {
     expect(typeof new $Quote({ name: 'a' }).reduce).toBe('function')
   })
-  test('  - returns this when "from" is empty.', function () {
+  test('  - returns this when "cite" is empty.', function () {
     const a = new $Quote({ name: 'abc', refs: [aliceBook] })
     const b = a.reduce()
     expect(a === b).toBe(true)
   })
-  test('  - returns a new instance that moves "from" to "name".', function () {
-    const a = new $Quote({ name: 'abc', from: 'def', ref: aliceBook })
+  test('  - returns a new instance that moves "cite" to "name".', function () {
+    const a = new $Quote({ name: 'abc', cite: 'def', ref: aliceBook })
     const b = a.reduce()
     expect(b === a).toBe(false)
-    expect(b.name).toBe(a.from)
-    expect(b.from).toBe('')
+    expect(b.name).toBe(a.cite)
+    expect(b.cite).toBe('')
   })
   test('  - preserves the refs property.', function () {
-    const a = new $Quote({ name: 'abc', from: 'def', ref: aliceBook })
+    const a = new $Quote({ name: 'abc', cite: 'def', ref: aliceBook })
     const b = a.reduce()
     expect(b.ref(0)).toBe(a.ref(0))
-  })
-  test('prototype.withRef() is a function.', function () {
-    expect(typeof new $Quote({ name: 'a' }).withRef).toBe('function')
-  })
-  test('  - throws when parameter 1 is not a reference.', function () {
-    const a = new $Quote({ name: 'abc', refs: [aliceBook] })
-    expect(() => { a.withRef() }).toThrow()
-    expect(() => { a.withRef(true) }).toThrow()
-    expect(() => { a.withRef(null) }).toThrow()
-    expect(() => { a.withRef('') }).toThrow()
-    expect(() => { a.withRef('') }).toThrow()
-    expect(() => { a.withRef({}) }).toThrow()
-  })
-  test('  - creates a new instance with provided reference.', function () {
-    const a = new $Quote({ name: '123', from: '456', ref: aliceBook })
-    const b = a.withRef(devilsBook)
-    expect(b === a).toBe(false)
-    expect(b).toMatchObject({
-      name: a.name,
-      from: a.from,
-      refs: {
-        items: [devilsBook],
-        length: 1
-      }
-    })
   })
 })
 
