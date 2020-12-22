@@ -3,7 +3,7 @@ import { MockRef } from './MockRef.js'
 
 export function MockQuote (name, from, ref) {
   ref = isRef(ref) ? ref : new MockRef('default')
-  this.name = name
+  this.name = typeof name === 'string' ? name : 'default'
   this.from = typeof from === 'string' ? from : ''
   this.refs = {
     items: [ref],
