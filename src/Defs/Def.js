@@ -1,6 +1,6 @@
 import { castString } from '../Utility/cast.js'
 import { QuoteList } from '../Lists/QuoteList.js'
-import { isDef, isRef, isQuote } from '../Utility/predicate.js'
+import { isDef, isQuote } from '../Utility/predicate.js'
 import { $RefList } from '../Refs/RefList.js'
 
 /**
