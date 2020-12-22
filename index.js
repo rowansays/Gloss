@@ -22,6 +22,7 @@ export { Quote, Normal, Phrase } from './src/Quotes/Quote.js'
 
 // References
 export { Book } from './src/Refs/Book.js'
+export { Page } from './src/Refs/Page.js'
 export { Ref } from './src/Refs/Ref.js'
 export { RefList } from './src/Refs/RefList.js'
 
