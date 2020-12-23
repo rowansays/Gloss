@@ -11,6 +11,10 @@
   },
   "author": "Rowan Weathers (https://rowansays.com/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowansays/Gloss.git"
+  },
   "devDependencies": {
     "@babel/core": "7.12.10",
     "@babel/preset-react": "7.12.10",
