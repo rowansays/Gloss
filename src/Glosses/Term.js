@@ -130,6 +130,9 @@ $Term.prototype.getProps = function () {
 $Term.prototype.hasDef = function () {
   return this.defs.length > 0
 }
+$Term.prototype.ref = function (index) {
+  return this.refs.get(index)
+}
 /**
  * @return {$Term}
  */

@@ -152,6 +152,41 @@ describe('$Term', () => {
     expect(c.ref(1)).toBe(chap)
     expect(c.ref(2)).toBe(page)
   })
+  it('has prototype function: ref()', () => {
+    expect(typeof new $Term({ name: 'a' }).ref).toBe('function')
+  })
+  it('  - returns undefined when no refs exist', () => {
+    const a = new $Term({ name: 'a' })
+    expect(a.ref(0)).toBeUndefined()
+    expect(a.ref(1)).toBeUndefined()
+    expect(a.ref(2)).toBeUndefined()
+  })
+  it('  - returns undefined when requested ref does not exist', () => {
+    const a = new $Term({ name: 'a' }).from()
+    expect(a.ref(0)).toBeUndefined()
+    expect(a.ref(1)).toBeUndefined()
+    expect(a.ref(2)).toBeUndefined()
+  })
+  it('  - returns correct ref by index', () => {
+    const book = new MockRef('Frankenstein')
+    const chap = new MockRef('Chapter 2')
+    const page = new MockRef('Page 14')
+    const a = new $Term({ name: 'a' }).from(book, chap, page)
+    expect(a.ref(0)).toBe(book)
+    expect(a.ref(1)).toBe(chap)
+    expect(a.ref(2)).toBe(page)
+  })
+  it('  - returns correct ref by name', () => {
+    const book = new MockRef('Frankenstein')
+    const chap = new MockRef('Chapter 2')
+    const page = new MockRef('Page 14')
+    const a = new $Term({ name: 'a' }).from(book, chap, page)
+    expect(a.ref('Frankenstein')).toBe(book)
+    expect(a.ref('Chapter 2')).toBe(chap)
+    expect(a.ref('Page 14')).toBe(page)
+  })
+
+
 })
 
 
