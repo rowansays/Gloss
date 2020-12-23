@@ -130,14 +130,27 @@ describe('$Term', () => {
     const b = a.from('', 123, true, false, null, {}, [], new Map(), Symbol())
     expect(b === a).toBe(true)
   })
-  it('  - returns clone with a ref appended', () => {
-    const a = new $Term({ name: 'a', refs: new MockRef('Earth') })
-    const b = a.from(new MockRef('Antarctica'))
-    expect(b === a).toBe(false)
+  it('  - returns clone with provided ref appended to the RefList', () => {
+    const book = new MockRef('Frankenstein')
+    const chap = new MockRef('Chapter 2')
+    const page = new MockRef('Page 14')
+    const a = new $Term({ name: 'a', refs: book })
+    const b = a.from(chap)
+    const c = b.from(page)
+    expect(b).not.toBe(a)
+    expect(b).not.toBe(c)
+    expect(c).not.toBe(a)
+
     expect(b.name).toBe(a.name)
     expect(b.refs.length).toBe(2)
-    expect(b.refs.get(0).name).toBe('Earth')
-    expect(b.refs.get(1).name).toBe('Antarctica')
+    expect(b.ref(0)).toBe(book)
+    expect(b.ref(1)).toBe(chap)
+
+    expect(c.name).toBe(a.name)
+    expect(c.refs.length).toBe(3)
+    expect(c.ref(0)).toBe(book)
+    expect(c.ref(1)).toBe(chap)
+    expect(c.ref(2)).toBe(page)
   })
 })
 

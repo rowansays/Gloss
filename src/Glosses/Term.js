@@ -78,7 +78,7 @@ $Term.prototype.def = function (index) {
   return this.defs.get(index)
 }
 /**
- * Clone an instance while prepending one or more references.
+ * Clone an instance while appending one or more references.
  *
  * This method only alters the value of this term's `refs` property. The
  *   individual definitions will not be affected. $Term.prototype.applyRefs()
@@ -101,7 +101,7 @@ $Term.prototype.from = function (...refs) {
     return this
   }
   const props = this.getProps()
-  props.refs = props.refs.add(clean)
+  props.refs = props.refs.add(...clean)
   return new this.constructor(props)
 }
 $Term.prototype.getMemo = function (index) {
