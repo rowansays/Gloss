@@ -134,6 +134,26 @@ $Term.prototype.ref = function (index) {
   return this.refs.get(index)
 }
 /**
+ * Clone an instance while prepending one or more references.
+ *
+ * This method only alters the value of this term's `refs` property. The
+ *   individual definitions will not be affected. $Term.prototype.applyRefs()
+ *   may be used to apply the Term's references to each quote in each
+ *   definition.
+ *
+ * @param {...Ref} One or more reference objects.
+ * @return {$Term}
+ */
+$Term.prototype.root = function (...refs) {
+  const clean = new $RefList(...refs)
+  if (clean.length === 0) {
+    return this
+  }
+  const props = this.getProps()
+  props.refs = clean.add(...props.refs)
+  return new this.constructor(props)
+}
+/**
  * @return {$Term}
  */
 $Term.prototype.sortDefsByName = function () {

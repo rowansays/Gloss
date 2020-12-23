@@ -21,7 +21,7 @@ function $Glossary (props) {
   const refGlosses = []
   if (!!glosses && typeof glosses.forEach === 'function') {
     glosses.forEach(gloss => {
-      refGlosses.push(gloss.from(ref).applyRefs())
+      refGlosses.push(gloss.root(ref).applyRefs())
     })
   }
 
