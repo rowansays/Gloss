@@ -19,7 +19,7 @@ function ConciseGlossary (glossary) {
 
   return (
     <section class='GlossaryConcise'>
-      <h1 class='GlossaryTitle'>{glossary.getTitle()}</h1>
+      <h1 class='GlossaryTitle'>{glossary.name}</h1>
       <dl class='GlossList'>{glosses}</dl>
     </section>
   )

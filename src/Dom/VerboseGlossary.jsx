@@ -24,7 +24,7 @@ function VerboseGlossary (props) {
 
   return (
     <section class='GlossaryVerbose'>
-      <h1 class='GlossaryTitle'>{glossary.getTitle()}</h1>
+      <h1 class='GlossaryTitle'>{glossary.name}</h1>
       <table class='GlossList'>
         <thead>
           <tr>

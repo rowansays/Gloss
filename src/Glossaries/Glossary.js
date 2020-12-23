@@ -9,14 +9,13 @@
  * @param {Gloss} ...glosses  Zero or more glosses.
  */
 
-import { AbstractWork } from '../Abstracts/AbstractWork.js'
+import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { freeze } from '../Utility/freeze.js'
 import { GlossList } from '../Lists/GlossList.js'
 
 function $Glossary (props) {
-  const { id, ref, glosses } = props || {}
-
-  AbstractWork.call(this, id)
+  const { ref, glosses } = props || {}
+  AbstractNamed.call(this, props)
 
   const refGlosses = []
   if (!!glosses && typeof glosses.forEach === 'function') {
@@ -25,13 +24,14 @@ function $Glossary (props) {
     })
   }
 
-  this.name = `${this.title} ${this.subtitle}`
   this.glosses = GlossList(...refGlosses)
   this.length = this.glosses.length
   this.ref = ref
 }
 
-$Glossary.prototype = Object.create(AbstractWork.prototype)
+$Glossary.prototype = Object.create(AbstractNamed.prototype)
+
+Object.defineProperty($Glossary.prototype, 'constructor', { value: $Glossary })
 
 $Glossary.prototype.forEach = function () {
   return this.glosses.forEach(...arguments)
