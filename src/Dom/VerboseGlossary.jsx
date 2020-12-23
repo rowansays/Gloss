@@ -26,13 +26,6 @@ function VerboseGlossary (props) {
     <section class='GlossaryVerbose'>
       <h1 class='GlossaryTitle'>{glossary.name}</h1>
       <table class='GlossList'>
-        <thead>
-          <tr>
-            <th>Definition</th>
-            <th>Date</th>
-            <th>Mention</th>
-          </tr>
-        </thead>
         {glosses}
       </table>
     </section>
@@ -52,7 +45,13 @@ function Gloss (props) {
 
   return (
     <tbody class='Gloss'>
+
       <th class='GlossName' colspan='3'>{gloss.name}</th>
+      <tr class="GlossColumns">
+        <th>Definition</th>
+        <th>Date</th>
+        <th>Mention</th>
+      </tr>
       {defs}
     </tbody>
   )
