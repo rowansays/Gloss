@@ -9,9 +9,3 @@ I've decided to move away from the Greek derived naming conventions that are so 
   1. v0.0-sprout - Initial growth phase. Highly eratic and unstable. Shapes change sporadically and without notice.
   2. v0.0-seedling - The basic shapes of the project are startign to form.
   3. v0.0-sapling - The stage before maturity. At least some sense of stability exists
-
-## Interface
-
-### getName()
-
-Most objects in this package contain a `getName()` method which will always return a `string`. It is important to note that the return value of `getName()` is not always the same as the value of the object's `name` property.
