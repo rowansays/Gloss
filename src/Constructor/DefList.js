@@ -8,7 +8,7 @@
 
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { isDef, isQuote } from '../Utility/predicate.js'
-import { Def } from '../Constructor/Def.js'
+import { $Def } from '../Constructor/Def.js'
 
 /**
  * Definiton List.
@@ -45,7 +45,7 @@ function $DefList (...items) {
 
   const defs = []
   for (const key of map.keys()) {
-    const def = Def(...map.get(key))
+    const def = new $Def(...map.get(key))
     defs.push(def)
   }
 
@@ -109,8 +109,4 @@ export function mergeQuotes (quotes) {
   return Array.from(map.values())
 }
 
-function DefList (...items) {
-  return new $DefList(...items)
-}
-
-export { $DefList, DefList }
+export { $DefList }

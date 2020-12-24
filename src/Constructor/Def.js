@@ -94,8 +94,4 @@ $Def.prototype.refs = function () {
 
 Object.freeze($Def.prototype)
 
-function Def () {
-  return new $Def(...arguments)
-}
-
-export { $Def, Def }
+export { $Def }
