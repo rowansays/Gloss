@@ -14,7 +14,7 @@ import { Glossary } from '../../src/Glossaries/Glossary.js'
 import { $GlossList } from '../../src/Constructor/GlossList.js'
 import { HybridGlossary } from '../../src/Glossaries/HybridGlossary.js'
 import { Normal, Phrase, Quote } from '../../src/Quotes/Quote.js'
-import { QuoteList } from '../../src/Lists/QuoteList.js'
+import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { Ref } from '../../src/Refs/Ref.js'
 import { RefList } from '../../src/Refs/RefList.js'
 import { Term } from '../../src/Glosses/Term.js'
@@ -31,8 +31,8 @@ describe('isList() Integration Tests', () => {
     test('returned by $GlossList().', function () {
       expect(isList(new $GlossList({ name: '123', items: [] }))).toBe(true)
     })
-    test('returned by QuoteList().', function () {
-      expect(isList(QuoteList({ name: '123', items: [] }))).toBe(true)
+    test('returned by $QuoteList().', function () {
+      expect(isList(new $QuoteList({ name: '123', items: [] }))).toBe(true)
     })
     test('returned by RefList().', function () {
       expect(isList(RefList({ name: '123', items: [] }))).toBe(true)
@@ -99,8 +99,8 @@ describe('isNamed() Integration Tests', () => {
     test('Values returned by $GlossList() are not named.', function () {
       expect(isNamed(new $GlossList())).toBe(false)
     })
-    test('Values returned by QuoteList() are not named.', function () {
-      expect(isNamed(QuoteList())).toBe(false)
+    test('Values returned by $QuoteList() are not named.', function () {
+      expect(isNamed(new $QuoteList())).toBe(false)
     })
     test('Values returned by RefList() are not named.', function () {
       expect(isNamed(RefList())).toBe(false)

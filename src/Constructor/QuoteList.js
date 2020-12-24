@@ -15,7 +15,7 @@ function $QuoteList (...quotes) {
   const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
   this.items = parsed
   this.length = parsed.length
-
+  Object.freeze(this)
   /*
   const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
   const merged = mergeQuotes(parsed)
@@ -76,10 +76,6 @@ export function mergeQuotes (quotes) {
 
   return Array.from(map.values())
 }
-function QuoteList (...props) {
-  const obj = new $QuoteList(...props)
-  freeze(obj, $QuoteList)
-  return obj
-}
 
-export { $QuoteList, QuoteList }
+
+export { $QuoteList }

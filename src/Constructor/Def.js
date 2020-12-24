@@ -1,5 +1,5 @@
 import { castString } from '../Utility/cast.js'
-import { QuoteList } from '../Lists/QuoteList.js'
+import { $QuoteList } from '../Constructor/QuoteList.js'
 import { isDef, isQuote } from '../Utility/predicate.js'
 import { $RefList } from '../Refs/RefList.js'
 
@@ -38,7 +38,7 @@ function $Def (...items) {
   Object.defineProperties(this, {
     name: { enumerable: true, value: castString(name) },
     length: { enumerable: true, value: quotes.length },
-    quotes: { enumerable: true, value: QuoteList(quotes) }
+    quotes: { enumerable: true, value: new $QuoteList(quotes) }
   })
 
   Object.freeze(this)

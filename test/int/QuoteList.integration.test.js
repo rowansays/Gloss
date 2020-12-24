@@ -1,19 +1,19 @@
 import { Normal, Phrase } from '../../src/Quotes/Quote.js'
-import { QuoteList } from '../../src/Lists/QuoteList.js'
+import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { aliceBook, devilsBook, frankenBook, prideBook } from '../data/refs.js'
 
 describe('QuoteList()', function () {
   describe('Parameters', function () {
     describe('single: {Phrase}', () => {
       test('accepts a Quote.', () => {
-        const ql = QuoteList(Phrase('a', aliceBook))
+        const ql = new $QuoteList(Phrase('a', aliceBook))
         expect(ql.length).toBe(1)
         expect(ql.get(0).name).toBe('a')
       })
     })
     describe('Phrase())', () => {
       test('accepts unique phrases.', () => {
-        const q = QuoteList(
+        const q = new $QuoteList(
           Phrase('f', aliceBook),
           Phrase('z', devilsBook),
           Phrase('t', frankenBook)
@@ -21,7 +21,7 @@ describe('QuoteList()', function () {
         expect(q.length).toBe(3)
       })
       test('stores phrases in the order they were provided.', () => {
-        const ql = QuoteList(
+        const ql = new $QuoteList(
           Phrase('f', aliceBook),
           Phrase('z', devilsBook),
           Phrase('t', frankenBook)
@@ -30,7 +30,7 @@ describe('QuoteList()', function () {
         expect(ql.get(1).name).toBe('z')
         expect(ql.get(2).name).toBe('t')
       })
-      const quantumRobin = QuoteList(
+      const quantumRobin = new $QuoteList(
         Phrase('Quantum robin', aliceBook),
         Phrase('Quantum robin', devilsBook),
         Phrase('Quantum robin', frankenBook)
@@ -41,7 +41,7 @@ describe('QuoteList()', function () {
     })
     describe('Normal()', () => {
       test('accepts unique normalized phrases.', () => {
-        const q = QuoteList(
+        const q = new $QuoteList(
           Normal('x', 'xx', aliceBook),
           Normal('y', 'yy', aliceBook),
           Normal('z', 'zz', aliceBook)
