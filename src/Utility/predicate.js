@@ -93,3 +93,4 @@ export function isWork (aught) {
 }
 
 export { isIterable } from '@rowansays/helpers'
+export { isIterableObject } from '@rowansays/helpers'

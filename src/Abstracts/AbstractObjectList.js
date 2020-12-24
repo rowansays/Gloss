@@ -1,5 +1,5 @@
 import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
-import { isIterableObject } from '@rowansays/helpers'
+import { isIterableObject } from '../Utility/predicate.js'
 
 function AbstractObjectList () {}
 
