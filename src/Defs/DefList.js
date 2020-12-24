@@ -8,7 +8,7 @@
 
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { isDef, isQuote } from '../Utility/predicate.js'
-import { Def } from '../Defs/Def.js'
+import { Def } from '../Constructor/Def.js'
 
 /**
  * Definiton List.

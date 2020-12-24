@@ -1,4 +1,4 @@
-import { $Def } from '../../src/Defs/Def.js'
+import { $Def } from '../../src/Constructor/Def.js'
 import { $Quote } from '../../src/Quotes/Quote.js'
 import { $Ref } from '../../src/Refs/Ref.js'
 
