@@ -15,7 +15,7 @@ export { HybridGlossary } from './src/Glossaries/HybridGlossary.js'
 export { Term } from './src/Glosses/Term.js'
 
 // Lists
-export { GlossList } from './src/Lists/GlossList.js'
+export { GlossList } from './src/Utility/factory.js'
 export { QuoteList } from './src/Lists/QuoteList.js'
 
 // Quotes

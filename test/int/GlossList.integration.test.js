@@ -1,4 +1,4 @@
-import { GlossList } from '../../src/Lists/GlossList.js'
+import { $GlossList } from '../../src/Constructor/GlossList.js'
 
 import { Phrase } from '../../src/Quotes/Quote.js'
 import { Term } from '../../src/Glosses/Term.js'
@@ -19,7 +19,7 @@ const i = () => { return Term('I', '', Phrase('the ninth letter', wikipedia)) }
 
 describe('GlossList: Integration Tests', function () {
   test('merges terms with the same names (case sensitive).', () => {
-    const gl = GlossList(
+    const gl = new $GlossList(
       Term(3, '', Phrase('natural number', wikipedia)),
       Term(3, '', Phrase('odd number', wikipedia)),
       Term(3, '', Phrase('magic number', schoolHouseRock)),
@@ -27,7 +27,7 @@ describe('GlossList: Integration Tests', function () {
     expect(gl.length).toBe(1)
   })
   test('accepts an array of unique phrases.', () => {
-    const gl = GlossList(a(), b(), c())
+    const gl = new $GlossList(a(), b(), c())
     expect(gl.length).toBe(3)
     expect(gl.has('A')).toBe(true)
     expect(gl.has('B')).toBe(true)
@@ -35,10 +35,10 @@ describe('GlossList: Integration Tests', function () {
   })
 
   test('accepts an array of GlossLists containing Phrases.', () => {
-    const ql = GlossList(
-      GlossList(a(), b(), c()),
-      GlossList(d(), e(), f()),
-      GlossList(g(), h(), i())
+    const ql = new $GlossList(
+      new $GlossList(a(), b(), c()),
+      new $GlossList(d(), e(), f()),
+      new $GlossList(g(), h(), i())
     )
     expect(ql.length).toBe(9)
     expect(ql.has('A')).toBe(true)
@@ -52,10 +52,10 @@ describe('GlossList: Integration Tests', function () {
     expect(ql.has('I')).toBe(true)
   })
   test('merges an array of GlossLists.', () => {
-    const ql = GlossList(
-      GlossList(a(), b(), c()),
-      GlossList(a(), b(), c()),
-      GlossList(a(), b(), c()),
+    const ql = new $GlossList(
+      new $GlossList(a(), b(), c()),
+      new $GlossList(a(), b(), c()),
+      new $GlossList(a(), b(), c()),
     )
     expect(ql.length).toBe(3)
     expect(ql.has('A')).toBe(true)
@@ -63,40 +63,40 @@ describe('GlossList: Integration Tests', function () {
     expect(ql.has('C')).toBe(true)
   })
 
-  describe('GlossList(): Instance Methods', function () {
+  describe('new $GlossList(): Instance Methods', function () {
     describe('has()', function () {
       test('returns false when list is empty.', () => {
-        expect(GlossList().has('a')).toBe(false)
+        expect(new $GlossList().has('a')).toBe(false)
       })
       test('returns false when a given gloss does not exist.', () => {
-        expect(GlossList(a(), b(), c()).has('D')).toBe(false)
+        expect(new $GlossList(a(), b(), c()).has('D')).toBe(false)
       })
       test('returns true when a given gloss does exist.', () => {
-        expect(GlossList(a()).has('A')).toBe(true)
+        expect(new $GlossList(a()).has('A')).toBe(true)
       })
     })
     describe('Inherited from AbstractObjectList()', function () {
       describe('entries()', function () {
         test('returns empty array when no referenes exist.', () => {
-          expect(Array.isArray(GlossList().entries())).toBe(true)
-          expect(GlossList().entries().length).toBe(0)
+          expect(Array.isArray(new $GlossList().entries())).toBe(true)
+          expect(new $GlossList().entries().length).toBe(0)
         })
       })
       describe('length', function () {
         test('returns an integer with a value of zero when no referenes exist.', () => {
-          expect(Number.isInteger(GlossList().length)).toBe(true)
-          expect(GlossList().length).toBe(0)
+          expect(Number.isInteger(new $GlossList().length)).toBe(true)
+          expect(new $GlossList().length).toBe(0)
         })
       })
       describe('sortAscBy()', function () {
         test('returns an empty GlossList instance when no referenes exist.', () => {
-          const list = GlossList()
+          const list = new $GlossList()
           const sorted = list.sortAscBy()
           expect(sorted.constructor.name).toBe('$GlossList')
-          expect(GlossList().length).toBe(0)
+          expect(new $GlossList().length).toBe(0)
         })
         test('sorts by name.', () => {
-          const list = GlossList(
+          const list = new $GlossList(
             Term('Bobcat'),
             Term('Calico'),
             Term('Aegean')
@@ -110,13 +110,13 @@ describe('GlossList: Integration Tests', function () {
       })
       describe('sortDescBy()', function () {
         test('returns an empty GlossList instance when no entries exist.', () => {
-          const list = GlossList()
+          const list = new $GlossList()
           const sorted = list.sortDescBy()
           expect(sorted.constructor.name).toBe('$GlossList')
-          expect(GlossList().length).toBe(0)
+          expect(new $GlossList().length).toBe(0)
         })
         test('sorts by name.', () => {
-          const list = GlossList(
+          const list = new $GlossList(
             Term('Bobcat'),
             Term('Aegean'),
             Term('Calico')

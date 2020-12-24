@@ -43,6 +43,7 @@ function $GlossList (...glosses) {
   const merged = mergeGlosses(parsed)
   this.items = merged
   this.length = merged.length
+  Object.freeze(this)
 }
 
 $GlossList.prototype = Object.create(AbstractObjectList.prototype)
@@ -51,10 +52,4 @@ Object.defineProperty($GlossList.prototype, 'constructor', {
   value: $GlossList
 })
 
-function GlossList (...glosses) {
-  const list = new $GlossList(...glosses)
-  freeze(list, $GlossList)
-  return list
-}
-
-export { GlossList }
+export { $GlossList }

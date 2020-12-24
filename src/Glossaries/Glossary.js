@@ -11,7 +11,7 @@
 
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { freeze } from '../Utility/freeze.js'
-import { GlossList } from '../Lists/GlossList.js'
+import { $GlossList } from '../Constructor/GlossList.js'
 
 function $Glossary (props) {
   const { ref, glosses } = props || {}
@@ -24,7 +24,7 @@ function $Glossary (props) {
     })
   }
 
-  this.glosses = GlossList(...refGlosses)
+  this.glosses = new $GlossList(...refGlosses)
   this.length = this.glosses.length
   this.ref = ref
 }

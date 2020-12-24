@@ -10,7 +10,7 @@
 
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { freeze } from '../Utility/freeze.js'
-import { GlossList } from '../Lists/GlossList.js'
+import { $GlossList } from '../Constructor/GlossList.js'
 
 function $HybridGlossary (props) {
   AbstractNamed.call(this, props)
@@ -31,7 +31,7 @@ function $HybridGlossary (props) {
     })
   })
 
-  this.glosses = GlossList(...glosses)
+  this.glosses = new $GlossList(...glosses)
   this.length = this.glosses.length
 }
 
