@@ -1,7 +1,9 @@
 import { $Book } from '../Constructor/Book.js'
 import { $Def } from '../Constructor/Def.js'
 import { $DefList } from '../Constructor/Deflist.js'
+import { $Glossary } from '../Constructor/Glossary.js'
 import { $GlossList } from '../Constructor/GlossList.js'
+import { $HybridGlossary } from '../Constructor/HybridGlossary.js'
 import { $Page } from '../Constructor/Page.js'
 import { $Quote } from '../Constructor/Quote.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
@@ -20,8 +22,16 @@ export function DefList () {
   return new $DefList(...arguments)
 }
 
+export function Glossary () {
+  return new $Glossary(...arguments)
+}
+
 export function GlossList () {
   return new $GlossList(...arguments)
+}
+
+export function HybridGlossary () {
+  return new $HybridGlossary(...arguments)
 }
 
 /**

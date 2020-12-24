@@ -33,6 +33,8 @@ function $HybridGlossary (props) {
 
   this.glosses = new $GlossList(...glosses)
   this.length = this.glosses.length
+
+  Object.freeze(this)
 }
 
 $HybridGlossary.prototype = Object.create(AbstractNamed.prototype)
@@ -49,10 +51,6 @@ $HybridGlossary.prototype.getRef = function (index) {
   return this.references[index] ? this.references[index] : ''
 }
 
-function HybridGlossary () {
-  const obj = new $HybridGlossary(...arguments)
-  freeze(obj, $HybridGlossary)
-  return obj
-}
+Object.freeze($HybridGlossary.prototype)
 
-export { HybridGlossary }
+export { $HybridGlossary }

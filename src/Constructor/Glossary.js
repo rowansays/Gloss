@@ -27,6 +27,8 @@ function $Glossary (props) {
   this.glosses = new $GlossList(...refGlosses)
   this.length = this.glosses.length
   this.ref = ref
+
+  Object.freeze(this)
 }
 
 $Glossary.prototype = Object.create(AbstractNamed.prototype)
@@ -43,10 +45,6 @@ $Glossary.prototype.getRef = function () {
   return this.ref
 }
 
-function Glossary (props) {
-  const obj = new $Glossary(...arguments)
-  freeze(obj, $Glossary)
-  return obj
-}
+Object.freeze($Glossary.prototype)
 
-export { Glossary }
+export { $Glossary }

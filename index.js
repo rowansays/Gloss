@@ -7,17 +7,15 @@ export { renderGlossary } from './src/Components/Glossary.jsx'
 export { renderConciseGlossary } from './src/Components/ConciseGlossary.jsx'
 export { renderVerboseGlossary } from './src/Components/VerboseGlossary.jsx'
 
-// Glossaries
-export { Glossary } from './src/Glossaries/Glossary.js'
-export { HybridGlossary } from './src/Glossaries/HybridGlossary.js'
-
 // Glosses
 export { Term } from './src/Glosses/Term.js'
 
 // Factory Functions
 export {
   Book,
+  Glossary,
   GlossList,
+  HybridGlossary,
   Normal,
   Page,
   Phrase,

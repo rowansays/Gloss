@@ -1,7 +1,7 @@
 import { render } from 'preact'
 import { ConciseGlossary } from './ConciseGlossary.jsx'
 import { VerboseGlossary } from './VerboseGlossary.jsx'
-import { HybridGlossary } from '../Glossaries/HybridGlossary.js'
+import { HybridGlossary } from '../Utility/factory.js'
 
 /**
  * Render glossary.

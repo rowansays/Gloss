@@ -10,9 +10,11 @@ import {
 // Import factory functions
 import { $Book } from '../../src/Constructor/Book.js'
 import { Card } from '../../src/Card.js'
-import { Glossary } from '../../src/Glossaries/Glossary.js'
+import {
+  Glossary,
+  HybridGlossary
+} from '../../src/Utility/factory.js'
 import { $GlossList } from '../../src/Constructor/GlossList.js'
-import { HybridGlossary } from '../../src/Glossaries/HybridGlossary.js'
 import { Normal, Phrase, Quote } from '../../src/Utility/Factory.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { $Ref } from '../../src/Constructor/Ref.js'
