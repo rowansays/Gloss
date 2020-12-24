@@ -17,7 +17,6 @@ import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { $DefList } from '../Constructor/DefList.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
 import { $RefList } from '../Constructor/RefList.js'
-import { freeze } from '../Utility/freeze.js'
 
 function $Gloss (props) {
   AbstractNamed.call(this, props)

@@ -9,7 +9,6 @@
  */
 
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
-import { freeze } from '../Utility/freeze.js'
 import { $GlossList } from '../Constructor/GlossList.js'
 
 function $HybridGlossary (props) {
