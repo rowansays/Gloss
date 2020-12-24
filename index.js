@@ -3,7 +3,7 @@ export { AbstractObjectList } from './src/Abstracts/AbstractObjectList.js'
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'
 
 // Components
-export { renderConciseGlossary, ConciseGlossary } from './src/Dom/renderGlossaryConcise.js'
+export { renderConciseGlossary, ConciseGlossary } from './src/Dom/ConciseGlossary.jsx'
 export { renderVerboseGlossary, VerboseGlossary } from './src/Dom/VerboseGlossary.jsx'
 
 // Glossaries
