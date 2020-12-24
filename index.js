@@ -4,8 +4,8 @@ export { AbstractWork } from './src/Abstracts/AbstractWork.js'
 
 // Components
 export { renderGlossary } from './src/Components/Glossary.jsx'
-export { renderConciseGlossary, ConciseGlossary } from './src/Components/ConciseGlossary.jsx'
-export { renderVerboseGlossary, VerboseGlossary } from './src/Components/VerboseGlossary.jsx'
+export { renderConciseGlossary } from './src/Components/ConciseGlossary.jsx'
+export { renderVerboseGlossary } from './src/Components/VerboseGlossary.jsx'
 
 // Glossaries
 export { Glossary } from './src/Glossaries/Glossary.js'
