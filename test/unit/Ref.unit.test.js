@@ -1,4 +1,4 @@
-import { $Ref, Ref } from '../../src/Refs/Ref.js'
+import { $Ref } from '../../src/Constructor/Ref.js'
 
 describe('$Ref', () => {
   it('is a function', () => {

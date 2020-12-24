@@ -22,8 +22,4 @@ Object.defineProperty($Book.prototype, 'constructor', {
   value: $Book
 })
 
-function Book (...refs) {
-  return new $Book(...refs)
-}
-
-export { $Book, Book }
+export { $Book }

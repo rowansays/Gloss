@@ -1,4 +1,4 @@
-import { Book } from '../../src/Refs/Book.js'
+import { $Book } from '../../src/Constructor/Book.js'
 import {
   aliceObject,
   devilsObject,
@@ -6,7 +6,7 @@ import {
   prideObject
 } from './ids.js'
 
-export const nobodysWork = Book({
+export const nobodysWork = new $Book({
   title: 'Nobody\'s Work',
   subtitle: 'Nothing to see here.',
   author: 'Nobody',
@@ -15,7 +15,7 @@ export const nobodysWork = Book({
   url: 'https://example.com'
 })
 
-export const aliceBook = Book(aliceObject)
-export const devilsBook = Book(devilsObject)
-export const frankenBook = Book(frankenObject)
-export const prideBook = Book(prideObject)
+export const aliceBook = new $Book(aliceObject)
+export const devilsBook = new $Book(devilsObject)
+export const frankenBook = new $Book(frankenObject)
+export const prideBook = new $Book(prideObject)

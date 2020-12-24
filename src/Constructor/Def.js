@@ -1,7 +1,7 @@
 import { castString } from '../Utility/cast.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
 import { isDef, isQuote } from '../Utility/predicate.js'
-import { $RefList } from '../Refs/RefList.js'
+import { $RefList } from '../Constructor/RefList.js'
 
 /**
  * A definition is a named list of normalized quotes.

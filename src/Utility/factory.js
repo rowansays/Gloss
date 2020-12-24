@@ -1,10 +1,16 @@
+import { $Book } from '../Constructor/Book.js'
 import { $Def } from '../Constructor/Def.js'
 import { $DefList } from '../Constructor/Deflist.js'
 import { $GlossList } from '../Constructor/GlossList.js'
+import { $Page } from '../Constructor/Page.js'
 import { $Quote } from '../Constructor/Quote.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
 
 import { validateStringProp } from './validate.js'
+
+export function Book () {
+  return new $Book(...arguments)
+}
 
 export function Def () {
   return new $Def(...arguments)
@@ -59,6 +65,10 @@ export function Normal (normal, cite, ref) {
   })
 }
 
+export function Page () {
+  return new $Page(...arguments)
+}
+
 /**
  * Phrase factory.
  *
@@ -95,4 +105,12 @@ export function Quote () {
 
 export function QuoteList () {
   return new $QuoteList(...arguments)
+}
+
+export function Ref () {
+  return new $Ref(...arguments)
+}
+
+export function RefList () {
+  return new $RefList(...arguments)
 }

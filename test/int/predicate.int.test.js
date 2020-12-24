@@ -8,15 +8,15 @@ import {
 } from '../../src/Utility/predicate.js'
 
 // Import factory functions
-import { Book } from '../../src/Refs/Book.js'
+import { $Book } from '../../src/Constructor/Book.js'
 import { Card } from '../../src/Card.js'
 import { Glossary } from '../../src/Glossaries/Glossary.js'
 import { $GlossList } from '../../src/Constructor/GlossList.js'
 import { HybridGlossary } from '../../src/Glossaries/HybridGlossary.js'
 import { Normal, Phrase, Quote } from '../../src/Utility/Factory.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
-import { Ref } from '../../src/Refs/Ref.js'
-import { RefList } from '../../src/Refs/RefList.js'
+import { $Ref } from '../../src/Constructor/Ref.js'
+import { $RefList } from '../../src/Constructor/RefList.js'
 import { Term } from '../../src/Glosses/Term.js'
 
 
@@ -34,13 +34,13 @@ describe('isList() Integration Tests', () => {
     test('returned by $QuoteList().', function () {
       expect(isList(new $QuoteList({ name: '123', items: [] }))).toBe(true)
     })
-    test('returned by RefList().', function () {
-      expect(isList(RefList({ name: '123', items: [] }))).toBe(true)
+    test('returned by $RefList().', function () {
+      expect(isList(new $RefList({ name: '123', items: [] }))).toBe(true)
     })
   })
   describe('Denies values', () => {
-    test('returned by Book().', function () {
-      expect(isList(Book({ title: 'abc' }))).toBe(false)
+    test('returned by $Book().', function () {
+      expect(isList(new $Book({ title: 'abc' }))).toBe(false)
     })
     test('returned by Card().', function () {
       expect(isList(Card())).toBe(false)
@@ -60,8 +60,8 @@ describe('isList() Integration Tests', () => {
     test('returned by Quote().', function () {
       expect(isList(Quote({ name: 'abc' }))).toBe(false)
     })
-    test('returned by Ref().', function () {
-      expect(isList(Ref({ name: 'abc' }))).toBe(false)
+    test('returned by $Ref().', function () {
+      expect(isList(new $Ref({ name: 'abc' }))).toBe(false)
     })
     test('returned by Term().', function () {
       expect(isList(Term('abc'))).toBe(false)
@@ -87,11 +87,11 @@ describe('isNamed() Integration Tests', () => {
       expect(isNamed(Term('Term Name'))).toBe(true)
     })
     /*
-    test('Values returned by Ref() are named.', function () {
-      expect(isNamed(Ref({ name: 'abc' }))).toBe(true)
+    test('Values returned by $Ref() are named.', function () {
+      expect(isNamed(new $Ref({ name: 'abc' }))).toBe(true)
     })
-    test('Values returned by Book() are named.', function () {
-      expect(isNamed(Book({ title: 'abc' }))).toBe(true)
+    test('Values returned by $Book() are named.', function () {
+      expect(isNamed(new $Book({ title: 'abc' }))).toBe(true)
     })
     */
   })
@@ -102,8 +102,8 @@ describe('isNamed() Integration Tests', () => {
     test('Values returned by $QuoteList() are not named.', function () {
       expect(isNamed(new $QuoteList())).toBe(false)
     })
-    test('Values returned by RefList() are not named.', function () {
-      expect(isNamed(RefList())).toBe(false)
+    test('Values returned by $RefList() are not named.', function () {
+      expect(isNamed(new $RefList())).toBe(false)
     })
   })
 })
@@ -127,10 +127,10 @@ describe('isQuote() Integration Tests', () => {
 })
 
 describe('isRef() Intergration Tests', () => {
-  test('Instances of Book() are references.', function () {
-    expect(isRef(Book({ title: 'abc' }))).toBe(true)
+  test('Instances of $Book() are references.', function () {
+    expect(isRef(new $Book({ title: 'abc' }))).toBe(true)
   })
-  test('Instances of Ref() are references.', function () {
-    expect(isRef(Ref({ name: 'abc' }))).toBe(true)
+  test('Instances of $Ref() are references.', function () {
+    expect(isRef(new $Ref({ name: 'abc' }))).toBe(true)
   })
 })

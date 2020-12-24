@@ -1,4 +1,4 @@
-import { $Page } from '../../src/Refs/Page.js'
+import { $Page } from '../../src/Constructor/Page.js'
 import { isRef } from '../../src/Utility/predicate.js'
 
 

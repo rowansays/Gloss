@@ -15,8 +15,4 @@ Object.defineProperty($RefList.prototype, 'constructor', {
   value: $RefList
 })
 
-function RefList (...refs) {
-  return new $RefList(...refs)
-}
-
-export { $RefList, RefList }
+export { $RefList }

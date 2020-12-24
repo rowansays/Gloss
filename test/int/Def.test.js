@@ -1,6 +1,6 @@
 import { $Def } from '../../src/Constructor/Def.js'
 import { $Quote } from '../../src/Constructor/Quote.js'
-import { $Ref } from '../../src/Refs/Ref.js'
+import { $Ref } from '../../src/Constructor/Ref.js'
 
 describe('$Def.prototype.from', () => {
   it('  - returns a clone with 1 ref prepended to 1 quote', function () {

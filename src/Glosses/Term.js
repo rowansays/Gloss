@@ -16,7 +16,7 @@
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { $DefList } from '../Constructor/DefList.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
-import { $RefList } from '../Refs/RefList.js'
+import { $RefList } from '../Constructor/RefList.js'
 import { freeze } from '../Utility/freeze.js'
 
 function $Term (props) {

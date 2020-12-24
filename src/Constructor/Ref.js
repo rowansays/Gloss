@@ -16,8 +16,4 @@ Object.defineProperty($Ref.prototype, 'constructor', {
 
 Object.freeze($Ref.prototype)
 
-function Ref () {
-  return new $Ref(...arguments)
-}
-
-export { $Ref, Ref }
+export { $Ref }

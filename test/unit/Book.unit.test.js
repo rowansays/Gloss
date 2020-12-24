@@ -1,4 +1,4 @@
-import { $Book, Book } from '../../src/Refs/Book.js'
+import { $Book } from '../../src/Constructor/Book.js'
 
 const frankenProp = {
   title: 'Frankenstein',
@@ -10,7 +10,7 @@ const frankenProp = {
 }
 Object.freeze(frankenProp)
 
-describe('Book(): Unit Tests', () => {
+describe('$Book: Unit Tests', () => {
   test('throws when no props are given.', () => {
     expect(() => { new $Book() }).toThrow()
   })

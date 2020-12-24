@@ -16,18 +16,16 @@ export { Term } from './src/Glosses/Term.js'
 
 // Factory Functions
 export {
+  Book,
   GlossList,
   Normal,
+  Page,
   Phrase,
   Quote,
-  QuoteList
+  QuoteList,
+  Ref,
+  RefList
 } from './src/Utility/factory.js'
-
-// References
-export { Book } from './src/Refs/Book.js'
-export { Page } from './src/Refs/Page.js'
-export { Ref } from './src/Refs/Ref.js'
-export { RefList } from './src/Refs/RefList.js'
 
 // Utility
 export { castString } from './src/Utility/cast.js'

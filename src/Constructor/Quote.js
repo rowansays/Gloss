@@ -1,6 +1,6 @@
 import { castString } from '../Utility/cast.js'
 import { isIterable, isRef } from '../Utility/predicate.js'
-import { RefList } from '../Refs/RefList.js'
+import { $RefList } from '../Constructor/RefList.js'
 
 /**
  * Quote constructor.
@@ -47,7 +47,7 @@ function $Quote (props) {
   Object.defineProperties(this, {
     name: { enumerable: true, value: cleanName },
     cite: { enumerable: true, value: castString(cite) },
-    refs: { enumerable: true, value: RefList(...param) }
+    refs: { enumerable: true, value: new $RefList(...param) }
   })
 
   Object.freeze(this)

@@ -59,8 +59,4 @@ Object.defineProperty($Page.prototype, 'constructor', { value: $Page })
 
 Object.freeze($Page.prototype)
 
-function Page (...refs) {
-  return new $Page(...refs)
-}
-
-export { $Page, Page }
+export { $Page }

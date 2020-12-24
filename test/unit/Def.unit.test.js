@@ -1,5 +1,5 @@
 import { $Def } from '../../src/Constructor/Def.js'
-import { $RefList } from '../../src/Refs/RefList.js'
+import { $RefList } from '../../src/Constructor/RefList.js'
 import { $Quote } from '../../src/Constructor/Quote.js'
 import { aliceBook, devilsBook, frankenBook, prideBook } from '../data/refs.js'
 import { MockRef } from '../mocks/MockRef.js'
