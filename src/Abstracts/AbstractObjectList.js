@@ -1,4 +1,3 @@
-import { makeFrozenInstanceOf } from '../Utility/makeFrozenInstanceOf.js'
 import { isIterableObject } from '../Utility/predicate.js'
 
 function AbstractObjectList () {}
@@ -6,7 +5,7 @@ function AbstractObjectList () {}
 AbstractObjectList.prototype = Object.create(null)
 
 AbstractObjectList.prototype.add = function (...items) {
-  return makeFrozenInstanceOf(this.constructor, [...this.items, ...items])
+  return new this.constructor([...this.items, ...items])
 }
 AbstractObjectList.prototype.column = function (accessor, sortFunc) {
   const column = []
@@ -85,7 +84,7 @@ AbstractObjectList.prototype.sortAscBy = function (prop) {
     }
     return 0
   })
-  return makeFrozenInstanceOf(this.constructor, sorted)
+  return new this.constructor(sorted)
 }
 /**
  * Sort items in descending order by a given accessor method.
@@ -104,7 +103,7 @@ AbstractObjectList.prototype.sortDescBy = function (prop) {
     }
     return 0
   })
-  return makeFrozenInstanceOf(this.constructor, sorted)
+  return new this.constructor(sorted)
 }
 AbstractObjectList.prototype[Symbol.iterator] = function () {
   return this.items[Symbol.iterator]()
