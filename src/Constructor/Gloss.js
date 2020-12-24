@@ -34,14 +34,6 @@ $Gloss.prototype = Object.create(AbstractNamed.prototype)
 Object.defineProperty($Gloss.prototype, 'constructor', { value: $Gloss })
 
 /**
- * Return a frozen instance of $Gloss.
- */
-$Gloss.makeFrozen = function () {
-  const o = new $Gloss(...arguments)
-  freeze(o, $Gloss)
-  return o
-}
-/**
  * Creates a new instance which prepends all references in `this.refs` to every
  *   quote in each definition.
  *
