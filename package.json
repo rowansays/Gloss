@@ -7,7 +7,7 @@
   "scripts": {
     "bundle": "./node_modules/.bin/rollup -c",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "test.w": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
+    "test.w": "NODE_OPTIONS=--experimental-vm-modules npx jest --watchAll"
   },
   "author": "Rowan Weathers (https://rowansays.com/)",
   "license": "MIT",
