@@ -6,8 +6,8 @@
  * @see AbstractObjectList()
  */
 
+import { castArray } from '../Utility/cast.js'
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
-import { freeze } from '../Utility/freeze.js'
 import { isGloss } from '../Utility/predicate.js'
 
 /**
@@ -37,9 +37,10 @@ function mergeGlosses (quotes) {
   return Array.from(map.values())
 }
 
-function $GlossList (...glosses) {
+function $GlossList (...items) {
   AbstractObjectList.call(this)
-  const parsed = AbstractObjectList.parseArgs(isGloss, glosses)
+  const filter = x => isGloss(x) ? x : undefined
+  const parsed = castArray(items, filter, 'recursive')
   const merged = mergeGlosses(parsed)
   this.items = merged
   this.length = merged.length

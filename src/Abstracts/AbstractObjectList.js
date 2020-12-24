@@ -109,26 +109,5 @@ AbstractObjectList.prototype.sortDescBy = function (prop) {
 AbstractObjectList.prototype[Symbol.iterator] = function () {
   return this.items[Symbol.iterator]()
 }
-/**
- * Parse quotes parameter.
- *
- * Robust function which accepts just about any value that can be converted to
- * a quote.
- *
- * @param {Array|Quote|*List|string} param
- * @return {Quote[]} A flat array of quotes.
- */
-AbstractObjectList.parseArgs = function (isValidItem, ...params) {
-  let output = []
-  params = Array.isArray(params) ? params : []
-  params.forEach(param => {
-    if (isValidItem(param)) {
-      output.push(param)
-    } else if (isIterableObject(param)) {
-      output = output.concat(AbstractObjectList.parseArgs(isValidItem, ...param))
-    }
-  })
-  return output
-}
 
 export { AbstractObjectList }

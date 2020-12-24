@@ -31,7 +31,6 @@ describe('GlossList: Integration Tests', function () {
     expect(gl.has('B')).toBe(true)
     expect(gl.has('C')).toBe(true)
   })
-
   test('accepts an array of GlossLists containing Phrases.', () => {
     const ql = new $GlossList(
       new $GlossList(a(), b(), c()),
@@ -60,7 +59,6 @@ describe('GlossList: Integration Tests', function () {
     expect(ql.has('B')).toBe(true)
     expect(ql.has('C')).toBe(true)
   })
-
   describe('new $GlossList(): Instance Methods', function () {
     describe('has()', function () {
       test('returns false when list is empty.', () => {

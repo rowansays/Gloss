@@ -1,11 +1,4 @@
-/**
- * Quote list factory
- *
- * A quote list is a flat list of unique, non-empty quote objects.
- *
- * @param {...Quote|QuoteList|Array|string|number} quotes
- */
-
+import { castArray } from '../Utility/cast.js'
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { isDef, isQuote } from '../Utility/predicate.js'
 import { $Def } from '../Constructor/Def.js'
@@ -18,8 +11,8 @@ import { $Def } from '../Constructor/Def.js'
  */
 function $DefList (...items) {
   AbstractObjectList.call(this)
-  const isValidItem = (x) => isDef(x) || isQuote(x)
-  const parsed = AbstractObjectList.parseArgs(isValidItem, items)
+  const filter = x => isDef(x) || isQuote(x) ? x : undefined
+  const parsed = castArray(items, filter, 'recursive')
 
   // Extract all quotes from parseditems.
   const quotes = []

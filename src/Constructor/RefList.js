@@ -1,9 +1,11 @@
+import { castArray } from '../Utility/cast.js'
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
 import { isRef } from '../Utility/predicate.js'
 
-function $RefList (...refs) {
+function $RefList (...items) {
   AbstractObjectList.call(this)
-  const parsed = AbstractObjectList.parseArgs(isRef, refs)
+  const filter = x => isRef(x) ? x : undefined
+  const parsed = castArray(items, filter, 'recursive')
   this.items = [...new Set(parsed)]
   this.length = this.items.length
   Object.freeze(this)

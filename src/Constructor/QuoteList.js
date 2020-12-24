@@ -6,13 +6,14 @@
  * @param {...Quote|QuoteList|Array|string|number} quotes
  */
 
+import { castArray } from '../Utility/cast.js'
 import { AbstractObjectList } from '../Abstracts/AbstractObjectList.js'
-import { freeze } from '../Utility/freeze.js'
 import { isQuote } from '../Utility/predicate.js'
 
-function $QuoteList (...quotes) {
+function $QuoteList (...items) {
   AbstractObjectList.call(this)
-  const parsed = AbstractObjectList.parseArgs(isQuote, quotes)
+  const filter = x => isQuote(x) ? x : undefined
+  const parsed = castArray(items, filter, 'recursive')
   this.items = parsed
   this.length = parsed.length
   Object.freeze(this)

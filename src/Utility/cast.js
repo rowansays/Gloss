@@ -12,3 +12,5 @@ export function castStringArray (aught) {
     return string === '' ? undefined : string
   })
 }
+
+export { castArray } from '@rowansays/helpers'

@@ -9,6 +9,7 @@ testFactoryFunction('$RefList', $RefList, new $RefList())
 describe('$RefList.prototype', () => {
   testObjectListInterface(new $RefList())
 })
+
 describe('$RefList Parameters', function () {
   it('does not require parameters', () => {
     const gl = new $RefList()
