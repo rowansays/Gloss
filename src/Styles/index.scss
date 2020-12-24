@@ -1,0 +1,55 @@
+html {
+  font-size: 10px;
+  font-family: sans-serif;
+}
+
+.GlossaryVerbose {
+  .GlossList {
+    border-collapse: collapse;
+  }
+  td, th {
+    text-align: left;
+    vertical-align: top;
+  }
+  .Definition td,
+  .Definition th {
+    border: 1px solid #ccc;
+  }
+  .DefinitionYear {
+    min-width: 4rem;
+    text-align: center;
+  }
+  .GlossName {
+    font-size: 1.5rem;
+    padding-top: 2rem;
+  }
+}
+
+.GlossaryConcise {
+  max-width: 30rem;
+  margin: 0 auto;
+  .GlossList {
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    padding: 0.50rem 0.75rem;
+  }
+  .GlossName {
+    display: block;
+    font-weight: bold;
+    margin-top: 0.75rem;
+  }
+  .GlossName:first-child {
+    margin-top: 0;
+  }
+  .GlossDef {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+  }
+  .GlossDef[title] span {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #999;
+  }
+}
