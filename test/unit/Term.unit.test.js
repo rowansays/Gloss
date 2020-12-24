@@ -1,42 +1,42 @@
-import { $Term } from '../../src/Glosses/Term.js'
+import { $Gloss } from '../../src/Constructor/Gloss.js'
 import { MockQuote } from '../mocks/MockQuote.js'
 import { MockRef } from '../mocks/MockRef.js'
 import { $DefList } from '../../src/Constructor/DefList.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 
-describe('$Term', () => {
+describe('$Gloss', () => {
   it('is a function', () => {
-    expect(typeof $Term).toBe('function')
+    expect(typeof $Gloss).toBe('function')
   })
   it('is idempotent when simple', () => {
-    const a = new $Term({
+    const a = new $Gloss({
       name: 'a',
       memos: [new MockQuote('One')],
       defs: [new MockQuote('Two')],
       refs: [new MockRef('Three')]
     })
-    const b = new $Term(a)
+    const b = new $Gloss(a)
     expect(a).toStrictEqual(b)
     expect(a === b).toBe(false)
   })
   it('throws if called without the new keyword', () => {
-    expect(() => { $Term() }).toThrow()
+    expect(() => { $Gloss() }).toThrow()
   })
   it('throws if no parameters are passed', function () {
-    expect(() => { new $Term() }).toThrow()
+    expect(() => { new $Gloss() }).toThrow()
   })
   it('constructs frozen instances', function () {
-    expect(Object.isFrozen(new $Term({ name: 'a' }))).toBe(true)
+    expect(Object.isFrozen(new $Gloss({ name: 'a' }))).toBe(true)
   })
   it('constructs instances with frozen prototypes', function () {
-    const t = new $Term({ name: 'a' })
+    const t = new $Gloss({ name: 'a' })
     expect(Object.isFrozen(Object.getPrototypeOf(t))).toBe(true)
   })
-  it('constructs instances of $Term', function () {
-    expect(new $Term({ name: 'a' })).toBeInstanceOf($Term)
+  it('constructs instances of $Gloss', function () {
+    expect(new $Gloss({ name: 'a' })).toBeInstanceOf($Gloss)
   })
   it('constructs with default properties defined', function () {
-    const term = new $Term({ name: 'a' })
+    const term = new $Gloss({ name: 'a' })
     expect(term.name).toBe('a')
     expect(term.length).toBe(0)
     expect(term.memos).toBeInstanceOf($QuoteList)
@@ -47,7 +47,7 @@ describe('$Term', () => {
       name: 'a',
       defs: [ new MockQuote('b') ]
     }
-    const term = new $Term(props)
+    const term = new $Gloss(props)
     expect(term.name).toBe(props.name)
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
@@ -60,7 +60,7 @@ describe('$Term', () => {
         new MockQuote('c')
       ]
     }
-    const term = new $Term(props)
+    const term = new $Gloss(props)
     expect(term.name).toBe(props.name)
     expect(term.length).toBe(2)
     expect(term.defs.get(0).name).toBe('b')
@@ -74,7 +74,7 @@ describe('$Term', () => {
         new MockQuote('b')
       ]
     }
-    const term = new $Term(props)
+    const term = new $Gloss(props)
     expect(term.name).toBe(props.name)
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
@@ -87,22 +87,22 @@ describe('$Term', () => {
         new MockQuote('b')
       ]
     }
-    const term = new $Term(props)
+    const term = new $Gloss(props)
     expect(term.name).toBe(props.name)
     expect(term.length).toBe(1)
     expect(term.defs.get(0).name).toBe('b')
   })
   it('has prototype function: as().', () => {
-    expect(typeof new $Term({ name: 'a' }).as).toBe('function')
+    expect(typeof new $Gloss({ name: 'a' }).as).toBe('function')
   })
-  it('  - returns an instance of $Term.', () => {
-    expect(new $Term({ name: 'a' }).as().constructor.name).toBe('$Term')
+  it('  - returns an instance of $Gloss.', () => {
+    expect(new $Gloss({ name: 'a' }).as().constructor.name).toBe('$Gloss')
   })
   it('  - adds a single definition to an empty term.', () => {
-    expect(new $Term({ name: 'a' }).as(new MockQuote('Klingon')).length).toBe(1)
+    expect(new $Gloss({ name: 'a' }).as(new MockQuote('Klingon')).length).toBe(1)
   })
   it('  - adds three unique definitions to an empty term.', () => {
-    const term = new $Term({ name: 'a' }).as(
+    const term = new $Gloss({ name: 'a' }).as(
       new MockQuote('Klingon'),
       new MockQuote('Vulcan'),
       new MockQuote('Andorian')
@@ -110,7 +110,7 @@ describe('$Term', () => {
     expect(term.length).toBe(3)
   })
   it('  - merges three identical definitions to an empty term.', () => {
-    const term = new $Term({ name: 'a' }).as(
+    const term = new $Gloss({ name: 'a' }).as(
       new MockQuote('Klingon'),
       new MockQuote('Klingon'),
       new MockQuote('Klingon')
@@ -118,15 +118,15 @@ describe('$Term', () => {
     expect(term.length).toBe(1)
   })
   it('has prototype function: from()', () => {
-    expect(typeof new $Term({ name: 'a' }).from).toBe('function')
+    expect(typeof new $Gloss({ name: 'a' }).from).toBe('function')
   })
   it('  - returns "this" when no parameters are passed', () => {
-    const a = new $Term({ name: 'a' })
+    const a = new $Gloss({ name: 'a' })
     const b = a.from()
     expect(b === a).toBe(true)
   })
   it('  - returns "this" when unrecognizable parameters are passed', () => {
-    const a = new $Term({ name: 'a' })
+    const a = new $Gloss({ name: 'a' })
     const b = a.from('', 123, true, false, null, {}, [], new Map(), Symbol())
     expect(b === a).toBe(true)
   })
@@ -134,7 +134,7 @@ describe('$Term', () => {
     const book = new MockRef('Frankenstein')
     const chap = new MockRef('Chapter 2')
     const page = new MockRef('Page 14')
-    const a = new $Term({ name: 'a', refs: book })
+    const a = new $Gloss({ name: 'a', refs: book })
     const b = a.from(chap)
     const c = b.from(page)
     expect(b).not.toBe(a)
@@ -153,16 +153,16 @@ describe('$Term', () => {
     expect(c.ref(2)).toBe(page)
   })
   it('has prototype function: ref()', () => {
-    expect(typeof new $Term({ name: 'a' }).ref).toBe('function')
+    expect(typeof new $Gloss({ name: 'a' }).ref).toBe('function')
   })
   it('  - returns undefined when no refs exist', () => {
-    const a = new $Term({ name: 'a' })
+    const a = new $Gloss({ name: 'a' })
     expect(a.ref(0)).toBeUndefined()
     expect(a.ref(1)).toBeUndefined()
     expect(a.ref(2)).toBeUndefined()
   })
   it('  - returns undefined when requested ref does not exist', () => {
-    const a = new $Term({ name: 'a' }).from()
+    const a = new $Gloss({ name: 'a' }).from()
     expect(a.ref(0)).toBeUndefined()
     expect(a.ref(1)).toBeUndefined()
     expect(a.ref(2)).toBeUndefined()
@@ -171,7 +171,7 @@ describe('$Term', () => {
     const book = new MockRef('Frankenstein')
     const chap = new MockRef('Chapter 2')
     const page = new MockRef('Page 14')
-    const a = new $Term({ name: 'a' }).from(book, chap, page)
+    const a = new $Gloss({ name: 'a' }).from(book, chap, page)
     expect(a.ref(0)).toBe(book)
     expect(a.ref(1)).toBe(chap)
     expect(a.ref(2)).toBe(page)
@@ -180,7 +180,7 @@ describe('$Term', () => {
     const book = new MockRef('Frankenstein')
     const chap = new MockRef('Chapter 2')
     const page = new MockRef('Page 14')
-    const a = new $Term({ name: 'a' }).from(book, chap, page)
+    const a = new $Gloss({ name: 'a' }).from(book, chap, page)
     expect(a.ref('Frankenstein')).toBe(book)
     expect(a.ref('Chapter 2')).toBe(chap)
     expect(a.ref('Page 14')).toBe(page)

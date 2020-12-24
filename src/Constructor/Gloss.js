@@ -1,5 +1,5 @@
 /**
- * Term factory.
+ * Gloss factory.
  *
  * A term is the simplest form of gloss. Instances contain a name, zero or more
  * memos, and zero or more definitions.
@@ -19,7 +19,7 @@ import { $QuoteList } from '../Constructor/QuoteList.js'
 import { $RefList } from '../Constructor/RefList.js'
 import { freeze } from '../Utility/freeze.js'
 
-function $Term (props) {
+function $Gloss (props) {
   AbstractNamed.call(this, props)
   const { defs, memos, refs } = props
   this.memos = new $QuoteList(memos)
@@ -29,26 +29,26 @@ function $Term (props) {
   Object.freeze(this)
 }
 
-$Term.prototype = Object.create(AbstractNamed.prototype)
+$Gloss.prototype = Object.create(AbstractNamed.prototype)
 
-Object.defineProperty($Term.prototype, 'constructor', { value: $Term })
+Object.defineProperty($Gloss.prototype, 'constructor', { value: $Gloss })
 
 /**
- * Return a frozen instance of $Term.
+ * Return a frozen instance of $Gloss.
  */
-$Term.makeFrozen = function () {
-  const o = new $Term(...arguments)
-  freeze(o, $Term)
+$Gloss.makeFrozen = function () {
+  const o = new $Gloss(...arguments)
+  freeze(o, $Gloss)
   return o
 }
 /**
  * Creates a new instance which prepends all references in `this.refs` to every
  *   quote in each definition.
  *
- * @return {$Term} A new instance with modified definitions and quotes. If
+ * @return {$Gloss} A new instance with modified definitions and quotes. If
  *   `this.refs` is empty than `this` will be returned.
  */
-$Term.prototype.applyRefs = function () {
+$Gloss.prototype.applyRefs = function () {
   if (this.defs.length === 0 || this.refs.length === 0) {
     return this
   }
@@ -67,22 +67,22 @@ $Term.prototype.applyRefs = function () {
  * Clone an instance while adding one or more definitions.
  *
  * @param {...Quote} One or more quote objects.
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.as = function (...defs) {
+$Gloss.prototype.as = function (...defs) {
   const props = this.getProps()
   props.defs = props.defs.add(...defs)
   return new this.constructor(props)
 }
-$Term.prototype.def = function (index) {
+$Gloss.prototype.def = function (index) {
   return this.defs.get(index)
 }
 /**
  * Clone an instance while appending one or more references.
  *
  * This method only alters the value of this term's `refs` property. The
- *   individual definitions will not be affected. $Term.prototype.applyRefs()
- *   may be used to apply the Term's references to each quote in each
+ *   individual definitions will not be affected. $Gloss.prototype.applyRefs()
+ *   may be used to apply the Gloss's references to each quote in each
  *   definition.
  *
  * Note: these references serve to form a segment of a reference path. They are
@@ -93,9 +93,9 @@ $Term.prototype.def = function (index) {
  *   Frankenstein, Chapter 1, Page 10
  *
  * @param {...Ref} One or more reference objects.
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.from = function (...refs) {
+$Gloss.prototype.from = function (...refs) {
   const clean = new $RefList(...refs)
   if (clean.length === 0) {
     return this
@@ -104,7 +104,7 @@ $Term.prototype.from = function (...refs) {
   props.refs = props.refs.add(...clean)
   return new this.constructor(props)
 }
-$Term.prototype.getMemo = function (index) {
+$Gloss.prototype.getMemo = function (index) {
   switch (this.memos.length) {
     case 0 :
       return undefined
@@ -120,31 +120,31 @@ $Term.prototype.getMemo = function (index) {
  * @return {Object} A plain javascript object that can be used as the props
  *   parameter to create a new instance.
  */
-$Term.prototype.getProps = function () {
+$Gloss.prototype.getProps = function () {
   const { name, memos, defs, refs } = this
   return { name, memos, defs, refs }
 }
 /**
  * @return {bool}
  */
-$Term.prototype.hasDef = function () {
+$Gloss.prototype.hasDef = function () {
   return this.defs.length > 0
 }
-$Term.prototype.ref = function (index) {
+$Gloss.prototype.ref = function (index) {
   return this.refs.get(index)
 }
 /**
  * Clone an instance while prepending one or more references.
  *
  * This method only alters the value of this term's `refs` property. The
- *   individual definitions will not be affected. $Term.prototype.applyRefs()
- *   may be used to apply the Term's references to each quote in each
+ *   individual definitions will not be affected. $Gloss.prototype.applyRefs()
+ *   may be used to apply the Gloss's references to each quote in each
  *   definition.
  *
  * @param {...Ref} One or more reference objects.
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.root = function (...refs) {
+$Gloss.prototype.root = function (...refs) {
   const clean = new $RefList(...refs)
   if (clean.length === 0) {
     return this
@@ -154,26 +154,29 @@ $Term.prototype.root = function (...refs) {
   return new this.constructor(props)
 }
 /**
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.sortDefsByName = function () {
-  const sortedDefs = this.defs.sortAscBy().entries()
-  return Term(this.name, this.getMemo(), ...sortedDefs)
+$Gloss.prototype.sortDefsByName = function () {
+  return new this.constructor({
+    name: this.name,
+    memos: this.getMemo(),
+    defs: this.defs.sortAscBy().entries()
+  })
 }
 /**
  * Clone an instance while merging in one or more glosses.
  *
  * @param {...Quote} One or more glosses.
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.withGloss = function (...glosses) {
+$Gloss.prototype.withGloss = function (...glosses) {
   if (!!glosses && typeof glosses.forEach === 'function') {
     const props = this.getProps()
     glosses.forEach(gloss => {
       props.memos = props.memos.add(...gloss.memos)
       props.defs = props.defs.add(...gloss.defs)
     })
-    return new $Term(props)
+    return new $Gloss(props)
   }
   return this
 }
@@ -181,18 +184,14 @@ $Term.prototype.withGloss = function (...glosses) {
  * Clone an instance while adding one or more memos.
  *
  * @param {...Quote} One or more values that can be coerced into a quote.
- * @return {$Term}
+ * @return {$Gloss}
  */
-$Term.prototype.withMemo = function (...memos) {
+$Gloss.prototype.withMemo = function (...memos) {
   const props = this.getProps()
   props.memos = props.memos.add(memos)
   return new this.constructor(props)
 }
 
-Object.freeze($Term.prototype)
+Object.freeze($Gloss.prototype)
 
-function Term (name, memos, ...defs) {
-  return $Term.makeFrozen({ name, memos, defs })
-}
-
-export { $Term, Term }
+export { $Gloss }

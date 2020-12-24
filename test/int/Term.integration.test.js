@@ -1,8 +1,7 @@
-import { Term } from '../../src/Glosses/Term.js'
-import { Phrase } from '../../src/Utility/Factory.js'
+import { Phrase, Term } from '../../src/Utility/Factory.js'
 import { aliceBook, devilsBook } from '../data/refs.js'
 
-describe('Term()', function () {
+describe('Term', function () {
   describe('Term(name, memo, ...Phrase())', () => {
     test('accepts return value of Phrase() for parameters 3, 4, & 5.', () => {
       const def0 = Phrase('Three', aliceBook)

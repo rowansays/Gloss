@@ -1,4 +1,4 @@
-// Import predicates
+// Import Predicates
 import {
   isGloss,
   isList,
@@ -7,22 +7,33 @@ import {
   isRef
 } from '../../src/Utility/predicate.js'
 
-// Import factory functions
+// Import Factory Functions
+import {
+  Gloss,
+  Glossary,
+  HybridGlossary,
+  Normal,
+  Phrase,
+  Quote,
+  Term
+} from '../../src/Utility/factory.js'
+
+// Import Constructors
 import { $Book } from '../../src/Constructor/Book.js'
 import { Card } from '../../src/Card.js'
-import {
-  Glossary,
-  HybridGlossary
-} from '../../src/Utility/factory.js'
+import { $Gloss } from '../../src/Constructor/Gloss.js'
 import { $GlossList } from '../../src/Constructor/GlossList.js'
-import { Normal, Phrase, Quote } from '../../src/Utility/Factory.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { $Ref } from '../../src/Constructor/Ref.js'
 import { $RefList } from '../../src/Constructor/RefList.js'
-import { Term } from '../../src/Glosses/Term.js'
-
 
 describe('isGloss() Integration Tests', () => {
+  test('Instances of $Gloss() are glosses.', function () {
+    expect(isGloss(new $Gloss({ name: 'a' }))).toBe(true)
+  })
+  test('Instances of Gloss() are glosses.', function () {
+    expect(isGloss(Gloss({ name: 'a' }))).toBe(true)
+  })
   test('Instances of Term() are glosses.', function () {
     expect(isGloss(Term('a'))).toBe(true)
   })

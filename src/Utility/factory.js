@@ -1,6 +1,7 @@
 import { $Book } from '../Constructor/Book.js'
 import { $Def } from '../Constructor/Def.js'
 import { $DefList } from '../Constructor/Deflist.js'
+import { $Gloss } from '../Constructor/Gloss.js'
 import { $Glossary } from '../Constructor/Glossary.js'
 import { $GlossList } from '../Constructor/GlossList.js'
 import { $HybridGlossary } from '../Constructor/HybridGlossary.js'
@@ -20,6 +21,10 @@ export function Def () {
 
 export function DefList () {
   return new $DefList(...arguments)
+}
+
+export function Gloss () {
+  return new $Gloss(...arguments)
 }
 
 export function Glossary () {
@@ -123,4 +128,8 @@ export function Ref () {
 
 export function RefList () {
   return new $RefList(...arguments)
+}
+
+export function Term (name, memos, ...defs) {
+  return new $Gloss({ name, memos, defs })
 }

@@ -1,5 +1,4 @@
-import { Term } from '../../src/Glosses/Term.js'
-import { Glossary, Phrase } from '../../src/Utility/factory.js'
+import { Glossary, Phrase, Term } from '../../src/Utility/factory.js'
 import { frankenBook, nobodysWork } from '../data/refs.js'
 
 describe('Glossary() Integration Tests', function () {

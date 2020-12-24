@@ -1,7 +1,5 @@
 import { $GlossList } from '../../src/Constructor/GlossList.js'
-
-import { Phrase } from '../../src/Utility/factory.js'
-import { Term } from '../../src/Glosses/Term.js'
+import { Phrase, Term } from '../../src/Utility/factory.js'
 import { MockRef } from '../mocks/MockRef.js'
 
 const wikipedia = new MockRef('wikipedia', 'Wikipedia')
