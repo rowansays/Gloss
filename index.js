@@ -32,6 +32,3 @@ export {
   isRef,
   isWork
 } from './src/Utility/predicate.js'
-
-// Everything Else
-export { Card } from './src/Card.js'

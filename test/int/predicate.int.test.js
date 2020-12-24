@@ -20,7 +20,6 @@ import {
 
 // Import Constructors
 import { $Book } from '../../src/Constructor/Book.js'
-import { Card } from '../../src/Card.js'
 import { $Gloss } from '../../src/Constructor/Gloss.js'
 import { $GlossList } from '../../src/Constructor/GlossList.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
@@ -54,9 +53,6 @@ describe('isList() Integration Tests', () => {
   describe('Denies values', () => {
     test('returned by $Book().', function () {
       expect(isList(new $Book({ title: 'abc' }))).toBe(false)
-    })
-    test('returned by Card().', function () {
-      expect(isList(Card())).toBe(false)
     })
     test('returned by Glossary().', function () {
       expect(isList(Glossary({ name: 'a' }))).toBe(false)
