@@ -1,6 +1,6 @@
 import { $GlossList } from '../../src/Constructor/GlossList.js'
 
-import { Phrase } from '../../src/Quotes/Quote.js'
+import { Phrase } from '../../src/Utility/factory.js'
 import { Term } from '../../src/Glosses/Term.js'
 import { MockRef } from '../mocks/MockRef.js'
 

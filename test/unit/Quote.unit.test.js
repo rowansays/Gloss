@@ -1,5 +1,5 @@
 // Quote Unit
-import { $Quote } from '../../src/Quotes/Quote.js'
+import { $Quote } from '../../src/Constructor/Quote.js'
 import { aliceBook, devilsBook } from '../data/refs.js'
 import { MockRef } from '../mocks/MockRef.js'
 

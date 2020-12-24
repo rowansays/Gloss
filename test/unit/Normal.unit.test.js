@@ -1,4 +1,5 @@
-import { $Quote, Normal } from '../../src/Quotes/Quote.js'
+import { Normal } from '../../src/Utility/factory.js'
+import { $Quote } from '../../src/Constructor/Quote.js'
 import { aliceBook } from '../data/refs.js'
 
 describe('Normal() Unit Tests', () => {

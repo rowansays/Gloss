@@ -1,5 +1,5 @@
 import { Term } from '../../src/Glosses/Term.js'
-import { Phrase } from '../../src/Quotes/Quote.js'
+import { Phrase } from '../../src/Utility/Factory.js'
 import { aliceBook, devilsBook } from '../data/refs.js'
 
 describe('Term()', function () {

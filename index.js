@@ -14,14 +14,14 @@ export { HybridGlossary } from './src/Glossaries/HybridGlossary.js'
 // Glosses
 export { Term } from './src/Glosses/Term.js'
 
-// Lists
+// Factory Functions
 export {
   GlossList,
+  Normal,
+  Phrase,
+  Quote,
   QuoteList
 } from './src/Utility/factory.js'
-
-// Quotes
-export { Quote, Normal, Phrase } from './src/Quotes/Quote.js'
 
 // References
 export { Book } from './src/Refs/Book.js'

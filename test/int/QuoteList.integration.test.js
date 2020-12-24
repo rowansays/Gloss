@@ -1,4 +1,4 @@
-import { Normal, Phrase } from '../../src/Quotes/Quote.js'
+import { Normal, Phrase } from '../../src/Utility/factory.js'
 import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { aliceBook, devilsBook, frankenBook, prideBook } from '../data/refs.js'
 
