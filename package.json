@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "clean": "npx trash ./dist/rowansays-gloss-temp",
-    "bundle": "npx rollup -c && npm run clean",
+    "dist": "rollup -c ./rollup.dist.js && npm run dist.clean",
+    "dist.clean": "trash ./dist/rowansays-gloss-temp",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "test.w": "NODE_OPTIONS=--experimental-vm-modules npx jest --watchAll"
   },
