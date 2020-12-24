@@ -5,7 +5,7 @@ import { frankenObject } from '../data/ids.js'
 
 describe('Glossary() Unit Tests', function () {
   const instance = Glossary({
-    id: frankenObject,
+    name: 'Test Glossary',
     ref: 'abc',
     glosses: []
   })

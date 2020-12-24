@@ -8,7 +8,7 @@ describe('Glossary() Integration Tests', function () {
     test('assigns reference to all gloss definitions.', () => {
       const ref = frankenBook
       const g = Glossary({
-        id: nobodysWork,
+        name: 'Test Glossary',
         ref: ref,
         glosses: [
           Term('Characters',

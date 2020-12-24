@@ -46,10 +46,10 @@ describe('isList() Integration Tests', () => {
       expect(isList(Card())).toBe(false)
     })
     test('returned by Glossary().', function () {
-      expect(isList(Glossary())).toBe(false)
+      expect(isList(Glossary({ name: 'a' }))).toBe(false)
     })
     test('returned by HybridGlossary().', function () {
-      expect(isList(HybridGlossary())).toBe(false)
+      expect(isList(HybridGlossary({ name: 'a' }))).toBe(false)
     })
     test('returned by Normal().', function () {
       expect(isList(Normal('abc', 'def'))).toBe(false)
@@ -72,10 +72,10 @@ describe('isList() Integration Tests', () => {
 describe('isNamed() Integration Tests', () => {
   describe('Recognizes named objects.', () => {
     test('Values returned by Glossary() are named.', function () {
-      expect(isNamed(Glossary())).toBe(true)
+      expect(isNamed(Glossary({ name: 'a' }))).toBe(true)
     })
     test('Values returned by HybridGlossary() are named.', function () {
-      expect(isNamed(HybridGlossary())).toBe(true)
+      expect(isNamed(HybridGlossary({ name: 'a' }))).toBe(true)
     })
     test('Values returned by Normal() are named.', function () {
       expect(isNamed(Normal('Normal', 'Actual'))).toBe(true)
