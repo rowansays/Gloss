@@ -8,6 +8,8 @@ import { $HybridGlossary } from '../Constructor/HybridGlossary.js'
 import { $Page } from '../Constructor/Page.js'
 import { $Quote } from '../Constructor/Quote.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
+import { $Ref } from '../Constructor/Ref.js'
+import { $RefList } from '../Constructor/RefList.js'
 
 import { validateStringProp } from './validate.js'
 
