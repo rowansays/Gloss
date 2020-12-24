@@ -1,7 +1,7 @@
 import { $Term } from '../../src/Glosses/Term.js'
 import { MockQuote } from '../mocks/MockQuote.js'
 import { MockRef } from '../mocks/MockRef.js'
-import { $DefList } from '../../src/Defs/DefList.js'
+import { $DefList } from '../../src/Constructor/DefList.js'
 import { $QuoteList } from '../../src/Lists/QuoteList.js'
 
 describe('$Term', () => {
