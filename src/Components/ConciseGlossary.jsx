@@ -11,7 +11,9 @@ function renderConciseGlossary () {
   return fragment
 }
 
-function ConciseGlossary (glossary) {
+function ConciseGlossary (props) {
+  const { glossary } = props
+
   const glosses = []
   glossary.forEach(gloss => {
     glosses.push(<Gloss gloss={gloss} />)
