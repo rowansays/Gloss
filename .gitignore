@@ -1,5 +1,5 @@
-node_modules
 .DS_Store
 dist/
-dev/gloss.js
-dev/gloss.css
+node_modules/
+make/gloss.js
+make/gloss.css

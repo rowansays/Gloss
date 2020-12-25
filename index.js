@@ -1,3 +1,6 @@
+// Styles
+import './src/Styles/index.scss'
+
 // Abstracts
 export { AbstractObjectList } from './src/Abstracts/AbstractObjectList.js'
 export { AbstractWork } from './src/Abstracts/AbstractWork.js'

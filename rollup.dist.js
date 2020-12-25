@@ -8,48 +8,21 @@ import path from 'path'
 import autoprefixer from 'autoprefixer'
 import postcss from 'rollup-plugin-postcss'
 
-export default [
-  {
-    input: 'index.js',
-    output: {
-      file: 'dist/gloss.iife.js',
-      format: 'iife',
-      name: 'LibGlossary'
-    },
-    plugins: [
-      nodeResolve(),
-      babel({ babelHelpers: 'bundled' }),
-      commonjs()
-    ]
-  },
-  {
-    input: 'index.js',
-    output: {
-      file: 'dist/gloss.module.js',
+export default {
+  input: 'index.js',
+  output: [
+    {
+      file: 'dist/gloss.js',
       format: 'es',
-    },
-    plugins: [
-      nodeResolve(),
-      babel({ babelHelpers: 'bundled' }),
-      commonjs()
-    ]
-  },
-  {
-    input: 'style.js',
-    output: {
-      file: 'dist/rowansays-gloss-temp',
-      format: 'es'
-    },
-    onwarn: message => {
-      if (!!message && message.code === 'EMPTY_BUNDLE') {
-        return false
-      }
-    },
-    plugins: [
-      postcss({
-        extract: path.resolve('dist/gloss.css'),
-        plugins: [autoprefixer]
-      })
-    ]
-  }
-]
+    }
+  ],
+  plugins: [
+    nodeResolve(),
+    babel({ babelHelpers: 'bundled' }),
+    commonjs(),
+    postcss({
+      extract: path.resolve('dist/gloss.css'),
+      plugins: [autoprefixer]
+    })
+  ]
+}
