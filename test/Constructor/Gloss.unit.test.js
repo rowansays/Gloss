@@ -6,7 +6,7 @@ import { $QuoteList } from '../../src/Constructor/QuoteList.js'
 import { testConstructor } from '../helpers/testConstructor.js'
 
 describe('$Gloss', () => {
-  testConstructor('$Gloss', $Gloss)
+  testConstructor($Gloss)
   it('  ⋅ constructs an object with default properties defined', function () {
     const term = new $Gloss()
     expect(term.name).toBe('')

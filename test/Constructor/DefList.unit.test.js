@@ -4,7 +4,7 @@ import { MockQuote } from '../mocks/MockQuote.js'
 import { testConstructor } from '../helpers/testConstructor.js'
 
 describe('$DefList', () => {
-  testConstructor('$DefList', $DefList)
+  testConstructor($DefList)
   it('constructs with 1 quote', function () {
     const props = [
       new MockQuote('Hello', '', new MockRef('Alice in Wonderland', '1865'))

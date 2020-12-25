@@ -4,7 +4,7 @@ import { testObjectListInterface } from '../helpers/prototypes.js'
 import { testConstructor } from '../helpers/testConstructor.js'
 
 describe('$GlossList(): Parameters', function () {
-  testConstructor('$GlossList', $GlossList)
+  testConstructor($GlossList)
   describe("()", () => {
     it('ignores string items.', () => {
       const gl = new $GlossList('a', 'b', 'c')

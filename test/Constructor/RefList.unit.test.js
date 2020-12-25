@@ -4,7 +4,7 @@ import { testConstructor } from '../helpers/testConstructor.js'
 import { testObjectListInterface } from '../helpers/prototypes.js'
 
 describe('$RefList Parameters', function () {
-  testConstructor('$RefList', $RefList)
+  testConstructor($RefList)
   it('ignores string items', () => {
     const gl = new $RefList('a', 'b', 'c')
     expect(gl.length).toBe(0)

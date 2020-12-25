@@ -1,4 +1,4 @@
-export function testConstructor (name, func) {
+export function testConstructor (func) {
   it('is a function', () => {
     expect(typeof func).toBe('function')
   })
