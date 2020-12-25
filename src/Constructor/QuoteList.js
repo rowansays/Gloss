@@ -39,6 +39,8 @@ $QuoteList.prototype.reduceQuotes = function () {
   return new this.constructor(reduced)
 }
 
+Object.freeze($QuoteList.prototype)
+
 /**
  * Merge quotes.
  *
