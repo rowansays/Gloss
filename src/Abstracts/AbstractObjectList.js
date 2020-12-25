@@ -5,7 +5,9 @@ function AbstractObjectList () {}
 AbstractObjectList.prototype = Object.create(null)
 
 AbstractObjectList.prototype.add = function (...items) {
-  return new this.constructor([...this.items, ...items])
+  return items.length > 0
+    ? new this.constructor([...this.items, ...items])
+    : this
 }
 AbstractObjectList.prototype.column = function (accessor, sortFunc) {
   const column = []
@@ -74,6 +76,9 @@ AbstractObjectList.prototype.has = function (key) {
  *   specified accessor.
  */
 AbstractObjectList.prototype.sortAscBy = function (prop) {
+  if (this.items.length === 0) {
+    return this
+  }
   prop = 'name'
   const sorted = [...this.items].sort((a, b) => {
     if (a[prop] < b[prop]) {
@@ -93,6 +98,9 @@ AbstractObjectList.prototype.sortAscBy = function (prop) {
  *   specified accessor.
  */
 AbstractObjectList.prototype.sortDescBy = function (prop) {
+  if (this.items.length === 0) {
+    return this
+  }
   prop = 'name'
   const sorted = [...this.items].sort((a, b) => {
     if (a[prop] < b[prop]) {
