@@ -1,9 +1,9 @@
 // System under test.
 import { $RefList } from '../../src/Constructor/RefList.js'
 import { testConstructor } from '../helpers/testConstructor.js'
-import { testObjectListInterface } from '../helpers/prototypes.js'
+import { testObjectList } from '../helpers/testLinear.js'
 
-describe('$RefList Parameters', function () {
+describe('$RefList', function () {
   testConstructor($RefList)
   it('ignores string items', () => {
     const gl = new $RefList('a', 'b', 'c')
@@ -13,8 +13,5 @@ describe('$RefList Parameters', function () {
     const gl = new $RefList(1, 2, 3)
     expect(gl.length).toBe(0)
   })
-})
-
-describe('$RefList.prototype', () => {
-  testObjectListInterface(new $RefList())
+  testObjectList($RefList)
 })
