@@ -14,10 +14,6 @@ describe('$QuoteList.prototype', function () {
 })
 describe('Function Signatures', function () {
   describe("()", () => {
-    test('accepts undefined.', () => {
-      const ql = new $QuoteList()
-      expect(ql.length).toBe(0)
-    })
     test('accepts three QuoteList instances.', () => {
       const ql = new $QuoteList(
         new $QuoteList(),

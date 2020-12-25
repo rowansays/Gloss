@@ -1,26 +1,10 @@
 import { $DefList } from '../../src/Constructor/DefList.js'
 import { MockRef } from '../mocks/MockRef.js'
 import { MockQuote } from '../mocks/MockQuote.js'
+import { testConstructor } from '../helpers/testConstructor.js'
 
 describe('$DefList', () => {
-  it('is a function', () => {
-    expect(typeof $DefList).toBe('function')
-  })
-  it('throws if called without the new keyword', () => {
-    expect(() => { $DefList() }).toThrow()
-  })
-  it('constructs without parameters', function () {
-    expect(() => { new $DefList() }).not.toThrow()
-  })
-  it('constructs frozen instances', function () {
-    expect(Object.isFrozen(new $DefList())).toBe(true)
-  })
-  it('constructs instances with frozen prototypes', function () {
-    expect(Object.isFrozen(Object.getPrototypeOf(new $DefList()))).toBe(true)
-  })
-  it('constructs instances of $DefList', function () {
-    expect(new $DefList()).toBeInstanceOf($DefList)
-  })
+  testConstructor('$DefList', $DefList)
   it('constructs with 1 quote', function () {
     const props = [
       new MockQuote('Hello', '', new MockRef('Alice in Wonderland', '1865'))

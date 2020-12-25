@@ -1,20 +1,11 @@
 // System under test.
 import { $GlossList } from '../../src/Constructor/GlossList.js'
-
 import { testObjectListInterface } from '../helpers/prototypes.js'
-import { testFactoryFunction } from '../helpers/factories.js'
+import { testConstructor } from '../helpers/testConstructor.js'
 
-testFactoryFunction('$GlossList', $GlossList, new $GlossList())
-
-describe('$GlossList.prototype', () => {
-  testObjectListInterface(new $GlossList())
-})
 describe('$GlossList(): Parameters', function () {
+  testConstructor('$GlossList', $GlossList)
   describe("()", () => {
-    it('accepts an empty array.', () => {
-      const gl = new $GlossList()
-      expect(gl.length).toBe(0)
-    })
     it('ignores string items.', () => {
       const gl = new $GlossList('a', 'b', 'c')
       expect(gl.length).toBe(0)
@@ -24,4 +15,8 @@ describe('$GlossList(): Parameters', function () {
       expect(gl.length).toBe(0)
     })
   })
+})
+
+describe('$GlossList.prototype', () => {
+  testObjectListInterface(new $GlossList())
 })

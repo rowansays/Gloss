@@ -1,20 +1,10 @@
 // System under test.
 import { $RefList } from '../../src/Constructor/RefList.js'
-
+import { testConstructor } from '../helpers/testConstructor.js'
 import { testObjectListInterface } from '../helpers/prototypes.js'
-import { testFactoryFunction } from '../helpers/factories.js'
-
-testFactoryFunction('$RefList', $RefList, new $RefList())
-
-describe('$RefList.prototype', () => {
-  testObjectListInterface(new $RefList())
-})
 
 describe('$RefList Parameters', function () {
-  it('does not require parameters', () => {
-    const gl = new $RefList()
-    expect(gl.length).toBe(0)
-  })
+  testConstructor('$RefList', $RefList)
   it('ignores string items', () => {
     const gl = new $RefList('a', 'b', 'c')
     expect(gl.length).toBe(0)
@@ -23,4 +13,8 @@ describe('$RefList Parameters', function () {
     const gl = new $RefList(1, 2, 3)
     expect(gl.length).toBe(0)
   })
+})
+
+describe('$RefList.prototype', () => {
+  testObjectListInterface(new $RefList())
 })
