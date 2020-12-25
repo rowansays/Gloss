@@ -15,6 +15,7 @@
 
 import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
 import { $DefList } from '../Constructor/DefList.js'
+import { $Quote } from '../Constructor/Quote.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
 import { $RefList } from '../Constructor/RefList.js'
 
@@ -120,6 +121,28 @@ $Gloss.prototype.getProps = function () {
  */
 $Gloss.prototype.hasDef = function () {
   return this.defs.length > 0
+}
+/**
+ * Add one quote to a new instance.
+ *
+ * This function generates a new definition from the string supplied as
+ *   parameter 1.
+ *
+ * @param {string} text
+ * @return {$Gloss}
+ */
+$Gloss.prototype.quote = function (text) {
+  try {
+    const quote = new $Quote({ name: text })
+    if (!!quote && quote.name !== '') {
+      const props = this.getProps()
+      props.defs = props.defs.add(quote)
+      return new this.constructor(props)
+    }
+    return this
+  } catch (e) {
+    return this
+  }
 }
 $Gloss.prototype.ref = function (index) {
   return this.refs.get(index)

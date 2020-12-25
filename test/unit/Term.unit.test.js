@@ -152,6 +152,25 @@ describe('$Gloss', () => {
     expect(c.ref(1)).toBe(chap)
     expect(c.ref(2)).toBe(page)
   })
+  it('has prototype function: quote()', () => {
+    expect(typeof new $Gloss({ name: 'a' }).quote).toBe('function')
+  })
+  it('  - returns "this" when parameter 1 is invalid', () => {
+    const a = new $Gloss({ name: 'a' })
+    expect(a.quote()).toBe(a)
+    expect(a.quote('')).toBe(a)
+    expect(a.quote(true)).toBe(a)
+    expect(a.quote(false)).toBe(a)
+    expect(a.quote([])).toBe(a)
+    expect(a.quote({})).toBe(a)
+  })
+  it('  - returns a new instance with definition when parameter 1 is valid', () => {
+    const a = new $Gloss({ name: 'a' })
+    const b = a.quote('abc')
+    expect(b).not.toBe(a)
+    expect(b.length).toBe(1)
+    expect(b.def(0).name).toBe('abc')
+  })
   it('has prototype function: ref()', () => {
     expect(typeof new $Gloss({ name: 'a' }).ref).toBe('function')
   })
