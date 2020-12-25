@@ -13,15 +13,15 @@
  * @prop {QuoteList} definitions
  */
 
-import { AbstractNamed } from '../Abstracts/AbstractNamed.js'
+import { castString } from '../Utility/cast.js'
 import { $DefList } from '../Constructor/DefList.js'
 import { $Quote } from '../Constructor/Quote.js'
 import { $QuoteList } from '../Constructor/QuoteList.js'
 import { $RefList } from '../Constructor/RefList.js'
 
 function $Gloss (props) {
-  AbstractNamed.call(this, props)
-  const { defs, memos, refs } = props
+  const { defs, name, memos, refs } = props || {}
+  this.name = castString(name)
   this.memos = new $QuoteList(memos)
   this.defs = new $DefList(defs)
   this.refs = new $RefList(refs)
@@ -29,7 +29,7 @@ function $Gloss (props) {
   Object.freeze(this)
 }
 
-$Gloss.prototype = Object.create(AbstractNamed.prototype)
+$Gloss.prototype = Object.create(null)
 
 Object.defineProperty($Gloss.prototype, 'constructor', { value: $Gloss })
 
