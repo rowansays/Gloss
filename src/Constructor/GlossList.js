@@ -53,4 +53,6 @@ Object.defineProperty($GlossList.prototype, 'constructor', {
   value: $GlossList
 })
 
+Object.freeze($GlossList.prototype)
+
 export { $GlossList }

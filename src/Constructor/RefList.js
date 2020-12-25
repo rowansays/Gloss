@@ -17,4 +17,6 @@ Object.defineProperty($RefList.prototype, 'constructor', {
   value: $RefList
 })
 
+Object.freeze($RefList.prototype)
+
 export { $RefList }
